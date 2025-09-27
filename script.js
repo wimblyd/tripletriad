@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
 
-    // Restore
+    // Restore state
     if (savedState === "flipped") {
       card.classList.add("flipped");
     } else {
-      card.classList.remove("flipped");
+      card.classList.remove("flipped"); // back shows by default
     }
 
     // Accessibility
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.setAttribute("role", "button");
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-    // Toggle Function
+    // Toggle flip
     const toggleFlip = () => {
       card.classList.toggle("flipped");
       const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
@@ -41,18 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Unflip All
+  // Unflip All → show BACK for all cards
   if (resetButton) {
     resetButton.addEventListener("click", () => {
       cards.forEach(card => {
-        card.classList.remove("flipped");
+        card.classList.remove("flipped"); // back side visible
         saveCardState(card.dataset.cardId, "unflipped");
         card.setAttribute("aria-pressed", "false");
       });
     });
   }
 
-  // Sync
+  // Sync across tabs
   window.addEventListener("storage", (event) => {
     if (event.key && event.key.startsWith("card-")) {
       const card = document.querySelector(`[data-card-id="${event.key}"]`);
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Operation Log
+  // Operation log loader
   async function loadOperationLog() {
     try {
       const response = await fetch('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/log.json');
