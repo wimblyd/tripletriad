@@ -68,8 +68,12 @@ position: fixed;
   border-radius: 4px;
 }
 
-.card-back {
+.card-front {
   transform: rotateY(180deg);
+}
+
+.card-back {
+  transform: rotateY(0deg);
 }
 
 /* Cards Bkg */
@@ -82,7 +86,7 @@ position: fixed;
   margin-right: auto;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   overflow: auto;
-  background: transparent; 
+  background: rgba(0, 0, 0, 0.5); 
   border-radius: 6px;
 }
 
@@ -103,6 +107,7 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
 
