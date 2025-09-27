@@ -72,7 +72,8 @@ a img     { border: none; }
   transform: rotateY(-180deg);
 }
 
-img.wimbly {
+img.title {
   float: right;
 }
+
 
