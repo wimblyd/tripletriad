@@ -1,65 +1,35 @@
-// Back of the card
+// Back
 const backImage = "img/TTBackLg.png";
 
-// Flip card front
+// Flip Card Front
 function flipCard(card, frontImage) {
   card.src = frontImage;
   saveCardState(card.dataset.cardId, frontImage);
 }
 
-// Flip card back
+// Flip Card Back
 function unflipCard(card) {
   card.src = backImage;
   saveCardState(card.dataset.cardId, backImage);
 }
 
-// Save state
+// Save State
 function saveCardState(id, src) {
   localStorage.setItem(id, src);
 }
 
-// Assign IDs automatically + restore state
+// Assign IDs
 window.onload = function() {
   let counter = 1;
 
   document.querySelectorAll("table img").forEach(card => {
-    // give each card a unique "card-#" ID if it doesn't have one
+    // give each card a unique "card-#" ID if it doesn't already have one
     if (!card.dataset.cardId) {
       card.dataset.cardId = "card-" + counter++;
     }
 
-    // restore its saved state
+    // Restore State
     const saved = localStorage.getItem(card.dataset.cardId);
-    if (saved) {
-      card.src = saved;
-    }
-  });
-};
-
-// Path to the back image
-const backImage = "img/TTBackLg.png";
-
-// Flip card to show its front image
-function flipCard(card, frontImage) {
-  card.src = frontImage;
-  saveCardState(card.id, frontImage);
-}
-
-// Flip card back
-function unflipCard(card) {
-  card.src = backImage;
-  saveCardState(card.id, backImage);
-}
-
-// Save card state in localStorage
-function saveCardState(id, src) {
-  localStorage.setItem(id, src);
-}
-
-// Restore card states on page load
-window.onload = function() {
-  document.querySelectorAll("img[id^='card-']").forEach(card => {
-    const saved = localStorage.getItem(card.id);
     if (saved) {
       card.src = saved;
     }
