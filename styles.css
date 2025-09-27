@@ -82,7 +82,7 @@ position: fixed;
 /* Cards Bkg */
 .screen {
   opacity: 0.5;
-  background-image: url('img/panel.jpg');
+  background-image: url('img/panel.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -92,6 +92,7 @@ position: fixed;
   margin: 20px auto;  
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
 
 
 
