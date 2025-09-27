@@ -63,7 +63,7 @@ window.addEventListener("storage", function (event) {
 });
 
 // Clear Card Local Storage
-document.getElementById("resetBtn").addEventListener("click", () => {
+document.getElementById("resetButton").addEventListener("click", () => {
   document.querySelectorAll("table img").forEach((card, index) => {
     const cardId = card.dataset.cardId;
     if (cardId && cardId.startsWith("card-")) {
@@ -77,8 +77,8 @@ document.getElementById("resetBtn").addEventListener("click", () => {
         setTimeout(() => {
           card.src = backImage; // flip to back image
           card.style.transform = "rotateY(0deg)";
-        }, 400);
-      }, index * 50);
+        }, 200); // flip speed (adjust as needed)
+      }, index * 50); 
     }
   });
 });
