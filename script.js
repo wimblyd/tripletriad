@@ -35,3 +35,13 @@ window.onload = function() {
     }
   });
 };
+
+// Sync Cards
+window.addEventListener("storage", function(event) {
+  if (event.key && event.key.startsWith("card-")) {
+    const card = document.querySelector(`[data-card-id="${event.key}"]`);
+    if (card) {
+      card.src = event.newValue;
+    }
+  }
+});
