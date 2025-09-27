@@ -51,3 +51,14 @@ window.addEventListener("storage", function (event) {
     }
   }
 });
+
+// Clear Card Local Storage
+document.getElementById("resetBtn").addEventListener("click", () => {
+  document.querySelectorAll("table img").forEach(card => {
+    const cardId = card.dataset.cardId;
+    if (cardId && cardId.startsWith("card-")) {
+      localStorage.removeItem(cardId); // remove saved state for this card
+      card.src = backImage; // reset image to back
+    }
+  });
+});
