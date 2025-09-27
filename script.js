@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
   const resetButton = document.getElementById("resetButton");
 
-  // Restore saved states
+  // Restore State
   cards.forEach(card => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
@@ -13,20 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.remove("flipped");
     }
 
-    // Click to flip
+    // Flip
     card.addEventListener("click", () => {
       card.classList.add("flipped");
       saveCardState(id, "flipped");
     });
 
-    // Double-click to unflip
+    // Unflip
     card.addEventListener("dblclick", () => {
       card.classList.remove("flipped");
       saveCardState(id, "unflipped");
     });
   });
 
-  // Reset all cards
+  // Unflip All
   resetButton.addEventListener("click", () => {
     cards.forEach((card, index) => {
       setTimeout(() => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Sync across tabs
+  // Sync
   window.addEventListener("storage", event => {
     if (event.key && event.key.startsWith("card-")) {
       const card = document.querySelector(`[data-card-id="${event.key}"]`);
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Save helper
+// Save State
 function saveCardState(id, state) {
   localStorage.setItem(id, state);
 }
