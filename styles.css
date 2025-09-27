@@ -107,6 +107,8 @@ img.button {
 
 /* Operation log */
 #operation-log {
+  position: fixed;            
+  bottom: 0; 
   padding: 10px;
   height: 200px;
   overflow-y: scroll;
@@ -115,4 +117,5 @@ img.button {
   font-size: 14px;
   line-height: 16px;
 }
+
 
