@@ -13,28 +13,41 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.remove("flipped");
     }
 
-    // Flip
-    card.addEventListener("click", () => {
-      card.classList.add("flipped");
-      saveCardState(id, "flipped");
-    });
+    // Keyboard
+   cards.forEach(card => {
+  const id = card.dataset.cardId;
 
-    // Unflip
-    card.addEventListener("dblclick", () => {
-      card.classList.remove("flipped");
-      saveCardState(id, "unflipped");
-    });
-  });
+  // Toggle flip on click or Enter/Space key
+  const toggleFlip = () => {
+    card.classList.toggle("flipped");
+    const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+    saveCardState(id, state);
+  };
 
-  // Unflip All
-  resetButton.addEventListener("click", () => {
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.remove("flipped");
-        saveCardState(card.dataset.cardId, "unflipped");
-      }, index * 50); // staggered animation
-    });
+  // Click
+  card.addEventListener("click", toggleFlip);
+
+  // Keyboard accessibility
+  card.setAttribute("tabindex", "0");          // make focusable
+  card.setAttribute("role", "button");         // for screen readers
+  card.setAttribute("aria-pressed", "false");  // track flipped state
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      toggleFlip();
+      card.setAttribute("aria-pressed", card.classList.contains("flipped"));
+      e.preventDefault(); // prevent scrolling with Space
+    }
   });
+});
+
+// Unflip All
+resetButton.addEventListener("click", () => {
+  cards.forEach(card => {
+    card.classList.remove("flipped");
+    saveCardState(card.dataset.cardId, "unflipped");
+    card.setAttribute("aria-pressed", "false");
+  });
+});
 
   // Sync
   window.addEventListener("storage", event => {
