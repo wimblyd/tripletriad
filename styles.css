@@ -81,15 +81,17 @@ position: fixed;
 
 /* Cards Bkg */
 .screen {
-  background-color: #6a9539;  
-  border: 8px solid #bed094;
-  outline: 8px solid #927469;
-  border-radius: 8px;        
+  background-image: url('img/panel.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow:auto
   padding: 1px;              
-  width: 70%;    
+  width: 90%;    
   margin: 20px auto;  
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
 
 
 
