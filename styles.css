@@ -9,6 +9,7 @@ body {
 /* Operations Log */
 #log {
   background-color: #404040;
+  color: #ffffff;  
   font-family: 'Silkscreen', monospace;
   font-size: 14px;
   line-height: 16px;
@@ -106,5 +107,6 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
