@@ -71,3 +71,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+ // Operation Log
+  async function loadOperationLog() {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/log.json');
+      if (!response.ok) throw new Error('Failed to fetch log');
+      const logEntries = await response.json();
+
+      const logDiv = document.getElementById('operation-log');
+      if (!logDiv) return; // avoid errors if div doesn't exist
+      logDiv.innerHTML = '';
+
+      logEntries.forEach(entry => {
+        const div = document.createElement('div');
+        div.textContent = `[${entry.timestamp}] ${entry.message}`;
+        logDiv.appendChild(div);
+      });
+
+      logDiv.scrollTop = logDiv.scrollHeight; // scroll to latest
+    } catch (err) {
+      console.error('Error loading operation log:', err);
+    }
+  }
+
+  // Fetch
+  loadOperationLog();
+  setInterval(loadOperationLog, 5000);
+});
