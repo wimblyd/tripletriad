@@ -87,15 +87,12 @@ position: fixed;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  overflow:auto
+  overflow: auto;
   padding: 1px;              
   width: 90%;    
   margin: 20px auto;  
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
-
-
-
 
 
 
