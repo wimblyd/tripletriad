@@ -34,6 +34,12 @@ position: fixed;
   right: 0; 
 }
 
+img.button [
+position: fixed;
+  top: 170px;  
+  left: 20px; 
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 13px; height: 13px; }
 ::-webkit-scrollbar-track-piece { background-color: #ebebeb; }
@@ -84,21 +90,18 @@ position: fixed;
 }
 
 /* Cards Bkg */
-/* Screen with translucent background-image only */
 .screen {
-  position: relative;         /* needed for the ::before positioning */
+  position: relative;
   margin-top: 200px;
   padding: 12px;
-  width: 90%;
+  display: inline-block
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   overflow: auto;
-  background: transparent;    /* don't use opacity here */
+  background: transparent; 
   border-radius: 6px;
 }
-
-/* background image layer with opacity */
 .screen::before {
   content: "";
   position: absolute;
@@ -116,12 +119,3 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
-
-
-
-
-
-
-
-
-
