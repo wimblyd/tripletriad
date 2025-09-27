@@ -27,16 +27,16 @@ window.onload = function () {
       card.dataset.cardId = "card-" + counter++;
     }
 
-    // restore saved state
+    // Restore State
     const saved = localStorage.getItem(card.dataset.cardId);
     if (saved) {
       card.src = saved;
     }
 
-    // determine the front image from the title attribute
+    // Assign IDs
     const frontImage = "img/TT" + card.title.replace(/\s+/g, '') + ".png";
 
-    // attach click handlers
+    // Click Handlers
     card.addEventListener("click", () => flipCard(card, frontImage));
     card.addEventListener("dblclick", () => unflipCard(card));
   });
