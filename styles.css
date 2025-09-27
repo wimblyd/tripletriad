@@ -4,28 +4,14 @@ body {
   background-size: cover; 
   background-position: center center; 
   background-attachment: fixed; 
-  
-  font-family: "garamond", serif;
-  font-size: 10px;
-  color: #22c294;
 }
 
-/* Headings */
-h1, h2, h3 {
-  font-family: "garamond", serif;
-  color: #22c294;
-  line-height: 1em;
+/* Operations Log Text */
+#log {
+  font-family: 'Silkscreen', monospace;
+  font-size: 14px;
+  line-height: 16px;
 }
-h1 { font-size: 48px; font-weight: bold; }
-h2 { font-size: 20px; text-transform: uppercase; }
-h3 { font-size: 16px; letter-spacing: 1px; }
-
-/* Links */
-a:link    { color: #99905A; text-decoration: underline; }
-a:active  { color: #756402; text-decoration: underline; }
-a:visited { color: #756402; text-decoration: underline; }
-a:hover   { color: #ffffff; text-decoration: none; }
-a img     { border: none; }
 
 /* Title */
 img.title {
@@ -119,3 +105,4 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
