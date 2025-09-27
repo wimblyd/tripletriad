@@ -116,6 +116,7 @@ img.button {
   transform: translateX(-50%);
   padding: 10px;
   max-height: 200px;
+  min-height: 200px; 
   overflow-y: auto;
   background-color: #404040;
   color: #ffffff;
@@ -124,7 +125,9 @@ img.button {
   box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
   border-radius: 6px 6px 0 0;
   display: inline-block; 
+  white-space: pre-wrap;
 }
+
 
 
 
