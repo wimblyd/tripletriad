@@ -68,7 +68,7 @@ document.getElementById("resetBtn").addEventListener("click", () => {
           card.src = backImage; // flip to back image
           card.style.transform = "rotateY(0deg)";
         }, 400);
-      }, index * 2); // stagger by 50ms each card
+      }, index * 10); // stagger by 50ms each card
     }
   });
 });
