@@ -8,6 +8,9 @@ body {
 
 /* Operations Log */
 #log {
+  padding: 10px;
+  height: 200px;
+  overflow-y: scroll;
   background-color: #404040;
   color: #ffffff;  
   font-family: 'Silkscreen', monospace;
@@ -107,6 +110,7 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
 
