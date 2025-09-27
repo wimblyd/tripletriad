@@ -23,35 +23,37 @@ document.addEventListener("DOMContentLoaded", () => {
     card.setAttribute("role", "button");
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-    // Toggle flip
-    const toggleFlip = () => {
-      card.classList.toggle("flipped");
-      const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-      saveCardState(id, state);
-      card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-    };
+// Toggle
+const toggleFlip = () => {
+  card.classList.toggle("flipped");
+  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+  saveCardState(id, state);
+  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-    card.addEventListener("click", toggleFlip);
+  // Log
+  addLogEntry(`${card.title} was ${state}`);
+};
 
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleFlip();
-      }
+card.addEventListener("click", toggleFlip);
+card.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleFlip();
+  }
+});
+    
+  // Unflip All
+ if (resetButton) {
+  resetButton.addEventListener("click", () => {
+    cards.forEach(card => {
+      card.classList.remove("flipped"); // back side visible
+      saveCardState(card.dataset.cardId, "unflipped");
+      card.setAttribute("aria-pressed", "false");
+      addLogEntry(`${card.title} was unflipped`);
     });
   });
-
-  // Unflip All → show BACK for all cards
-  if (resetButton) {
-    resetButton.addEventListener("click", () => {
-      cards.forEach(card => {
-        card.classList.remove("flipped"); // back side visible
-        saveCardState(card.dataset.cardId, "unflipped");
-        card.setAttribute("aria-pressed", "false");
-      });
-    });
-  }
-
+}
+    
   // Sync across tabs
   window.addEventListener("storage", (event) => {
     if (event.key && event.key.startsWith("card-")) {
