@@ -6,7 +6,6 @@ body {
     #ffd180 11%,
     #ffd180 18%
   );
-  cursor: url('img/Cursor.cur'), auto;
   font-family: "garamond", serif;
   font-size: 10px;
   color: #22c294;
@@ -72,3 +71,4 @@ a img     { border: none; }
 .card.flipped .card-back {
   transform: rotateY(-180deg);
 }
+
