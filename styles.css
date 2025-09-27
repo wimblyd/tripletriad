@@ -15,7 +15,7 @@ img.title {
   right: 0;
 }
 
-/* Reset button */
+/* Reset */
 img.button {
   position: fixed;
   top: 170px;
@@ -49,8 +49,6 @@ img.button {
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s;
-
-  /* Start showing BACK by default */
   transform: rotateY(180deg);
 }
 
@@ -75,15 +73,16 @@ img.button {
   transform: rotateY(180deg);
 }
 
-/* Screen / Table container */
+/* Screen */
 .screen {
-  position: relative;
-  margin: 200px auto 0 auto; /* top margin + horizontally centered */
+  position: fixed;            
+  top: 220px;     
+  left: 50%;    
+  transform: translateX(-50%); 
   padding: 12px;
-  display: inline-block;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   overflow: auto;
-  background: rgba(64, 64, 64, 0.8); /* semi-transparent dark grey */
+  background: rgba(64, 64, 64, 0.8);
   border-radius: 6px;
 }
 
@@ -116,3 +115,4 @@ img.button {
   font-size: 14px;
   line-height: 16px;
 }
+
