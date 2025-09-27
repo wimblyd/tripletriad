@@ -67,3 +67,9 @@ a: img {border: none; }
   border-top: 1px solid #e1d9c4;
   border-left: 1px solid #e1d9c4; }
 
+table img {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.4s ease;
+  cursor: url('img/my-pointer.cur'), auto;
+}
