@@ -30,9 +30,9 @@ a img     { border: none; }
 
 /* Title */
 img.title {
-position: absolute;
-  top: 20px;    /* adjust vertical position */
-  right: 0;     /* flush against right edge of container */
+position: fixed;
+  top: 20px;  
+  right: 0; 
 }
 
 /* Scrollbar */
@@ -78,4 +78,5 @@ position: absolute;
 .card.flipped .card-back {
   transform: rotateY(-180deg);
 }
+
 
