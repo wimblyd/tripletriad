@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Operation log loader
+  // Loader
  async function loadOperationLog() {
   try {
     const response = await fetch('log.json');
