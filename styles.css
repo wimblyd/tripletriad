@@ -79,6 +79,7 @@ position: fixed;
   transform: rotateY(-180deg);
 }
 
+/* Cards Bkg */
 .screen {
   background-color: #6a9539;  
   border: 3px solid #22c294;  
@@ -88,4 +89,5 @@ position: fixed;
   margin: 20px auto;  
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
 
