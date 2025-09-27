@@ -1,11 +1,11 @@
 body {
-  background: repeating-linear-gradient(
-    to right,
-    #f6ba52,
-    #f6ba52 11%,
-    #ffd180 11%,
-    #ffd180 18%
+  background-image: url("img/GardenFestivalBkg.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: center center; 
+  background-attachment: fixed; 
   );
+  
   font-family: "garamond", serif;
   font-size: 10px;
   color: #22c294;
@@ -71,4 +71,5 @@ a img     { border: none; }
 .card.flipped .card-back {
   transform: rotateY(-180deg);
 }
+
 
