@@ -1,34 +1,26 @@
 body {
   background-image: url("img/GardenFestivalBkg.jpg");
-  background-repeat: no-repeat; 
-  background-size: cover; 
-  background-position: center center; 
-  background-attachment: fixed; 
-}
-
-/* Operations Log */
-#log {
-  padding: 10px;
-  height: 200px;
-  overflow-y: scroll;
-  background-color: #404040;
-  color: #ffffff;  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  margin: 0;
   font-family: 'Silkscreen', monospace;
-  font-size: 14px;
-  line-height: 16px;
 }
 
 /* Title */
 img.title {
-position: fixed;
-  top: 20px;  
-  right: 0; 
+  position: fixed;
+  top: 20px;
+  right: 0;
 }
 
+/* Reset */
 img.button {
-position: fixed;
-  top: 170px;  
-  left: 20px; 
+  position: fixed;
+  top: 170px;
+  left: 20px;
+  cursor: pointer;
 }
 
 /* Scrollbar */
@@ -59,7 +51,6 @@ position: fixed;
   transition: transform 0.6s;
 }
 
-/* When flipped */
 .card.flipped .card-inner {
   transform: rotateY(180deg);
 }
@@ -70,53 +61,55 @@ position: fixed;
   height: 100%;
   backface-visibility: hidden;
   border-radius: 4px;
+  pointer-events: none; /* ensure click goes to .card */
 }
 
-/* FRONT should be visible by default */
 .card-front {
   transform: rotateY(0deg);
 }
 
-/* BACK is rotated until flip happens */
 .card-back {
   transform: rotateY(180deg);
 }
 
-/* Cards Bkg */
+/* Screen */
 .screen {
   position: relative;
-  margin-top: 200px;
+  margin: 200px auto 0 auto;
   padding: 12px;
   display: inline-block;
-  margin-left: 200;
-  margin-right: 200;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   overflow: auto;
-  background: rgba(64, 64, 64, 0.5);
+  background: rgba(64, 64, 64, 0.8); 
   border-radius: 6px;
 }
 
 .screen::before {
   content: "";
   position: absolute;
-  inset: 0; 
+  inset: 0;
   background-image: url('img/panel.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.8;  
+  opacity: 0.8;
   z-index: 0;
-  pointer-events: none; 
+  pointer-events: none;
   border-radius: inherit;
 }
+
 .screen > * {
   position: relative;
   z-index: 1;
 }
 
-
-
-
-
-
-
+/* Operation log */
+#operation-log {
+  padding: 10px;
+  height: 200px;
+  overflow-y: scroll;
+  background-color: #404040;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 16px;
+}
