@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".card");
+  const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
 
   function saveCardState(id, state) {
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(id, state);
   }
 
+  // Per-card setup
   cards.forEach(card => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
@@ -23,38 +24,39 @@ document.addEventListener("DOMContentLoaded", () => {
     card.setAttribute("role", "button");
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-// Toggle
-const toggleFlip = () => {
-  card.classList.toggle("flipped");
-  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-  saveCardState(id, state);
-  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+    // Toggle
+    const toggleFlip = () => {
+      card.classList.toggle("flipped");
+      const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+      saveCardState(id, state);
+      card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-  // Log
-  addLogEntry(`${card.title} was ${state}`);
-};
+      // Log
+      addLogEntry(`${card.title} was ${state}`);
+    };
 
-card.addEventListener("click", toggleFlip);
-card.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    toggleFlip();
-  }
-});
-    
-  // Unflip All
- if (resetButton) {
-  resetButton.addEventListener("click", () => {
-    cards.forEach(card => {
-      card.classList.remove("flipped"); // back side visible
-      saveCardState(card.dataset.cardId, "unflipped");
-      card.setAttribute("aria-pressed", "false");
-      addLogEntry(`${card.title} was unflipped`);
+    card.addEventListener("click", toggleFlip);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleFlip();
+      }
     });
   });
-}
-    
-  // Sync across tabs
+
+  // Unflip All
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      cards.forEach(card => {
+        card.classList.remove("flipped"); // back side visible
+        saveCardState(card.dataset.cardId, "unflipped");
+        card.setAttribute("aria-pressed", "false");
+        addLogEntry(`${card.title} was unflipped`);
+      });
+    });
+  }
+
+  // Sync
   window.addEventListener("storage", (event) => {
     if (event.key && event.key.startsWith("card-")) {
       const card = document.querySelector(`[data-card-id="${event.key}"]`);
