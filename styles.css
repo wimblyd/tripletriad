@@ -78,6 +78,11 @@ position: fixed;
   transform: rotateY(-180deg);
 }
 
+.card:focus {
+  outline: 3px solid rgba(34,194,148,0.45);
+  outline-offset: 3px;
+}
+
 /* Cards Bkg */
 /* Screen with translucent background-image only */
 .screen {
@@ -111,6 +116,7 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
 
