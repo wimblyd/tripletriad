@@ -71,7 +71,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
 
       // Add a slight stagger so cards flip sequentially
       setTimeout(() => {
-        card.style.transition = "transform 0.2s";
+        card.style.transition = "transform 0.1s";
         card.style.transform = "rotateY(90deg)";
 
         setTimeout(() => {
