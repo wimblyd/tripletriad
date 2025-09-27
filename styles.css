@@ -5,8 +5,8 @@ background: repeating-linear-gradient(
   #f6ba52 11%,
   #ffd180 11%,
   #ffd180 18%
-cursor: url('img/Cursor.cur'), auto;
 );
+  cursor: url('img/Cursor.cur'), auto;
   font-family: "garamond", serif;
   font-size: 10px;
   color: #22c294;
@@ -97,5 +97,6 @@ a: img {border: none; }
 .card.flipped .card-back {
   transform: rotateY(0deg);
 }
+
 
 
