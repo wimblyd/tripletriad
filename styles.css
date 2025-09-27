@@ -28,6 +28,13 @@ a:visited { color: #756402; text-decoration: underline; }
 a:hover   { color: #ffffff; text-decoration: none; }
 a img     { border: none; }
 
+/* Title */
+img.title {
+position: absolute;
+  top: 20px;    /* adjust vertical position */
+  right: 0;     /* flush against right edge of container */
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 13px; height: 13px; }
 ::-webkit-scrollbar-track-piece { background-color: #ebebeb; }
@@ -71,9 +78,4 @@ a img     { border: none; }
 .card.flipped .card-back {
   transform: rotateY(-180deg);
 }
-
-img.title {
-  float: right;
-}
-
 
