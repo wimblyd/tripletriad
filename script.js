@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
