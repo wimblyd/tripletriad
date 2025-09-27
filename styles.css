@@ -65,10 +65,10 @@ position: fixed;
 }
 
 .card-front {
-  transform: rotateY(180deg);
+  transform: rotateY(0deg);
 }
 .card-back {
-  transform: rotateY(0deg);
+  transform: rotateY(180deg);
 }
 
 .card.flipped .card-front {
@@ -116,6 +116,7 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
 
