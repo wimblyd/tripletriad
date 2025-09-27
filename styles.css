@@ -85,11 +85,12 @@ position: fixed;
   border: 8px solid #bed094;
   outline: 8px solid #927469;
   border-radius: 8px;        
-  padding: 10px;              
-  width: 80%;    
+  padding: 1px;              
+  width: 70%;    
   margin: 20px auto;  
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
 
 
 
