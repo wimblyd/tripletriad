@@ -54,11 +54,21 @@ window.addEventListener("storage", function (event) {
 
 // Clear Card Local Storage
 document.getElementById("resetBtn").addEventListener("click", () => {
-  document.querySelectorAll("table img").forEach(card => {
+  document.querySelectorAll("table img").forEach((card, index) => {
     const cardId = card.dataset.cardId;
     if (cardId && cardId.startsWith("card-")) {
-      localStorage.removeItem(cardId); // remove saved state for this card
-      card.src = backImage; // reset image to back
+      localStorage.removeItem(cardId); // remove saved state
+
+      // Add a slight stagger so cards flip sequentially
+      setTimeout(() => {
+        card.style.transition = "transform 0.4s";
+        card.style.transform = "rotateY(90deg)";
+
+        setTimeout(() => {
+          card.src = backImage; // flip to back image
+          card.style.transform = "rotateY(0deg)";
+        }, 400);
+      }, index * 50); // stagger by 50ms each card
     }
   });
 });
