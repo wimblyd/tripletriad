@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Operation log loader
   async function loadOperationLog() {
     try {
-      const response = await fetch('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/log.json');
+      const response = await fetch('log.json');
       if (!response.ok) throw new Error('Failed to fetch log');
       const logEntries = await response.json();
       const logDiv = document.getElementById('operation-log');
