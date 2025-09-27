@@ -91,3 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
   loadOperationLog();
   setInterval(loadOperationLog, 5000);
 });
+
+// Log Entries
+function addLogEntry(message) {
+  const logDiv = document.getElementById('operation-log');
+  if (!logDiv) return;
+
+  const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  const div = document.createElement('div');
+  div.textContent = `[${timestamp}] ${message}`;
+  logDiv.appendChild(div);
+
+  // Scroll to bottom automatically
+  logDiv.scrollTop = logDiv.scrollHeight;
+}
