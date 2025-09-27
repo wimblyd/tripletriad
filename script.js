@@ -1,27 +1,29 @@
 // Back
 const backImage = "img/TTBackLg.png";
 
-// Flip Card Front
-function flipCard(card, frontImage) {
-  card.style.transition = "transform 0.4s";
-  card.style.transform = "rotateY(90deg)";
-
-  setTimeout(() => {
-    card.src = frontImage;
-    card.style.transform = "rotateY(0deg)";
-  }, 200);
+// Card Flip
+function flipCard(card) {
+  card.classList.add("flipped");
+  saveCardState(card.dataset.cardId, "flipped");
 }
 
-// Flip Card Back
 function unflipCard(card) {
-  card.style.transition = "transform 0.1s";
-  card.style.transform = "rotateY(90deg)";
-
-  setTimeout(() => {
-    card.src = backImage;
-    card.style.transform = "rotateY(0deg)";
-  }, 200);
+  card.classList.remove("flipped");
+  saveCardState(card.dataset.cardId, "back");
 }
+
+window.onload = function () {
+  let counter = 1;
+  document.querySelectorAll(".card").forEach(card => {
+    if (!card.dataset.cardId) card.dataset.cardId = "card-" + counter++;
+
+    const saved = localStorage.getItem(card.dataset.cardId);
+    if (saved === "flipped") card.classList.add("flipped");
+
+    card.addEventListener("click", () => flipCard(card));
+    card.addEventListener("dblclick", () => unflipCard(card));
+  });
+};
 
 // Save State
 function saveCardState(id, src) {
