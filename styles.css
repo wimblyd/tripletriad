@@ -80,11 +80,11 @@ img.button {
   left: 50%;    
   transform: translateX(-50%); 
   padding: 12px;
-  max-height: calc(100vh - 250px); /* leave space for title/button/log */
-  width: 90%; /* shrink to fit nicely on screen */
+  max-height: calc(100vh - 250px); 
+  display: inline-block;          
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  overflow-y: auto; /* scroll vertically if cards overflow */
-  background: rgba(64, 64, 64, 0.8);
+  overflow-y: auto;            
+  background: rgba(64, 64, 64, 0.4);
   border-radius: 6px;
   z-index: 1;
 }
@@ -110,14 +110,12 @@ img.button {
 
 /* Operation log */
 #operation-log {
-#operation-log {
   position: fixed;            
   bottom: 0; 
   left: 50%;
   transform: translateX(-50%);
-  width: 90%; /* match .screen width */
-  max-height: 200px;
   padding: 10px;
+  max-height: 200px;
   overflow-y: auto;
   background-color: #404040;
   color: #ffffff;
@@ -125,6 +123,8 @@ img.button {
   line-height: 16px;
   box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
   border-radius: 6px 6px 0 0;
+  display: inline-block; 
 }
+
 
 
