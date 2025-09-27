@@ -46,15 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Unflip All
   if (resetButton) {
-    resetButton.addEventListener("click", () => {
-      cards.forEach(card => {
-        card.classList.remove("flipped"); // back side visible
-        saveCardState(card.dataset.cardId, "unflipped");
-        card.setAttribute("aria-pressed", "false");
-        addLogEntry(`${card.title} was unflipped`);
-      });
+  resetButton.addEventListener("click", () => {
+    cards.forEach(card => {
+      card.classList.remove("flipped");
+      saveCardState(card.dataset.cardId, "unflipped");
+      card.setAttribute("aria-pressed", "false");
     });
-  }
+    addLogEntry("Cards unflipped");
+  });
+}
 
   // Sync
   window.addEventListener("storage", (event) => {
@@ -73,24 +73,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Operation log loader
-  async function loadOperationLog() {
-    try {
-      const response = await fetch('log.json');
-      if (!response.ok) throw new Error('Failed to fetch log');
-      const logEntries = await response.json();
-      const logDiv = document.getElementById('operation-log');
-      if (!logDiv) return;
-      logDiv.innerHTML = '';
+ async function loadOperationLog() {
+  try {
+    const response = await fetch('log.json');
+    if (!response.ok) throw new Error('Failed to fetch log');
+    const logEntries = await response.json();
+    const logDiv = document.getElementById('operation-log');
+    if (!logDiv) return;
+
+    // Only populate once, don't overwrite later
+    if (!logDiv.dataset.initialized) {
       logEntries.forEach(entry => {
         const div = document.createElement('div');
         div.textContent = `[${entry.timestamp}] ${entry.message}`;
         logDiv.appendChild(div);
       });
+      logDiv.dataset.initialized = "true";
       logDiv.scrollTop = logDiv.scrollHeight;
-    } catch (err) {
-      console.error('Error loading operation log:', err);
     }
+  } catch (err) {
+    console.error('Error loading operation log:', err);
   }
+}
 
   loadOperationLog();
   setInterval(loadOperationLog, 5000);
