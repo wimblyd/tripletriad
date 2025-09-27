@@ -1,73 +1,57 @@
-// Back
-const backImage = "img/TTBackLg.png";
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".card");
+  const resetButton = document.getElementById("resetButton");
 
-// Flip 
-function flipCard(card, frontImage) {
-  card.src = frontImage;
-  saveCardState(card.dataset.cardId, frontImage);
-}
+  // Restore saved states
+  cards.forEach(card => {
+    const id = card.dataset.cardId;
+    const savedState = localStorage.getItem(id);
 
-// Unflip
-function unflipCard(card) {
-  card.src = backImage;
-  saveCardState(card.dataset.cardId, backImage);
-}
-
-// Save State
-function saveCardState(id, src) {
-  localStorage.setItem(id, src);
-}
-
-// On Load
-window.onload = function () {
-  let counter = 1;
-
-  document.querySelectorAll("table img").forEach(card => {
-    if (!card.dataset.cardId) {
-      card.dataset.cardId = "card-" + counter++;
-    }
-
-    const frontImage = "img/TT" + card.title.replace(/\s+/g, '') + ".png";
-    const saved = localStorage.getItem(card.dataset.cardId);
-
-    if (saved && saved !== backImage) {
-      flipCard(card, frontImage);
+    if (savedState === "flipped") {
+      card.classList.add("flipped");
     } else {
-      unflipCard(card);
+      card.classList.remove("flipped");
     }
 
-    card.addEventListener("click", () => flipCard(card, frontImage));
-    card.addEventListener("dblclick", () => unflipCard(card));
+    // Click to flip
+    card.addEventListener("click", () => {
+      card.classList.add("flipped");
+      saveCardState(id, "flipped");
+    });
+
+    // Double-click to unflip
+    card.addEventListener("dblclick", () => {
+      card.classList.remove("flipped");
+      saveCardState(id, "unflipped");
+    });
   });
-};
 
-// Reset
-document.getElementById("resetButton").addEventListener("click", () => {
-  document.querySelectorAll("table img").forEach((card, index) => {
-    const cardId = card.dataset.cardId;
-    if (cardId && cardId.startsWith("card-")) {
-      localStorage.removeItem(cardId);
-
-      // Animation: staggered flip back
+  // Reset all cards
+  resetButton.addEventListener("click", () => {
+    cards.forEach((card, index) => {
       setTimeout(() => {
-        card.style.transition = "transform 0.2s";
-        card.style.transform = "rotateY(90deg)";
+        card.classList.remove("flipped");
+        saveCardState(card.dataset.cardId, "unflipped");
+      }, index * 50); // staggered animation
+    });
+  });
 
-        setTimeout(() => {
-          unflipCard(card);
-          card.style.transform = "rotateY(0deg)";
-        }, 200);
-      }, index * 50);
+  // Sync across tabs
+  window.addEventListener("storage", event => {
+    if (event.key && event.key.startsWith("card-")) {
+      const card = document.querySelector(`[data-card-id="${event.key}"]`);
+      if (card) {
+        if (event.newValue === "flipped") {
+          card.classList.add("flipped");
+        } else {
+          card.classList.remove("flipped");
+        }
+      }
     }
   });
 });
 
-// Sync Cards
-window.addEventListener("storage", function (event) {
-  if (event.key && event.key.startsWith("card-")) {
-    const card = document.querySelector(`[data-card-id="${event.key}"]`);
-    if (card) {
-      card.src = event.newValue;
-    }
-  }
-});
+// Save helper
+function saveCardState(id, state) {
+  localStorage.setItem(id, state);
+}
