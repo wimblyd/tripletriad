@@ -9,12 +9,12 @@ function flipCard(card, frontImage) {
   setTimeout(() => {
     card.src = frontImage;
     card.style.transform = "rotateY(0deg)";
-  }, 200); // half the animation time
+  }, 200);
 }
 
 // Flip Card Back
 function unflipCard(card) {
-  card.style.transition = "transform 0.4s";
+  card.style.transition = "transform 0.1s";
   card.style.transform = "rotateY(90deg)";
 
   setTimeout(() => {
