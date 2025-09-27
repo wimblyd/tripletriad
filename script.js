@@ -3,14 +3,24 @@ const backImage = "img/TTBackLg.png";
 
 // Flip Card Front
 function flipCard(card, frontImage) {
-  card.src = frontImage;
-  saveCardState(card.dataset.cardId, frontImage);
+  card.style.transition = "transform 0.4s";
+  card.style.transform = "rotateY(90deg)";
+
+  setTimeout(() => {
+    card.src = frontImage;
+    card.style.transform = "rotateY(0deg)";
+  }, 200); // half the animation time
 }
 
 // Flip Card Back
 function unflipCard(card) {
-  card.src = backImage;
-  saveCardState(card.dataset.cardId, backImage);
+  card.style.transition = "transform 0.4s";
+  card.style.transform = "rotateY(90deg)";
+
+  setTimeout(() => {
+    card.src = backImage;
+    card.style.transform = "rotateY(0deg)";
+  }, 200);
 }
 
 // Save State
@@ -61,14 +71,14 @@ document.getElementById("resetBtn").addEventListener("click", () => {
 
       // Add a slight stagger so cards flip sequentially
       setTimeout(() => {
-        card.style.transition = "transform 0.4s";
+        card.style.transition = "transform 0.2s";
         card.style.transform = "rotateY(90deg)";
 
         setTimeout(() => {
           card.src = backImage; // flip to back image
           card.style.transform = "rotateY(0deg)";
         }, 400);
-      }, index * 10); // stagger by 50ms each card
+      }, index * 50);
     }
   });
 });
