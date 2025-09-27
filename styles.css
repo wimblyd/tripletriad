@@ -107,7 +107,7 @@ position: fixed;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.5;  
+  opacity: 0.8;  
   z-index: 0;
   pointer-events: none; 
   border-radius: inherit;
@@ -116,6 +116,7 @@ position: fixed;
   position: relative;
   z-index: 1;
 }
+
 
 
 
