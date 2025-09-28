@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(id, state);
   }
 
+  // Restore Log
+const logDiv = document.getElementById('operation-log');
+const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+savedLogs.forEach(entry => {
+  const div = document.createElement('div');
+  div.textContent = entry;
+  logDiv.appendChild(div);
+});
+logDiv.scrollTop = logDiv.scrollHeight;
+
+  
   // Per-card setup
   cards.forEach(card => {
     const id = card.dataset.cardId;
@@ -114,32 +125,27 @@ if (guideButton) {
   
   
   // Loader
- async function loadOperationLog() {
+async function loadOperationLog() {
   try {
     const response = await fetch('log.json');
     if (!response.ok) throw new Error('Failed to fetch log');
     const logEntries = await response.json();
     const logDiv = document.getElementById('operation-log');
     if (!logDiv) return;
-
-    // Only populate once, don't overwrite later
-    if (!logDiv.dataset.initialized) {
-      logEntries.forEach(entry => {
-        const div = document.createElement('div');
-        div.textContent = `[${entry.timestamp}] ${entry.message}`;
-        logDiv.appendChild(div);
-      });
-      logDiv.dataset.initialized = "true";
-      logDiv.scrollTop = logDiv.scrollHeight;
-    }
+    logDiv.innerHTML = '';
+    logEntries.forEach(entry => {
+      const div = document.createElement('div');
+      div.textContent = `[${entry.timestamp}] ${entry.message}`;
+      logDiv.appendChild(div);
+    });
+    logDiv.scrollTop = logDiv.scrollHeight;
   } catch (err) {
     console.error('Error loading operation log:', err);
   }
 }
 
-  loadOperationLog();
-  setInterval(loadOperationLog, 5000);
-});
+loadOperationLog();
+setInterval(loadOperationLog, 5000);
 
 // Log Entries
 function addLogEntry(message) {
@@ -147,10 +153,18 @@ function addLogEntry(message) {
   if (!logDiv) return;
 
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  const entry = `[${timestamp}] ${message}`;
+
+  // Append to DOM
   const div = document.createElement('div');
-  div.textContent = `[${timestamp}] ${message}`;
+  div.textContent = entry;
   logDiv.appendChild(div);
 
   // Scroll to bottom automatically
   logDiv.scrollTop = logDiv.scrollHeight;
+
+  // Save to localStorage
+  let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+  logs.push(entry);
+  localStorage.setItem("operationLog", JSON.stringify(logs));
 }
