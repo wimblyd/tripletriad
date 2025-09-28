@@ -1,7 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const rows = 12;
+  const cols = 20;
+  let finishedCount = 0;
+  const totalSquares = rows * cols;
+
   const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
   const overlay = document.getElementById("transition-overlay");
+
 
   // Build Squares dynamically
   for (let r = 0; r < rows; r++) {
