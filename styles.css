@@ -131,7 +131,7 @@ img.title {
 
 /* Panels */
 .panel-style {
-  background-image: url('img/panel.png');
+  background-image: url('img/Panel.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -139,6 +139,7 @@ img.title {
               inset -1px -1px 0 rgba(0,0,0,0.6);
   background-color: #404040;
 }
+
 
 
 
