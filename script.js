@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Intro Transition ---
   const rows = 12;
   const cols = 20;
-
+  
+  // Build divs
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const square = document.createElement("div");
+      
   // Build Squares
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
