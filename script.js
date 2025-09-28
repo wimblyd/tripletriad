@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetButton = document.getElementById("resetButton");
   const overlay = document.getElementById("transition-overlay");
 
-
   // Build Squares dynamically
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -16,19 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const delay = (r + c) * 50; // diagonal stagger
       square.style.animationDelay = `${delay}ms`;
 
-      // Each square listens for its animation end
       square.addEventListener("animationend", () => {
-    finishedCount++;
-    if (finishedCount === totalSquares) {
-        overlay.classList.add("fade-out");
-        setTimeout(() => {
+        finishedCount++;
+        if (finishedCount === totalSquares) {
+          overlay.classList.add("fade-out");
+          setTimeout(() => {
             overlay.style.display = "none";
             document.getElementById("main-content").style.display = "block";
-        }, 1000); // match fade-out transition time
+          }, 1000); // match fade-out transition time
+        }
+      });
+
+      overlay.appendChild(square);
     }
-});
-
-
+  } 
+  
   // Restore Log
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
@@ -38,32 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
     logDiv.appendChild(div);
   });
   logDiv.scrollTop = logDiv.scrollHeight;
-  
+
   // Card setup
   cards.forEach(card => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
 
-    // Restore state
     if (savedState === "flipped") {
       card.classList.add("flipped");
     } else {
-      card.classList.remove("flipped"); // back shows by default
+      card.classList.remove("flipped");
     }
 
-    // Accessibility
     card.tabIndex = 0;
     card.setAttribute("role", "button");
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-    // Toggle
     const toggleFlip = () => {
       card.classList.toggle("flipped");
       const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
       saveCardState(id, state);
       card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-
-      // Log
       addLogEntry(`${card.title} was ${state}`);
     };
 
@@ -78,15 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Unflip All
   if (resetButton) {
-  resetButton.addEventListener("click", () => {
-    cards.forEach(card => {
-      card.classList.remove("flipped");
-      saveCardState(card.dataset.cardId, "unflipped");
-      card.setAttribute("aria-pressed", "false");
+    resetButton.addEventListener("click", () => {
+      cards.forEach(card => {
+        card.classList.remove("flipped");
+        saveCardState(card.dataset.cardId, "unflipped");
+        card.setAttribute("aria-pressed", "false");
+      });
+      addLogEntry("Cards unflipped");
     });
-    addLogEntry("Cards unflipped");
-  });
-}
+  }
 
   // Sync
   window.addEventListener("storage", (event) => {
