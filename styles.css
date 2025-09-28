@@ -16,11 +16,9 @@ body {
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: repeat(20, 1fr);
   z-index: 9999;
-  background: black; /* fallback background */
-  transition: opacity 1s ease-out;
 }
 
-/* Each square */
+/* Each wipe square */
 #transition-overlay div {
   background: black;
   animation: wipe 0.8s forwards;
@@ -36,12 +34,10 @@ body {
   }
 }
 
-/* Fade out the entire overlay */
 #transition-overlay.fade-out {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
-
 /* Title */ 
 img.title { position: fixed; top: 20px; right: 0; } 
 
@@ -193,4 +189,5 @@ img.title { position: fixed; top: 20px; right: 0; }
   line-height: 13px; 
 } 
 }
+
 
