@@ -26,7 +26,7 @@ img.title {
 /* Copy Log */
 #copyLogButton {
   position: fixed;
-  top: 260px; 
+  top: 255px; 
   left: 40px;
   cursor: pointer;
 }
@@ -34,7 +34,7 @@ img.title {
 /* Clear Log */
 #clearLogButton {
   position: fixed;
-  top: 320px;
+  top: 315px;
   left: 60px;
   cursor: pointer;
 }
@@ -42,7 +42,7 @@ img.title {
 /* Guide Download */
 #guideButton {
   position: fixed;
-  top: 380px;
+  top: 365px;
   left: 80px;
   cursor: pointer;
 }
@@ -142,6 +142,7 @@ img.title {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
               inset -1px -1px 0 rgba(0,0,0,0.6);
 }
+
 
 
 
