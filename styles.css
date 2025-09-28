@@ -31,11 +31,19 @@ img.button {
   cursor: pointer;
 }
 
-/* Guide Download */
-#guideButton {
+/* Clear Log */
+#clearButton {
   position: fixed;
   top: 320px;
   left: 60px;
+  cursor: pointer;
+}
+
+/* Guide Download */
+#guideButton {
+  position: fixed;
+  top: 380px;
+  left: 80px;
   cursor: pointer;
 }
 
@@ -122,21 +130,18 @@ img.button {
 }
 
 /* Panels */
-
-.panel-style {
-  background-color: #404040; /* dark gray panel background */
-  border-radius: 4px;        /* slightly rounded edges */
+panel-style {
+  background-color: #404040; 
+  border-radius: 0;
   border-style: solid;
   border-width: 2px;
-  border-top-color: #6d6d6d;    /* lighter hue for top */
-  border-left-color: #6d6d6d;   /* same lighter hue */
-  border-bottom-color: #2a2a2a; /* darker hue for bottom */
-  border-right-color: #2a2a2a;  /* darker hue for right */
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5), /* inner shadow for depth */
-              0 2px 6px rgba(0,0,0,0.4);        /* outer shadow */
+  border-top-color: #8a8a8a;    
+  border-left-color: #8a8a8a;   
+  border-bottom-color: #1a1a1a; 
+  border-right-color: #1a1a1a;  
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
+              inset -1px -1px 0 rgba(0,0,0,0.6);
 }
-
-
 
 
 
