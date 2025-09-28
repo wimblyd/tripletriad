@@ -8,6 +8,13 @@ body {
   font-family: 'Silkscreen', monospace;
 }
 
+/* Phone Constraints */
+@media (max-width: 600px) {
+  .card {
+    width: 15vw;   /* 9% of viewport width */
+  }
+}
+
 /* Title */
 img.title {
   position: fixed;
@@ -147,4 +154,5 @@ img.title {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
               inset -1px -1px 0 rgba(0,0,0,0.6);
 }
+
 
