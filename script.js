@@ -14,20 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const square = document.createElement("div");
       square.style.animationDelay = `${(r + c) * 50}ms`;
 
-      square.addEventListener("animationend", () => {
-        finishedCount++;
-        if (finishedCount === totalSquares) {
-          overlay.classList.add("fade-out");
-          setTimeout(() => {
-            overlay.style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-          }, 1000);
-        }
-      });
+     square.addEventListener("animationend", () => {
+    finishedCount++;
+    if (finishedCount === totalSquares) {
+        // Fade overlay
+        overlay.classList.add("fade-out");
 
-      overlay.appendChild(square);
+        setTimeout(() => {
+            overlay.style.display = "none";
+
+            // Change background image
+            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
+
+            document.getElementById("main-content").style.display = "block";
+        }, 1000); // matches fade-out time
     }
-  }
+});
 
   // ===== Restore Operation Log =====
   const logDiv = document.getElementById('operation-log');
