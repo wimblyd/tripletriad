@@ -149,12 +149,12 @@ img.title {
 }
 
 /* Phone Constraints */
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .card {
     width: 9vw;
     height: auto;
   }
-}
+
   .screen {
     top: 180px;       
     max-width: 90%;   
