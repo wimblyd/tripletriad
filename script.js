@@ -7,6 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(id, state);
   }
 
+  // Intro Transition
+  document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("transition-overlay");
+
+  // Build Squares
+  const rows = 12;
+  const cols = 20;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const square = document.createElement("div");
+      const delay = (r + c) * 50; // diagonal stagger
+      square.style.animationDelay = `${delay}ms`;
+      overlay.appendChild(square);
+    }
+  }
+
+  // Transition
+  const totalDuration = (rows + cols) * 50 + 1000; // max delay + animation time
+  setTimeout(() => {
+    overlay.style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+  }, totalDuration);
+});
+
   // Restore Log
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
