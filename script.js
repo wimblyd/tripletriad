@@ -4,16 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let finishedCount = 0;
   const totalSquares = rows * cols;
 
+  const overlay = document.getElementById("transition-overlay");
   const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
-  const overlay = document.getElementById("transition-overlay");
 
-  // Build Squares dynamically
+  // Build squares dynamically
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
-      const delay = (r + c) * 50; // diagonal stagger
-      square.style.animationDelay = `${delay}ms`;
+      square.style.animationDelay = `${(r + c) * 50}ms`;
 
       square.addEventListener("animationend", () => {
         finishedCount++;
@@ -22,14 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             overlay.style.display = "none";
             document.getElementById("main-content").style.display = "block";
-          }, 1000); // match fade-out transition time
+          }, 1000);
         }
       });
 
       overlay.appendChild(square);
     }
-  } 
-  
+  }
+});
+
   // Restore Log
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
