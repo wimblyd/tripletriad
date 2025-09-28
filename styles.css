@@ -105,6 +105,7 @@ img.title {
   transform: translateX(-50%);
   padding: 12px;
   max-height: 70%;
+  max-width: 60%;
   display: inline-block;
   overflow-y: auto;
   border-radius: 6px;
@@ -146,3 +147,4 @@ img.title {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
               inset -1px -1px 0 rgba(0,0,0,0.6);
 }
+
