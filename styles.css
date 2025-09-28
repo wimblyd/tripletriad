@@ -1,43 +1,74 @@
-/* Checkerboard Wipe */
 #transition-overlay {
   position: fixed;
   inset: 0;
+  background: black; /* fallback */
   display: grid;
-  grid-template-columns: repeat(20, 1fr); /* 20x12 grid */
   grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(20, 1fr);
   z-index: 9999;
-  background: url("img/intranet.jpg") center/cover no-repeat;
+  transition: opacity 1s ease-out; /* enables smooth fade */
 }
 
-/* Each cell */
 #transition-overlay div {
   background: black;
-  opacity: 1;
-  animation: wipe 1s forwards;
+  animation: wipe 0.8s forwards;
 }
 
-/* Staggered delays for checkerboard effect */
-#transition-overlay div:nth-child(4n) {
-  animation-delay: 0.1s;
-}
-#transition-overlay div:nth-child(4n+1) {
-  animation-delay: 0.2s;
-}
-#transition-overlay div:nth-child(4n+2) {
-  animation-delay: 0.3s;
-}
-#transition-overlay div:nth-child(4n+3) {
-  animation-delay: 0.4s;
-}
-
-/* Keyframes for wipe */
 @keyframes wipe {
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
-/* Remove overlay once finished (add via JS) */
-#transition-overlay.finished {
-  display: none;
+#transition-overlay.fade-out {
+  opacity: 0;
 }
+
+body { background-image: url("img/GardenFestivalBkg.jpg"); 
+      background-repeat: no-repeat; 
+      background-size: cover; 
+      background-position: center center; 
+      background-attachment: fixed; margin: 0; 
+      font-family: 'Silkscreen', monospace; } 
+
+/* Title */ 
+img.title { position: fixed; top: 20px; right: 0; } 
+
+/* Unflip */ 
+#resetButton { position: fixed; top: 210px; left: 20px; cursor: pointer; } 
+
+/* Copy Log */ 
+#copyLogButton { position: fixed; top: 265px; left: 40px; cursor: pointer; } 
+
+/* Clear Log */ 
+#clearLogButton { position: fixed; top: 320px; left: 60px; cursor: pointer; } 
+/* Guide Download */ 
+#guideButton { position: fixed; top: 375px; left: 80px; cursor: pointer; } 
+/* Scrollbar */ 
+::-webkit-scrollbar { width: 13px; height: 13px; } 
+::-webkit-scrollbar-track-piece { background-color: #ebebeb; } 
+::-webkit-scrollbar-thumb:vertical { height: 50px; 
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #e1d9c4), color-stop(100%, #7c97a0)); 
+                                    border: 1px solid #0d0d0d; 
+                                    border-top: 1px solid #e1d9c4; 
+                                    border-left: 1px solid #e1d9c4; } 
+
+/* Card Flip */ 
+.card { width: 76px; height: 97px; perspective: 1000px; cursor: pointer; display: inline-block; } 
+.card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; transform: rotateY(180deg); } 
+.card.flipped .card-inner { transform: rotateY(0deg); /* front shows when flipped */ } 
+.card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 4px; pointer-events: none; 
+            /* ensure clicks hit .card */ } 
+.card-front { transform: rotateY(0deg); } 
+.card-back { transform: rotateY(180deg); } 
+
+/* Screen */ 
+.screen { position: fixed; top: 25%; left: 50%; transform: translateX(-50%); padding: 12px; max-height: 75%; max-width: 75%; display: inline-block; overflow-y: auto; border-radius: 6px; z-index: 1; } 
+
+/* Operation log */ 
+#operation-log { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); padding: 10px; height: 75px; width: 60%; overflow-y: auto; color: #ffffff; font-size: 12px; line-height: 14px; z-index: 10; white-space: pre-wrap; display: block; } 
+
+/* Panels */ 
+.panel-style { background-image: url('../img/Panel.png'); background-size: cover; background-position: center; background-repeat: cover; background-color: #404040; border-radius: 0; border-style: solid; border-width: 4px; border-top-color: #8a8a8a; border-left-color: #8a8a8a; border-bottom-color: #1a1a1a; border-right-color: #1a1a1a; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.6); } 
+
+/* Phone Constraints */ 
+@media (max-width: 600px){ .card { width: 9vw; height: auto; } } .screen { top: 180px; max-width: 90%; max-height: 50%; padding: 8px; } #operation-log { height: 60px; width: 90%; font-size: 11px; line-height: 13px; } }
