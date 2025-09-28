@@ -121,7 +121,37 @@ if (guideButton) {
     }, 500); // half a second flash
   });
 }
-  
+
+  // Clear Log Button
+const clearLogButton = document.getElementById("clearLogButton");
+if (clearLogButton) {
+  clearLogButton.addEventListener("click", () => {
+    const logDiv = document.getElementById("operation-log");
+    if (logDiv) {
+      logDiv.innerHTML = ""; // clear from screen
+    }
+
+    // Reset storage with one entry
+    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    const entry = `[${timestamp}] Log cleared`;
+
+    localStorage.setItem("operationLog", JSON.stringify([entry]));
+
+    // Show it immediately
+    if (logDiv) {
+      const div = document.createElement("div");
+      div.textContent = entry;
+      logDiv.appendChild(div);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    // Flash the button image
+    clearLogButton.src = "img/ClearButton2.png";
+    setTimeout(() => {
+      clearLogButton.src = "img/ClearButton.png";
+    }, 500);
+  });
+}
   
   // Loader
 async function loadOperationLog() {
