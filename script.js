@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
 
-      // diagonal animation delay: (r + c) creates a wave effect
+      // diagonal animation delay
       square.style.animationDelay = `${(r + c) * 50}ms`;
       overlay.appendChild(square);
 
