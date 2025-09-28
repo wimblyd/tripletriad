@@ -27,12 +27,15 @@
   transition: opacity 1s ease-out;
 }
 
-body { background-image: url("img/GardenFestivalBkg.jpg"); 
-      background-repeat: no-repeat; 
-      background-size: cover; 
-      background-position: center center; 
-      background-attachment: fixed; margin: 0; 
-      font-family: 'Silkscreen', monospace; } 
+body {
+  background-image: url("img/Intranet.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  margin: 0;
+  font-family: 'Silkscreen', monospace;
+}
 
 /* Title */ 
 img.title { position: fixed; top: 20px; right: 0; } 
@@ -185,6 +188,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   line-height: 13px; 
 } 
 }
+
 
 
 
