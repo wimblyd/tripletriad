@@ -26,7 +26,7 @@ img.button {
 /* Copy Log */
 #copyLogButton {
   position: fixed;
-  top: 225px; 
+  top: 250px; 
   left: 40px;
   cursor: pointer;
 }
@@ -34,7 +34,7 @@ img.button {
 /* Guide Download */
 #guideButton {
   position: fixed;
-  top: 250px;
+  top: 300px;
   left: 60px;
   cursor: pointer;
 }
@@ -125,6 +125,7 @@ img.button {
   white-space: pre-wrap;
   display: block;
 }
+
 
 
 
