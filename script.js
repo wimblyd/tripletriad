@@ -1,19 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
-  
-  function saveCardState(id, state) {
-    if (!id) return;
-    localStorage.setItem(id, state);
-  }
-
-  // Intro Transition
-  document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  // Build Squares
+  // --- Intro Transition ---
   const rows = 12;
   const cols = 20;
+
+  // Build Squares
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
@@ -23,13 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Transition
-  const totalDuration = (rows + cols) * 50 + 1000; // max delay + animation time
+  // Animate
+  const totalDuration = (rows + cols) * 50 + 1000;
+
+  // Show Site
   setTimeout(() => {
     overlay.style.display = "none";
-    document.getElementById("main-content").style.display = "block";
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) mainContent.style.display = "block";
   }, totalDuration);
-});
+
+  // Final
+  overlay.addEventListener("animationend", () => {
+    overlay.classList.add("finished");
+  });
+
 
   // Restore Log
   const logDiv = document.getElementById('operation-log');
