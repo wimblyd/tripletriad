@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSquares = rows * cols;
 
   const overlay = document.getElementById("transition-overlay");
-  const cards = Array.from(document.querySelectorAll(".card"));
-  const resetButton = document.getElementById("resetButton");
 
-  // ===== Build Squares Dynamically =====
+  // Build overlay squares dynamically
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
+
+      // diagonal animation delay: (r + c) creates a wave effect
       square.style.animationDelay = `${(r + c) * 50}ms`;
       overlay.appendChild(square);
 
@@ -22,13 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
           setTimeout(() => {
             overlay.style.display = "none";
-            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
+            document.body.style.backgroundImage =
+              'url("img/GardenFestivalBkg.jpg")';
             document.getElementById("main-content").style.display = "block";
           }, 1000);
         }
       });
     }
   }
+});
 
   // ===== Restore Operation Log =====
   const logDiv = document.getElementById('operation-log');
