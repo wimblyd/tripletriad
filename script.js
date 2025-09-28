@@ -18,17 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Each square listens for its animation end
       square.addEventListener("animationend", () => {
-        finishedCount++;
-        if (finishedCount === totalSquares) {
-          // All squares done -> hide overlay
-          overlay.style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-        }
-      });
-
-      overlay.appendChild(square);
+    finishedCount++;
+    if (finishedCount === totalSquares) {
+        overlay.classList.add("fade-out");
+        setTimeout(() => {
+            overlay.style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }, 1000); // match fade-out transition time
     }
-  }
 });
 
 
