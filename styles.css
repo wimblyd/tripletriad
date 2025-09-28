@@ -23,6 +23,22 @@ img.button {
   cursor: pointer;
 }
 
+/* Copy Log */
+#copyLogButton {
+  position: fixed;
+  top: 375px; 
+  left: 20px;
+  cursor: pointer;
+}
+
+/* Guide Download */
+#guideButton {
+  position: fixed;
+  top: 550px;
+  left: 20px;
+  cursor: pointer;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 13px; height: 13px; }
 ::-webkit-scrollbar-track-piece { background-color: #ebebeb; }
@@ -75,37 +91,18 @@ img.button {
 
 /* Screen */
 .screen {
-  position: fixed;            
-  top: 220px;     
-  left: 50%;    
-  transform: translateX(-50%); 
+  position: fixed;
+  top: 220px;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 12px;
-  max-height: 70%; 
-  display: inline-block;      
+  max-height: 60%;
+  display: inline-block;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  overflow-y: auto; 
-  background: rgba(64, 64, 64, 0.8);
+  overflow-y: auto;
   border-radius: 6px;
   z-index: 1;
-}
-
-.screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('img/panel.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.8;
-  z-index: 0;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-.screen > * {
-  position: relative;
-  z-index: 1;
+  background: url('img/panel.png') center/cover no-repeat;
 }
 
 /* Operation log */
@@ -128,6 +125,7 @@ img.button {
   white-space: pre-wrap;
   display: block;
 }
+
 
 
 
