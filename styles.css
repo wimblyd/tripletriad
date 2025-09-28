@@ -12,6 +12,8 @@
 #transition-overlay div {
   background: black;
   animation: wipe 0.8s forwards;
+  width: calc(100% / 20); /* columns */
+  height: calc(100% / 12); /* rows */
 }
 
 @keyframes wipe {
@@ -21,6 +23,7 @@
 
 #transition-overlay.fade-out {
   opacity: 0;
+  transition: opacity 1s ease-out;
 }
 
 body { background-image: url("img/GardenFestivalBkg.jpg"); 
@@ -72,3 +75,4 @@ img.title { position: fixed; top: 20px; right: 0; }
 
 /* Phone Constraints */ 
 @media (max-width: 600px){ .card { width: 9vw; height: auto; } } .screen { top: 180px; max-width: 90%; max-height: 50%; padding: 8px; } #operation-log { height: 60px; width: 90%; font-size: 11px; line-height: 13px; } }
+
