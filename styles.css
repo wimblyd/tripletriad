@@ -38,15 +38,37 @@ body { background-image: url("img/GardenFestivalBkg.jpg");
 img.title { position: fixed; top: 20px; right: 0; } 
 
 /* Unflip */ 
-#resetButton { position: fixed; top: 210px; left: 20px; cursor: pointer; } 
+#resetButton { 
+  position: fixed; 
+  top: 210px; 
+  left: 20px; 
+  cursor: pointer; 
+} 
 
 /* Copy Log */ 
-#copyLogButton { position: fixed; top: 265px; left: 40px; cursor: pointer; } 
+#copyLogButton { 
+  position: fixed; 
+  top: 265px; 
+  left: 40px; 
+  cursor: pointer; 
+} 
 
 /* Clear Log */ 
-#clearLogButton { position: fixed; top: 320px; left: 60px; cursor: pointer; } 
+#clearLogButton { 
+  position: fixed; 
+  top: 320px; 
+  left: 60px; 
+  cursor: pointer; 
+} 
+
 /* Guide Download */ 
-#guideButton { position: fixed; top: 375px; left: 80px; cursor: pointer; } 
+#guideButton { 
+  position: fixed; 
+  top: 375px; 
+  left: 80px; 
+  cursor: pointer; 
+} 
+
 /* Scrollbar */ 
 ::-webkit-scrollbar { width: 13px; height: 13px; } 
 ::-webkit-scrollbar-track-piece { background-color: #ebebeb; } 
@@ -150,9 +172,9 @@ img.title { position: fixed; top: 20px; right: 0; }
   .card { width: 9vw; height: auto; } 
 } 
 .screen { 
-  top: 180px; 
+  top: 220px; 
   max-width: 90%; 
-  max-height: 50%; 
+  max-height: 60%; 
   padding: 8px; 
 } 
 
@@ -163,5 +185,6 @@ img.title { position: fixed; top: 20px; right: 0; }
   line-height: 13px; 
 } 
 }
+
 
 
