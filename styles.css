@@ -15,8 +15,8 @@ img.title {
   right: 0;
 }
 
-/* Reset */
-img.button {
+/* Unflip */
+#resetButton {
   position: fixed;
   top: 200px;
   left: 20px;
@@ -142,6 +142,7 @@ img.button {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
               inset -1px -1px 0 rgba(0,0,0,0.6);
 }
+
 
 
 
