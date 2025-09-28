@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSquares = rows * cols;
 
   const overlay = document.getElementById("transition-overlay");
+  const cards = Array.from(document.querySelectorAll(".card"));
+  const resetButton = document.getElementById("resetButton");
 
   // ===== Build Squares Dynamically =====
   for (let r = 0; r < rows; r++) {
@@ -27,20 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
-        // Fade overlay
-        overlay.classList.add("fade-out");
-
-        setTimeout(() => {
-            overlay.style.display = "none";
-
-            // Change background image
-            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
-
-            document.getElementById("main-content").style.display = "block";
-        }, 1000); // matches fade-out time
-    }
-});
 
   // ===== Restore Operation Log =====
   const logDiv = document.getElementById('operation-log');
