@@ -72,6 +72,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Copy Button
+  const copyLogButton = document.getElementById("copyLogButton");
+if (copyLogButton) {
+  copyLogButton.addEventListener("click", () => {
+    const logDiv = document.getElementById("operation-log");
+    if (!logDiv) return;
+
+    const text = Array.from(logDiv.children)
+      .map(div => div.textContent)
+      .join("\n");
+
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        addLogEntry("Log copied to clipboard");
+        // Flash the button
+        copyLogButton.src = "img/CopyButton2.png";
+        setTimeout(() => {
+          copyLogButton.src = "img/CopyButton.png";
+        }, 500);
+      })
+      .catch(err => {
+        console.error("Failed to copy log:", err);
+      });
+  });
+}
+
+  // Guide Button
+  const guideButton = document.getElementById("guideButton");
+if (guideButton) {
+  guideButton.addEventListener("click", () => {
+    // Flash the button image
+    guideButton.src = "img/GuideButton2.png";
+    setTimeout(() => {
+      guideButton.src = "img/GuideButton.png";
+      // Open the external guide link
+      window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1", "_blank");
+    }, 500); // half a second flash
+  });
+}
+  
+  
   // Loader
  async function loadOperationLog() {
   try {
