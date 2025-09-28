@@ -8,6 +8,29 @@ body {
   font-family: 'Silkscreen', monospace;
 }
 
+/* Checkerboard Wipe */
+#transition-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr); /* 20x12 grid (adjust to taste) */
+  grid-template-rows: repeat(12, 1fr);
+  z-index: 9999;
+  background: url("img/intranet.jpg") center/cover no-repeat;
+}
+
+#transition-overlay div {
+  background: black;
+  opacity: 1;
+  animation: wipe 1s forwards;
+}
+
+@keyframes wipe {
+  to {
+    opacity: 0;
+  }
+}
+
 /* Title */
 img.title {
   position: fixed;
@@ -169,6 +192,7 @@ img.title {
     line-height: 13px;
   }
 }
+
 
 
 
