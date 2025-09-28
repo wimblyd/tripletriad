@@ -3,39 +3,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetButton = document.getElementById("resetButton");
   const overlay = document.getElementById("transition-overlay");
 
-  // --- Intro Transition ---
-  const rows = 12;
-  const cols = 20;
-  
-  // Build divs
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const square = document.createElement("div");
-      
-  // Build Squares
+  // Build Squares dynamically
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
       const delay = (r + c) * 50; // diagonal stagger
       square.style.animationDelay = `${delay}ms`;
+
+      // Each square listens for its animation end
+      square.addEventListener("animationend", () => {
+        finishedCount++;
+        if (finishedCount === totalSquares) {
+          // All squares done -> hide overlay
+          overlay.style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+        }
+      });
+
       overlay.appendChild(square);
     }
   }
-
-  // Animate
-  const totalDuration = (rows + cols) * 50 + 1000;
-
-  // Show Site
-  setTimeout(() => {
-    overlay.style.display = "none";
-    const mainContent = document.getElementById("main-content");
-    if (mainContent) mainContent.style.display = "block";
-  }, totalDuration);
-
-  // Final
-  overlay.addEventListener("animationend", () => {
-    overlay.classList.add("finished");
-  });
+});
 
 
   // Restore Log
