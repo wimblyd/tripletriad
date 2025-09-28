@@ -1,23 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cards = Array.from(document.querySelectorAll(".card"));
   const resetButton = document.getElementById("resetButton");
-
+  
   function saveCardState(id, state) {
     if (!id) return;
     localStorage.setItem(id, state);
   }
 
   // Restore Log
-const logDiv = document.getElementById('operation-log');
-const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-savedLogs.forEach(entry => {
-  const div = document.createElement('div');
-  div.textContent = entry;
-  logDiv.appendChild(div);
-});
-logDiv.scrollTop = logDiv.scrollHeight;
+  const logDiv = document.getElementById('operation-log');
+  const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+  savedLogs.forEach(entry => {
+    const div = document.createElement('div');
+    div.textContent = entry;
+    logDiv.appendChild(div);
+  });
+  logDiv.scrollTop = logDiv.scrollHeight;
   
-  // Per-card setup
+  // Card setup
   cards.forEach(card => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
@@ -147,23 +147,24 @@ loadOperationLog();
 setInterval(loadOperationLog, 5000);
 
 // Log Entries
-function addLogEntry(message) {
-  const logDiv = document.getElementById('operation-log');
-  if (!logDiv) return;
+  function addLogEntry(message) {
+    const logDiv = document.getElementById('operation-log');
+    if (!logDiv) return;
 
-  const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  const entry = `[${timestamp}] ${message}`;
+    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    const entry = `[${timestamp}] ${message}`;
 
-  // Append to DOM
-  const div = document.createElement('div');
-  div.textContent = entry;
-  logDiv.appendChild(div);
+    // Append to DOM
+    const div = document.createElement('div');
+    div.textContent = entry;
+    logDiv.appendChild(div);
 
-  // Scroll to bottom automatically
-  logDiv.scrollTop = logDiv.scrollHeight;
+    // Scroll to bottom automatically
+    logDiv.scrollTop = logDiv.scrollHeight;
 
-  // Save to localStorage
-  let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-  logs.push(entry);
-  localStorage.setItem("operationLog", JSON.stringify(logs));
-}
+    // Save to localStorage
+    let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+    logs.push(entry);
+    localStorage.setItem("operationLog", JSON.stringify(logs));
+  }
+});
