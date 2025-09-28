@@ -5,18 +5,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSquares = rows * cols;
 
   const overlay = document.getElementById("transition-overlay");
-  const cards = Array.from(document.querySelectorAll(".card"));
-  const resetButton = document.getElementById("resetButton");
 
   // ===== Build Squares Dynamically =====
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
       square.style.animationDelay = `${(r + c) * 50}ms`;
+      overlay.appendChild(square);
 
-     square.addEventListener("animationend", () => {
-    finishedCount++;
-    if (finishedCount === totalSquares) {
+      square.addEventListener("animationend", () => {
+        finishedCount++;
+        if (finishedCount === totalSquares) {
+          overlay.classList.add("fade-out");
+
+          setTimeout(() => {
+            overlay.style.display = "none";
+            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
+            document.getElementById("main-content").style.display = "block";
+          }, 1000);
+        }
+      });
+    }
+  }
+});
         // Fade overlay
         overlay.classList.add("fade-out");
 
