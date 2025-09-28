@@ -100,7 +100,7 @@ img.title {
 /* Screen */
 .screen {
   position: fixed;
-  top: 30%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   padding: 12px;
@@ -139,6 +139,7 @@ img.title {
               inset -1px -1px 0 rgba(0,0,0,0.6);
   background-color: #404040;
 }
+
 
 
 
