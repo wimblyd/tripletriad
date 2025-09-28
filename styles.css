@@ -18,7 +18,7 @@ img.title {
 /* Unflip */
 #resetButton {
   position: fixed;
-  top: 200px;
+  top: 210px;
   left: 20px;
   cursor: pointer;
 }
@@ -26,7 +26,7 @@ img.title {
 /* Copy Log */
 #copyLogButton {
   position: fixed;
-  top: 255px; 
+  top: 265px; 
   left: 40px;
   cursor: pointer;
 }
@@ -34,7 +34,7 @@ img.title {
 /* Clear Log */
 #clearLogButton {
   position: fixed;
-  top: 310px;
+  top: 320px;
   left: 60px;
   cursor: pointer;
 }
@@ -42,7 +42,7 @@ img.title {
 /* Guide Download */
 #guideButton {
   position: fixed;
-  top: 365px;
+  top: 375px;
   left: 80px;
   cursor: pointer;
 }
@@ -139,5 +139,6 @@ img.title {
               inset -1px -1px 0 rgba(0,0,0,0.6);
   background-color: #404040;
 }
+
 
 
