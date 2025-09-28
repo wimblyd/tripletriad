@@ -16,7 +16,6 @@ savedLogs.forEach(entry => {
   logDiv.appendChild(div);
 });
 logDiv.scrollTop = logDiv.scrollHeight;
-
   
   // Per-card setup
   cards.forEach(card => {
