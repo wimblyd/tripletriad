@@ -1,9 +1,13 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   background-image: url("img/Intranet.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
-  margin: 0;
   font-family: 'Silkscreen', monospace;
 }
 
