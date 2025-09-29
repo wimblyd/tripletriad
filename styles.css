@@ -93,6 +93,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 
 /* Screen */
 .screen {
+  position: relative;
   top: 25%; 
   left: 50%;
   transform: translateX(-50%);
@@ -203,6 +204,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
