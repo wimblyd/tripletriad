@@ -128,7 +128,8 @@ img.title { position: fixed; top: 20px; right: 0; }
 .panel-style { 
   background-image: url('img/Panel.png'); 
   background-position: center; 
-  background-repeat: tile; 
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: #404040; 
   border-radius: 0; 
   border-style: solid; 
@@ -202,26 +203,3 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
