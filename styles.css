@@ -9,7 +9,10 @@ body {
 }
 
 /* Title */ 
-img.title { position: fixed; top: 20px; right: 0; } 
+img.title { 
+  position: fixed; 
+  top: 20px; 
+  right: 0; } 
 
 /* Unflip */ 
 #resetButton { 
@@ -93,7 +96,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 
 /* Screen */
 .screen {
-  position: relative;
+  position: absolute;
   top: 25%; 
   left: 50%;
   transform: translateX(-50%);
@@ -204,11 +207,4 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
-
-
-
-
-
-
-
 
