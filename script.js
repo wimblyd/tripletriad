@@ -7,28 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.getElementById("transition-overlay");
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const square = document.createElement("div");
-      square.style.animationDelay = `${(r + c) * 50}ms`;
-      square.style.gridRow = r + 1;
-      square.style.gridColumn = c + 1;
-      overlay.appendChild(square);
-      console.log("Squares added:", overlay.children.length);
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < cols; c++) {
+    const square = document.createElement("div");
+    square.classList.add(Math.random() > 0.5 ? "wipe-br" : "wipe-tl");
+    square.style.animationDelay = `${(r + c) * 50}ms`;
+    square.style.gridRow = r + 1;
+    square.style.gridColumn = c + 1;
+    overlay.appendChild(square);
+    console.log("Squares added:", overlay.children.length);
 
-      square.addEventListener("animationend", () => {
-        finishedCount++;
-        if (finishedCount === totalSquares) {
-          overlay.classList.add("fade-out");
-          setTimeout(() => {
-            overlay.style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
-          }, 1000);
-        }
-      });
-    }
+    square.addEventListener("animationend", () => {
+      finishedCount++;
+      if (finishedCount === totalSquares) {
+        overlay.classList.add("fade-out");
+        setTimeout(() => {
+          overlay.style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+          document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
+        }, 1000);
+      }
+    });
   }
+}
 
   // Restore Operation Log
   const logDiv = document.getElementById('operation-log');
