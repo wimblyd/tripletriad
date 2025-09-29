@@ -21,9 +21,10 @@ body {
 
 #transition-overlay div {
   background: black;
+   border: 1px solid red; /* So you can SEE the squares */
   width: 100%;
   height: 100%;
-  animation: wipe 0.8s forwards ease-out;
+  animation: wipe 1s forwards ease-out;
   /* Ensure each square fills its grid cell */
   grid-row: span 1;
   grid-column: span 1;
@@ -191,6 +192,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   line-height: 13px; 
 } 
 }
+
 
 
 
