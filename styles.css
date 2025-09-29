@@ -98,7 +98,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   left: 50%; 
   transform: translateX(-50%); 
   padding: 12px; 
-  max-height: 75%; 
+  max-height: 65%; 
   max-width: 75%; 
   display: inline-block; 
   overflow-y: auto; 
@@ -203,6 +203,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
