@@ -2,60 +2,41 @@ body {
   background-image: url("img/Intranet.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top center;
-  background-attachment: fixed;
+  background-position: center;
   margin: 0;
   font-family: 'Silkscreen', monospace;
 }
 
-/* Full-screen overlay grid */
 #transition-overlay {
   position: fixed;
   inset: 0;
   display: grid;
   z-index: 9999;
   background: transparent;
-}
-
-/* Responsive grid */
-@media (max-width: 768px) {
-  #transition-overlay {
-  display: grid;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: transparent;
-  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  grid-auto-flow: dense;
 }
 
 #transition-overlay div {
-  aspect-ratio: 1 / 1; 
+  aspect-ratio: 1 / 1; /* Ensures true squares */
   width: 100%;
   height: 100%;
 }
 
 .black {
   background: black;
+  animation-name: move-br;
+  animation-fill-mode: forwards;
 }
 
 .transparent {
   background: transparent;
 }
 
-/* Diagonal animations */
 @keyframes move-br {
   from { transform: translate(0, 0); }
   to { transform: translate(var(--move-dist), var(--move-dist)); }
 }
 
-@keyframes move-tl {
-  from { transform: translate(0, 0); }
-  to { transform: translate(calc(-1 * var(--move-dist)), calc(-1 * var(--move-dist))); }
-}
-
 #transition-overlay.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-out;
-  pointer-events: none;
-}
+  opacity: 
 
