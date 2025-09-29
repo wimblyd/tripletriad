@@ -20,37 +20,26 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
   overlay.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const square = document.createElement("div");
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < cols; c++) {
+    const square = document.createElement("div");
 
-      const isBlack = (r + c) % 2 === 0;
-      square.classList.add(isBlack ? "black" : "transparent");
+    const isBlack = (r + c) % 2 === 0;
+    square.classList.add(isBlack ? "black" : "transparent");
 
-      square.style.gridRow = r + 1;
-      square.style.gridColumn = c + 1;
+    square.style.gridRow = r + 1;
+    square.style.gridColumn = c + 1;
 
-      const delay = (r + c) * STEP;
-      square.style.setProperty("--move-dist", `${moveDistance}px`);
+    const isTopLeft = isBlack;
+    const delay = (isTopLeft ? (r + c) : (rows + cols - r - c)) * STEP;
 
-      const isTopLeft = isBlack; 
-      square.style.animation = isTopLeft
-        ? `wipe-in-tl ${SPEED}s forwards ease-out`
-        : `wipe-in-br ${SPEED}s forwards ease-out`;
+    square.style.setProperty("--move-dist", `${moveDistance}px`);
+    square.style.animation = isTopLeft
+      ? `wipe-in-tl ${SPEED}s forwards ease-out`
+      : `wipe-in-br ${SPEED}s forwards ease-out`;
+    square.style.animationDelay = `${delay}ms`;
 
-      square.style.animationDelay = `${delay}ms`;
-
-      square.addEventListener("animationend", () => {
-        finishedCount++;
-        if (finishedCount === totalSquares) {
-          overlay.classList.add("fade-out");
-          overlay.addEventListener("transitionend", () => {
-            window.location.href = "checklist.html";
-          }, { once: true });
-        }
-      });
-
-      overlay.appendChild(square);
-    }
+    overlay.appendChild(square);
   }
+}
 });
