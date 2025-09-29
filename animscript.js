@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  const SPEED = 0.4; // seconds per square
-  const STEP = 30; // ms delay per diagonal step
+  const SPEED = 0.4;
+  const STEP = 30;
 
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const moveDistance = diagonal + 100;
 
   const squareSize = 30;
-  const rows = Math.ceil(screenHeight / squareSize);
-  const cols = Math.ceil(screenWidth / squareSize);
+  const extra = 4; 
+  const rows = Math.ceil(screenHeight / squareSize) + extra;
+  const cols = Math.ceil(screenWidth / squareSize) + extra;
 
   let finishedCount = 0;
   const totalSquares = rows * cols;
@@ -31,20 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const delay = (r + c) * STEP;
       square.style.setProperty("--move-dist", `${moveDistance}px`);
-      square.style.animation = `wipe-in ${SPEED}s forwards ease-out`;
+
+      const isTopLeft = isBlack; 
+      square.style.animation = isTopLeft
+        ? `wipe-in-tl ${SPEED}s forwards ease-out`
+        : `wipe-in-br ${SPEED}s forwards ease-out`;
+
       square.style.animationDelay = `${delay}ms`;
 
       square.addEventListener("animationend", () => {
         finishedCount++;
         if (finishedCount === totalSquares) {
           overlay.classList.add("fade-out");
-          overlay.addEventListener(
-            "transitionend",
-            () => {
-              window.location.href = "checklist.html";
-            },
-            { once: true }
-          );
+          overlay.addEventListener("transitionend", () => {
+            window.location.href = "checklist.html";
+          }, { once: true });
         }
       });
 
