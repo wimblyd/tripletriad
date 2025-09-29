@@ -50,6 +50,19 @@ body {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  #transition-overlay {
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  #transition-overlay {
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
+}
 
 
 
