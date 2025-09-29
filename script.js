@@ -209,4 +209,3 @@ document.addEventListener("DOMContentLoaded", () => {
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
-});
