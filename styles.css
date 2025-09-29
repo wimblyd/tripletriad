@@ -169,7 +169,7 @@ img.title {
 .screen { 
   top: 30%; 
   max-width: 98%; 
-  max-height: 80%; 
+  max-height: 70%; 
   padding: 2px; 
 } 
 
@@ -216,6 +216,7 @@ img.title {
   cursor: pointer; 
 } 
 }
+
 
 
 
