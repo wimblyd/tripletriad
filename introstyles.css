@@ -50,12 +50,12 @@ body {
 /* Animations */
 @keyframes move-br {
   from { transform: translate(0,0); }
-  to   { transform: translate(100%,100%); }
+  to   { transform: translate(200%,200%); }
 }
 
 @keyframes move-tl {
   from { transform: translate(0,0); }
-  to   { transform: translate(-100%,-100%); }
+  to   { transform: translate(-200%,-200%); }
 }
 
 /* Fade overlay at end */
