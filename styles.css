@@ -1,4 +1,7 @@
 body {
+  opacity: 0;
+  animation: body-fade-in 0.8s ease-out forwards;
+  background: black;
   background-image: url("img/GardenFestivalBkg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -6,6 +9,11 @@ body {
   background-attachment: fixed;
   margin: 0;
   font-family: 'Silkscreen', monospace;
+}
+
+@keyframes body-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Title */ 
@@ -208,6 +216,7 @@ img.title {
   cursor: pointer; 
 } 
 }
+
 
 
 
