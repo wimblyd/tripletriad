@@ -98,7 +98,7 @@ img.title {
 .screen {
   position: absolute;
   top: 25%; 
-  bottom: 25%
+  bottom: 25%;
   left: 50%;
   transform: translateX(-50%);
   display: inline-block;   
@@ -208,5 +208,6 @@ img.title {
   cursor: pointer; 
 } 
 }
+
 
 
