@@ -143,10 +143,13 @@ img.title { position: fixed; top: 20px; right: 0; }
 
 /* Phone Constraints */ 
 @media (max-width: 600px){ 
-  .card { width: 9vw; height: auto; } 
+  .card { 
+    width: 9vw; 
+    height: auto; } 
 } 
+
 .screen { 
-  top: 220px; 
+  top: 300px; 
   max-width: 90%; 
   max-height: 60%; 
   padding: 8px; 
@@ -158,7 +161,36 @@ img.title { position: fixed; top: 20px; right: 0; }
   font-size: 11px; 
   line-height: 13px; 
 } 
+
+#resetButton { 
+  position: fixed; 
+  top: 110px; 
+  left: 10px; 
+  cursor: pointer; 
+} 
+
+#copyLogButton { 
+  position: fixed; 
+  top: 165px; 
+  left: 20px; 
+  cursor: pointer; 
+} 
+
+#clearLogButton { 
+  position: fixed; 
+  top: 220px; 
+  left: 30px; 
+  cursor: pointer; 
+} 
+
+#guideButton { 
+  position: fixed; 
+  top: 275px; 
+  left: 40px; 
+  cursor: pointer; 
+} 
 }
+
 
 
 
