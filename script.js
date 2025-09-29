@@ -6,25 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.getElementById("transition-overlay");
 
-  // Build overlay squares dynamically
+  // Build overlay squares dynamically with explicit grid placement
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
-
-      // diagonal animation delay
+      // Diagonal animation delay
       square.style.animationDelay = `${(r + c) * 50}ms`;
+      // Explicit grid placement
+      square.style.gridRow = r + 1;
+      square.style.gridColumn = c + 1;
       overlay.appendChild(square);
 
       square.addEventListener("animationend", () => {
         finishedCount++;
         if (finishedCount === totalSquares) {
           overlay.classList.add("fade-out");
-
           setTimeout(() => {
             overlay.style.display = "none";
-            document.body.style.backgroundImage =
-              'url("img/GardenFestivalBkg.jpg")';
+            // Show the main content after overlay is gone
             document.getElementById("main-content").style.display = "block";
+            // Optionally change body background here
+            // document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
           }, 1000);
         }
       });
