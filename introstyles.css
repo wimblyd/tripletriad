@@ -8,7 +8,6 @@ body {
 }
 
 #transition-overlay {
-  #transition-overlay {
   position: fixed;
   inset: 0;
   display: grid;
@@ -30,13 +29,18 @@ body {
   background: transparent;
 }
 
-@keyframes wipe-in {
-  from {
-    transform: translate(var(--move-dist), var(--move-dist));
-  }
-  to {
-    transform: translate(0, 0);
-  }
+@keyframes wipe-in-tl {
+  from { transform: translate(-var(--move-dist), -var(--move-dist)); }
+  to { transform: translate(0, 0); }
+}
+
+@keyframes wipe-in-br {
+  from { transform: translate(var(--move-dist), var(--move-dist)); }
+  to { transform: translate(0, 0); }
+}
+
+#transition-overlay div {
+  animation-fill-mode: forwards;
 }
 
 #transition-overlay.fade-out {
