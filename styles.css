@@ -93,10 +93,9 @@ img.title { position: fixed; top: 20px; right: 0; }
 
 /* Screen */
 .screen {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); 
+  top: 25%; 
+  margin: 50%; 
+  transform: translateX(-50%);
   display: inline-block;   
   max-width: 75%;
   max-height: 65%;
@@ -204,6 +203,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
