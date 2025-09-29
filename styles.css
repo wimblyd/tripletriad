@@ -16,6 +16,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   position: fixed; 
   top: 210px; 
   left: 20px; 
+  height: 20%;
   cursor: pointer; 
 } 
 
@@ -149,7 +150,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 } 
 
 .screen { 
-  top: 300px; 
+  top: 40%; 
   max-width: 90%; 
   max-height: 60%; 
   padding: 8px; 
@@ -158,38 +159,43 @@ img.title { position: fixed; top: 20px; right: 0; }
 #operation-log { 
   height: 60px; 
   width: 90%; 
-  font-size: 11px; 
-  line-height: 13px; 
+  font-size: 9px; 
+  line-height: 10px; 
 } 
 
 #resetButton { 
   position: fixed; 
-  top: 110px; 
+  top: 20%; 
   left: 10px; 
+  height: 20%;
   cursor: pointer; 
 } 
 
 #copyLogButton { 
   position: fixed; 
-  top: 165px; 
+  top: 25%; 
   left: 20px; 
+  height: 20%;
   cursor: pointer; 
 } 
 
 #clearLogButton { 
   position: fixed; 
-  top: 220px; 
+  top: 30%; 
   left: 30px; 
+  height: 20%;
   cursor: pointer; 
 } 
 
 #guideButton { 
   position: fixed; 
-  top: 275px; 
+  top: 35%; 
   left: 40px; 
+  height: 20%;
   cursor: pointer; 
 } 
 }
+
 
 
 
