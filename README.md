@@ -8,6 +8,6 @@ changes log in the Operations log at the bottom
 
 flipped cards sync across tabs and page loads 
 
-this is all done using localStorage, clearing cookies will reset session data
+this is all done using localStorage, clearing cache will reset session data
 
 <a href="https://www.twitch.tv/wimblyd">twitch.tv/wimblyd</a>
