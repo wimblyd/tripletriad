@@ -10,4 +10,4 @@ flipped cards sync across tabs and page loads
 
 this is all done using local storage, clearing cookies will reset session data
 
-twitch.tv/wimblyd
+<a href="https://www.twitch.tv/wimblyd">twitch.tv/wimblyd</a>
