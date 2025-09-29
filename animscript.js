@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  // ===== Adjustable settings =====
-  const SPEED = 0.5;   // seconds for each square’s move
-  const STEP  = 40;    // ms delay between diagonals
+  const SPEED = 0.4; // seconds
+  const STEP = 30; // ms delay per diagonal step
 
-  const rows = window.innerWidth < 769 ? 10 : 20;
-  const cols = rows; 
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const diagonal = Math.sqrt(screenWidth ** 2 + screenHeight ** 2); 
+  const moveDistance = diagonal + 100; // extra to ensure full coverage
+
+  const rows = Math.ceil(screenHeight / 30); 
+  const cols = Math.ceil(screenWidth / 30); 
+
   let finishedCount = 0;
   const totalSquares = rows * cols;
 
@@ -23,15 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Animate black squares only
       if (isBlack) {
-        const delay = (r + c) * STEP; 
+        const delay = (r + c) * STEP;
+        square.style.setProperty("--move-dist", `${moveDistance}px`);
 
-        if (r + c < rows) {
-          // top-left half → move down-right
-          square.style.animation = `move-br ${SPEED}s forwards ease-out`;
-        } else {
-          // bottom-right half → move up-left
-          square.style.animation = `move-tl ${SPEED}s forwards ease-out`;
-        }
+        square.style.animation = `move-br ${SPEED}s forwards ease-out`;
         square.style.animationDelay = `${delay}ms`;
 
         square.addEventListener("animationend", () => {
