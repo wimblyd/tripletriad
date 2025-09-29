@@ -95,7 +95,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 .screen { 
   position: fixed; 
   top: 25%; 
-  margin: auto;
+  margin: 0 auto;
   transform: translateX(-50%); 
   padding: 2px; 
   max-height: 65%; 
@@ -203,4 +203,5 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
