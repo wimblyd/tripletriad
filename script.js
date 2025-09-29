@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== Restore Operation Log =====
+  // Restore Operation Log
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
   savedLogs.forEach(entry => {
