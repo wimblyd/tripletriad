@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ===== Overlay Animation =====
   const rows = 12;
   const cols = 20;
   let finishedCount = 0;
@@ -6,13 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const overlay = document.getElementById("transition-overlay");
 
-  // Build overlay squares dynamically with explicit grid placement
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
-      // Diagonal animation delay
       square.style.animationDelay = `${(r + c) * 50}ms`;
-      // Explicit grid placement
       square.style.gridRow = r + 1;
       square.style.gridColumn = c + 1;
       overlay.appendChild(square);
@@ -23,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
           overlay.classList.add("fade-out");
           setTimeout(() => {
             overlay.style.display = "none";
-            // Show the main content after overlay is gone
             document.getElementById("main-content").style.display = "block";
             // Optionally change body background here
             // document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
@@ -32,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
 
   // ===== Restore Operation Log =====
   const logDiv = document.getElementById('operation-log');
@@ -45,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logDiv.scrollTop = logDiv.scrollHeight;
 
   // ===== Card Setup =====
+  const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     const id = card.dataset.cardId;
     const savedState = localStorage.getItem(id);
@@ -77,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===== Unflip All =====
+  const resetButton = document.getElementById("resetButton");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
       cards.forEach(card => {
@@ -211,4 +209,4 @@ document.addEventListener("DOMContentLoaded", () => {
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
-});
+}); // <-- Only ONE closing });
