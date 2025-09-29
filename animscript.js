@@ -1,10 +1,9 @@
-  // ===== Overlay Animation =====
-  const rows = 12;
-  const cols = 20;
-  let finishedCount = 0;
-  const totalSquares = rows * cols;
+const rows = 12;
+const cols = 20;
+let finishedCount = 0;
+const totalSquares = rows * cols;
 
-  const overlay = document.getElementById("transition-overlay");
+const overlay = document.getElementById("transition-overlay");
 
 for (let r = 0; r < rows; r++) {
   for (let c = 0; c < cols; c++) {
@@ -14,16 +13,18 @@ for (let r = 0; r < rows; r++) {
     square.style.gridRow = r + 1;
     square.style.gridColumn = c + 1;
     overlay.appendChild(square);
-    console.log("Squares added:", overlay.children.length);
 
     square.addEventListener("animationend", () => {
       finishedCount++;
+
+      // Redirect immediately after last animation
       if (finishedCount === totalSquares) {
         overlay.classList.add("fade-out");
-        setTimeout(() => {
-          overlay.style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-        }, 1000);
+
+        // Listen for fade-out animation end before redirect
+        overlay.addEventListener("transitionend", () => {
+          window.location.href = "checklist.html";
+        }, { once: true });
       }
     });
   }
