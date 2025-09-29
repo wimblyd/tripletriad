@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
+  // ===== Adjustable settings =====
+  const SPEED = 0.5;   // seconds for each square’s move
+  const STEP  = 40;    // ms delay between diagonals
+
   const rows = window.innerWidth < 769 ? 10 : 20;
   const cols = rows; 
   let finishedCount = 0;
@@ -17,16 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
       square.style.gridRow = r + 1;
       square.style.gridColumn = c + 1;
 
-      // Only animate black squares
+      // Animate black squares only
       if (isBlack) {
-        // Diagonal index for stagger
-        const delay = (r + c) * 80; 
+        const delay = (r + c) * STEP; 
 
-        // Decide direction: top-left half vs bottom-right half
         if (r + c < rows) {
-          square.style.animation = `move-br 0.8s forwards ease-out`;
+          // top-left half → move down-right
+          square.style.animation = `move-br ${SPEED}s forwards ease-out`;
         } else {
-          square.style.animation = `move-tl 0.8s forwards ease-out`;
+          // bottom-right half → move up-left
+          square.style.animation = `move-tl ${SPEED}s forwards ease-out`;
         }
         square.style.animationDelay = `${delay}ms`;
 
