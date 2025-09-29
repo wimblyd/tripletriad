@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       square.style.gridRow = r + 1;
       square.style.gridColumn = c + 1;
       overlay.appendChild(square);
+      console.log("Squares added:", overlay.children.length);
 
       square.addEventListener("animationend", () => {
         finishedCount++;
@@ -22,8 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             overlay.style.display = "none";
             document.getElementById("main-content").style.display = "block";
-            // Optionally change body background here
-            // document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
+            document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
           }, 1000);
         }
       });
@@ -168,20 +168,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== Load Operation Log from JSON =====
-  async function loadOperationLog() {
-    try {
-      const response = await fetch('log.json');
-      if (!response.ok) throw new Error('Failed to fetch log');
-      const logEntries = await response.json();
-      logDiv.innerHTML = '';
-      logEntries.forEach(entry => {
-        const div = document.createElement('div');
-        div.textContent = `[${entry.timestamp}] ${entry.message}`;
-        logDiv.appendChild(div);
-      });
-      logDiv.scrollTop = logDiv.scrollHeight;
-    } catch (err) {
-      console.error('Error loading operation log:', err);
+ async function loadOperationLog() {
+  try {
+    const response = await fetch('log.json');
+    if (!response.ok) throw new Error('Failed to fetch log');
+    const logEntries = await response.json();
+    logDiv.innerHTML = '';
+    logEntries.forEach(entry => {
+      const div = document.createElement('div');
+      div.textContent = `[${entry.timestamp}] ${entry.message}`;
+      logDiv.appendChild(div);
+    });
+    logDiv.scrollTop = logDiv.scrollHeight;
+  } catch (err) {
     }
   }
 
