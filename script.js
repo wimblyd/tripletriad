@@ -1,36 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== Overlay Animation =====
-  const rows = 12;
-  const cols = 20;
-  let finishedCount = 0;
-  const totalSquares = rows * cols;
-
-  const overlay = document.getElementById("transition-overlay");
-
-for (let r = 0; r < rows; r++) {
-  for (let c = 0; c < cols; c++) {
-    const square = document.createElement("div");
-    square.classList.add(Math.random() > 0.5 ? "wipe-br" : "wipe-tl");
-    square.style.animationDelay = `${(r + c) * 50}ms`;
-    square.style.gridRow = r + 1;
-    square.style.gridColumn = c + 1;
-    overlay.appendChild(square);
-    console.log("Squares added:", overlay.children.length);
-
-    square.addEventListener("animationend", () => {
-      finishedCount++;
-      if (finishedCount === totalSquares) {
-        overlay.classList.add("fade-out");
-        setTimeout(() => {
-          overlay.style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-          document.body.style.backgroundImage = 'url("img/GardenFestivalBkg.jpg")';
-        }, 1000);
-      }
-    });
-  }
-}
-
+ 
   // Restore Operation Log
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
@@ -41,7 +10,7 @@ for (let r = 0; r < rows; r++) {
   });
   logDiv.scrollTop = logDiv.scrollHeight;
 
-  // ===== Card Setup =====
+  // Setup
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     const id = card.dataset.cardId;
@@ -74,7 +43,7 @@ for (let r = 0; r < rows; r++) {
     });
   });
 
-  // ===== Unflip All =====
+  // Unflip All
   const resetButton = document.getElementById("resetButton");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
@@ -87,7 +56,7 @@ for (let r = 0; r < rows; r++) {
     });
   }
 
-  // ===== Storage Sync =====
+  // Sync
   window.addEventListener("storage", (event) => {
     if (event.key && event.key.startsWith("card-")) {
       const card = document.querySelector(`[data-card-id="${event.key}"]`);
@@ -103,7 +72,7 @@ for (let r = 0; r < rows; r++) {
     }
   });
 
-  // ===== Copy Log Button =====
+  // Copy Log
   const copyLogButton = document.getElementById("copyLogButton");
   if (copyLogButton) {
     copyLogButton.addEventListener("click", () => {
@@ -128,22 +97,7 @@ for (let r = 0; r < rows; r++) {
     });
   }
 
-  // ===== Guide Button =====
-  const guideButton = document.getElementById("guideButton");
-  if (guideButton) {
-    guideButton.addEventListener("click", () => {
-      guideButton.src = "img/GuideButton2.png";
-      setTimeout(() => {
-        guideButton.src = "img/GuideButton.png";
-        window.open(
-          "https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1",
-          "_blank"
-        );
-      }, 500);
-    });
-  }
-
-  // ===== Clear Log Button =====
+  // Clear Log
   const clearLogButton = document.getElementById("clearLogButton");
   if (clearLogButton) {
     clearLogButton.addEventListener("click", () => {
@@ -168,7 +122,22 @@ for (let r = 0; r < rows; r++) {
     });
   }
 
-  // ===== Load Operation Log from JSON =====
+    // Guide Button
+  const guideButton = document.getElementById("guideButton");
+  if (guideButton) {
+    guideButton.addEventListener("click", () => {
+      guideButton.src = "img/GuideButton2.png";
+      setTimeout(() => {
+        guideButton.src = "img/GuideButton.png";
+        window.open(
+          "https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1",
+          "_blank"
+        );
+      }, 500);
+    });
+  }
+
+  // JSON Log
  async function loadOperationLog() {
   try {
     const response = await fetch('log.json');
@@ -188,7 +157,7 @@ for (let r = 0; r < rows; r++) {
   loadOperationLog();
   setInterval(loadOperationLog, 5000);
 
-  // ===== Log Entry Helper =====
+  // Log Entry
   function addLogEntry(message) {
     if (!logDiv) return;
     const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
@@ -205,8 +174,8 @@ for (let r = 0; r < rows; r++) {
     localStorage.setItem("operationLog", JSON.stringify(logs));
   }
 
-  // ===== Save Card State Helper =====
+  // Save State
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
-}); // <-- Only ONE closing });
+});
