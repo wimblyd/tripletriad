@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
   const rows = window.innerWidth < 769 ? 10 : 20;
-  const cols = rows; // make square grid
+  const cols = rows; 
   let finishedCount = 0;
   const totalSquares = rows * cols;
 
@@ -10,27 +10,44 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let c = 0; c < cols; c++) {
       const square = document.createElement("div");
 
-      // Alternate squares: checkerboard pattern
-      if ((r + c) % 2 === 0) {
-        square.classList.add("black");
-      } else {
-        square.classList.add("transparent");
-      }
+      // Checkerboard pattern
+      const isBlack = (r + c) % 2 === 0;
+      square.classList.add(isBlack ? "black" : "transparent");
 
       square.style.gridRow = r + 1;
       square.style.gridColumn = c + 1;
 
-      overlay.appendChild(square);
+      // Only animate black squares
+      if (isBlack) {
+        // Diagonal index for stagger
+        const delay = (r + c) * 80; 
 
-      square.addEventListener("animationend", () => {
-        finishedCount++;
-        if (finishedCount === totalSquares) {
-          overlay.classList.add("fade-out");
-          overlay.addEventListener("transitionend", () => {
-            window.location.href = "checklist.html";
-          }, { once: true });
+        // Decide direction: top-left half vs bottom-right half
+        if (r + c < rows) {
+          square.style.animation = `move-br 0.8s forwards ease-out`;
+        } else {
+          square.style.animation = `move-tl 0.8s forwards ease-out`;
         }
-      });
+        square.style.animationDelay = `${delay}ms`;
+
+        square.addEventListener("animationend", () => {
+          finishedCount++;
+          if (finishedCount === Math.ceil(totalSquares / 2)) {
+            overlay.classList.add("fade-out");
+            overlay.addEventListener(
+              "transitionend",
+              () => {
+                document.body.style.backgroundImage =
+                  'url("img/GardenFestivalBkg.jpg")';
+                window.location.href = "checklist.html"; 
+              },
+              { once: true }
+            );
+          }
+        });
+      }
+
+      overlay.appendChild(square);
     }
   }
 });
