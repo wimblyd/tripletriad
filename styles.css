@@ -147,7 +147,12 @@ img.title { position: fixed; top: 20px; right: 0; }
     width: 9vw; 
     height: auto;  
 } 
-
+  
+  img.title {
+    width: 80vw;
+    height: auto;
+}
+  
 .screen { 
   top: 30%; 
   width: 90%; 
@@ -198,6 +203,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
