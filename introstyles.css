@@ -2,47 +2,44 @@ body {
   background-image: url("img/Intranet.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   margin: 0;
   font-family: 'Silkscreen', monospace;
 }
 
 #transition-overlay {
+  #transition-overlay {
   position: fixed;
   inset: 0;
   display: grid;
   z-index: 9999;
   background: transparent;
-  grid-auto-flow: dense;
+  pointer-events: none;
 }
 
 #transition-overlay div {
-  aspect-ratio: 1 / 1; /* Ensures true squares */
   width: 100%;
   height: 100%;
 }
 
 .black {
   background: black;
-  animation-name: move-br;
-  animation-fill-mode: forwards;
 }
 
 .transparent {
   background: transparent;
 }
 
-@keyframes move-br {
-  from { transform: translate(0, 0); }
-  to { transform: translate(var(--move-dist), var(--move-dist)); }
+@keyframes wipe-in {
+  from {
+    transform: translate(var(--move-dist), var(--move-dist));
+  }
+  to {
+    transform: translate(0, 0);
+  }
 }
-
-@keyframes move-tl {
-  from { transform: translate(0, 0); }
-  to { transform: translate(calc(-1 * var(--move-dist)), calc(-1 * var(--move-dist))); }
-}
-
 
 #transition-overlay.fade-out {
-  opacity: 
-
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
