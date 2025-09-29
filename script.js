@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       card.classList.remove("flipped");
     }
-
+   
     card.tabIndex = 0;
     card.setAttribute("role", "button");
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
