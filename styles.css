@@ -97,7 +97,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   top: 25%; 
   left: 50%; 
   transform: translateX(-50%); 
-  padding: 12px; 
+  padding: 2px; 
   height: 65%; 
   width: 75%; 
   display: inline-block; 
@@ -203,6 +203,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
