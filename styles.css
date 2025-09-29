@@ -156,10 +156,11 @@ img.title {
 
 /* Phone Constraints */ 
 @media (max-width: 600px){ 
-  .card { 
-    width: 6vw; 
-    height: auto;  
-} 
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
   
   img.title {
     width: 80vw;
@@ -216,6 +217,7 @@ img.title {
   cursor: pointer; 
 } 
 }
+
 
 
 
