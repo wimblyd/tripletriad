@@ -151,7 +151,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 .screen { 
   top: 30%; 
   width: 90%; 
-  max-height: 70%; 
+  height: 80%; 
   padding: 8px; 
 } 
 
@@ -198,6 +198,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
