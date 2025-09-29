@@ -166,7 +166,7 @@ img.title {
 } 
 
 #operation-log { 
-  height: 100px; 
+  height: 15%; 
   width: 90%; 
   font-size: 9px; 
   line-height: 10px; 
@@ -208,6 +208,7 @@ img.title {
   cursor: pointer; 
 } 
 }
+
 
 
 
