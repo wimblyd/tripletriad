@@ -145,7 +145,7 @@ img.title { position: fixed; top: 20px; right: 0; }
 @media (max-width: 600px){ 
   .card { 
     width: 9vw; 
-    height: auto; } 
+    height: auto;  
 } 
 
 .screen { 
@@ -198,6 +198,7 @@ img.title { position: fixed; top: 20px; right: 0; }
   cursor: pointer; 
 } 
 }
+
 
 
 
