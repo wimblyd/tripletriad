@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  const SPEED = 0.4;
+  const SPEED = 0.2;
   const STEP = 30;
 
   const screenWidth = window.innerWidth;
