@@ -137,26 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // JSON Log
- async function loadOperationLog() {
-  try {
-    const response = await fetch('log.json');
-    if (!response.ok) throw new Error('Failed to fetch log');
-    const logEntries = await response.json();
-    logDiv.innerHTML = '';
-    logEntries.forEach(entry => {
-      const div = document.createElement('div');
-      div.textContent = `[${entry.timestamp}] ${entry.message}`;
-      logDiv.appendChild(div);
-    });
-    logDiv.scrollTop = logDiv.scrollHeight;
-  } catch (err) {
-    }
-  }
-
-  loadOperationLog();
-  setInterval(loadOperationLog, 5000);
-
   // Log Entry
   function addLogEntry(message) {
     if (!logDiv) return;
