@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  const SPEED = 0.2;
+  const SPEED = 0.4;
   const STEP = 30;
 
   const screenWidth = window.innerWidth;
@@ -21,33 +21,33 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
 
   for (let r = 0; r < rows; r++) {
-  for (let c = 0; c < cols; c++) {
-    const square = document.createElement("div");
+    for (let c = 0; c < cols; c++) {
+      const square = document.createElement("div");
 
-    const isBlack = (r + c) % 2 === 0;
-    square.classList.add(isBlack ? "black" : "transparent");
+      const isBlack = (r + c) % 2 === 0;
+      square.classList.add(isBlack ? "black" : "transparent");
 
-    const isTopLeft = isBlack;
+      const isTopLeft = isBlack;
 
-    square.style.gridRow = isTopLeft ? r + 1 : r + 2;     // row shift
-    square.style.gridColumn = isTopLeft ? c + 1 : c + 2;  // column shift
+      square.style.gridRow = r + 1;
+      square.style.gridColumn = isTopLeft ? c + 1 : c + 2; // <-- shift bottom-right squares
 
-    const delay = (r + c) * STEP;
-    square.style.setProperty("--move-dist", `${moveDistance}px`);
-    square.style.animation = isTopLeft
-      ? `wipe-in-tl ${SPEED}s forwards ease-out`
-      : `wipe-in-br ${SPEED}s forwards ease-out`;
-    square.style.animationDelay = `${delay}ms`;
+      const delay = (r + c) * STEP;
+      square.style.setProperty("--move-dist", `${moveDistance}px`);
+      square.style.animation = isTopLeft
+        ? `wipe-in-tl ${SPEED}s forwards ease-out`
+        : `wipe-in-br ${SPEED}s forwards ease-out`;
+      square.style.animationDelay = `${delay}ms`;
 
-    square.addEventListener("animationend", () => {
-      finishedCount++;
-      if (finishedCount === totalSquares) {
-        overlay.classList.add("fade-out");
-        overlay.addEventListener("transitionend", () => {
-          window.location.href = "checklist.html";
-        }, { once: true });
-      }
-    });
+      square.addEventListener("animationend", () => {
+        finishedCount++;
+        if (finishedCount === totalSquares) {
+          overlay.classList.add("fade-out");
+          overlay.addEventListener("transitionend", () => {
+            window.location.href = "checklist.html";
+          }, { once: true });
+        }
+      });
 
       overlay.appendChild(square);
     }
