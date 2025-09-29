@@ -37,6 +37,12 @@ body {
   to { transform: translate(var(--move-dist), var(--move-dist)); }
 }
 
+@keyframes move-tl {
+  from { transform: translate(0, 0); }
+  to { transform: translate(calc(-1 * var(--move-dist)), calc(-1 * var(--move-dist))); }
+}
+
+
 #transition-overlay.fade-out {
   opacity: 
 
