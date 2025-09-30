@@ -116,7 +116,7 @@ img.title {
   align-items: center;
   padding: 8px;
   max-width: 90%;
-  max-height: 90%;
+  max-height: 65%;
   overflow: auto;
   border-radius: 6px;
   z-index: 1;
@@ -238,6 +238,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
