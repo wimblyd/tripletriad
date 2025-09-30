@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 5.0;
+  const SPEED = 4.0; 
   const squareSize = 60;
 
   const screenWidth = window.innerWidth;
@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let isBlack;
         if (!invert) {
-          // Top-left
-          isBlack = c < cols - r;
+
+          isBlack = c < cols - r && (r + c) % 2 === 0;
         } else {
-          // Bottom-right
-          isBlack = c >= cols - r - 1;
+
+          isBlack = c >= cols - r - 1 && (r + c) % 2 === 0;
         }
 
         square.style.background = isBlack ? "black" : "transparent";
@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  makeDiagonalChecker(overlayTL, false);
-  makeDiagonalChecker(overlayBR, true);
+  makeDiagonalChecker(overlayTL, false); 
+  makeDiagonalChecker(overlayBR, true);  
 
   overlayTL.style.top = "0";
   overlayTL.style.left = "0";
