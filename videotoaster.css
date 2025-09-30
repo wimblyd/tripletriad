@@ -26,8 +26,8 @@ body {
 }
 
 @keyframes slide-in-br {
-  from { transform: translate(100%, 100%); }
-  to   { transform: translate(0, 0); }
+  from { transform: translate(var(--start-dist), var(--start-dist)); }
+  to   { transform: translate(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist))); }
 }
 
 #overlay-tl.fade-out,
