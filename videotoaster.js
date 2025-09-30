@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const SPEED = 4.0;
   const squareSize = 60;
-
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
 
-  const cols = Math.ceil(screenWidth / squareSize);
-  const rows = Math.ceil(screenHeight / squareSize);
+  const colsBase = Math.ceil(screenWidth / squareSize);
+  const rowsBase = Math.ceil(screenHeight / squareSize);
 
+  const extra = Math.max(colsBase, rowsBase);
+
+  const cols = colsBase + extra;
+  const rows = rowsBase + extra;
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
 
