@@ -9,32 +9,28 @@ body {
 /* Both overlays */
 #overlay-tl, #overlay-br {
   position: fixed;
-  inset: 0;
   display: grid;
   z-index: 9999;
   background: transparent;
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.8s ease-out;
 }
 
 #overlay-tl div,
 #overlay-br div {
-  width: 100%;
-  height: 100%;
-  background: black;
-  animation-fill-mode: forwards;
+  width: 30px;
+  height: 30px;
 }
 
-/* Animations */
-@keyframes slide-out-tl {
-  0%   { transform: translate(0, 0); opacity: 1; }
-  100% { transform: translate(-var(--move-dist), -var(--move-dist)); opacity: 0; }
+/* TL grid slides in from off top-left */
+@keyframes slide-in-tl {
+  from { transform: translate(-100%, -100%); }
+  to   { transform: translate(0, 0); }
 }
 
-@keyframes slide-out-br {
-  0%   { transform: translate(0, 0); opacity: 1; }
-  100% { transform: translate(var(--move-dist), var(--move-dist)); opacity: 0; }
+/* BR grid slides in from off bottom-right */
+@keyframes slide-in-br {
+  from { transform: translate(100%, 100%); }
+  to   { transform: translate(0, 0); }
 }
 
 /* Fade-out trigger */
