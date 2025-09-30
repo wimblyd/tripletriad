@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   overlayTL.style.left = "0px";
   overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
 
-  overlayBR.style.top = `${screenHeight}px`;
-  overlayBR.style.left = `${screenWidth}px`;
+  overlayBR.style.top = `${screenHeight - (rows * squareSize) + squareSize}px`;
+  overlayBR.style.left = `${screenWidth - (cols * squareSize) + squareSize}px`;
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
   let animationsFinished = 0;
