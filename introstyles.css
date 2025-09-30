@@ -3,10 +3,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
-  font-family: 'Silkscreen', monospace;
 }
 
-/* Both overlays */
+/* Video Toaster */
 #overlay-tl, #overlay-br {
   position: fixed;
   display: grid;
@@ -21,19 +20,16 @@ body {
   height: 30px;
 }
 
-/* TL grid slides in from off top-left */
 @keyframes slide-in-tl {
   from { transform: translate(-100%, -100%); }
   to   { transform: translate(0, 0); }
 }
 
-/* BR grid slides in from off bottom-right */
 @keyframes slide-in-br {
   from { transform: translate(100%, 100%); }
   to   { transform: translate(0, 0); }
 }
 
-/* Fade-out trigger */
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
