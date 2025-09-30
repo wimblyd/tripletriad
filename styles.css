@@ -111,7 +111,7 @@ img.title {
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  flex-wrap: wrap; /* wrap cards */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   padding: 8px;
@@ -238,6 +238,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
