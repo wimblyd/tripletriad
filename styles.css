@@ -107,7 +107,7 @@ img.title {
 /* Screen */
 .screen {
   position: fixed;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -238,6 +238,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
