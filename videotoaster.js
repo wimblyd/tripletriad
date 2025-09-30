@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 2.0; // slower animation
-  const squareSize = 30;
+  const SPEED = 5.0;
+  const squareSize = 60;
 
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
