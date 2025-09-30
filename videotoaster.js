@@ -19,12 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const square = document.createElement("div");
-        const isBlack = (r + c + (invert ? 1 : 0)) % 2 === 0;
-        square.style.background = isBlack ? "black" : "transparent";
-        if (r % 2 === 1) {
-          square.style.transform = `translateX(${squareSize}px)`;
+
+        let isBlack;
+        if (!invert) {
+          // Top-left
+          isBlack = c < cols - r;
+        } else {
+          // Bottom-right
+          isBlack = c >= cols - r - 1;
         }
 
+        square.style.background = isBlack ? "black" : "transparent";
         container.appendChild(square);
       }
     }
@@ -41,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   overlayBR.style.left = "0";
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
+  // Redirect
   let animationsFinished = 0;
   function checkRedirect() {
     animationsFinished++;
