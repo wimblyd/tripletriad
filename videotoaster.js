@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 0.8; // seconds
+  const SPEED = 2.0; // slower animation
   const squareSize = 30;
+
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const cols = Math.ceil(screenWidth / squareSize) + 2;
-  const rows = Math.ceil(screenHeight / squareSize) + 2;
+
+  const cols = Math.ceil(screenWidth / squareSize);
+  const rows = Math.ceil(screenHeight / squareSize);
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
@@ -22,27 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // TL grid (normal pattern)
-  makeChecker(overlayTL, false);
+  makeChecker(overlayTL, false); // normal pattern
+  makeChecker(overlayBR, true);  // offset pattern
+
   overlayTL.style.top = "0";
   overlayTL.style.left = "0";
   overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
 
-  // BR grid (offset pattern)
-  makeChecker(overlayBR, true);
   overlayBR.style.top = "0";
   overlayBR.style.left = "0";
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
-  // Fade & redirect once BR animation finishes
-  overlayBR.addEventListener("animationend", () => {
-    overlayTL.style.transition = "opacity 0.8s ease-out";
-    overlayBR.style.transition = "opacity 0.8s ease-out";
-    overlayTL.style.opacity = 0;
-    overlayBR.style.opacity = 0;
-
-    overlayBR.addEventListener("transitionend", () => {
+  let animationsFinished = 0;
+  function checkRedirect() {
+    animationsFinished++;
+    if (animationsFinished === 2) { // both overlays done
       window.location.href = "checklist.html";
-    }, { once: true });
-  });
+    }
+  }
+
+  overlayTL.addEventListener("animationend", checkRedirect, { once: true });
+  overlayBR.addEventListener("animationend", checkRedirect, { once: true });
 });
