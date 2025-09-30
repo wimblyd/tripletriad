@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 5.0; // seconds for slow weave
-  const squareSize = 60; // bigger squares
+  const SPEED = 5.0;
+  const squareSize = 60;
 
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
@@ -21,8 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const square = document.createElement("div");
         const isBlack = (r + c + (invert ? 1 : 0)) % 2 === 0;
         square.style.background = isBlack ? "black" : "transparent";
-
-        // Shift every row by a full square length alternately
         if (r % 2 === 1) {
           square.style.transform = `translateX(${squareSize}px)`;
         }
@@ -32,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  makeDiagonalChecker(overlayTL, false); // TL normal pattern
-  makeDiagonalChecker(overlayBR, true);  // BR inverted pattern
+  makeDiagonalChecker(overlayTL, false);
+  makeDiagonalChecker(overlayBR, true);
 
   overlayTL.style.top = "0";
   overlayTL.style.left = "0";
@@ -43,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   overlayBR.style.left = "0";
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
-  // Redirect after both animations finish
   let animationsFinished = 0;
   function checkRedirect() {
     animationsFinished++;
