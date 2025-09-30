@@ -64,14 +64,15 @@ img.title {
     border-left: 1px solid #e1d9c4; } 
 
 /* Card Flip */ 
+/* Cards: flexible but with a minimum size */
 .card {
-  display: inline-flex;
-  flex: 0 1 auto; /* allow shrinking/growing */
-  width: auto;
-  height: auto;
+  flex: 0 1 auto;        /* allow shrinking/growing */
+  width: 76px;           /* base width (desktop) */
+  height: 97px;          /* base height (desktop) */
   perspective: 1000px;
   cursor: pointer;
-  margin: 4px; /* spacing between cards */
+  margin: 4px;
+  display: inline-block; /* make sure it has box size */
 }
 
 .card-inner {
@@ -96,7 +97,7 @@ img.title {
 }
 
 .card-front { transform: rotateY(0deg); }
-.card-back { transform: rotateY(180deg); }
+.card-back  { transform: rotateY(180deg); }
 
 /* Screen */
 .screen {
@@ -232,6 +233,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
