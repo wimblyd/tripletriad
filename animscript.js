@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("transition-overlay");
 
-  const SPEED = 0.4;
-  const STEP = 30;
-
+  const SPEED = 0.8; // seconds
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const diagonal = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
@@ -27,17 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const isBlack = (r + c) % 2 === 0;
       square.classList.add(isBlack ? "black" : "transparent");
 
-      const isTopLeft = isBlack;
-
-      square.style.gridRow = r + 1;
-      square.style.gridColumn = isTopLeft ? c + 1 : c + 2; // <-- shift bottom-right squares
-
-      const delay = (r + c) * STEP;
+      // Use CSS variable for responsive distance
       square.style.setProperty("--move-dist", `${moveDistance}px`);
-      square.style.animation = isTopLeft
-        ? `wipe-in-tl ${SPEED}s forwards ease-out`
-        : `wipe-in-br ${SPEED}s forwards ease-out`;
-      square.style.animationDelay = `${delay}ms`;
+
+      // All squares animate together (no delay)
+      square.style.animation = isBlack
+        ? `slide-out-tl ${SPEED}s forwards ease-out`
+        : `slide-out-br ${SPEED}s forwards ease-out`;
 
       square.addEventListener("animationend", () => {
         finishedCount++;
