@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 4.0;
+  const SPEED = 5.0;
   const squareSize = 60;
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
@@ -46,8 +46,8 @@ overlayTL.style.top = "0px";
 overlayTL.style.left = "0px";
 overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
 
-overlayBR.style.top = `${-gridHeight + screenHeight + squareSize}px`;
-overlayBR.style.left = `${-gridWidth + screenWidth + squareSize}px`;
+overlayBR.style.top = `${-squareSize * extra / 2}px`;
+overlayBR.style.left = `${-squareSize * extra / 2}px`;
 overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
   let animationsFinished = 0;
