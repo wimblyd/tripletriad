@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 4.0; 
+  const SPEED = 4.0;
   const squareSize = 60;
 
   const screenWidth = window.innerWidth;
@@ -22,10 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let isBlack;
         if (!invert) {
-
           isBlack = c < cols - r && (r + c) % 2 === 0;
         } else {
-
           isBlack = c >= cols - r - 1 && (r + c) % 2 === 0;
         }
 
@@ -35,18 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  makeDiagonalChecker(overlayTL, false); 
-  makeDiagonalChecker(overlayBR, true);  
+  makeDiagonalChecker(overlayTL, false);
+  makeDiagonalChecker(overlayBR, true);
 
-  overlayTL.style.top = "0";
-  overlayTL.style.left = "0";
+  overlayTL.style.top = "0px";
+  overlayTL.style.left = "0px";
   overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
 
-  overlayBR.style.top = "0";
-  overlayBR.style.left = "0";
+  overlayBR.style.top = `${screenHeight}px`;
+  overlayBR.style.left = `${screenWidth}px`;
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
-  // Redirect
   let animationsFinished = 0;
   function checkRedirect() {
     animationsFinished++;
