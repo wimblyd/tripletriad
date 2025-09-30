@@ -1,8 +1,3 @@
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
 body {
   background-image: url("img/Intranet.jpg");
   background-repeat: no-repeat;
@@ -33,14 +28,14 @@ body {
   background: transparent;
 }
 
-@keyframes wipe-in-tl {
-  from { transform: translate(-var(--move-dist), -var(--move-dist)); }
-  to { transform: translate(0, 0); }
+@keyframes slide-out-tl {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-var(--move-dist), -var(--move-dist)); opacity: 0; }
 }
 
-@keyframes wipe-in-br {
-  from { transform: translate(var(--move-dist), var(--move-dist)); }
-  to { transform: translate(0, 0); }
+@keyframes slide-out-br {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(var(--move-dist), var(--move-dist)); opacity: 0; }
 }
 
 #transition-overlay div {
