@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const colsBase = Math.ceil(screenWidth / squareSize);
   const rowsBase = Math.ceil(screenHeight / squareSize);
 
-  // Extra squares so the grids cover fully
   const extra = Math.max(colsBase, rowsBase);
   const cols = colsBase + extra;
   const rows = rowsBase + extra;
