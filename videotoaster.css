@@ -16,8 +16,8 @@ body {
 
 #overlay-tl div,
 #overlay-br div {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
 }
 
 @keyframes slide-in-tl {
