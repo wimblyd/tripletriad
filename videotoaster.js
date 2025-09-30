@@ -36,13 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
   makeDiagonalChecker(overlayTL, false);
   makeDiagonalChecker(overlayBR, true);
 
-  overlayTL.style.top = "0px";
-  overlayTL.style.left = "0px";
-  overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
+const gridWidth = cols * squareSize;
+const gridHeight = rows * squareSize;
 
-  overlayBR.style.top = `${screenHeight - (rows * squareSize) + squareSize}px`;
-  overlayBR.style.left = `${screenWidth - (cols * squareSize) + squareSize}px`;
-  overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
+overlayTL.style.top = "0px";
+overlayTL.style.left = "0px";
+overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
+
+overlayBR.style.top = `${-gridHeight + screenHeight + squareSize}px`;
+overlayBR.style.left = `${-gridWidth + screenWidth + squareSize}px`;
+overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
   let animationsFinished = 0;
   function checkRedirect() {
