@@ -19,6 +19,8 @@ body {
   left: 8%;
   width: 84%;  /* 100 - (8 + 8) */
   height: 92%; /* 100 - (4 + 4) */
+  background: url("img/Intranet.png") no-repeat center center;
+  background-size: cover;
   overflow: hidden;
   pointer-events: none;
   z-index: 3;
