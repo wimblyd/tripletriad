@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
-    const angle = Math.atan(height / width) * (180 / Math.PI); // True diagonal angle
+    const rawAngle = Math.atan(height / width) * (180 / Math.PI); // True diagonal angle
+    const angle = rawAngle * 0.88; // Visual correction factor (tweak 0.85-0.9 if needed)
     const diag = Math.sqrt(width * width + height * height) * 1.1; // Oversize by 10%
 
     // Gridmaker
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.height = `${diag}px`;
       el.style.transformOrigin = "center";
       el.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
-      el.style.backgroundSize = "64px 64px"; // adjust checker size if needed
+      el.style.backgroundSize = "64px 64px"; 
       el.style.opacity = "1";
       el.style.display = "grid";
       el.style.overflow = "visible";
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let finished = 0;
     function handleFinished() {
       finished++;
-      if (finished === 2) { // both overlays finished
+      if (finished === 2) {
         setTimeout(() => {
           overlayTL.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
           overlayBR.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
@@ -76,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.addEventListener("animationend", handleFinished, { once: true });
   }
 
-  // Run on load and calculate on resize
   window.addEventListener("load", runWipe);
   window.addEventListener("resize", runWipe);
 });
