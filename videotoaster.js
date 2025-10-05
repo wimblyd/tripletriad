@@ -8,6 +8,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const screenWidth = container.clientWidth;
   const screenHeight = container.clientHeight;
 
+const frameImage = document.getElementById("computer");
+const container = document.getElementById("computer-container");
+
+// example known values in percent relative to image
+const rectXPercent = 0.1; // left offset
+const rectYPercent = 0.1; // top offset
+const rectWidthPercent = 0.8;
+const rectHeightPercent = 0.8;
+
+frameImage.addEventListener("load", () => {
+  const rect = frameImage.getBoundingClientRect();
+  container.style.position = "absolute";
+  container.style.left = `${rect.left + rect.width * rectXPercent}px`;
+  container.style.top = `${rect.top + rect.height * rectYPercent}px`;
+  container.style.width = `${rect.width * rectWidthPercent}px`;
+  container.style.height = `${rect.height * rectHeightPercent}px`;
+});
+
   const colsBase = Math.ceil(screenWidth / squareSize);
   const rowsBase = Math.ceil(screenHeight / squareSize);
 
