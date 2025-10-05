@@ -21,7 +21,6 @@ body {
   height: 60px;
 }
 
-/* --- New transform-based animations --- */
 @keyframes slide-in-tl {
   from {
     transform: translate3d(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)), 0);
@@ -39,8 +38,6 @@ body {
     transform: translate3d(var(--end-dist), var(--end-dist), 0);
   }
 }
-
-/* Smooth GPU animation & consistent transform origin */
 #overlay-tl,
 #overlay-br {
   will-change: transform;
