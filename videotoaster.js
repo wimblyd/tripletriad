@@ -1,75 +1,94 @@
-// Config
-const speed = 4; // pixels per frame
-const colorA = "#000"; // black
-const colorB = "transparent"; // transparent
+document.addEventListener("DOMContentLoaded", () => {
+  const SPEED = 5.0;       
+  const HOLD_TIME = 0.4;   
+  const FADE_TIME = 0.6;  
+  const REDIRECT_URL = "checklist.html";
 
-// Setup
-const canvas = document.createElement("canvas");
-document.body.style.margin = "0";
-document.body.style.overflow = "hidden";
-canvas.style.display = "block";
-document.body.appendChild(canvas);
-const ctx = canvas.getContext("2d");
+  const squaresAcross = 30;
+  const squaresDown = 15;
 
-// Sizing
-let squareSize, cols, rows, maxOffset;
+  const frameImage = document.getElementById("computer");
+  const container = document.getElementById("computer-container");
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  squareSize = Math.floor(Math.min(canvas.width, canvas.height) / 10);
-  cols = Math.ceil(canvas.width / squareSize) * 2;
-  rows = Math.ceil(canvas.height / squareSize) * 2;
-  maxOffset = Math.max(canvas.width, canvas.height) * 1.5;
-}
-resize();
-window.addEventListener("resize", resize);
+  frameImage.addEventListener("load", () => {
+    const rect = frameImage.getBoundingClientRect();
 
-// Grid
-function drawTriangle(originX, originY, direction = 1) {
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      // Determine if square lies in the triangular region
-      const inTriangle =
-        direction === 1
-          ? y >= x // top-left → down-right
-          : y <= rows - x; // bottom-right → up-left
+    // Calculate container
+    const containerRect = container.getBoundingClientRect();
+    const containerWidth = containerRect.width;
+    const containerHeight = containerRect.height;
 
-      if (inTriangle) {
-        const isBlack = (x + y) % 2 === 0;
-        ctx.fillStyle = isBlack ? colorA : colorB;
-        ctx.fillRect(
-          originX + x * squareSize,
-          originY + y * squareSize,
-          squareSize,
-          squareSize
-        );
+    // Grid
+    const squareWidth = containerWidth / squaresAcross;
+    const squareHeight = containerHeight / squaresDown;
+    const squareSize = Math.min(squareWidth, squareHeight);
+
+    container.style.setProperty("--square-size", `${squareSize}px`);
+
+    const cols = Math.ceil(containerWidth / squareSize);
+    const rows = Math.ceil(containerHeight / squareSize);
+
+    const wedgeExtraSquares = Math.ceil(Math.min(cols, rows) / 2);
+    const wedgeOffset = wedgeExtraSquares * squareSize;
+
+    const overlayTL = document.getElementById("overlay-tl");
+    const overlayBR = document.getElementById("overlay-br");
+
+    overlayTL.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
+    overlayTL.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
+    overlayBR.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
+    overlayBR.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
+
+    function makeDiagonalChecker(containerElement, invert = false, extraSquares = 0) {
+      const totalCols = cols + extraSquares;
+      const totalRows = rows + extraSquares;
+
+      containerElement.style.gridTemplateColumns = `repeat(${totalCols}, ${squareSize}px)`;
+      containerElement.style.gridTemplateRows = `repeat(${totalRows}, ${squareSize}px)`;
+      containerElement.innerHTML = "";
+
+      for (let r = 0; r < totalRows; r++) {
+        for (let c = 0; c < totalCols; c++) {
+          const square = document.createElement("div");
+          let isBlack;
+
+          if (!invert) {
+            isBlack = (r + c) % 2 === 0 && c < totalCols - r;
+          } else {
+            isBlack = (r + c) % 2 !== 0 && c >= totalCols - r;
+          }
+
+          square.style.width = `${squareSize}px`;
+          square.style.height = `${squareSize}px`;
+          square.style.background = isBlack ? "black" : "transparent";
+          containerElement.appendChild(square);
+        }
       }
     }
-  }
-}
 
-// Loop
-let offset = 0;
+    makeDiagonalChecker(overlayTL, false, wedgeExtraSquares);
+    makeDiagonalChecker(overlayBR, true, wedgeExtraSquares);
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Animate
+    overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
+    overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
-  // draw top-left triangle
-  drawTriangle(-cols * squareSize + offset, -rows * squareSize + offset, 1);
+     let animationsFinished = 0;
+    function checkRedirect() {
+      animationsFinished++;
+      if (animationsFinished === 2) {
+        setTimeout(() => {
+          overlayTL.classList.add("fade-out");
+          overlayBR.classList.add("fade-out");
 
-  // draw bottom-right triangle
-  drawTriangle(canvas.width - offset, canvas.height - offset, -1);
+          setTimeout(() => {
+            window.location.href = REDIRECT_URL;
+          }, FADE_TIME * 1000);
+        }, HOLD_TIME * 1000);
+      }
+    }
 
-  offset += speed;
-
-  if (offset < maxOffset) {
-    requestAnimationFrame(animate);
-  } else {
-    
-    ctx.fillStyle = colorA;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-}
-
-animate();
+    overlayTL.addEventListener("animationend", checkRedirect, { once: true });
+    overlayBR.addEventListener("animationend", checkRedirect, { once: true });
+  });
+});
