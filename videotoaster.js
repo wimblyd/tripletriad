@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cols = Math.ceil(containerWidth / squareSize);
     const rows = Math.ceil(containerHeight / squareSize);
 
-    // ✅ Make the checkerboard large enough to cover diagonal motion
     const diagMultiplier = Math.SQRT2; // ~1.414
     const extraCols = Math.ceil(cols * diagMultiplier);
     const extraRows = Math.ceil(rows * diagMultiplier);
@@ -33,19 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
-    // Position these overlays slightly oversized and centered
     overlayTL.style.width = `${extraCols * squareSize}px`;
     overlayTL.style.height = `${extraRows * squareSize}px`;
     overlayBR.style.width = `${extraCols * squareSize}px`;
     overlayBR.style.height = `${extraRows * squareSize}px`;
 
-    // Center overlays so they can move freely across viewport
-    overlayTL.style.left = `-${(extraCols - cols) / 2 * squareSize}px`;
-    overlayTL.style.top = `-${(extraRows - rows) / 2 * squareSize}px`;
-    overlayBR.style.left = `-${(extraCols - cols) / 2 * squareSize}px`;
-    overlayBR.style.top = `-${(extraRows - rows) / 2 * squareSize}px`;
+    overlayTL.style.transform = `translate(-50%, -50%) rotate(45deg)`;
+    overlayBR.style.transform = `translate(-50%, -50%) rotate(45deg)`;
 
-    // ✅ Distances to travel for full diagonal coverage
     const travelX = containerWidth * diagMultiplier;
     const travelY = containerHeight * diagMultiplier;
     overlayTL.style.setProperty("--start-dist-x", `${travelX}px`);
@@ -53,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.style.setProperty("--start-dist-x", `${travelX}px`);
     overlayBR.style.setProperty("--start-dist-y", `${travelY}px`);
 
-    // Build a full checkerboard (no diagonal masking!)
     function makeChecker(containerElement, invert = false) {
       containerElement.innerHTML = "";
       containerElement.style.display = "grid";
@@ -73,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     makeChecker(overlayTL, false);
     makeChecker(overlayBR, true);
 
-    // ✅ Animate them diagonally
     overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
