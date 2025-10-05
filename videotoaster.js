@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
 
-  const leftPercent = 0.0880;   // 169px of 1920
-  const topPercent = 0.0435;    // 47px of 1080
-  const rightPercent = 0.0990;  // 190px of 1920
-  const bottomPercent = 0.0593; // 64px of 1080
+  const leftPercent = 0.0880;   // 169px of 1920 
+  const topPercent = 0.0435;    // 47px of 1080  
+  const rightPercent = 0.0990;  // 190px of 1920 
+  const bottomPercent = 0.0593; // 64px of 1080  seriously just size your div however this is specific sizing just for the stupid frame ugh
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
