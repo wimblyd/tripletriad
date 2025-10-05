@@ -48,31 +48,34 @@ overlayBR.style.setProperty("--start-dist-x", `${containerWidth}px`);
 overlayBR.style.setProperty("--start-dist-y", `${containerHeight}px`);
     
     // Generate and Animate
-    function makeDiagonalChecker(containerElement, invert = false) {
-      containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
-      containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
-      containerElement.style.position = "absolute";
-      containerElement.innerHTML = "";
+   function makeDiagonalChecker(containerElement, invert = false) {
+  containerElement.style.width = `${containerWidth}px`;
+  containerElement.style.height = `${containerHeight}px`;
+  containerElement.style.gridTemplateColumns = `repeat(auto-fill, ${squareSize}px)`;
+  containerElement.style.gridTemplateRows = `repeat(auto-fill, ${squareSize}px)`;
+  containerElement.innerHTML = "";
 
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const square = document.createElement("div");
-          let isBlack;
+  const cols = Math.ceil(containerWidth / squareSize) + 1;
+  const rows = Math.ceil(containerHeight / squareSize) + 1;
 
-          if (!invert) {
-            isBlack = (r + c) % 2 === 0 && c < cols - r;
-          } else {
-            isBlack = (r + c + 1) % 2 === 0 && c >= cols - r - 1;
-          }
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const square = document.createElement("div");
+      let isBlack;
 
-          square.style.width = `${squareSize}px`;
-          square.style.height = `${squareSize}px`;
-          square.style.background = isBlack ? "black" : "transparent";
-          containerElement.appendChild(square);
-        }
+      if (!invert) {
+        isBlack = (r + c) % 2 === 0 && c < cols - r;
+      } else {
+        isBlack = (r + c + 1) % 2 === 0 && c >= cols - r - 1;
       }
-    }
 
+      square.style.width = `${squareSize}px`;
+      square.style.height = `${squareSize}px`;
+      square.style.background = isBlack ? "black" : "transparent";
+      containerElement.appendChild(square);
+    }
+  }
+}
     makeDiagonalChecker(overlayTL, false);
     makeDiagonalChecker(overlayBR, true);
 
