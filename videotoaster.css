@@ -8,10 +8,10 @@ body {
   position: absolute;
   background-image: url("img/Intranet.png");
   background-repeat: no-repeat;
-  background-size: cover; /* Fill container fully */
+  background-size: cover;
   background-position: center;
-  pointer-events: none; /* Let clicks pass through */
-  z-index: 1; /* Animation underneath the frame */
+  pointer-events: none;
+  z-index: 1;
 }
 
 #computer {
@@ -26,9 +26,9 @@ body {
 /* Video Toaster */
 #overlay-tl,
 #overlay-br {
-  position: absolute; /* relative to container */
+  position: absolute; 
   display: grid;
-  z-index: 3; /* On top of background but beneath frame if needed */
+  z-index: 3; 
   background: transparent;
   pointer-events: none;
 }
