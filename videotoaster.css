@@ -8,11 +8,17 @@ body {
   padding: 0;
 }
 
-#computer-container {
+#computer {
   position: relative;
-  width: 100vw;   
-  height: 100vh; 
-  overflow: hidden;
+  display: block;
+  max-width: 100%;
+}
+
+#computer-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }
 
 /* Video Toaster */
