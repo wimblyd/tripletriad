@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
-  
+
   const leftPercent = 0.08;
   const topPercent = 0.04;
   const rightPercent = 0.08;
@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
-
     const containerLeft = rect.left + rect.width * leftPercent;
     const containerTop = rect.top + rect.height * topPercent;
     const containerWidth = rect.width * (1 - leftPercent - rightPercent);
@@ -31,48 +30,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const rowsBase = Math.ceil(containerHeight / squareSize);
 
     const diagonal = Math.sqrt(containerWidth ** 2 + containerHeight ** 2);
-    const extraSquares = 2; // keep it small
 
+    const extraSquares = 2; // minimal overshoot for smooth edge
     const cols = colsBase + extraSquares;
     const rows = rowsBase + extraSquares;
 
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
-    // Animation distance
-    const startDist = Math.max(containerWidth, containerHeight) * 0.6;
-    const endDist = diagonal * 1.2;
+    // Wedge offset calculation
+    const wedgeOffset = Math.ceil(Math.min(cols, rows) / 2) * squareSize;
 
-overlayTL.style.setProperty("--start-dist-x", `${containerWidth}px`);
-overlayTL.style.setProperty("--start-dist-y", `${containerHeight}px`);
-overlayBR.style.setProperty("--start-dist-x", `${containerWidth}px`);
-overlayBR.style.setProperty("--start-dist-y", `${containerHeight}px`);
+    // Animation distances
+    overlayTL.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
+    overlayTL.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
+    overlayBR.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
+    overlayBR.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
 
     // Create grid
     function makeDiagonalChecker(containerElement, invert = false) {
-    containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
-    containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
-    containerElement.style.position = "absolute";
-    containerElement.innerHTML = "";
+      containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
+      containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
+      containerElement.style.position = "absolute";
+      containerElement.innerHTML = "";
 
-    for (let r = 0; r < rows; r++) {
+      for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-            const square = document.createElement("div");
-            let isBlack;
+          const square = document.createElement("div");
+          let isBlack;
 
-            if (!invert) {
-                isBlack = (r + c) % 2 === 0 && c < cols - r; // wedge + checker
-            } else {
-                isBlack = (r + c) % 2 !== 0 && c >= cols - r; // inverted wedge
-            }
+          if (!invert) {
+            isBlack = (r + c) % 2 === 0 && c < cols - r; // wedge + checker
+          } else {
+            isBlack = (r + c) % 2 !== 0 && c >= cols - r; // inverted wedge
+          }
 
-            square.style.width = `${squareSize}px`;
-            square.style.height = `${squareSize}px`;
-            square.style.background = isBlack ? "black" : "transparent";
-            containerElement.appendChild(square);
+          square.style.width = `${squareSize}px`;
+          square.style.height = `${squareSize}px`;
+          square.style.background = isBlack ? "black" : "transparent";
+          containerElement.appendChild(square);
         }
+      }
     }
-}
 
     makeDiagonalChecker(overlayTL, false);
     makeDiagonalChecker(overlayBR, true);
