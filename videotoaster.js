@@ -6,12 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
-
-  // Sorry this is weird because the frame image is not perfectly centered and I'm not fixing it
-  const leftPercent = 0.0880;   // 169px of 1920
-  const topPercent = 0.0435;    // 47px of 1080
-  const rightPercent = 0.0990;  // 190px of 1920
-  const bottomPercent = 0.0593; // 64px of 1080
+  
+  const leftPercent = 0.08;
+  const topPercent = 0.04;
+  const rightPercent = 0.08;
+  const bottomPercent = 0.04;
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
