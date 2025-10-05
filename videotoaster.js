@@ -11,14 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("computer-container");
 
   frameImage.addEventListener("load", () => {
-    const rect = frameImage.getBoundingClientRect();
-
-    // Calculate container
     const containerRect = container.getBoundingClientRect();
     const containerWidth = containerRect.width;
     const containerHeight = containerRect.height;
 
-    // Grid
+    // Use square cells that fit the shorter axis nicely
     const squareWidth = containerWidth / squaresAcross;
     const squareHeight = containerHeight / squaresDown;
     const squareSize = Math.min(squareWidth, squareHeight);
@@ -28,52 +25,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const cols = Math.ceil(containerWidth / squareSize);
     const rows = Math.ceil(containerHeight / squareSize);
 
-    const wedgeExtraSquares = Math.ceil(Math.min(cols, rows) / 2);
-    const wedgeOffset = wedgeExtraSquares * squareSize;
+    // ✅ Make the checkerboard large enough to cover diagonal motion
+    const diagMultiplier = Math.SQRT2; // ~1.414
+    const extraCols = Math.ceil(cols * diagMultiplier);
+    const extraRows = Math.ceil(rows * diagMultiplier);
 
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
-    overlayTL.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
-    overlayTL.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
-    overlayBR.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
-    overlayBR.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
+    // Position these overlays slightly oversized and centered
+    overlayTL.style.width = `${extraCols * squareSize}px`;
+    overlayTL.style.height = `${extraRows * squareSize}px`;
+    overlayBR.style.width = `${extraCols * squareSize}px`;
+    overlayBR.style.height = `${extraRows * squareSize}px`;
 
-    function makeDiagonalChecker(containerElement, invert = false, extraSquares = 0) {
-      const totalCols = cols + extraSquares;
-      const totalRows = rows + extraSquares;
+    // Center overlays so they can move freely across viewport
+    overlayTL.style.left = `-${(extraCols - cols) / 2 * squareSize}px`;
+    overlayTL.style.top = `-${(extraRows - rows) / 2 * squareSize}px`;
+    overlayBR.style.left = `-${(extraCols - cols) / 2 * squareSize}px`;
+    overlayBR.style.top = `-${(extraRows - rows) / 2 * squareSize}px`;
 
-      containerElement.style.gridTemplateColumns = `repeat(${totalCols}, ${squareSize}px)`;
-      containerElement.style.gridTemplateRows = `repeat(${totalRows}, ${squareSize}px)`;
+    // ✅ Distances to travel for full diagonal coverage
+    const travelX = containerWidth * diagMultiplier;
+    const travelY = containerHeight * diagMultiplier;
+    overlayTL.style.setProperty("--start-dist-x", `${travelX}px`);
+    overlayTL.style.setProperty("--start-dist-y", `${travelY}px`);
+    overlayBR.style.setProperty("--start-dist-x", `${travelX}px`);
+    overlayBR.style.setProperty("--start-dist-y", `${travelY}px`);
+
+    // Build a full checkerboard (no diagonal masking!)
+    function makeChecker(containerElement, invert = false) {
       containerElement.innerHTML = "";
+      containerElement.style.display = "grid";
+      containerElement.style.gridTemplateColumns = `repeat(${extraCols}, ${squareSize}px)`;
+      containerElement.style.gridTemplateRows = `repeat(${extraRows}, ${squareSize}px)`;
 
-      for (let r = 0; r < totalRows; r++) {
-        for (let c = 0; c < totalCols; c++) {
+      for (let r = 0; r < extraRows; r++) {
+        for (let c = 0; c < extraCols; c++) {
           const square = document.createElement("div");
-          let isBlack;
-
-          if (!invert) {
-            isBlack = (r + c) % 2 === 0 && c < totalCols - r;
-          } else {
-            isBlack = (r + c) % 2 !== 0 && c >= totalCols - r;
-          }
-
-          square.style.width = `${squareSize}px`;
-          square.style.height = `${squareSize}px`;
+          const isBlack = (r + c + (invert ? 1 : 0)) % 2 === 0;
           square.style.background = isBlack ? "black" : "transparent";
           containerElement.appendChild(square);
         }
       }
     }
 
-    makeDiagonalChecker(overlayTL, false, wedgeExtraSquares);
-    makeDiagonalChecker(overlayBR, true, wedgeExtraSquares);
+    makeChecker(overlayTL, false);
+    makeChecker(overlayBR, true);
 
-    // Animate
+    // ✅ Animate them diagonally
     overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
-     let animationsFinished = 0;
+    let animationsFinished = 0;
     function checkRedirect() {
       animationsFinished++;
       if (animationsFinished === 2) {
