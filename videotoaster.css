@@ -37,9 +37,10 @@ body {
   pointer-events: none;
 }
 
+/* Grid */
 #overlay-tl div,
 #overlay-br div {
-  width: 60px;
+  width: 60px; /* matches squareSize in JS */
   height: 60px;
 }
 
