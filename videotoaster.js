@@ -5,29 +5,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
 
+  // Calculate Grid
   const colsBase = Math.ceil(screenWidth / squareSize);
   const rowsBase = Math.ceil(screenHeight / squareSize);
 
-  const extra = Math.max(colsBase, rowsBase);
-  const cols = colsBase + extra;
-  const rows = rowsBase + extra;
+  // Calculate Diagonal
+  const diagonal = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
+  
+  const extraDist = diagonal / 2;
+  const totalCoverage = diagonal + extraDist;
+
+  const cols = Math.ceil(totalCoverage / squareSize);
+  const rows = Math.ceil(totalCoverage / squareSize);
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
 
-  const diagonal = Math.sqrt(screenWidth**2 + screenHeight**2);
-  const extraDist = diagonal / 2;
-
   function makeDiagonalChecker(container, invert = false) {
+    container.style.display = "grid";
     container.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
     container.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
     container.style.position = "absolute";
+    container.style.inset = "0";
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const square = document.createElement("div");
-
         let isBlack;
+
         if (!invert) {
           isBlack = c < cols - r && (r + c) % 2 === 0;
         } else {
@@ -53,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   overlayBR.style.setProperty("--end-dist", `${extraDist}px`);
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
+  // Redirect
   let animationsFinished = 0;
   function checkRedirect() {
     animationsFinished++;
