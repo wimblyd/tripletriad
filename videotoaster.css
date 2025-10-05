@@ -9,6 +9,7 @@ body {
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
+
   width: var(--container-width);
   height: var(--container-height);
 }
@@ -35,8 +36,8 @@ body {
 
 #overlay-tl div,
 #overlay-br div {
-  width: 60px;
-  height: 60px;
+  width: var(--square-size);
+  height: var(--square-size);
 }
 
 @keyframes slide-in-tl {
