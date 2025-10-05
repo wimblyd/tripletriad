@@ -60,11 +60,11 @@ overlayBR.style.setProperty("--start-dist-y", `${containerHeight}px`);
           const square = document.createElement("div");
           let isBlack;
 
-          if (!invert) {
-            isBlack = (r + c) % 2 === 0 && c < cols - r;
-          } else {
-            isBlack = (r + c + 1) % 2 === 0 && c >= cols - r - 1;
-          }
+         if (!invert) {
+    isBlack = (r + c) % 2 === 0;
+} else {
+    isBlack = (r + c) % 2 !== 0;
+}
 
           square.style.width = `${squareSize}px`;
           square.style.height = `${squareSize}px`;
