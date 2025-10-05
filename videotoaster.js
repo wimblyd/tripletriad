@@ -1,31 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
   const SPEED = 5.0;
+  const HOLD_TIME = 0.4;
+  const FADE_TIME = 0.6;
   const squareSize = 60;
 
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const cols = Math.ceil(Math.max(screenWidth, screenHeight) / squareSize);
-  const rows = cols;
+
+  const colsBase = Math.ceil(screenWidth / squareSize);
+  const rowsBase = Math.ceil(screenHeight / squareSize);
+  const extra = Math.max(colsBase, rowsBase);
+  const cols = colsBase + extra;
+  const rows = rowsBase + extra;
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
 
-  // Viewport Calculation
   const maxDim = Math.max(screenWidth, screenHeight);
-  const startDist = maxDim * 0.6; // where animation starts (offscreen)
-  const endDist = maxDim * 1.2;   // how far it travels diagonally
+  const startDist = maxDim * 0.6;
+  const endDist = maxDim * 1.2;
 
-  // Checkerboard Builder
   function makeDiagonalChecker(container, invert = false) {
     container.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
     container.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
     container.style.position = "absolute";
+    container.innerHTML = "";
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const square = document.createElement("div");
-
         let isBlack;
+
         if (!invert) {
           isBlack = c < cols - r && (r + c) % 2 === 0;
         } else {
@@ -41,25 +46,30 @@ document.addEventListener("DOMContentLoaded", () => {
   makeDiagonalChecker(overlayTL, false);
   makeDiagonalChecker(overlayBR, true);
 
-  // Position Animation
-  overlayTL.style.top = "0px";
-  overlayTL.style.left = "0px";
+  // Set Distance
   overlayTL.style.setProperty("--start-dist", `${startDist}px`);
   overlayTL.style.setProperty("--end-dist", `${endDist}px`);
-  overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-out`;
-
-  overlayBR.style.top = "0px";
-  overlayBR.style.left = "0px";
   overlayBR.style.setProperty("--start-dist", `${startDist}px`);
   overlayBR.style.setProperty("--end-dist", `${endDist}px`);
-  overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-out`;
 
-  // Redirect
+  // Run Animations
+  overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
+  overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
+
   let animationsFinished = 0;
+
   function checkRedirect() {
     animationsFinished++;
     if (animationsFinished === 2) {
-      window.location.href = "checklist.html";
+
+      setTimeout(() => {
+        overlayTL.classList.add("fade-out");
+        overlayBR.classList.add("fade-out");
+
+        setTimeout(() => {
+          window.location.href = "checklist.html";
+        }, FADE_TIME * 1000);
+      }, HOLD_TIME * 1000);
     }
   }
 
