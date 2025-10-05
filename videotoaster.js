@@ -13,11 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
 
-    // Calculate geometric diagonal angle
-    const rawAngle = Math.atan(height / width) * (180 / Math.PI);
-
-    // Use roughly half the angle for near-vertical appearance
-    const angle = rawAngle * 0.5;
+    // Fixed rotation angle
+    const angle = 60; // degrees
 
     // Oversized diagonal to fully cover container
     const diag = Math.sqrt(width * width + height * height) * 1.1;
@@ -41,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
-    // Inject new keyframes with updated angle
+    // Inject new keyframes with fixed angle
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
