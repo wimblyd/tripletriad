@@ -12,10 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
-    const rawAngle = Math.atan(height / width) * (180 / Math.PI); // True diagonal angle
-    const angle = rawAngle * 0.88; // Visual correction factor (tweak 0.85-0.9 if needed)
-    const diag = Math.sqrt(width * width + height * height) * 1.1; // Oversize by 10%
-
+    const rawAngle = Math.atan(height / width) * (90 / Math.PI); 
+    
     // Gridmaker
     [overlayTL, overlayBR].forEach((el, idx) => {
       el.style.position = "absolute";
