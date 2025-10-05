@@ -12,10 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
-    const rawAngle = Math.atan(height / width) * (90 / Math.PI); 
-    
-    // Gridmaker
-    [overlayTL, overlayBR].forEach((el, idx) => {
+
+    // Calculate geometric diagonal angle
+    const rawAngle = Math.atan(height / width) * (180 / Math.PI);
+
+    // Use roughly half the angle for near-vertical appearance
+    const angle = rawAngle * 0.5;
+
+    // Oversized diagonal to fully cover container
+    const diag = Math.sqrt(width * width + height * height) * 1.1;
+
+    // Apply styles to overlays
+    [overlayTL, overlayBR].forEach((el) => {
       el.style.position = "absolute";
       el.style.top = "50%";
       el.style.left = "50%";
@@ -29,11 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.overflow = "visible";
     });
 
-    // Remove old dynamic keyframes
+    // Remove old dynamic keyframes if they exist
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
-    // Inject new keyframes
+    // Inject new keyframes with updated angle
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
@@ -52,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
 
-    // Redirect
+    // Handle fade-out and redirect
     let finished = 0;
     function handleFinished() {
       finished++;
@@ -75,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.addEventListener("animationend", handleFinished, { once: true });
   }
 
+  // Run on load and resize
   window.addEventListener("load", runWipe);
   window.addEventListener("resize", runWipe);
 });
