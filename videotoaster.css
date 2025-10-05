@@ -6,7 +6,7 @@ body {
 
 #computer-container {
   position: absolute;
-  overflow: hidden; /* Prevent stretching */
+  overflow: hidden;
   pointer-events: none;
   z-index: 1;
   width: var(--container-width);
