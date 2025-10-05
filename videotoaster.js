@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const startDist = Math.max(containerWidth, containerHeight) * 0.6;
     const endDist = diagonal * 1.2;
 
-    overlayTL.style.setProperty("--start-dist", `${startDist}px`);
-    overlayTL.style.setProperty("--end-dist", `${endDist}px`);
-    overlayBR.style.setProperty("--start-dist", `${startDist}px`);
-    overlayBR.style.setProperty("--end-dist", `${endDist}px`);
-
+overlayTL.style.setProperty("--start-dist-x", `${containerWidth}px`);
+overlayTL.style.setProperty("--start-dist-y", `${containerHeight}px`);
+overlayBR.style.setProperty("--start-dist-x", `${containerWidth}px`);
+overlayBR.style.setProperty("--start-dist-y", `${containerHeight}px`);
+    
     // Generate and Animate
     function makeDiagonalChecker(containerElement, invert = false) {
       containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
