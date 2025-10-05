@@ -1,13 +1,3 @@
-body {
-  background-image: url("img/Intranet.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  margin: 0;
-  padding: 0;
-}
-
 #computer {
   position: relative;
   display: block;
