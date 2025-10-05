@@ -9,16 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const colsBase = Math.ceil(screenWidth / squareSize);
   const rowsBase = Math.ceil(screenHeight / squareSize);
-  const extra = Math.max(colsBase, rowsBase);
-  const cols = colsBase + extra;
-  const rows = rowsBase + extra;
+
+  const diagonal = Math.sqrt(screenWidth**2 + screenHeight**2);
+  const extraSquares = Math.ceil(diagonal / squareSize) + 2;
+
+  const cols = colsBase + extraSquares;
+  const rows = rowsBase + extraSquares;
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
 
   const maxDim = Math.max(screenWidth, screenHeight);
   const startDist = maxDim * 0.6;
-  const endDist = maxDim * 1.2;
+  const endDist = diagonal * 1.2;
 
   function makeDiagonalChecker(container, invert = false) {
     container.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
@@ -32,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let isBlack;
 
         if (!invert) {
-          isBlack = c < cols - r && (r + c) % 2 === 0;
+          isBlack = (r + c) % 2 === 0 && c < cols - r;
         } else {
-          isBlack = c >= cols - r - 1 && (r + c + 1) % 2 === 0;
+          isBlack = (r + c + 1) % 2 === 0 && c >= cols - r - 1;
         }
 
         square.style.background = isBlack ? "black" : "transparent";
@@ -46,13 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
   makeDiagonalChecker(overlayTL, false);
   makeDiagonalChecker(overlayBR, true);
 
-  // Set Distance
   overlayTL.style.setProperty("--start-dist", `${startDist}px`);
   overlayTL.style.setProperty("--end-dist", `${endDist}px`);
   overlayBR.style.setProperty("--start-dist", `${startDist}px`);
   overlayBR.style.setProperty("--end-dist", `${endDist}px`);
 
-  // Run Animations
   overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
   overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
@@ -61,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkRedirect() {
     animationsFinished++;
     if (animationsFinished === 2) {
-
       setTimeout(() => {
         overlayTL.classList.add("fade-out");
         overlayBR.classList.add("fade-out");
