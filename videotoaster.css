@@ -8,6 +8,13 @@ body {
   padding: 0;
 }
 
+#computer-container {
+  position: relative;
+  width: 100vw;   
+  height: 100vh; 
+  overflow: hidden;
+}
+
 /* Video Toaster */
 #overlay-tl,
 #overlay-br {
