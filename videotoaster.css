@@ -21,14 +21,31 @@ body {
   height: 60px;
 }
 
+/* --- New transform-based animations --- */
 @keyframes slide-in-tl {
-  from { transform: translate(-100%, -100%); }
-  to   { transform: translate(0, 0); }
+  from {
+    transform: translate3d(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)), 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist)), 0);
+  }
 }
 
 @keyframes slide-in-br {
-  from { transform: translate(var(--start-dist), var(--start-dist)); }
-  to   { transform: translate(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist))); }
+  from {
+    transform: translate3d(var(--start-dist), var(--start-dist), 0);
+  }
+  to {
+    transform: translate3d(var(--end-dist), var(--end-dist), 0);
+  }
+}
+
+/* Smooth GPU animation & consistent transform origin */
+#overlay-tl,
+#overlay-br {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-origin: 0 0;
 }
 
 #overlay-tl.fade-out,
