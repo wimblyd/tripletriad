@@ -13,27 +13,46 @@ document.addEventListener("DOMContentLoaded", () => {
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
 
-    const angle = 60; 
+    const angle = 60; // rotation of checkerboard blocks
     const diag = Math.sqrt(width * width + height * height) * 1.1;
 
-    [overlayTL, overlayBR].forEach((el) => {
-      el.style.position = "absolute";
-      el.style.top = "50%";
-      el.style.left = "50%";
-      el.style.width = `${diag}px`;
-      el.style.height = `${diag}px`;
-      el.style.transformOrigin = "center";
-      el.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
-      el.style.backgroundSize = "64px 64px";
-      el.style.opacity = "1";
-      el.style.display = "grid";
-      el.style.overflow = "visible";
-      el.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`; // fixed rotation
-    });
+    const squareSize = 80; 
 
+    // Top-left overlay
+    overlayTL.style.position = "absolute";
+    overlayTL.style.top = "50%";
+    overlayTL.style.left = "50%";
+    overlayTL.style.width = `${diag}px`;
+    overlayTL.style.height = `${diag}px`;
+    overlayTL.style.transformOrigin = "center";
+    overlayTL.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
+    overlayTL.style.backgroundSize = `${squareSize}px ${squareSize}px`;
+    overlayTL.style.backgroundPosition = `0 0`; // aligned normally
+    overlayTL.style.opacity = "1";
+    overlayTL.style.display = "grid";
+    overlayTL.style.overflow = "visible";
+    overlayTL.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+    // Bottom-right overlay
+    overlayBR.style.position = "absolute";
+    overlayBR.style.top = "50%";
+    overlayBR.style.left = "50%";
+    overlayBR.style.width = `${diag}px`;
+    overlayBR.style.height = `${diag}px`;
+    overlayBR.style.transformOrigin = "center";
+    overlayBR.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
+    overlayBR.style.backgroundSize = `${squareSize}px ${squareSize}px`;
+    overlayBR.style.backgroundPosition = `${squareSize}px ${squareSize}px`; // offset one square
+    overlayBR.style.opacity = "1";
+    overlayBR.style.display = "grid";
+    overlayBR.style.overflow = "visible";
+    overlayBR.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+    // Remove old keyframes
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
+    // Animate
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
@@ -51,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
 
+    // Fade-out and redirect
     let finished = 0;
     function handleFinished() {
       finished++;
