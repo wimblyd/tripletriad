@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const HOLD_TIME = 0.4;
   const FADE_TIME = 0.6;
   const REDIRECT_URL = "checklist.html";
+  const squareSize = 80;
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
@@ -12,51 +13,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
+    const diag = Math.sqrt(width * width + height * height) * 1.2; // oversize to cover container
 
-    const diag = Math.sqrt(width * width + height * height) * 1.1;
-    const squareSize = 80;
-    const diagonalAngle = 60;
+    // Calculate offsets
+    const angleDeg = 60;
+    const angleRad = (angleDeg * Math.PI) / 180;
+    const xOffset = diag * Math.cos(angleRad);
+    const yOffset = diag * Math.sin(angleRad);
 
-    // Top-left
-    overlayTL.style.position = "absolute";
-    overlayTL.style.top = "50%";
-    overlayTL.style.left = "50%";
-    overlayTL.style.width = `${diag}px`;
-    overlayTL.style.height = `${diag}px`;
-    overlayTL.style.transformOrigin = "center";
-    overlayTL.style.backgroundImage = `repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)`;
-    overlayTL.style.backgroundSize = `${squareSize}px ${squareSize}px`;
-    overlayTL.style.backgroundPosition = `0 0`;
-    overlayTL.style.opacity = "1";
-    overlayTL.style.display = "grid";
-    overlayTL.style.overflow = "visible";
-    overlayTL.style.transform = `translate(-50%, -50%)`;
+    // Gridmaker
+    function setupOverlay(el, invert = false) {
+      el.style.position = "absolute";
+      el.style.top = "50%";
+      el.style.left = "50%";
+      el.style.width = `${diag}px`;
+      el.style.height = `${diag}px`;
+      el.style.transformOrigin = "center";
+      el.style.display = "grid";
+      el.style.overflow = "visible";
+      el.style.opacity = "1";
+      el.style.transform = "translate(-50%, -50%)";
+      const offset = invert ? squareSize : 0;
+      el.style.backgroundImage = `
+        repeating-conic-gradient(
+          black 0% 25%, 
+          transparent 25% 50%
+        )
+      `;
+      el.style.backgroundSize = `${squareSize}px ${squareSize}px`;
+      el.style.backgroundPosition = `${offset}px ${offset}px`;
+    }
 
-    // Bottom-right
-    overlayBR.style.position = "absolute";
-    overlayBR.style.top = "50%";
-    overlayBR.style.left = "50%";
-    overlayBR.style.width = `${diag}px`;
-    overlayBR.style.height = `${diag}px`;
-    overlayBR.style.transformOrigin = "center";
-    overlayBR.style.backgroundImage = `repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)`;
-    overlayBR.style.backgroundSize = `${squareSize}px ${squareSize}px`;
-    overlayBR.style.backgroundPosition = `${squareSize / 2}px ${squareSize / 2}px`; // interlock
-    overlayBR.style.opacity = "1";
-    overlayBR.style.display = "grid";
-    overlayBR.style.overflow = "visible";
-    overlayBR.style.transform = `translate(-50%, -50%)`;
+    setupOverlay(overlayTL, false);
+    setupOverlay(overlayBR, true);
 
     // Remove old keyframes
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
-    
-    // Calculate offsets
-    const radians = (diagonalAngle * Math.PI) / 180;
-    const xOffset = diag * Math.cos(radians);
-    const yOffset = diag * Math.sin(radians);
-
+    // Animate
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
