@@ -9,24 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
 
-  const leftPercent = 0.08;
-  const topPercent = 0.04;
-  const rightPercent = 0.08;
-  const bottomPercent = 0.04;
-
   frameImage.addEventListener("load", () => {
-    const rect = frameImage.getBoundingClientRect();
-
-    const containerLeft = rect.left + rect.width * leftPercent;
-    const containerTop = rect.top + rect.height * topPercent;
-    const containerWidth = rect.width * (1 - leftPercent - rightPercent);
-    const containerHeight = rect.height * (1 - topPercent - bottomPercent);
-
-    container.style.position = "absolute";
-    container.style.left = `${containerLeft}px`;
-    container.style.top = `${containerTop}px`;
-    container.style.setProperty("--container-width", `${containerWidth}px`);
-    container.style.setProperty("--container-height", `${containerHeight}px`);
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
 
     const squareWidth = containerWidth / squaresAcross;
     const squareHeight = containerHeight / squaresDown;
@@ -35,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cols = squaresAcross;
     const rows = squaresDown;
 
-    const wedgeExtraSquares = Math.ceil(Math.min(cols, rows) / 2);
+    const wedgeExtraSquares = Math.ceil(Math.max(cols, rows) * 1.5);
     const wedgeOffset = wedgeExtraSquares * squareSize;
 
     const overlayTL = document.getElementById("overlay-tl");
@@ -58,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let c = 0; c < totalCols; c++) {
           const square = document.createElement("div");
           let isBlack;
-
+          
           if (!invert) {
-            isBlack = (r + c) % 2 === 0 && c < totalCols - r;
+            isBlack = (r + c) % 2 === 0 && c < totalCols - r + 1;
           } else {
-            isBlack = (r + c) % 2 !== 0 && c >= totalCols - r;
+            isBlack = (r + c) % 2 !== 0 && c >= totalCols - r - 1;
           }
 
           square.style.width = `${squareSize}px`;
@@ -92,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     growGrid();
 
     let animationsFinished = 0;
+
     function checkRedirect() {
       animationsFinished++;
       if (animationsFinished === 2) {
