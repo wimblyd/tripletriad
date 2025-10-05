@@ -1,19 +1,16 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 #computer-container {
   position: absolute;
-  background-image: url("img/Intranet.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden; /* Prevent stretching */
   pointer-events: none;
   z-index: 1;
-  width: 100px;
-  height: 100px; 
+  width: var(--container-width);
+  height: var(--container-height);
 }
 
 #computer {
@@ -25,7 +22,6 @@ body {
   z-index: 2;
 }
 
-/* Video Toaster */
 #overlay-tl,
 #overlay-br {
   position: absolute;
@@ -37,14 +33,12 @@ body {
   pointer-events: none;
 }
 
-/* Grid */
 #overlay-tl div,
 #overlay-br div {
-  width: 60px; /* matches squareSize in JS */
+  width: 60px;
   height: 60px;
 }
 
-/* Animations */
 @keyframes slide-in-tl {
   from {
     transform: translate(
@@ -69,7 +63,6 @@ body {
   }
 }
 
-/* Fade Out */
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
