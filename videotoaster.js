@@ -4,87 +4,79 @@ document.addEventListener("DOMContentLoaded", () => {
   const FADE_TIME = 0.6;  
   const REDIRECT_URL = "checklist.html";
 
-  const squaresAcross = 30;
-  const squaresDown = 15;
-
-  const frameImage = document.getElementById("computer");
+  const overlayTL = document.getElementById("overlay-tl");
+  const overlayBR = document.getElementById("overlay-br");
   const container = document.getElementById("computer-container");
 
-  frameImage.addEventListener("load", () => {
-    const containerRect = container.getBoundingClientRect();
-    const containerWidth = containerRect.width;
-    const containerHeight = containerRect.height;
+  if (!overlayTL || !overlayBR || !container) return;
 
-    // Use square cells that fit the shorter axis nicely
-    const squareWidth = containerWidth / squaresAcross;
-    const squareHeight = containerHeight / squaresDown;
-    const squareSize = Math.min(squareWidth, squareHeight);
+  function runWipe() {
+    const { width, height } = container.getBoundingClientRect();
+    const angle = Math.atan(height / width) * (180 / Math.PI); // True diagonal angle
+    const diag = Math.sqrt(width * width + height * height) * 1.1; // Oversize by 10%
 
-    container.style.setProperty("--square-size", `${squareSize}px`);
+    // Gridmaker
+    [overlayTL, overlayBR].forEach((el, idx) => {
+      el.style.position = "absolute";
+      el.style.top = "50%";
+      el.style.left = "50%";
+      el.style.width = `${diag}px`;
+      el.style.height = `${diag}px`;
+      el.style.transformOrigin = "center";
+      el.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
+      el.style.backgroundSize = "64px 64px"; // adjust checker size if needed
+      el.style.opacity = "1";
+      el.style.display = "grid";
+      el.style.overflow = "visible";
+    });
 
-    const cols = Math.ceil(containerWidth / squareSize);
-    const rows = Math.ceil(containerHeight / squareSize);
+    // Remove old dynamic keyframes
+    const oldStyle = document.getElementById("dynamic-animations");
+    if (oldStyle) oldStyle.remove();
 
-    const diagMultiplier = Math.SQRT2; // ~1.414
-    const extraCols = Math.ceil(cols * diagMultiplier);
-    const extraRows = Math.ceil(rows * diagMultiplier);
-
-    const overlayTL = document.getElementById("overlay-tl");
-    const overlayBR = document.getElementById("overlay-br");
-
-    overlayTL.style.width = `${extraCols * squareSize}px`;
-    overlayTL.style.height = `${extraRows * squareSize}px`;
-    overlayBR.style.width = `${extraCols * squareSize}px`;
-    overlayBR.style.height = `${extraRows * squareSize}px`;
-
-    overlayTL.style.transform = `translate(-50%, -50%) rotate(45deg)`;
-    overlayBR.style.transform = `translate(-50%, -50%) rotate(45deg)`;
-
-    const travelX = containerWidth * diagMultiplier;
-    const travelY = containerHeight * diagMultiplier;
-    overlayTL.style.setProperty("--start-dist-x", `${travelX}px`);
-    overlayTL.style.setProperty("--start-dist-y", `${travelY}px`);
-    overlayBR.style.setProperty("--start-dist-x", `${travelX}px`);
-    overlayBR.style.setProperty("--start-dist-y", `${travelY}px`);
-
-    function makeChecker(containerElement, invert = false) {
-      containerElement.innerHTML = "";
-      containerElement.style.display = "grid";
-      containerElement.style.gridTemplateColumns = `repeat(${extraCols}, ${squareSize}px)`;
-      containerElement.style.gridTemplateRows = `repeat(${extraRows}, ${squareSize}px)`;
-
-      for (let r = 0; r < extraRows; r++) {
-        for (let c = 0; c < extraCols; c++) {
-          const square = document.createElement("div");
-          const isBlack = (r + c + (invert ? 1 : 0)) % 2 === 0;
-          square.style.background = isBlack ? "black" : "transparent";
-          containerElement.appendChild(square);
-        }
+    // Inject new keyframes
+    const style = document.createElement("style");
+    style.id = "dynamic-animations";
+    style.textContent = `
+      @keyframes slide-in-tl {
+        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(-100%, -100%); }
+        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
       }
-    }
+      @keyframes slide-in-br {
+        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(100%, 100%); }
+        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
+      }
+    `;
+    document.head.appendChild(style);
 
-    makeChecker(overlayTL, false);
-    makeChecker(overlayBR, true);
+    // Start animations
+    overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
+    overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
 
-    overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
-    overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
-
-    let animationsFinished = 0;
-    function checkRedirect() {
-      animationsFinished++;
-      if (animationsFinished === 2) {
+    // Redirect
+    let finished = 0;
+    function handleFinished() {
+      finished++;
+      if (finished === 2) { // both overlays finished
         setTimeout(() => {
-          overlayTL.classList.add("fade-out");
-          overlayBR.classList.add("fade-out");
+          overlayTL.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
+          overlayBR.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
+          overlayTL.style.opacity = "0";
+          overlayBR.style.opacity = "0";
 
           setTimeout(() => {
             window.location.href = REDIRECT_URL;
           }, FADE_TIME * 1000);
+
         }, HOLD_TIME * 1000);
       }
     }
 
-    overlayTL.addEventListener("animationend", checkRedirect, { once: true });
-    overlayBR.addEventListener("animationend", checkRedirect, { once: true });
-  });
+    overlayTL.addEventListener("animationend", handleFinished, { once: true });
+    overlayBR.addEventListener("animationend", handleFinished, { once: true });
+  }
+
+  // Run on load and calculate on resize
+  window.addEventListener("load", runWipe);
+  window.addEventListener("resize", runWipe);
 });
