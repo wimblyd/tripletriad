@@ -1,14 +1,15 @@
-#computer {
-  position: relative;
-  display: block;
-  max-width: 100%;
-}
-
 #computer-container {
   position: absolute;
   top: 0;
   left: 0;
-  pointer-events: none;
+  z-index: 1;
+}
+
+#computer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 /* Video Toaster */
