@@ -13,56 +13,60 @@ document.addEventListener("DOMContentLoaded", () => {
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
 
-    const angle = 60; // rotation of checkerboard blocks
     const diag = Math.sqrt(width * width + height * height) * 1.1;
+    const squareSize = 80;
+    const diagonalAngle = 60;
 
-    const squareSize = 80; 
-
-    // Top-left overlay
+    // Top-left
     overlayTL.style.position = "absolute";
     overlayTL.style.top = "50%";
     overlayTL.style.left = "50%";
     overlayTL.style.width = `${diag}px`;
     overlayTL.style.height = `${diag}px`;
     overlayTL.style.transformOrigin = "center";
-    overlayTL.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
+    overlayTL.style.backgroundImage = `repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)`;
     overlayTL.style.backgroundSize = `${squareSize}px ${squareSize}px`;
     overlayTL.style.backgroundPosition = `0 0`;
     overlayTL.style.opacity = "1";
     overlayTL.style.display = "grid";
     overlayTL.style.overflow = "visible";
-    overlayTL.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    overlayTL.style.transform = `translate(-50%, -50%)`;
 
-    // Bottom-right overlay
+    // Bottom-right
     overlayBR.style.position = "absolute";
     overlayBR.style.top = "50%";
     overlayBR.style.left = "50%";
     overlayBR.style.width = `${diag}px`;
     overlayBR.style.height = `${diag}px`;
     overlayBR.style.transformOrigin = "center";
-    overlayBR.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
+    overlayBR.style.backgroundImage = `repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)`;
     overlayBR.style.backgroundSize = `${squareSize}px ${squareSize}px`;
-    overlayBR.style.backgroundPosition = `${squareSize}px ${squareSize}px`; // offset one square
+    overlayBR.style.backgroundPosition = `${squareSize / 2}px ${squareSize / 2}px`; // interlock
     overlayBR.style.opacity = "1";
     overlayBR.style.display = "grid";
     overlayBR.style.overflow = "visible";
-    overlayBR.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    overlayBR.style.transform = `translate(-50%, -50%)`;
 
     // Remove old keyframes
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
-    // Animate
+    
+    // Calculate offsets
+    const radians = (diagonalAngle * Math.PI) / 180;
+    const xOffset = diag * Math.cos(radians);
+    const yOffset = diag * Math.sin(radians);
+
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
       @keyframes slide-in-tl {
-        from { transform: translate(calc(-50% - ${diag}px), calc(-50% - ${diag}px)) rotate(${angle}deg); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg); }
+        from { transform: translate(calc(-50% - ${xOffset}px), calc(-50% - ${yOffset}px)); }
+        to   { transform: translate(-50%, -50%); }
       }
       @keyframes slide-in-br {
-        from { transform: translate(calc(-50% + ${diag}px), calc(-50% + ${diag}px)) rotate(${angle}deg); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg); }
+        from { transform: translate(calc(-50% + ${xOffset}px), calc(-50% + ${yOffset}px)); }
+        to   { transform: translate(-50%, -50%); }
       }
     `;
     document.head.appendChild(style);
