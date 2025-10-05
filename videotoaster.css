@@ -1,5 +1,9 @@
 #computer-container {
   position: absolute;
+  background-image: url("intranet.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   top: 0;
   left: 0;
   z-index: 1;
