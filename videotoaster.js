@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 5.0;       
-  const HOLD_TIME = 0.4;   
-  const FADE_TIME = 0.6;  
+  const SPEED = 5.0;
+  const HOLD_TIME = 0.4;
+  const FADE_TIME = 0.6;
   const REDIRECT_URL = "checklist.html";
 
   const overlayTL = document.getElementById("overlay-tl");
@@ -13,13 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
 
-    // Fixed rotation angle
-    const angle = 60; // degrees
-
-    // Oversized diagonal to fully cover container
+    const angle = 60; 
     const diag = Math.sqrt(width * width + height * height) * 1.1;
 
-    // Apply styles to overlays
     [overlayTL, overlayBR].forEach((el) => {
       el.style.position = "absolute";
       el.style.top = "50%";
@@ -28,36 +24,33 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.height = `${diag}px`;
       el.style.transformOrigin = "center";
       el.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
-      el.style.backgroundSize = "64px 64px"; 
+      el.style.backgroundSize = "64px 64px";
       el.style.opacity = "1";
       el.style.display = "grid";
       el.style.overflow = "visible";
+      el.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`; // fixed rotation
     });
 
-    // Remove old dynamic keyframes if they exist
     const oldStyle = document.getElementById("dynamic-animations");
     if (oldStyle) oldStyle.remove();
 
-    // Inject new keyframes with fixed angle
     const style = document.createElement("style");
     style.id = "dynamic-animations";
     style.textContent = `
       @keyframes slide-in-tl {
-        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(-100%, -100%); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
+        from { transform: translate(calc(-50% - ${diag}px), calc(-50% - ${diag}px)) rotate(${angle}deg); }
+        to   { transform: translate(-50%, -50%) rotate(${angle}deg); }
       }
       @keyframes slide-in-br {
-        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(100%, 100%); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
+        from { transform: translate(calc(-50% + ${diag}px), calc(-50% + ${diag}px)) rotate(${angle}deg); }
+        to   { transform: translate(-50%, -50%) rotate(${angle}deg); }
       }
     `;
     document.head.appendChild(style);
 
-    // Start animations
     overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
 
-    // Handle fade-out and redirect
     let finished = 0;
     function handleFinished() {
       finished++;
@@ -71,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             window.location.href = REDIRECT_URL;
           }, FADE_TIME * 1000);
-
         }, HOLD_TIME * 1000);
       }
     }
@@ -80,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.addEventListener("animationend", handleFinished, { once: true });
   }
 
-  // Run on load and resize
   window.addEventListener("load", runWipe);
   window.addEventListener("resize", runWipe);
 });
