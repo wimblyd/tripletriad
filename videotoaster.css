@@ -12,6 +12,8 @@ body {
   background-position: center;
   pointer-events: none;
   z-index: 1;
+  width: 100px;
+  height: 100px; 
 }
 
 #computer {
