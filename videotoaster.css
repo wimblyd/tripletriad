@@ -17,8 +17,8 @@ body {
   position: absolute;
   top: 4%;
   left: 8%;
-  width: 84%;  /* 100 - (8 + 8) */
-  height: 92%; /* 100 - (4 + 4) */
+  width: 84%;   /* 100 - (8 + 8) */
+  height: 92%;  /* 100 - (4 + 4) */
   background: url("img/Intranet.png") no-repeat center center;
   background-size: cover;
   overflow: hidden;
@@ -33,37 +33,13 @@ body {
   left: 50%;
   transform-origin: center center;
   display: grid;
-  overflow: visible;
-  z-index: 3;
+  overflow: visible; 
   pointer-events: none;
-}
-
-#overlay-tl div,
-#overlay-br div {
-  width: var(--square-size);
-  height: var(--square-size);
-}
-
-@keyframes slide-in-tl {
-  from {
-    transform: translate(-50%, -50%) rotate(45deg) translate(-100%, -100%);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(45deg) translate(0, 0);
-  }
-}
-
-@keyframes slide-in-br {
-  from {
-    transform: translate(-50%, -50%) rotate(45deg) translate(100%, 100%);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(45deg) translate(0, 0);
-  }
+  z-index: 4;          
 }
 
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+  transition: opacity 0.6s ease-in-out;  
 }
