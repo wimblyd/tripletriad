@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rowsBase = Math.ceil(containerHeight / squareSize);
 
     const diagonal = Math.sqrt(containerWidth ** 2 + containerHeight ** 2);
-    const extraSquares = Math.ceil(diagonal / squareSize) + 2;
+    const extraSquares = 2; // keep it small
 
     const cols = colsBase + extraSquares;
     const rows = rowsBase + extraSquares;
