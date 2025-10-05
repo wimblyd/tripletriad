@@ -50,29 +50,29 @@ overlayBR.style.setProperty("--start-dist-y", `${containerHeight}px`);
 
     // Create grid
     function makeDiagonalChecker(containerElement, invert = false) {
-      containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
-      containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
-      containerElement.style.position = "absolute";
-      containerElement.innerHTML = "";
+    containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
+    containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
+    containerElement.style.position = "absolute";
+    containerElement.innerHTML = "";
 
-      for (let r = 0; r < rows; r++) {
+    for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const square = document.createElement("div");
-          let isBlack;
+            const square = document.createElement("div");
+            let isBlack;
 
-         if (!invert) {
-    isBlack = (r + c) % 2 === 0;
-} else {
-    isBlack = (r + c) % 2 !== 0;
-}
+            if (!invert) {
+                isBlack = (r + c) % 2 === 0 && c < cols - r; // wedge + checker
+            } else {
+                isBlack = (r + c) % 2 !== 0 && c >= cols - r; // inverted wedge
+            }
 
-          square.style.width = `${squareSize}px`;
-          square.style.height = `${squareSize}px`;
-          square.style.background = isBlack ? "black" : "transparent";
-          containerElement.appendChild(square);
+            square.style.width = `${squareSize}px`;
+            square.style.height = `${squareSize}px`;
+            square.style.background = isBlack ? "black" : "transparent";
+            containerElement.appendChild(square);
         }
-      }
     }
+}
 
     makeDiagonalChecker(overlayTL, false);
     makeDiagonalChecker(overlayBR, true);
