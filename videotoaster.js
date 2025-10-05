@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
+
     const containerLeft = rect.left + rect.width * leftPercent;
     const containerTop = rect.top + rect.height * topPercent;
     const containerWidth = rect.width * (1 - leftPercent - rightPercent);
@@ -31,23 +32,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const diagonal = Math.sqrt(containerWidth ** 2 + containerHeight ** 2);
 
-    const extraSquares = 2; // minimal overshoot for smooth edge
+    const extraSquares = 2; 
     const cols = colsBase + extraSquares;
     const rows = rowsBase + extraSquares;
 
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
-    // Wedge offset calculation
+    // Wedge offset
     const wedgeOffset = Math.ceil(Math.min(cols, rows) / 2) * squareSize;
+    const overshootOffset = wedgeOffset; 
+    
+    // Animation distance
+    const startDistX = containerWidth + wedgeOffset + overshootOffset;
+    const startDistY = containerHeight + wedgeOffset + overshootOffset;
 
-    // Animation distances
-    overlayTL.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
-    overlayTL.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
-    overlayBR.style.setProperty("--start-dist-x", `${containerWidth + wedgeOffset}px`);
-    overlayBR.style.setProperty("--start-dist-y", `${containerHeight + wedgeOffset}px`);
+    overlayTL.style.setProperty("--start-dist-x", `${startDistX}px`);
+    overlayTL.style.setProperty("--start-dist-y", `${startDistY}px`);
+    overlayBR.style.setProperty("--start-dist-x", `${startDistX}px`);
+    overlayBR.style.setProperty("--start-dist-y", `${startDistY}px`);
 
-    // Create grid
+    // Create grid 
     function makeDiagonalChecker(containerElement, invert = false) {
       containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
       containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
@@ -60,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
           let isBlack;
 
           if (!invert) {
-            isBlack = (r + c) % 2 === 0 && c < cols - r; // wedge + checker
+            isBlack = (r + c) % 2 === 0 && c < cols - r; 
           } else {
-            isBlack = (r + c) % 2 !== 0 && c >= cols - r; // inverted wedge
+            isBlack = (r + c) % 2 !== 0 && c >= cols - r; 
           }
 
           square.style.width = `${squareSize}px`;
@@ -76,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     makeDiagonalChecker(overlayTL, false);
     makeDiagonalChecker(overlayBR, true);
 
-    // Animations
+    // Animation
     overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
