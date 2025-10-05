@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function runWipe() {
     const { width, height } = container.getBoundingClientRect();
-    const diag = Math.sqrt(width * width + height * height) * 1.2; // oversize to cover container
+    const diag = Math.sqrt(width * width + height * height) * 1.2;
 
     // Calculate offsets
     const angleDeg = 60;
