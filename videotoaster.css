@@ -1,26 +1,27 @@
 body {
   margin: 0;
   padding: 0;
+  position: relative;
   overflow: hidden;
+}
+
+#computer {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
 }
 
 #computer-container {
   position: absolute;
+  top: 4%;
+  left: 8%;
+  width: 84%;  /* 100 - (8 + 8) */
+  height: 92%; /* 100 - (4 + 4) */
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
-
-  width: var(--container-width);
-  height: var(--container-height);
-}
-
-#computer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 2;
+  z-index: 3;
 }
 
 #overlay-tl,
