@@ -1,83 +1,161 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 5.0;       // wipe animation duration
-  const HOLD_TIME = 0.4;   // hold before fade
-  const FADE_TIME = 0.6;   // fade duration
-  const REDIRECT_URL = "checklist.html";
+ 
+  // Restore Operation Log
+  const logDiv = document.getElementById('operation-log');
+  const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+  savedLogs.forEach(entry => {
+    const div = document.createElement('div');
+    div.textContent = entry;
+    logDiv.appendChild(div);
+  });
+  logDiv.scrollTop = logDiv.scrollHeight;
 
-  const overlayTL = document.getElementById("overlay-tl");
-  const overlayBR = document.getElementById("overlay-br");
-  const screen = document.getElementById("computer-container");
+  // Setup
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const id = card.dataset.cardId;
+    const savedState = localStorage.getItem(id);
 
-  if (!overlayTL || !overlayBR || !screen) return;
+    if (savedState === "flipped") {
+      card.classList.add("flipped");
+    } else {
+      card.classList.remove("flipped");
+    }
+   
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-  function runWipe() {
-    const { width, height } = screen.getBoundingClientRect();
-    const angle = Math.atan(height / width) * (180 / Math.PI);
-    const travelX = width * Math.SQRT2;  // distance for diagonal motion
-    const travelY = height * Math.SQRT2;
+    const toggleFlip = () => {
+      card.classList.toggle("flipped");
+      const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+      saveCardState(id, state);
+      card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+      addLogEntry(`${card.title} was ${state}`);
+    };
 
-    // Grid
-    [overlayTL, overlayBR].forEach(el => {
-      el.style.position = "absolute";
-      el.style.top = "50%";
-      el.style.left = "50%";
-      el.style.width = "200%";
-      el.style.height = "200%";
-      el.style.transformOrigin = "center";
-      el.style.backgroundImage = "repeating-conic-gradient(#000 0% 25%, transparent 25% 50%)";
-      el.style.backgroundSize = "64px 64px";
-      el.style.opacity = "1";
+    card.addEventListener("click", toggleFlip);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleFlip();
+      }
     });
+  });
 
-    // Inject keyframes dynamically
-    const oldStyle = document.getElementById("dynamic-animations");
-    if (oldStyle) oldStyle.remove();
+  // Unflip All
+  const resetButton = document.getElementById("resetButton");
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      cards.forEach(card => {
+        card.classList.remove("flipped");
+        saveCardState(card.dataset.cardId, "unflipped");
+        card.setAttribute("aria-pressed", "false");
+      });
+      addLogEntry("Cards unflipped");
+    });
+  }
 
-    const style = document.createElement("style");
-    style.id = "dynamic-animations";
-    style.textContent = `
-      @keyframes slide-in-tl {
-        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(-100%, -100%); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
-      }
-      @keyframes slide-in-br {
-        from { transform: translate(-50%, -50%) rotate(${angle}deg) translate(100%, 100%); }
-        to   { transform: translate(-50%, -50%) rotate(${angle}deg) translate(0,0); }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Rotation
-    overlayTL.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-    overlayBR.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-
-    // Animation
-    overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
-    overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
-
-    // Redirect
-   let finished = 0;
-    function handleFinished() {
-      finished++;
-      if (finished === 2) {
-        setTimeout(() => {
-          overlayTL.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
-          overlayBR.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
-          overlayTL.style.opacity = "0";
-          overlayBR.style.opacity = "0";
-
-          setTimeout(() => {
-            window.location.href = REDIRECT_URL;
-          }, FADE_TIME * 1000);
-
-        }, HOLD_TIME * 1000);
+  // Sync
+  window.addEventListener("storage", (event) => {
+    if (event.key && event.key.startsWith("card-")) {
+      const card = document.querySelector(`[data-card-id="${event.key}"]`);
+      if (card) {
+        if (event.newValue === "flipped") {
+          card.classList.add("flipped");
+          card.setAttribute("aria-pressed", "true");
+        } else {
+          card.classList.remove("flipped");
+          card.setAttribute("aria-pressed", "false");
+        }
       }
     }
+  });
 
-    overlayTL.addEventListener("animationend", handleFinished, { once: true });
-    overlayBR.addEventListener("animationend", handleFinished, { once: true });
+  // Copy Log
+  const copyLogButton = document.getElementById("copyLogButton");
+  if (copyLogButton) {
+    copyLogButton.addEventListener("click", () => {
+      const logDiv = document.getElementById("operation-log");
+      if (!logDiv) return;
+
+      const text = Array.from(logDiv.children)
+        .map(div => div.textContent)
+        .join("\n");
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          addLogEntry("Log copied to clipboard");
+          copyLogButton.src = "img/CopyButton2.png";
+          setTimeout(() => {
+            copyLogButton.src = "img/CopyButton.png";
+          }, 500);
+        })
+        .catch(err => {
+          console.error("Failed to copy log:", err);
+        });
+    });
   }
- 
-  window.addEventListener("load", runWipe);
-  window.addEventListener("resize", runWipe);
+
+  // Clear Log
+  const clearLogButton = document.getElementById("clearLogButton");
+  if (clearLogButton) {
+    clearLogButton.addEventListener("click", () => {
+      if (logDiv) {
+        logDiv.innerHTML = "";
+      }
+
+      const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      const entry = `[${timestamp}] Log cleared`;
+
+      localStorage.setItem("operationLog", JSON.stringify([entry]));
+
+      const div = document.createElement("div");
+      div.textContent = entry;
+      logDiv.appendChild(div);
+      logDiv.scrollTop = logDiv.scrollHeight;
+
+      clearLogButton.src = "img/ClearButton2.png";
+      setTimeout(() => {
+        clearLogButton.src = "img/ClearButton.png";
+      }, 500);
+    });
+  }
+
+    // Guide Button
+  const guideButton = document.getElementById("guideButton");
+  if (guideButton) {
+    guideButton.addEventListener("click", () => {
+      guideButton.src = "img/GuideButton2.png";
+      setTimeout(() => {
+        guideButton.src = "img/GuideButton.png";
+        window.open(
+          "https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1",
+          "_blank"
+        );
+      }, 500);
+    });
+  }
+
+  // Log Entry
+  function addLogEntry(message) {
+    if (!logDiv) return;
+    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    const entry = `[${timestamp}] ${message}`;
+
+    const div = document.createElement('div');
+    div.textContent = entry;
+    logDiv.appendChild(div);
+
+    logDiv.scrollTop = logDiv.scrollHeight;
+
+    let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+    logs.push(entry);
+    localStorage.setItem("operationLog", JSON.stringify(logs));
+  }
+
+  // Save State
+  function saveCardState(id, state) {
+    localStorage.setItem(id, state);
+  }
 });
