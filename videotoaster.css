@@ -44,19 +44,25 @@ body {
 /* Animations */
 @keyframes slide-in-tl {
   from {
-    transform: translate(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)));
+    transform: translate(
+      calc(-1 * var(--start-dist-x)),
+      calc(-1 * var(--start-dist-y))
+    );
   }
   to {
-    transform: translate(var(--end-dist), var(--end-dist));
+    transform: translate(0px, 0px);
   }
 }
 
 @keyframes slide-in-br {
   from {
-    transform: translate(var(--start-dist), var(--start-dist));
+    transform: translate(
+      var(--start-dist-x),
+      var(--start-dist-y)
+    );
   }
   to {
-    transform: translate(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist)));
+    transform: translate(0px, 0px);
   }
 }
 
