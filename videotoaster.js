@@ -7,23 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
 
-  const rectXPercent = 0.1;
-  const rectYPercent = 0.1;
-  const rectWidthPercent = 0.8;
-  const rectHeightPercent = 0.8;
+  const leftPercent = 0.0880;   // 169px of 1920
+  const topPercent = 0.0435;    // 47px of 1080
+  const rightPercent = 0.0990;  // 190px of 1920
+  const bottomPercent = 0.0593; // 64px of 1080
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
+    const containerLeft = rect.left + rect.width * leftPercent;
+    const containerTop = rect.top + rect.height * topPercent;
+    const containerWidth = rect.width * (1 - leftPercent - rightPercent);
+    const containerHeight = rect.height * (1 - topPercent - bottomPercent);
 
     container.style.position = "absolute";
-    container.style.left = `${rect.left + rect.width * rectXPercent}px`;
-    container.style.top = `${rect.top + rect.height * rectYPercent}px`;
-    container.style.width = `${rect.width * rectWidthPercent}px`;
-    container.style.height = `${rect.height * rectHeightPercent}px`;
+    container.style.left = `${containerLeft}px`;
+    container.style.top = `${containerTop}px`;
+    container.style.width = `${containerWidth}px`;
+    container.style.height = `${containerHeight}px`;
 
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-
+    // Calculate Grid
     const colsBase = Math.ceil(containerWidth / squareSize);
     const rowsBase = Math.ceil(containerHeight / squareSize);
 
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
+    // Animation Distance
     const startDist = Math.max(containerWidth, containerHeight) * 0.6;
     const endDist = diagonal * 1.2;
 
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.style.setProperty("--start-dist", `${startDist}px`);
     overlayBR.style.setProperty("--end-dist", `${endDist}px`);
 
+    // Generate and Animate
     function makeDiagonalChecker(containerElement, invert = false) {
       containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
       containerElement.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
@@ -76,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
     let animationsFinished = 0;
+
     function checkRedirect() {
       animationsFinished++;
       if (animationsFinished === 2) {
