@@ -26,13 +26,12 @@ body {
   height: 60px;
 }
 
-/* Animation */
 @keyframes slide-in-tl {
   from {
     transform: translate(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)));
   }
   to {
-    transform: translate(0, 0);
+    transform: translate(var(--end-dist), var(--end-dist));
   }
 }
 
@@ -48,5 +47,5 @@ body {
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease-in-out;
 }
