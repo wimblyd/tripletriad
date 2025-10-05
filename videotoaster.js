@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const frameImage = document.getElementById("computer");
   const container = document.getElementById("computer-container");
 
-  // Known rectangle inside frame (percent values)
-  const rectXPercent = 0.1; // left offset
-  const rectYPercent = 0.1; // top offset
-  const rectWidthPercent = 0.8; // width of cut-out area
-  const rectHeightPercent = 0.8; // height of cut-out area
+  const rectXPercent = 0.1;
+  const rectYPercent = 0.1;
+  const rectWidthPercent = 0.8;
+  const rectHeightPercent = 0.8;
 
   frameImage.addEventListener("load", () => {
     const rect = frameImage.getBoundingClientRect();
@@ -22,14 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     container.style.width = `${rect.width * rectWidthPercent}px`;
     container.style.height = `${rect.height * rectHeightPercent}px`;
 
-    const screenWidth = container.clientWidth;
-    const screenHeight = container.clientHeight;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
 
-    const colsBase = Math.ceil(screenWidth / squareSize);
-    const rowsBase = Math.ceil(screenHeight / squareSize);
+    const colsBase = Math.ceil(containerWidth / squareSize);
+    const rowsBase = Math.ceil(containerHeight / squareSize);
 
-    const diagonal = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
-    const extraSquares = Math.ceil(diagonal / squareSize) + 2;
+    const diagonal = Math.sqrt(containerWidth ** 2 + containerHeight ** 2);
+    const extraSquares = Math.ceil(diagonal / squareSize) + 1;
 
     const cols = colsBase + extraSquares;
     const rows = rowsBase + extraSquares;
@@ -37,9 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlayTL = document.getElementById("overlay-tl");
     const overlayBR = document.getElementById("overlay-br");
 
-    const maxDim = Math.max(screenWidth, screenHeight);
-    const startDist = maxDim * 0.6;
+    const startDist = Math.max(containerWidth, containerHeight) * 0.6;
     const endDist = diagonal * 1.2;
+
+    overlayTL.style.setProperty("--start-dist", `${startDist}px`);
+    overlayTL.style.setProperty("--end-dist", `${endDist}px`);
+    overlayBR.style.setProperty("--start-dist", `${startDist}px`);
+    overlayBR.style.setProperty("--end-dist", `${endDist}px`);
 
     function makeDiagonalChecker(containerElement, invert = false) {
       containerElement.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
@@ -58,6 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
             isBlack = (r + c + 1) % 2 === 0 && c >= cols - r - 1;
           }
 
+          square.style.width = `${squareSize}px`;
+          square.style.height = `${squareSize}px`;
           square.style.background = isBlack ? "black" : "transparent";
           containerElement.appendChild(square);
         }
@@ -67,16 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
     makeDiagonalChecker(overlayTL, false);
     makeDiagonalChecker(overlayBR, true);
 
-    overlayTL.style.setProperty("--start-dist", `${startDist}px`);
-    overlayTL.style.setProperty("--end-dist", `${endDist}px`);
-    overlayBR.style.setProperty("--start-dist", `${startDist}px`);
-    overlayBR.style.setProperty("--end-dist", `${endDist}px`);
-
     overlayTL.style.animation = `slide-in-tl ${SPEED}s forwards ease-in-out`;
     overlayBR.style.animation = `slide-in-br ${SPEED}s forwards ease-in-out`;
 
     let animationsFinished = 0;
-
     function checkRedirect() {
       animationsFinished++;
       if (animationsFinished === 2) {
