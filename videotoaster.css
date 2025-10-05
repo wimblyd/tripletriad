@@ -46,25 +46,19 @@ body {
 
 @keyframes slide-in-tl {
   from {
-    transform: translate(
-      calc(-1 * var(--start-dist-x)),
-      calc(-1 * var(--start-dist-y))
-    );
+    transform: translate(-50%, -50%) rotate(45deg) translate(-100%, -100%);
   }
   to {
-    transform: translate(0, 0);
+    transform: translate(-50%, -50%) rotate(45deg) translate(0, 0);
   }
 }
 
 @keyframes slide-in-br {
   from {
-    transform: translate(
-      var(--start-dist-x),
-      var(--start-dist-y)
-    );
+    transform: translate(-50%, -50%) rotate(45deg) translate(100%, 100%);
   }
   to {
-    transform: translate(0, 0);
+    transform: translate(-50%, -50%) rotate(45deg) translate(0, 0);
   }
 }
 
