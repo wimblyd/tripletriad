@@ -4,15 +4,20 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  margin: 0;
+  padding: 0;
 }
 
 /* Video Toaster */
-#overlay-tl, #overlay-br {
+#overlay-tl,
+#overlay-br {
   position: fixed;
   display: grid;
   z-index: 9999;
   background: transparent;
   pointer-events: none;
+  top: 0;
+  left: 0;
 }
 
 #overlay-tl div,
@@ -21,31 +26,27 @@ body {
   height: 60px;
 }
 
+/* Animation */
 @keyframes slide-in-tl {
   from {
-    transform: translate3d(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)), 0);
+    transform: translate(calc(-1 * var(--start-dist)), calc(-1 * var(--start-dist)));
   }
   to {
-    transform: translate3d(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist)), 0);
+    transform: translate(0, 0);
   }
 }
 
 @keyframes slide-in-br {
   from {
-    transform: translate3d(var(--start-dist), var(--start-dist), 0);
+    transform: translate(var(--start-dist), var(--start-dist));
   }
   to {
-    transform: translate3d(var(--end-dist), var(--end-dist), 0);
+    transform: translate(calc(-1 * var(--end-dist)), calc(-1 * var(--end-dist)));
   }
-}
-#overlay-tl,
-#overlay-br {
-  will-change: transform;
-  backface-visibility: hidden;
-  transform-origin: 0 0;
 }
 
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
+  transition: opacity 0.6s ease;
 }
