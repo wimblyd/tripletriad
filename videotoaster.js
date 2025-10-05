@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const FADE_TIME = 0.6;
   const squareSize = 60;
 
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
+  const container = document.getElementById("computer-container");
+  const screenWidth = container.clientWidth;
+  const screenHeight = container.clientHeight;
 
   const colsBase = Math.ceil(screenWidth / squareSize);
   const rowsBase = Math.ceil(screenHeight / squareSize);
