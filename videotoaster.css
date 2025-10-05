@@ -28,10 +28,12 @@ body {
 /* Video Toaster */
 #overlay-tl,
 #overlay-br {
-  position: absolute; 
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: grid;
-  z-index: 3; 
-  background: transparent;
+  overflow: hidden;
+  z-index: 3;
   pointer-events: none;
 }
 
