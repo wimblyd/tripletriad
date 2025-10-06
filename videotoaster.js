@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const DIAGONAL_DELAY = 40;
   const FADE_TIME = 600;
   const REDIRECT_URL = "checklist.html";
-
+  
+  // Call Squares
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
   const container = document.getElementById("computer-container");
@@ -12,7 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!overlayTL || !overlayBR || !container) return;
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
-
+  
+  // Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -48,18 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
       let cTL = step - r;
       let cBR = step - r;
 
+      // Top‑Left grid
       if (cTL >= 0 && cTL < GRID_COLS) {
         const fillTL = (r + cTL) % 2 === 0;
         if (fillTL) gridTL[r][cTL].style.background = "black";
       }
 
+      // Bottom‑Right grid (inverse starting fill)
       if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillTL = (r + cBR) % 2 === 0;
-        const fillBR = !fillTL;
+        const fillBR = (r + cBR + 1) % 2 === 0; // +1 inverts parity
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
-
+    // Wipe Animation
     step++;
     if (step <= maxStep) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          if ((r + c) % 2 === 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+          if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
         }
       }
 
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     fillReverse();
   }
-
+  // Redirect
   function fadeAndRedirect() {
     overlayTL.classList.add("fade-out");
     overlayBR.classList.add("fade-out");
@@ -105,12 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }, FADE_TIME);
   }
 
+  // Center Grid
   [overlayTL, overlayBR].forEach(el => {
     el.style.position = "absolute";
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%)";
-    el.style.zIndex = "1"; // behind the frame
   });
 
   diagonalStep();
