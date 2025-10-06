@@ -30,11 +30,26 @@ img.title {
   margin: 20px;
 }
 
-/* Buttons */
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+#resetButton {
+  margin-left: 20px;
+}
+
+#copyLogButton {
+  margin-left: 40px;
+}
+
+#clearLogButton {
+  margin-left: 60px;
+}
+
+#guideButton {
+  margin-left: 80px;
 }
 
 .buttons img {
@@ -133,3 +148,4 @@ img.title {
     max-width: calc((90vw - 20px) / 4);
   }
 }
+
