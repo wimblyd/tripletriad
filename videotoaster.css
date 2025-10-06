@@ -35,7 +35,7 @@ body {
   display: grid;
   overflow: visible;
   pointer-events: none;
-  z-index: 4;
+  z-index: 1;
   will-change: transform, opacity;
   transition: opacity 0.6s ease-in-out;
 }
