@@ -117,6 +117,9 @@ img.title {
   border-radius: 3px;
   display: none;
 }
+.card.flipped .card-back::after {
+  display: block;
+}
 
 /* Operation log */
 #operation-log {
@@ -162,5 +165,6 @@ img.title {
     max-width: calc((90vw - 20px) / 4);
   }
 }
+
 
 
