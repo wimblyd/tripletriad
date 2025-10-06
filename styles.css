@@ -51,21 +51,21 @@ img.title {
   grid-template-columns: repeat(11, 1fr);
   gap: 4px;
   padding: 8px;
-  max-width: calc(11 * 76px + 40px);
-  max-height: calc(100vh - 300px);
-  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  height: calc(100vh - 200px);
+  box-sizing: border-box;
+  overflow-y: auto;
   border-radius: 6px;
 }
 
-/* Wanna play cards? */
+/* Wanna play Cards? */
 .card {
-  aspect-ratio: 76 / 97;
   width: 100%;
-  max-width: calc((90vw - 40px) / 11);
-  height: auto;
+  aspect-ratio: 76 / 97; 
+  display: block;
   perspective: 1000px;
   cursor: pointer;
-  display: inline-block;
 }
 
 .card-inner {
@@ -154,3 +154,4 @@ img.title {
     max-width: calc((90vw - 20px) / 4);
   }
 }
+
