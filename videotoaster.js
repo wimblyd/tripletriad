@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
 
-  // I wonder what it's like to be the Gridmaker
+    // I wonder what it's like to be the Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -39,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const gridTL = createGrid(overlayTL);
   const gridBR = createGrid(overlayBR);
 
+  // Checkerboard
   let step = 0;
 
-  // Fill the Checkerboard
   function diagonalStep() {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
 
@@ -59,11 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cBR >= 0 && cBR < GRID_COLS) {
         const brRow = GRID_ROWS - 1 - r;
         const brCol = GRID_COLS - 1 - cBR;
-        const fillBR = (brRow + brCol + 1) % 2 === 0;
+        const fillBR = (brRow + brCol + 1) % 2 === 0; // parity offset of +1
         if (fillBR) gridBR[brRow][brCol].style.background = "black";
       }
     }
-    
+
     // Wipe In
     step++;
     if (step <= maxStep) {
@@ -72,8 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
       reverseFill();
     }
   }
-  
-  // Whooohahahahahaooo Wipeout!
+
+  // Hahahahahahahooohua Wipe Out!
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -108,10 +108,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     fillReverse();
   }
-
-  // Do not pass go do not collect $200
+  
+  // Redirect
   function redirect() {
-    window.location.href = REDIRECT_URL;
+    document.body.style.transition = "opacity 0.5s ease";
+    document.body.style.opacity = 0;
+    setTimeout(() => {
+      window.location.href = REDIRECT_URL;
+    }, 500);
+  }
+
+  // I'm not figuring out how to set this up for mobile sorry
+  function isMobile() {
+    return window.matchMedia("(max-aspect-ratio: 9/16)").matches
+        || window.innerWidth < 768;
   }
 
   [overlayTL, overlayBR].forEach(el => {
@@ -122,5 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.zIndex = "1";
   });
 
-  diagonalStep();
+  window.addEventListener("load", () => {
+    if (isMobile()) {
+      document.body.style.transition = "opacity 0.5s ease";
+      document.body.style.opacity = 0;
+      setTimeout(() => {
+        window.location.href = REDIRECT_URL;
+      }, 500);
+      return;
+    }
+    diagonalStep();
+  });
 });
