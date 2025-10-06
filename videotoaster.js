@@ -44,33 +44,32 @@ document.addEventListener("DOMContentLoaded", () => {
   let step = 0;
 
   function diagonalStep() {
-    const maxStep = GRID_ROWS + GRID_COLS - 2;
+  const maxStep = GRID_ROWS + GRID_COLS - 2;
 
-    for (let r = 0; r < GRID_ROWS; r++) {
-      let cTL = step - r;
-      let cBR = step - r;
+  for (let r = 0; r < GRID_ROWS; r++) {
+    let cTL = step - r;
+    let cBR = step - r;
 
-      // Top‑Left grid
-      if (cTL >= 0 && cTL < GRID_COLS) {
-        const fillTL = (r + cTL) % 2 === 0;
-        if (fillTL) gridTL[r][cTL].style.background = "black";
-      }
-
-      // Bottom‑Right grid (inverse starting fill)
-      if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillBR = (r + cBR + 1) % 2 === 0; // +1 inverts parity
-        if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
-      }
+    // Top‑Left grid
+    if (cTL >= 0 && cTL < GRID_COLS) {
+      const fillTL = (r + cTL) % 2 === 0;
+      if (fillTL) gridTL[r][cTL].style.background = "black";
     }
-    // Wipe Animation
-    step++;
-    if (step <= maxStep) {
-      setTimeout(diagonalStep, DIAGONAL_DELAY);
-    } else {
-      reverseFill();
+
+    // Bottom‑Right grid with step‑based parity
+    if (cBR >= 0 && cBR < GRID_COLS) {
+      const fillBR = (r + cBR + step) % 2 === 0;
+      if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
     }
   }
 
+  step++;
+  if (step <= maxStep) {
+    setTimeout(diagonalStep, DIAGONAL_DELAY);
+  } else {
+    reverseFill(); // immediate reverse fill start
+  }
+}
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -114,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%)";
+    el.style.zIndex = "1";
   });
 
   diagonalStep();
