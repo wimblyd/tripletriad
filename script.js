@@ -10,16 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   logDiv.scrollTop = logDiv.scrollHeight;
 
- // Hulk Smash
-const screen = document.querySelector(".screen");
-if (screen) {
-  const cards = screen.querySelectorAll(".card");
-  cards.forEach(card => screen.appendChild(card));
-
-  const table = screen.querySelector("table");
-  if (table) table.remove();
-}
-
   // Setup
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
