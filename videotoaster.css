@@ -26,6 +26,8 @@ body {
   z-index: 3;
 }
 
+
+/* Grid Squares */
 #overlay-tl,
 #overlay-br {
   position: absolute;
@@ -35,7 +37,15 @@ body {
   display: grid;
   overflow: visible; 
   pointer-events: none;
-  z-index: 4;          
+  z-index: 4;
+  will-change: transform, opacity; 
+}
+
+#overlay-tl div,
+#overlay-br div {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 #overlay-tl.fade-out,
