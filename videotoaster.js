@@ -1,96 +1,106 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const SPEED = 5.0;
-  const HOLD_TIME = 0.4;
-  const FADE_TIME = 0.6;
-  const REDIRECT_URL = "checklist.html";
-  const squareSize = 80;
+const GRID_COLS = 30;  // horizontal cells
+const GRID_ROWS = 15;  // vertical cells
+const ANIMATION_DURATION = 3000; // ms for full movement
+const REDIRECT_DELAY = 4000; // ms before redirect after animation
 
-  const overlayTL = document.getElementById("overlay-tl");
-  const overlayBR = document.getElementById("overlay-br");
-  const container = document.getElementById("computer-container");
+const container = document.getElementById("computer-container");
+const overlayTL = document.getElementById("overlay-tl");
+const overlayBR = document.getElementById("overlay-br");
 
-  if (!overlayTL || !overlayBR || !container) return;
+// Calculate Squares
+function setupGrid() {
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
+  const squareWidth = containerWidth / GRID_COLS;
+  const squareHeight = containerHeight / GRID_ROWS;
 
-  function runWipe() {
-    const { width, height } = container.getBoundingClientRect();
-    const diag = Math.sqrt(width * width + height * height) * 1.2;
+  // Gridmaker
+  [overlayTL, overlayBR].forEach(overlay => {
+    overlay.style.gridTemplateColumns = `repeat(${GRID_COLS}, ${squareWidth}px)`;
+    overlay.style.gridTemplateRows = `repeat(${GRID_ROWS}, ${squareHeight}px)`;
+  });
 
-    // Calculate offsets
-    const angleDeg = 60;
-    const angleRad = (angleDeg * Math.PI) / 180;
-    const xOffset = diag * Math.cos(angleRad);
-    const yOffset = diag * Math.sin(angleRad);
+  buildGrid(overlayTL, true);
+  buildGrid(overlayBR, false);
 
-    // Gridmaker
-    function setupOverlay(el, invert = false) {
-      el.style.position = "absolute";
-      el.style.top = "50%";
-      el.style.left = "50%";
-      el.style.width = `${diag}px`;
-      el.style.height = `${diag}px`;
-      el.style.transformOrigin = "center";
-      el.style.display = "grid";
-      el.style.overflow = "visible";
-      el.style.opacity = "1";
-      el.style.transform = "translate(-50%, -50%)";
-      const offset = invert ? squareSize : 0;
-      el.style.backgroundImage = `
-        repeating-conic-gradient(
-          black 0% 25%, 
-          transparent 25% 50%
-        )
-      `;
-      el.style.backgroundSize = `${squareSize}px ${squareSize}px`;
-      el.style.backgroundPosition = `${offset}px ${offset}px`;
+  overlayTL.style.width = `${containerWidth}px`;
+  overlayTL.style.height = `${containerHeight}px`;
+  overlayBR.style.width = `${containerWidth}px`;
+  overlayBR.style.height = `${containerHeight}px`;
+
+  overlayTL.style.top = "50%";
+  overlayTL.style.left = "50%";
+  overlayTL.style.transform = "translate(-50%, -50%)";
+  overlayBR.style.top = "50%";
+  overlayBR.style.left = "50%";
+  overlayBR.style.transform = "translate(-50%, -50%)";
+}
+
+// Diagonal Cut
+function buildGrid(overlay, isTopLayer) {
+  overlay.innerHTML = ""; // clear
+
+  for (let row = 0; row < GRID_ROWS; row++) {
+    for (let col = 0; col < GRID_COLS; col++) {
+      const square = document.createElement("div");
+
+      // Checkerboard
+      const isFilled = (row + col) % 2 === 0;
+
+      // Mask
+      const diagonalCol = Math.floor((row / GRID_ROWS) * GRID_COLS);
+      let visible;
+      if (isTopLayer) {
+        visible = col <= diagonalCol;
+      } else {
+        visible = col >= diagonalCol;
+      }
+
+      if (isFilled && visible) {
+        square.style.backgroundColor = "black";
+      } else {
+        square.style.backgroundColor = "transparent";
+      }
+
+      overlay.appendChild(square);
     }
-
-    setupOverlay(overlayTL, false);
-    setupOverlay(overlayBR, true);
-
-    // Remove old keyframes
-    const oldStyle = document.getElementById("dynamic-animations");
-    if (oldStyle) oldStyle.remove();
-
-    // Animate
-    const style = document.createElement("style");
-    style.id = "dynamic-animations";
-    style.textContent = `
-      @keyframes slide-in-tl {
-        from { transform: translate(calc(-50% - ${xOffset}px), calc(-50% - ${yOffset}px)); }
-        to   { transform: translate(-50%, -50%); }
-      }
-      @keyframes slide-in-br {
-        from { transform: translate(calc(-50% + ${xOffset}px), calc(-50% + ${yOffset}px)); }
-        to   { transform: translate(-50%, -50%); }
-      }
-    `;
-    document.head.appendChild(style);
-
-    overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
-    overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
-
-    // Fade-out and redirect
-    let finished = 0;
-    function handleFinished() {
-      finished++;
-      if (finished === 2) {
-        setTimeout(() => {
-          overlayTL.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
-          overlayBR.style.transition = `opacity ${FADE_TIME}s ease-in-out`;
-          overlayTL.style.opacity = "0";
-          overlayBR.style.opacity = "0";
-
-          setTimeout(() => {
-            window.location.href = REDIRECT_URL;
-          }, FADE_TIME * 1000);
-        }, HOLD_TIME * 1000);
-      }
-    }
-
-    overlayTL.addEventListener("animationend", handleFinished, { once: true });
-    overlayBR.addEventListener("animationend", handleFinished, { once: true });
   }
+}
 
-  window.addEventListener("load", runWipe);
-  window.addEventListener("resize", runWipe);
+// Animation
+function runAnimation() {
+  const moveX = container.offsetWidth * 0.5;
+  const moveY = container.offsetHeight * 0.5;
+
+  overlayTL.animate(
+    [
+      { transform: `translate(-50%, -50%) translate(-${moveX}px, -${moveY}px)` },
+      { transform: "translate(-50%, -50%)" }
+    ],
+    { duration: ANIMATION_DURATION, easing: "ease-in-out", fill: "forwards" }
+  );
+
+  overlayBR.animate(
+    [
+      { transform: `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)` },
+      { transform: "translate(-50%, -50%)" }
+    ],
+    { duration: ANIMATION_DURATION, easing: "ease-in-out", fill: "forwards" }
+  );
+
+  // Redirect
+  setTimeout(() => {
+    overlayTL.classList.add("fade-out");
+    overlayBR.classList.add("fade-out");
+
+    setTimeout(() => {
+      window.location.href = "checklist.html";
+    }, 1000);
+  }, REDIRECT_DELAY);
+}
+
+// Initialize
+window.addEventListener("load", () => {
+  setupGrid();
+  runAnimation();
 });
