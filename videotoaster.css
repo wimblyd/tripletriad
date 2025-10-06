@@ -46,7 +46,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Fade Out */
 #overlay-tl.fade-out,
 #overlay-br.fade-out {
   opacity: 0;
