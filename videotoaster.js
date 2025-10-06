@@ -2,10 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const GRID_COLS = 30;
   const GRID_ROWS = 15;
   const DIAGONAL_DELAY = 40;
-  const FADE_TIME = 600;
   const REDIRECT_URL = "checklist.html";
-  
-  // Call Squares
+
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
   const container = document.getElementById("computer-container");
@@ -13,8 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!overlayTL || !overlayBR || !container) return;
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
-  
-  // Gridmaker
+
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -44,32 +41,33 @@ document.addEventListener("DOMContentLoaded", () => {
   let step = 0;
 
   function diagonalStep() {
-  const maxStep = GRID_ROWS + GRID_COLS - 2;
+    const maxStep = GRID_ROWS + GRID_COLS - 2;
 
-  for (let r = 0; r < GRID_ROWS; r++) {
-    let cTL = step - r;
-    let cBR = step - r;
+    for (let r = 0; r < GRID_ROWS; r++) {
+      let cTL = step - r;
+      let cBR = step - r;
 
-    // Top‑Left grid
-    if (cTL >= 0 && cTL < GRID_COLS) {
-      const fillTL = (r + cTL) % 2 === 0;
-      if (fillTL) gridTL[r][cTL].style.background = "black";
+      // Top‑Left
+      if (cTL >= 0 && cTL < GRID_COLS) {
+        const fillTL = (r + cTL) % 2 === 0;
+        if (fillTL) gridTL[r][cTL].style.background = "black";
+      }
+
+      // Bottom‑Right
+      if (cBR >= 0 && cBR < GRID_COLS) {
+        const fillBR = (r + cBR + 1) % 2 === 0; // +1 flips starting fill parity
+        if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
+      }
     }
 
-    // Bottom‑Right grid with step‑based parity
-    if (cBR >= 0 && cBR < GRID_COLS) {
-      const fillBR = (r + cBR + step) % 2 === 0;
-      if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
+    step++;
+    if (step <= maxStep) {
+      setTimeout(diagonalStep, DIAGONAL_DELAY);
+    } else {
+      reverseFill();
     }
   }
 
-  step++;
-  if (step <= maxStep) {
-    setTimeout(diagonalStep, DIAGONAL_DELAY);
-  } else {
-    reverseFill(); // immediate reverse fill start
-  }
-}
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -98,16 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     fillReverse();
   }
-  // Redirect
+
   function fadeAndRedirect() {
-    overlayTL.classList.add("fade-out");
-    overlayBR.classList.add("fade-out");
-    setTimeout(() => {
-      window.location.href = REDIRECT_URL;
-    }, FADE_TIME);
+    window.location.href = REDIRECT_URL;
   }
 
-  // Center Grid
+  // Center overlays
   [overlayTL, overlayBR].forEach(el => {
     el.style.position = "absolute";
     el.style.top = "50%";
