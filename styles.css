@@ -20,7 +20,7 @@ img.title {
   height: auto;
 }
 
-/* I had to flex on em */
+/* Layout */
 .content {
   display: flex;
   align-items: flex-start;
@@ -28,11 +28,11 @@ img.title {
   margin: 20px;
 }
 
-/* I wanna push the button! */
+/* Buttons panel */
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* smaller vertical spacing */
+  gap: 8px;
 }
 
 #resetButton { margin-left: 20px; }
@@ -45,24 +45,23 @@ img.title {
   max-width: 200px;
 }
 
-/* Screen */
+/* Screen grid container */
 .screen {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
   gap: 4px;
   padding: 8px;
   width: 100%;
-  max-width: 100%;
   height: calc(100vh - 200px);
   box-sizing: border-box;
   overflow-y: auto;
   border-radius: 6px;
 }
 
-/* Wanna play Cards? */
+/* Card style */
 .card {
   width: 100%;
-  aspect-ratio: 76 / 97; 
+  aspect-ratio: 76 / 97;
   display: block;
   perspective: 1000px;
   cursor: pointer;
@@ -140,7 +139,7 @@ img.title {
               inset -1px -1px 0 rgba(0,0,0,0.6);
 }
 
-/* Mobile */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   .content {
     flex-direction: column;
@@ -148,10 +147,6 @@ img.title {
   }
   .screen {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 95vw;
-  }
-  .card {
-    max-width: calc((90vw - 20px) / 4);
+    height: calc(100vh - 250px);
   }
 }
-
