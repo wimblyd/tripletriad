@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DEBUG = false; // toggle debug outlines
   const GRID_COLS = 30;
   const GRID_ROWS = 15;
-  const DIAGONAL_DELAY = DEBUG ? 100 : 40;
+  const DIAGONAL_DELAY = 40;
   const FADE_TIME = 600;
   const REDIRECT_URL = "checklist.html";
 
@@ -30,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.style.width = `${squareSize}px`;
         cell.style.height = `${squareSize}px`;
         cell.style.background = "transparent";
-        if (DEBUG) cell.style.outline = "1px solid rgba(255,255,255,0.1)";
         el.appendChild(cell);
         grid[r][c] = cell;
       }
@@ -42,31 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const gridBR = createGrid(overlayBR);
 
   let step = 0;
-  let buildPhase = true;
 
   function diagonalStep() {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
 
     for (let r = 0; r < GRID_ROWS; r++) {
-      // TL grid normal diagonal
       let cTL = step - r;
+      let cBR = step - r;
+
       if (cTL >= 0 && cTL < GRID_COLS) {
         const fillTL = (r + cTL) % 2 === 0;
         if (fillTL) gridTL[r][cTL].style.background = "black";
       }
-      
-      let cBR = step - r - 1;
+
       if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillBR = (r + cBR + 1) % 2 === 0;
+        const fillTL = (r + cBR) % 2 === 0;
+        const fillBR = !fillTL;
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
 
     step++;
-    if (step <= maxStep + 1) { // extra step for offset
+    if (step <= maxStep) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
-      buildPhase = false;
       reverseFill();
     }
   }
@@ -76,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
 
     function fillReverse() {
-      // TL: center → top‑left
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
@@ -84,11 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // BR: center → bottom‑right
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+          if ((r + c) % 2 === 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
         }
       }
 
@@ -106,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayTL.classList.add("fade-out");
     overlayBR.classList.add("fade-out");
     setTimeout(() => {
-      if (!DEBUG) window.location.href = REDIRECT_URL;
+      window.location.href = REDIRECT_URL;
     }, FADE_TIME);
   }
 
@@ -115,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%)";
+    el.style.zIndex = "1"; // behind the frame
   });
 
   diagonalStep();
