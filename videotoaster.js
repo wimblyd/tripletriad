@@ -47,15 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let cTL = step - r;
       let cBR = step - r;
 
-      // Top‑Left
       if (cTL >= 0 && cTL < GRID_COLS) {
         const fillTL = (r + cTL) % 2 === 0;
         if (fillTL) gridTL[r][cTL].style.background = "black";
       }
 
-      // Bottom‑Right
       if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillBR = (r + cBR + 1) % 2 === 0; // +1 flips starting fill parity
+        const fillBR = (r + cBR + step) % 2 === 0; 
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
@@ -76,14 +74,19 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
+          // Fill only if currently transparent
+          if (gridTL[r][c].style.background === "transparent") {
+            if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
+          }
         }
       }
 
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+          if (gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background === "transparent") {
+            if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+          }
         }
       }
 
@@ -91,17 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (reverseStep <= maxStep) {
         setTimeout(fillReverse, DIAGONAL_DELAY);
       } else {
-        fadeAndRedirect();
+        redirect();
       }
     }
     fillReverse();
   }
 
-  function fadeAndRedirect() {
+  function redirect() {
     window.location.href = REDIRECT_URL;
   }
-
-  // Center overlays
+  
   [overlayTL, overlayBR].forEach(el => {
     el.style.position = "absolute";
     el.style.top = "50%";
