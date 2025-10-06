@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DEBUG = true; // toggle debug outlines and slower animation
-
+  const DEBUG = true; // toggle outlines and slower animation
   const GRID_COLS = 30;
   const GRID_ROWS = 15;
-  const DIAGONAL_DELAY = DEBUG ? 100 : 40; // ms per diagonal
-  const FADE_TIME = 600; // fade seconds
+  const DIAGONAL_DELAY = DEBUG ? 100 : 40;
+  const FADE_TIME = 600;
   const REDIRECT_URL = "checklist.html";
 
   const overlayTL = document.getElementById("overlay-tl");
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
 
-  // Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -43,58 +41,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const gridTL = createGrid(overlayTL);
   const gridBR = createGrid(overlayBR);
 
-  // Phase control
   let step = 0;
   let buildPhase = true;
 
- function diagonalStep() {
-  const maxStep = GRID_ROWS + GRID_COLS - 2;
+  function diagonalStep() {
+    const maxStep = GRID_ROWS + GRID_COLS - 2;
 
-  for (let r = 0; r < GRID_ROWS; r++) {
-    const c = step - r;
-    if (c >= 0 && c < GRID_COLS) {
-      const fillTL = (r + c) % 2 === 0;
-      const fillBR = (r + c + 1) % 2 === 0; // offset by 1
-
-      if (fillTL) gridTL[r][c].style.background = "black";
-      if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
-    }
-  }
-
-  step++;
-  if (step <= maxStep) {
-    setTimeout(diagonalStep, DIAGONAL_DELAY);
-  } else {
-    buildPhase = false;
-    reverseFill();
-  }
-}
-
-function reverseFill() {
-  let reverseStep = 0;
-  const maxStep = GRID_ROWS + GRID_COLS - 2;
-
-  function fillReverse() {
     for (let r = 0; r < GRID_ROWS; r++) {
-      const c = Math.floor(maxStep / 2) - reverseStep + r; // start at middle diagonal
+      const c = step - r;
       if (c >= 0 && c < GRID_COLS) {
-        const fillTL = (r + c) % 2 !== 0;
-        const fillBR = (r + c + 1) % 2 !== 0;
+        const fillTL = (r + c) % 2 === 0;
+        const fillBR = (r + c + 1) % 2 === 0; // offset checkerboard
 
         if (fillTL) gridTL[r][c].style.background = "black";
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
       }
     }
-    reverseStep++;
-    if (reverseStep <= maxStep) {
-      setTimeout(fillReverse, DIAGONAL_DELAY);
+
+    step++;
+    if (step <= maxStep) {
+      setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
-      fadeAndRedirect();
+      buildPhase = false;
+      reverseFill();
     }
   }
-  fillReverse();
-}
-  // Fade
+
+  function reverseFill() {
+    let reverseStep = 0;
+    const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
+
+    function fillReverse() {
+      // TL: center → top‑left
+      for (let r = 0; r < GRID_ROWS; r++) {
+        const c = maxStep - reverseStep - r;
+        if (c >= 0 && c < GRID_COLS) {
+          if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
+        }
+      }
+
+      for (let r = 0; r < GRID_ROWS; r++) {
+        const c = maxStep - reverseStep - r;
+        if (c >= 0 && c < GRID_COLS) {
+          if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+        }
+      }
+
+      reverseStep++;
+      if (reverseStep <= maxStep) {
+        setTimeout(fillReverse, DIAGONAL_DELAY);
+      } else {
+        fadeAndRedirect();
+      }
+    }
+    fillReverse();
+  }
+
   function fadeAndRedirect() {
     overlayTL.classList.add("fade-out");
     overlayBR.classList.add("fade-out");
@@ -103,7 +105,6 @@ function reverseFill() {
     }, FADE_TIME);
   }
 
-  // Squares
   [overlayTL, overlayBR].forEach(el => {
     el.style.position = "absolute";
     el.style.top = "50%";
