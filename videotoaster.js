@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DEBUG = true; // toggle outlines and slower animation
+  const DEBUG = false; // toggle debug outlines
   const GRID_COLS = 30;
   const GRID_ROWS = 15;
   const DIAGONAL_DELAY = DEBUG ? 100 : 40;
@@ -48,18 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
 
     for (let r = 0; r < GRID_ROWS; r++) {
-      const c = step - r;
-      if (c >= 0 && c < GRID_COLS) {
-        const fillTL = (r + c) % 2 === 0;
-        const fillBR = (r + c + 1) % 2 === 0; // offset checkerboard
-
-        if (fillTL) gridTL[r][c].style.background = "black";
-        if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+      // TL grid normal diagonal
+      let cTL = step - r;
+      if (cTL >= 0 && cTL < GRID_COLS) {
+        const fillTL = (r + cTL) % 2 === 0;
+        if (fillTL) gridTL[r][cTL].style.background = "black";
+      }
+      
+      let cBR = step - r - 1;
+      if (cBR >= 0 && cBR < GRID_COLS) {
+        const fillBR = (r + cBR + 1) % 2 === 0;
+        if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
 
     step++;
-    if (step <= maxStep) {
+    if (step <= maxStep + 1) { // extra step for offset
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
       buildPhase = false;
@@ -80,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+      // BR: center → bottom‑right
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
