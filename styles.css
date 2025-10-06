@@ -60,10 +60,10 @@ img.title {
 /* Screen */
 .screen {
   display: grid;
-  grid-template-columns: repeat(11, 1fr); /* exactly 11 cards per row */
+  grid-template-columns: repeat(11, 1fr);
   gap: 4px;
   padding: 8px;
-  max-width: calc(11 * 76px + 40px); /* fits all cards without overflow */
+  max-width: calc(11 * 76px + 40px);
   max-height: calc(100vh - 300px);
   overflow: hidden;
   border-radius: 6px;
@@ -71,7 +71,7 @@ img.title {
 
 /* Cards */
 .card {
-  aspect-ratio: 76 / 97; /* maintain card shape */
+  aspect-ratio: 76 / 97;
   width: 100%;
   max-width: calc((90vw - 40px) / 11);
   height: auto;
@@ -103,6 +103,20 @@ img.title {
 
 .card-front { transform: rotateY(0deg); }
 .card-back { transform: rotateY(180deg); }
+
+.card-back::after {
+  content: attr(alt);
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 9px;
+  background: rgba(0,0,0,0.5);
+  padding: 2px 4px;
+  border-radius: 3px;
+  display: none;
+}
 
 /* Operation log */
 #operation-log {
@@ -148,4 +162,5 @@ img.title {
     max-width: calc((90vw - 20px) / 4);
   }
 }
+
 
