@@ -11,18 +11,16 @@ body {
   font-family: 'Silkscreen', monospace;
 }
 
-@keyframes body-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 /* Title */
 img.title {
-  display: block;
-  margin: 20px auto 0 auto;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  max-width: 800px;
+  height: auto;
 }
 
-/* Layout */
+/* I had to flex on em */
 .content {
   display: flex;
   align-items: flex-start;
@@ -30,27 +28,17 @@ img.title {
   margin: 20px;
 }
 
+/* I wanna push the button! */
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px; /* smaller vertical spacing */
 }
 
-#resetButton {
-  margin-left: 20px;
-}
-
-#copyLogButton {
-  margin-left: 40px;
-}
-
-#clearLogButton {
-  margin-left: 60px;
-}
-
-#guideButton {
-  margin-left: 80px;
-}
+#resetButton { margin-left: 20px; }
+#copyLogButton { margin-left: 40px; }
+#clearLogButton { margin-left: 60px; }
+#guideButton { margin-left: 80px; }
 
 .buttons img {
   cursor: pointer;
@@ -69,7 +57,7 @@ img.title {
   border-radius: 6px;
 }
 
-/* Cards */
+/* Wanna play cards? */
 .card {
   aspect-ratio: 76 / 97;
   width: 100%;
@@ -117,6 +105,7 @@ img.title {
   border-radius: 3px;
   display: none;
 }
+
 .card.flipped .card-back::after {
   display: block;
 }
@@ -165,6 +154,3 @@ img.title {
     max-width: calc((90vw - 20px) / 4);
   }
 }
-
-
-
