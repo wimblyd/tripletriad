@@ -1,106 +1,113 @@
-const GRID_COLS = 30;  // horizontal cells
-const GRID_ROWS = 15;  // vertical cells
-const ANIMATION_DURATION = 3000; // ms for full movement
-const REDIRECT_DELAY = 4000; // ms before redirect after animation
+document.addEventListener("DOMContentLoaded", () => {
+  const DEBUG = true; // ← toggle this to false for production
 
-const container = document.getElementById("computer-container");
-const overlayTL = document.getElementById("overlay-tl");
-const overlayBR = document.getElementById("overlay-br");
+  const SPEED = DEBUG ? 8.0 : 4.0;
+  const HOLD_TIME = DEBUG ? 2.0 : 0.4;
+  const FADE_TIME = 0.6;
+  const REDIRECT_URL = "checklist.html";
 
-// Calculate Squares
-function setupGrid() {
-  const containerWidth = container.offsetWidth;
-  const containerHeight = container.offsetHeight;
-  const squareWidth = containerWidth / GRID_COLS;
-  const squareHeight = containerHeight / GRID_ROWS;
+  const overlayTL = document.getElementById("overlay-tl");
+  const overlayBR = document.getElementById("overlay-br");
+  const container = document.getElementById("computer-container");
 
-  // Gridmaker
-  [overlayTL, overlayBR].forEach(overlay => {
-    overlay.style.gridTemplateColumns = `repeat(${GRID_COLS}, ${squareWidth}px)`;
-    overlay.style.gridTemplateRows = `repeat(${GRID_ROWS}, ${squareHeight}px)`;
-  });
+  if (!overlayTL || !overlayBR || !container) return;
 
-  buildGrid(overlayTL, true);
-  buildGrid(overlayBR, false);
+  function buildCheckerboard(el, cols, rows, invert, maskAngleDeg) {
+    el.innerHTML = "";
+    const rect = container.getBoundingClientRect();
+    const squareSize = Math.min(rect.width / cols, rect.height / rows);
 
-  overlayTL.style.width = `${containerWidth}px`;
-  overlayTL.style.height = `${containerHeight}px`;
-  overlayBR.style.width = `${containerWidth}px`;
-  overlayBR.style.height = `${containerHeight}px`;
+    el.style.width = `${cols * squareSize}px`;
+    el.style.height = `${rows * squareSize}px`;
+    el.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
+    el.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
 
-  overlayTL.style.top = "50%";
-  overlayTL.style.left = "50%";
-  overlayTL.style.transform = "translate(-50%, -50%)";
-  overlayBR.style.top = "50%";
-  overlayBR.style.left = "50%";
-  overlayBR.style.transform = "translate(-50%, -50%)";
-}
+    // Slope control: tan(60°) = √3
+    const slope = Math.tan((maskAngleDeg * Math.PI) / 180);
+    const midRow = Math.floor(rows / 2);
 
-// Diagonal Cut
-function buildGrid(overlay, isTopLayer) {
-  overlay.innerHTML = ""; // clear
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const cell = document.createElement("div");
 
-  for (let row = 0; row < GRID_ROWS; row++) {
-    for (let col = 0; col < GRID_COLS; col++) {
-      const square = document.createElement("div");
+        // Checkerboard
+        const filled = (r + c) % 2 === 0;
 
-      // Checkerboard
-      const isFilled = (row + col) % 2 === 0;
+        // Mask
+        const cutoff = midRow - (r - (c / slope));
+        const masked = invert ? r - c / slope < midRow - 0.5 : r - c / slope > midRow + 0.5;
 
-      // Mask
-      const diagonalCol = Math.floor((row / GRID_ROWS) * GRID_COLS);
-      let visible;
-      if (isTopLayer) {
-        visible = col <= diagonalCol;
-      } else {
-        visible = col >= diagonalCol;
+        if (!masked && filled) {
+          cell.style.background = "black";
+        } else {
+          cell.style.background = "transparent";
+        }
+
+        if (DEBUG) {
+          cell.style.outline = "1px solid rgba(255,255,255,0.1)";
+        }
+
+        el.appendChild(cell);
       }
-
-      if (isFilled && visible) {
-        square.style.backgroundColor = "black";
-      } else {
-        square.style.backgroundColor = "transparent";
-      }
-
-      overlay.appendChild(square);
     }
   }
-}
 
-// Animation
-function runAnimation() {
-  const moveX = container.offsetWidth * 0.5;
-  const moveY = container.offsetHeight * 0.5;
+  function runWipe() {
+    const { width, height } = container.getBoundingClientRect();
+    const GRID_COLS = 30;
+    const GRID_ROWS = 15;
+    const maskAngleDeg = 60;
 
-  overlayTL.animate(
-    [
-      { transform: `translate(-50%, -50%) translate(-${moveX}px, -${moveY}px)` },
-      { transform: "translate(-50%, -50%)" }
-    ],
-    { duration: ANIMATION_DURATION, easing: "ease-in-out", fill: "forwards" }
-  );
+    buildCheckerboard(overlayTL, GRID_COLS, GRID_ROWS, false, maskAngleDeg);
+    buildCheckerboard(overlayBR, GRID_COLS, GRID_ROWS, true, maskAngleDeg);
 
-  overlayBR.animate(
-    [
-      { transform: `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)` },
-      { transform: "translate(-50%, -50%)" }
-    ],
-    { duration: ANIMATION_DURATION, easing: "ease-in-out", fill: "forwards" }
-  );
+    // Offsets
+    const diagAngle = (maskAngleDeg * Math.PI) / 180;
+    const diagLength = Math.sqrt(width ** 2 + height ** 2);
+    const offsetX = Math.cos(diagAngle) * diagLength * 0.5;
+    const offsetY = Math.sin(diagAngle) * diagLength * 0.5;
 
-  // Redirect
-  setTimeout(() => {
-    overlayTL.classList.add("fade-out");
-    overlayBR.classList.add("fade-out");
+    // Wipe old keyframes
+    const old = document.getElementById("dynamic-animations");
+    if (old) old.remove();
 
-    setTimeout(() => {
-      window.location.href = "checklist.html";
-    }, 1000);
-  }, REDIRECT_DELAY);
-}
+    // Dynamic keyframes
+    const style = document.createElement("style");
+    style.id = "dynamic-animations";
+    style.textContent = `
+      @keyframes slide-in-tl {
+        from { transform: translate(calc(-50% - ${offsetX}px), calc(-50% + ${offsetY}px)); }
+        to   { transform: translate(-50%, -50%); }
+      }
+      @keyframes slide-in-br {
+        from { transform: translate(calc(-50% + ${offsetX}px), calc(-50% - ${offsetY}px)); }
+        to   { transform: translate(-50%, -50%); }
+      }
+    `;
+    document.head.appendChild(style);
 
-// Initialize
-window.addEventListener("load", () => {
-  setupGrid();
-  runAnimation();
+    overlayTL.style.animation = `slide-in-tl ${SPEED}s ease-out forwards`;
+    overlayBR.style.animation = `slide-in-br ${SPEED}s ease-out forwards`;
+
+    // Redirect
+    let finished = 0;
+    function handleFinished() {
+      finished++;
+      if (finished === 2) {
+        setTimeout(() => {
+          overlayTL.classList.add("fade-out");
+          overlayBR.classList.add("fade-out");
+          setTimeout(() => {
+            if (!DEBUG) window.location.href = REDIRECT_URL;
+          }, FADE_TIME * 1000);
+        }, HOLD_TIME * 1000);
+      }
+    }
+
+    overlayTL.addEventListener("animationend", handleFinished, { once: true });
+    overlayBR.addEventListener("animationend", handleFinished, { once: true });
+  }
+
+  window.addEventListener("load", runWipe);
+  window.addEventListener("resize", runWipe);
 });
