@@ -53,13 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillBR = (r + cBR + 1) % 2 === 0; // FIX: parity offset independent of step
+        // Inverse fill of TL
+        const fillBR = !((r + cTL) % 2 === 0);
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
 
     step++;
-    if (step <= maxStep) {
+    if (step <= GRID_ROWS + GRID_COLS - 2) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
       reverseFill();
@@ -73,19 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function fillReverse() {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
+
         if (c >= 0 && c < GRID_COLS) {
-          // Only fill transparent squares
+          // TL reverse fill
           if (gridTL[r][c].style.background === "transparent") {
             if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
           }
-        }
-      }
 
-      for (let r = 0; r < GRID_ROWS; r++) {
-        const c = maxStep - reverseStep - r;
-        if (c >= 0 && c < GRID_COLS) {
+          // BR reverse fill — always inverse of TL
+          const tlFill = (r + c) % 2 !== 0;
           if (gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background === "transparent") {
-            if ((r + c + 1) % 2 !== 0) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+            if (!tlFill) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
           }
         }
       }
