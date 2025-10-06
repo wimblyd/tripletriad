@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
 
+  // Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let step = 0;
 
+  // Gridfiller
   function diagonalStep() {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
 
@@ -47,26 +49,30 @@ document.addEventListener("DOMContentLoaded", () => {
       let cTL = step - r;
       let cBR = step - r;
 
+      // TL grid fill
       if (cTL >= 0 && cTL < GRID_COLS) {
         const fillTL = (r + cTL) % 2 === 0;
         if (fillTL) gridTL[r][cTL].style.background = "black";
       }
 
+      // BR grid fill
       if (cBR >= 0 && cBR < GRID_COLS) {
-        // Inverse fill of TL
-        const fillBR = !((r + cTL) % 2 === 0);
-        if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
+        const brRow = GRID_ROWS - 1 - r;
+        const brCol = GRID_COLS - 1 - cBR;
+        const fillBR = (brRow + brCol) % 2 === 0;
+        if (fillBR) gridBR[brRow][brCol].style.background = "black";
       }
     }
-
+    
+    // Wipe in
     step++;
-    if (step <= GRID_ROWS + GRID_COLS - 2) {
+    if (step <= maxStep) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
       reverseFill();
     }
   }
-
+  // Ha ha ha hoo hoo wa, Wipeout!
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -75,16 +81,19 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
 
+        // TL reverse fill
         if (c >= 0 && c < GRID_COLS) {
-          // TL reverse fill
           if (gridTL[r][c].style.background === "transparent") {
             if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
           }
+        }
 
-          // BR reverse fill — always inverse of TL
-          const tlFill = (r + c) % 2 !== 0;
-          if (gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background === "transparent") {
-            if (!tlFill) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - c].style.background = "black";
+        // BR reverse fill
+        const brRow = GRID_ROWS - 1 - r;
+        const brCol = GRID_COLS - 1 - c;
+        if (c >= 0 && c < GRID_COLS) {
+          if (gridBR[brRow][brCol].style.background === "transparent") {
+            if ((brRow + brCol) % 2 !== 0) gridBR[brRow][brCol].style.background = "black";
           }
         }
       }
@@ -98,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     fillReverse();
   }
-
+  // Redirect
   function redirect() {
     window.location.href = REDIRECT_URL;
   }
@@ -108,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%)";
-    el.style.zIndex = "1"; // behind the frame
+    el.style.zIndex = "1";
   });
 
   diagonalStep();
