@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Balamb Garden Network</title>
+  
+  <script>
+  (function(){
+      const REDIRECT_URL = "checklist.html";
+      function isMobile() {
+          return window.matchMedia("(max-aspect-ratio: 9/16)").matches
+              || window.innerWidth < 768;
+      }
+      if (isMobile()) {
+          window.location.replace(REDIRECT_URL); // avoids loading this page entirely
+      }
+  })();
+  </script>
+  
   <link rel="stylesheet" href="videotoaster.css">
 </head>
+  
 <body>
   <img id="computer" src="img/Frame.png" />
-<div id="computer-container">
-  <div id="overlay-tl"></div>
-  <div id="overlay-br"></div>
-</div>
-<script src="videotoaster.js"></script>
+  <div id="computer-container">
+    <div id="overlay-tl"></div>
+    <div id="overlay-br"></div>
+  </div>
+  
+  <script src="videotoaster.js"></script>
 </body>
 </html>
-
