@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
 
-  // Gridmaker
+  // I wonder what it's like to be the Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let step = 0;
 
-  // Gridfiller
+  // Fill the Checkerboard
   function diagonalStep() {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
 
@@ -59,12 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cBR >= 0 && cBR < GRID_COLS) {
         const brRow = GRID_ROWS - 1 - r;
         const brCol = GRID_COLS - 1 - cBR;
-        const fillBR = (brRow + brCol) % 2 === 0;
+        const fillBR = (brRow + brCol + 1) % 2 === 0;
         if (fillBR) gridBR[brRow][brCol].style.background = "black";
       }
     }
     
-    // Wipe in
+    // Wipe In
     step++;
     if (step <= maxStep) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
@@ -72,7 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
       reverseFill();
     }
   }
-  // Ha ha ha hoo hoo wa, Wipeout!
+  
+  // Whooohahahahahaooo Wipeout!
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const brCol = GRID_COLS - 1 - c;
         if (c >= 0 && c < GRID_COLS) {
           if (gridBR[brRow][brCol].style.background === "transparent") {
-            if ((brRow + brCol) % 2 !== 0) gridBR[brRow][brCol].style.background = "black";
+            if ((brRow + brCol + 1) % 2 !== 0) gridBR[brRow][brCol].style.background = "black";
           }
         }
       }
@@ -107,7 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     fillReverse();
   }
-  // Redirect
+
+  // Do not pass go do not collect $200
   function redirect() {
     window.location.href = REDIRECT_URL;
   }
