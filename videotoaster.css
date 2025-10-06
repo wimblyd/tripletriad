@@ -51,9 +51,3 @@ body {
 #overlay-br.fade-out {
   opacity: 0;
 }
-
-/* Debug */
-body.debug #overlay-tl div,
-body.debug #overlay-br div {
-  outline: 1px solid rgba(255, 255, 255, 0.2);
-}
