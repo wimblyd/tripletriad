@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (cBR >= 0 && cBR < GRID_COLS) {
-        const fillBR = (r + cBR + step) % 2 === 0; 
+        const fillBR = (r + cBR + 1) % 2 === 0; // FIX: parity offset independent of step
         if (fillBR) gridBR[GRID_ROWS - 1 - r][GRID_COLS - 1 - cBR].style.background = "black";
       }
     }
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          // Fill only if currently transparent
+          // Only fill transparent squares
           if (gridTL[r][c].style.background === "transparent") {
             if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
           }
@@ -103,13 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function redirect() {
     window.location.href = REDIRECT_URL;
   }
-  
+
   [overlayTL, overlayBR].forEach(el => {
     el.style.position = "absolute";
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%)";
-    el.style.zIndex = "1";
+    el.style.zIndex = "1"; // behind the frame
   });
 
   diagonalStep();
