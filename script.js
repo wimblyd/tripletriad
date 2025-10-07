@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.card').forEach(card => { 
    const label = document.createElement('div'); 
    label.className = 'card-label'; 
-   label.textContent = card.getAttribute('alt') || ''; 
+   label.textContent = card.title || card.querySelector('.card-front')?.title || '';
    card.insertAdjacentElement('afterend', label); 
   });
 
