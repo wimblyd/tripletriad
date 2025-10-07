@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   logDiv.scrollTop = logDiv.scrollHeight;
 
-  // I don't like labels
+  // I Ddon't Like Labels
   document.querySelectorAll('.card').forEach(card => { 
    const label = document.createElement('div'); 
    label.className = 'card-label'; 
@@ -148,10 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
  // Log Entry
 function addLogEntry(message) {
   if (!logDiv) return;
-
   const now = new Date();
-
-  // Format like "07 Oct 2025 | 02:16:45 AM"
   const day = String(now.getDate()).padStart(2, '0');
   const month = now.toLocaleString('en-US', { month: 'short' });
   const year = now.getFullYear();
