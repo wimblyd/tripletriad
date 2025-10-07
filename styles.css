@@ -19,17 +19,18 @@ body {
 /* Tupperware */
 .tupperware {
   display: flex;
-  flex-direction: column; /* Stack title & main container vertically */
-  height: 100vh; /* Fill viewport */
+  flex-direction: column; 
+  height: 100vh; 
   overflow: hidden;
 }
 
 /* Title */
 .title-container {
-  position: relative; /* No longer fixed so it’s part of the layout */
+  position: relative;
   width: 100%;
+  right: 0;
   z-index: 10;
-  padding: 10px;
+  padding: 0px;
 }
 
 /* The Hardest Little Button to Button */
@@ -164,7 +165,7 @@ body {
   border-radius: 6px;
   max-height: 100%;
   box-sizing: border-box;
-  max-width: calc(100% - 260px); /* leave space for operation log */
+  max-width: calc(100% - 260px);
 }
 
 /* It's Log! by Blam-O! */
@@ -282,4 +283,5 @@ body {
     cursor: pointer;
   }
 }
+
 
