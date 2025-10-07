@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // I don't like labels
   document.querySelectorAll('.card').forEach(card => { 
-  const label = document.createElement('div'); 
-  label.className = 'card-label'; 
-  label.textContent = card.getAttribute('title') || ''; 
-  card.insertAdjacentElement('afterend', label); 
-});
+   const label = document.createElement('div'); 
+   label.className = 'card-label'; 
+   label.textContent = card.getAttribute('title') || ''; 
+   card.insertAdjacentElement('afterend', label); 
+  });
 
   // Setup
   const cards = document.querySelectorAll('.card');
