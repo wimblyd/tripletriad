@@ -29,7 +29,6 @@ body {
 .title-container {
   position: relative;
   width: 100%;
-  left: 100%;
   right: 0;
   z-index: 10;
   padding: 0px;
@@ -130,10 +129,6 @@ body {
 
 /* Don't Label Me */
 .card-label {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
   font-size: 8px;
   color: #fff;
   text-align: center;
@@ -145,6 +140,7 @@ body {
 .main-container {
   display: flex;
   justify-content: flex-start;
+  width: 100vw;
   gap: 6px;
   padding: 10px;
   overflow: hidden;
@@ -161,7 +157,7 @@ body {
   border-radius: 6px;
   max-height: 100%;
   box-sizing: border-box;
-  max-width: calc(100% - 260px);
+  max-width: calc(100% - 520px);
 }
 
 /* It's Log! by Blam-O! */
@@ -279,6 +275,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
