@@ -37,6 +37,7 @@ body {
 /* The Hardest Little Button to Button */
 .button-container {
   display: flex;
+  flex: 0 0 260px;
   flex-direction: column;
   align-items: flex-start;
   padding: 10px;
@@ -281,6 +282,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
