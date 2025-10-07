@@ -19,20 +19,17 @@ body {
 /* Tupperware */
 .tupperware {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  position: relative;
-  width: auto;
-  height: auto;
-  overflow: auto;
+  flex-direction: column; /* Stack title & main container vertically */
+  height: 100vh; /* Fill viewport */
+  overflow: hidden;
 }
 
 /* Title */
 .title-container {
-  position: fixed;
-  top: 20px;
-  right: 0;
+  position: relative; /* No longer fixed so it’s part of the layout */
+  width: 100%;
   z-index: 10;
+  padding: 10px;
 }
 
 /* The Hardest Little Button to Button */
@@ -142,7 +139,7 @@ body {
 }
 
 /* Tupperware 2 Electric Boogaloo */
- .main-container {
+.main-container {
   display: flex;
   flex: 1;
   align-items: stretch;
@@ -154,7 +151,7 @@ body {
 
 /* Screen */
 .screen {
-  flex: 1;
+  flex: 1; /* Take available space */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -163,6 +160,8 @@ body {
   padding: 4px;
   border-radius: 6px;
   max-height: 100%;
+  box-sizing: border-box;
+  max-width: calc(100% - 260px); /* leave space for operation log */
 }
 
 /* It's Log! by Blam-O! */
@@ -280,12 +279,3 @@ body {
     cursor: pointer;
   }
 }
-
-
-
-
-
-
-
-
-
