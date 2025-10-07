@@ -27,7 +27,6 @@ body {
 /* Title */
 .title-container {
   position: relative;
-  width: 100%;
   right: 0;
   z-index: 10;
   padding: 0px;
@@ -283,5 +282,6 @@ body {
     cursor: pointer;
   }
 }
+
 
 
