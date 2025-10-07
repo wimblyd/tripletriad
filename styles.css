@@ -130,7 +130,10 @@ body {
 
 /* Don't Label Me */
 .card-label {
-  margin-top: 1px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 8px;
   color: #fff;
   text-align: center;
@@ -279,3 +282,4 @@ body {
     cursor: pointer;
   }
 }
+
