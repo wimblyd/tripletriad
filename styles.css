@@ -132,7 +132,7 @@ img.title {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 8px;
+  padding: 4px;
   max-width: 90%;
   max-height: 65%;
   overflow: auto;
@@ -256,6 +256,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
