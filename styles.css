@@ -126,6 +126,7 @@ img.title {
   position: fixed;
   top: 30%;
   left: 50%;
+  right: 50%;
   bottom: 30%;
   display: flex;
   flex-wrap: wrap;
@@ -255,6 +256,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
