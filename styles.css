@@ -154,7 +154,6 @@ body {
 
 /* Screen */
 .screen {
-  flex: 1; /* Take available space */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -282,6 +281,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
