@@ -50,8 +50,8 @@ body {
 
 /* Unflip */
 #resetButton { 
-  position: fixed;
-  width: 80%;
+  position: relative;
+  width: 20%;
   height: auto;
   top: 210px; 
   left: 20px; 
@@ -60,9 +60,7 @@ body {
 
 /* Copy Log */ 
 #copyLogButton { 
-  position: fixed;
-  width: 80%;
-  height: auto;
+  position: relative;
   top: 265px; 
   left: 40px; 
   cursor: pointer; 
@@ -70,9 +68,7 @@ body {
 
 /* Clear Log */ 
 #clearLogButton { 
-  position: fixed; 
-  width: 80%;
-  height: auto;
+  position: relative; 
   top: 320px; 
   left: 60px; 
   cursor: pointer; 
@@ -80,7 +76,7 @@ body {
 
 /* Guide */ 
 #guideButton { 
-  position: fixed; 
+  position: relative; 
   top: 375px; 
   left: 80px; 
   cursor: pointer; 
@@ -289,6 +285,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
