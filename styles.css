@@ -16,15 +16,8 @@ body {
   to { opacity: 1; }
 }
 
-/* Title */
-.title-container {
-  position: absolute;
-  top: 20px;
-  right: 0;
-}
-
-/* The Hardest Little Button to Button */
-.ui-container {
+/* Tupperware */
+.tupperware {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -32,6 +25,26 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+
+/* Title */
+.title-container {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 10;
+}
+
+/* The Hardest Little Button to Button */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px;
+  width: 160px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 /* Unflip */
@@ -128,20 +141,15 @@ body {
   pointer-events: none;
 }
 
-/* Tupperware */
-.main-container {
-  position: fixed;
-  top: 50%;             
-  left: 160px;         
-  transform: translateY(-50%);  
+/* Tupperware 2 Electric Boogaloo */
+ .main-container {
   display: flex;
-  align-items: stretch;  
+  flex: 1;
+  align-items: stretch;
   justify-content: flex-start;
   gap: 6px;
-  max-width: calc(100vw - 220px);
-  max-height: 75vh;
+  padding: 10px;
   overflow: hidden;
-  z-index: 1;
 }
 
 /* Screen */
@@ -272,6 +280,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
