@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   logDiv.scrollTop = logDiv.scrollHeight;
 
-  // I Ddon't Like Labels
+  // I Don't Like Labels
   document.querySelectorAll('.card').forEach(card => { 
    const label = document.createElement('div'); 
    label.className = 'card-label'; 
-   label.textContent = card.getAttribute('title') || ''; 
+   label.textContent = card.getAttribute('alt') || ''; 
    card.insertAdjacentElement('afterend', label); 
   });
 
