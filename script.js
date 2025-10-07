@@ -145,22 +145,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Log Entry
-  function addLogEntry(message) {
-    if (!logDiv) return;
-    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
-    const entry = `[${timestamp}] ${message}`;
+ // Log Entry
+function addLogEntry(message) {
+  if (!logDiv) return;
 
-    const div = document.createElement('div');
-    div.textContent = entry;
-    logDiv.appendChild(div);
+  const now = new Date();
 
-    logDiv.scrollTop = logDiv.scrollHeight;
+  // Format like "07 Oct 2025 | 02:16:45 AM"
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = now.toLocaleString('en-US', { month: 'short' });
+  const year = now.getFullYear();
+  const time = now.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
 
-    let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-    logs.push(entry);
-    localStorage.setItem("operationLog", JSON.stringify(logs));
-  }
+  const timestamp = `${day} ${month} ${year} | ${time}`;
+  const entry = `[${timestamp}] ${message}`;
+
+  const div = document.createElement('div');
+  div.textContent = entry;
+  logDiv.appendChild(div);
+
+  logDiv.scrollTop = logDiv.scrollHeight;
+
+  let logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+  logs.push(entry);
+  localStorage.setItem("operationLog", JSON.stringify(logs));
+}
 
   // Save State
   function saveCardState(id, state) {
