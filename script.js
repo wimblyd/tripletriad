@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logDiv.scrollTop = logDiv.scrollHeight;
 
   // I Don't Like Labels
-  document.querySelectorAll('.card').forEach(card => {
+ document.querySelectorAll('.card').forEach(card => {
   const label = document.createElement('div');
   label.className = 'card-label';
   label.textContent = card.title || card.querySelector('.card-front')?.alt || '';
