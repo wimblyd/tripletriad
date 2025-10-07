@@ -17,10 +17,21 @@ body {
 }
 
 /* Title */
-img.title { 
-  position: fixed; 
-  top: 20px; 
-  right: 0; 
+.title-container {
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
+/* The Hardest Little Button to Button */
+.ui-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Unflip */
@@ -261,6 +272,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
