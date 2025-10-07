@@ -113,14 +113,13 @@ img.title {
 }
 
 .card-label {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 2px;
+  font-size: 8px;
   color: #fff;
   text-align: center;
   text-shadow: 1px 1px 2px #000;
   pointer-events: none;
 }
-
 
 /* Screen */
 .screen {
@@ -256,6 +255,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
