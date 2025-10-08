@@ -34,27 +34,31 @@ window.addEventListener("load", () => {
 );
 
   function createGrid(el) {
-    el.innerHTML = "";
-    el.style.display = "grid";
-    el.style.gridTemplateColumns = `repeat(${GRID_COLS}, ${squareSize}px)`;
-    el.style.gridTemplateRows = `repeat(${GRID_ROWS}, ${squareSize}px)`;
-    el.style.width = `${GRID_COLS * squareSize}px`;
-    el.style.height = `${GRID_ROWS * squareSize}px`;
+  el.innerHTML = "";
+  el.style.display = "grid";
 
-    const grid = [];
-    for (let r = 0; r < GRID_ROWS; r++) {
-      grid[r] = [];
-      for (let c = 0; c < GRID_COLS; c++) {
-        const cell = document.createElement("div");
-        cell.style.width = `${squareSize}px`;
-        cell.style.height = `${squareSize}px`;
-        cell.style.background = "transparent";
-        el.appendChild(cell);
-        grid[r][c] = cell;
-      }
+  // Flexible columns/rows to prevent fractional gaps
+  el.style.gridTemplateColumns = `repeat(${GRID_COLS}, 1fr)`;
+  el.style.gridTemplateRows = `repeat(${GRID_ROWS}, 1fr)`;
+
+  // Lock container size
+  el.style.width = `${GRID_COLS * squareSize}px`;
+  el.style.height = `${GRID_ROWS * squareSize}px`;
+
+  const grid = [];
+  for (let r = 0; r < GRID_ROWS; r++) {
+    grid[r] = [];
+    for (let c = 0; c < GRID_COLS; c++) {
+      const cell = document.createElement("div");
+      cell.style.width = `${squareSize}px`;
+      cell.style.height = `${squareSize}px`;
+      cell.style.background = "transparent";
+      el.appendChild(cell);
+      grid[r][c] = cell;
     }
-    return grid;
   }
+  return grid;
+}
 
   const gridTL = createGrid(overlayTL);
   const gridBR = createGrid(overlayBR);
@@ -130,13 +134,13 @@ window.addEventListener("load", () => {
   }
 
   // Center Center
-  [overlayTL, overlayBR].forEach((el) => {
-    el.style.position = "absolute";
-    el.style.top = "50%";
-    el.style.left = "50%";
-    el.style.transform = "translate(-50%, -50%)";
-    el.style.zIndex = "1";
-  });
+ [overlayTL, overlayBR].forEach((el) => {
+  el.style.position = "absolute";
+  el.style.top = "0";
+  el.style.left = "0";
+  el.style.transform = "none";
+  el.style.zIndex = "1";
+});
 
   // Did you ever know that I had mine on you....
   const observer = new ResizeObserver(() => {
