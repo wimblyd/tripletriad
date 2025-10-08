@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   card.insertAdjacentElement('afterend', label);
 });
 
-  // Setup
+  // Shuffle or Boogie
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     const id = card.dataset.cardId;
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
- // Log Entry
+ // It's Log! From Blam-O!
 function addLogEntry(message) {
   if (!logDiv) return;
   const now = new Date();
