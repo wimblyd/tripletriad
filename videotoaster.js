@@ -11,6 +11,7 @@ window.addEventListener("load", () => {
 
   if (!overlayTL || !overlayBR || !container) return;
 
+  // Do not pass Go do not collect $200
   function isMobile() {
     return (
       window.matchMedia("(max-aspect-ratio: 9/16)").matches ||
