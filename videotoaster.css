@@ -1,3 +1,7 @@
+:root {
+  --grid-overlap: -0.25px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -44,7 +48,7 @@ body {
 #overlay-br div {
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
-  margin: -0.5px;
+  margin: var(--grid-overlap);
 }
 
 #overlay-tl.fade-out,
