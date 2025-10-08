@@ -26,17 +26,19 @@ body {
 }
 
 /* Title */
-img.title { 
-  position: fixed; 
-  top: 20px; 
-  right: 0; 
-  } 
-
 .title-container {
-  position: relative;
-  width: 100%;
-  z-index: 10;
-  padding: 0px;
+  position: fixed;
+  top: 20px;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+img.title {
+  max-height: 100%
+  height: auto;
 }
 
 /* The Hardest Little Button to Button */
@@ -280,6 +282,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
