@@ -35,25 +35,22 @@ img.title {
 
 /* Tupperware Party */
 .tupperware {
-  display: flex;
+  display: flex; /* triptych style */
   flex: 1;
   width: 100%;
   height: 100%;
   overflow: hidden;
   padding-top: 100px; /* space for title */
+  gap: 6px;
 }
 
-/* Buttons */
+/* The Hardest Little Button to Button */
 .buttons {
   display: flex;
   flex-direction: column;
   width: 260px;
   padding: 10px;
   gap: 10px;
-}
-
-.button-container img {
-  cursor: pointer;
 }
 
 /* Screen */
@@ -91,21 +88,25 @@ img.title {
 
 /* Responsive */
 @media (max-width: 600px) {
-  .main-container {
+  .tupperware {
     flex-direction: column;
-    height: auto;
   }
-  .button-container {
+
+  .buttons {
     flex-direction: row;
     width: 100%;
     justify-content: center;
   }
+
   .screen {
     max-width: 95%;
     max-height: 65vh;
   }
+
   #operation-log {
     width: 90%;
     height: 120px;
   }
 }
+
+
