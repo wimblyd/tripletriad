@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const GRID_COLS = 30;
   const GRID_ROWS = 15;
   const DIAGONAL_DELAY = 40;
@@ -10,20 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!overlayTL || !overlayBR || !container) return;
 
-  // Do not pass go do not collect 200 dollars
+  // Do not pass go do not collect $200
   function isMobile() {
     return window.matchMedia("(max-aspect-ratio: 9/16)").matches
         || window.innerWidth < 768;
   }
 
   if (isMobile()) {
-    window.location.replace(REDIRECT_URL); // Double safety
+    window.location.replace(REDIRECT_URL);
     return;
   }
 
-  const squareSize = Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS);
-  
   // I wonder what it's like to be the Gridmaker
+  const squareSize = Math.ceil(
+    Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS)
+  );
+
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -52,20 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let step = 0;
 
+  // Wipe In
   function diagonalStep() {
     const maxStep = GRID_ROWS + GRID_COLS - 2;
-
     for (let r = 0; r < GRID_ROWS; r++) {
       let cTL = step - r;
       let cBR = step - r;
-      
-      // Top Lefties
+
       if (cTL >= 0 && cTL < GRID_COLS) {
         const fillTL = (r + cTL) % 2 === 0;
         if (fillTL) gridTL[r][cTL].style.background = "black";
       }
-      
-      // Bottom Righties
+
       if (cBR >= 0 && cBR < GRID_COLS) {
         const brRow = GRID_ROWS - 1 - r;
         const brCol = GRID_COLS - 1 - cBR;
@@ -73,16 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fillBR) gridBR[brRow][brCol].style.background = "black";
       }
     }
-   
-    // Wipe In
+  // Whahahahahahooha Wipe Out!
     step++;
-    if (step <= GRID_ROWS + GRID_COLS - 2) {
+    if (step <= maxStep) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
       reverseFill();
     }
   }
-  // Whoohohohoahahaha Wipe Out!
+
   function reverseFill() {
     let reverseStep = 0;
     const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
@@ -90,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function fillReverse() {
       for (let r = 0; r < GRID_ROWS; r++) {
         const c = maxStep - reverseStep - r;
-
         if (c >= 0 && c < GRID_COLS) {
           if (gridTL[r][c].style.background === "transparent") {
             if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
@@ -114,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fillReverse();
   }
 
-    // Redirect
+  // Redirect
   function redirect() {
     document.body.style.transition = "opacity 0.5s ease";
     document.body.style.opacity = 0;
@@ -131,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.zIndex = "1";
   });
 
-  // Did you ever know that I had mine on you...
   const observer = new ResizeObserver(() => {
     observer.disconnect();
     diagonalStep();
