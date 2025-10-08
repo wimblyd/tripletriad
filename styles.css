@@ -65,6 +65,104 @@ img.title {
   box-sizing: border-box;
 }
 
+/* Unflip */ 
+#resetButton { 
+  position: relative; 
+  left: 20px; 
+  cursor: pointer; 
+} 
+/* Copy Log */ 
+#copyLogButton { 
+  position: relative; 
+  left: 40px; cursor: 
+    pointer; } 
+/* Clear Log */ 
+#clearLogButton { 
+  position: relative; 
+  left: 60px; 
+  cursor: pointer; } 
+/* Guide */ 
+#guideButton { 
+  position: 
+    relative; 
+  left: 80px; 
+  cursor: pointer; 
+} 
+
+/* Scrollbar */ 
+::-webkit-scrollbar { 
+  width: 13px; 
+  height: 13px; 
+} 
+::-webkit-scrollbar-track-piece { 
+  background-color: #ebebeb; 
+} 
+::-webkit-scrollbar-thumb:vertical { 
+  height: 50px; 
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #e1d9c4), color-stop(100%, #7c97a0)); 
+  border: 1px solid #0d0d0d; 
+  border-top: 1px solid #e1d9c4; 
+  border-left: 1px solid #e1d9c4; 
+} 
+
+/* Card Flip */ 
+.card { 
+  flex: 0 1 auto; 
+  width: 76px; 
+  height: 97px; 
+  perspective: 1000px; 
+  cursor: pointer; 
+  margin: 4px; 
+  display: inline-block; } 
+.card-inner { 
+  position: 
+    relative; 
+  width: 100%; 
+  height: 100%; 
+  transform-style: preserve-3d; 
+  transition: transform 0.6s; 
+  transform: rotateY(180deg); } 
+.card.flipped .card-inner { 
+  transform: rotateY(0deg); 
+} 
+.card-face { 
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  backface-visibility: hidden; 
+  border-radius: 4px; 
+  pointer-events: none; 
+} 
+.card-front { 
+  transform: rotateY(0deg); 
+} 
+.card-back { 
+  transform: rotateY(180deg); 
+} 
+
+/* Don't Label Me */ 
+.card-label { 
+  font-size: 8px; 
+  color: #fff; 
+  text-align: center; 
+  text-shadow: 1px 1px 2px #000; 
+  pointer-events: none; 
+}
+/* Panels */ 
+.panel-style { background-image: url('img/Panel.png'); 
+background-position: center; 
+background-repeat: no-repeat; 
+background-size: cover; 
+background-color: #404040; 
+border-radius: 0; 
+border-style: solid; 
+border-width: 4px; 
+border-top-color: #8a8a8a; 
+border-left-color: #8a8a8a; border-bottom-color: #1a1a1a; 
+border-right-color: #1a1a1a; 
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.6); 
+}
+
 /* Come on and get your Log! */
 #operation-log {
   flex: 0 0 260px;
@@ -108,5 +206,6 @@ img.title {
     height: 120px;
   }
 }
+
 
 
