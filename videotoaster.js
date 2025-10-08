@@ -3,6 +3,7 @@ window.addEventListener("load", () => {
   const GRID_ROWS = 15;
   const DIAGONAL_DELAY = 40;
   const REDIRECT_URL = "checklist.html";
+  const MAX_DIAGONAL = GRID_ROWS + GRID_COLS - 2;
 
   const overlayTL = document.getElementById("overlay-tl");
   const overlayBR = document.getElementById("overlay-br");
@@ -10,10 +11,11 @@ window.addEventListener("load", () => {
 
   if (!overlayTL || !overlayBR || !container) return;
 
-  // Do not pass go do not collect $200
   function isMobile() {
-    return window.matchMedia("(max-aspect-ratio: 9/16)").matches
-        || window.innerWidth < 768;
+    return (
+      window.matchMedia("(max-aspect-ratio: 9/16)").matches ||
+      window.innerWidth < 768
+    );
   }
 
   if (isMobile()) {
@@ -21,11 +23,11 @@ window.addEventListener("load", () => {
     return;
   }
 
-  // I wonder what it's like to be the Gridmaker
   const squareSize = Math.ceil(
     Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS)
   );
 
+  // I wonder what it's like to be the Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
@@ -52,58 +54,59 @@ window.addEventListener("load", () => {
   const gridTL = createGrid(overlayTL);
   const gridBR = createGrid(overlayBR);
 
+  // Vincenzo Natali's 'The Cube'
+  function fillCell(cell, condition) {
+    if (condition && cell.style.background === "transparent") {
+      cell.style.background = "black";
+    }
+  }
+
   let step = 0;
 
   // Wipe In
   function diagonalStep() {
-    const maxStep = GRID_ROWS + GRID_COLS - 2;
     for (let r = 0; r < GRID_ROWS; r++) {
-      let cTL = step - r;
-      let cBR = step - r;
+      const cTL = step - r;
+      const cBR = step - r;
 
       if (cTL >= 0 && cTL < GRID_COLS) {
-        const fillTL = (r + cTL) % 2 === 0;
-        if (fillTL) gridTL[r][cTL].style.background = "black";
+        fillCell(gridTL[r][cTL], (r + cTL) % 2 === 0);
       }
 
       if (cBR >= 0 && cBR < GRID_COLS) {
         const brRow = GRID_ROWS - 1 - r;
         const brCol = GRID_COLS - 1 - cBR;
-        const fillBR = (brRow + brCol + 1) % 2 === 0;
-        if (fillBR) gridBR[brRow][brCol].style.background = "black";
+        fillCell(gridBR[brRow][brCol], (brRow + brCol + 1) % 2 === 0);
       }
     }
-  // Whahahahahahooha Wipe Out!
+
     step++;
-    if (step <= maxStep) {
+    if (step <= MAX_DIAGONAL) {
       setTimeout(diagonalStep, DIAGONAL_DELAY);
     } else {
       reverseFill();
     }
   }
 
+  // Whahaahahowaa Wipe Out
   function reverseFill() {
     let reverseStep = 0;
-    const maxStep = Math.floor((GRID_ROWS + GRID_COLS - 2) / 2);
+    const reverseMax = Math.floor(MAX_DIAGONAL / 2);
 
     function fillReverse() {
       for (let r = 0; r < GRID_ROWS; r++) {
-        const c = maxStep - reverseStep - r;
+        const c = reverseMax - reverseStep - r;
         if (c >= 0 && c < GRID_COLS) {
-          if (gridTL[r][c].style.background === "transparent") {
-            if ((r + c) % 2 !== 0) gridTL[r][c].style.background = "black";
-          }
+          fillCell(gridTL[r][c], (r + c) % 2 !== 0);
 
           const brRow = GRID_ROWS - 1 - r;
           const brCol = GRID_COLS - 1 - c;
-          if (gridBR[brRow][brCol].style.background === "transparent") {
-            if ((brRow + brCol + 1) % 2 !== 0) gridBR[brRow][brCol].style.background = "black";
-          }
+          fillCell(gridBR[brRow][brCol], (brRow + brCol + 1) % 2 !== 0);
         }
       }
 
       reverseStep++;
-      if (reverseStep <= maxStep) {
+      if (reverseStep <= reverseMax) {
         setTimeout(fillReverse, DIAGONAL_DELAY);
       } else {
         redirect();
@@ -112,7 +115,7 @@ window.addEventListener("load", () => {
     fillReverse();
   }
 
-  // Redirect
+  // Fade out Redirect
   function redirect() {
     document.body.style.transition = "opacity 0.5s ease";
     document.body.style.opacity = 0;
@@ -121,7 +124,8 @@ window.addEventListener("load", () => {
     }, 500);
   }
 
-  [overlayTL, overlayBR].forEach(el => {
+  // 🧭 Center overlays precisely
+  [overlayTL, overlayBR].forEach((el) => {
     el.style.position = "absolute";
     el.style.top = "50%";
     el.style.left = "50%";
@@ -129,6 +133,7 @@ window.addEventListener("load", () => {
     el.style.zIndex = "1";
   });
 
+  // Did you ever know that I had mine on you....
   const observer = new ResizeObserver(() => {
     observer.disconnect();
     diagonalStep();
