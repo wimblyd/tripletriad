@@ -24,11 +24,15 @@ window.addEventListener("load", () => {
     return;
   }
 
+  // I wonder what it's like to be the Gridmaker
   const squareSize = Math.ceil(
     Math.max(container.offsetWidth / GRID_COLS, container.offsetHeight / GRID_ROWS)
   );
+  document.documentElement.style.setProperty(
+  "--grid-overlap",
+  `${-squareSize * 0.0125}px`
+);
 
-  // I wonder what it's like to be the Gridmaker
   function createGrid(el) {
     el.innerHTML = "";
     el.style.display = "grid";
