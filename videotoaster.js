@@ -129,7 +129,7 @@ window.addEventListener("load", () => {
     }, 500);
   }
 
-  // 🧭 Center overlays precisely
+  // Center Center
   [overlayTL, overlayBR].forEach((el) => {
     el.style.position = "absolute";
     el.style.top = "50%";
