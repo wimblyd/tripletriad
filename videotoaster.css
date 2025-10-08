@@ -42,8 +42,9 @@ body {
 
 #overlay-tl div,
 #overlay-br div {
-  aspect-ratio: 1 / 1; 
+  aspect-ratio: 1 / 1;
   box-sizing: border-box;
+  margin: -0.25px;
 }
 
 #overlay-tl.fade-out,
