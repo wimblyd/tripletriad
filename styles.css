@@ -37,7 +37,7 @@ img.title {
 }
 
 /* Buttons */
-.button-container {
+.buttons {
   display: flex;
   flex-direction: column;
   width: 260px;
@@ -103,3 +103,4 @@ img.title {
     height: 120px;
   }
 }
+
