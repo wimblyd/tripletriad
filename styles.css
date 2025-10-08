@@ -16,8 +16,8 @@ body {
   to { opacity: 1; }
 }
 
-/* Tupperware */
-.tupperware {
+/* Wrap it Up Dude */
+.wrapper {
   display: flex;
   flex-direction: column; 
   height: 100vh; 
@@ -25,7 +25,7 @@ body {
   overflow: hidden;
 }
 
-/* Title */
+/* Wimbly's Shriple Shriad Shrecklist */
 img.title { 
   position: fixed; 
   top: 20px; 
@@ -141,8 +141,8 @@ img.title {
   pointer-events: none;
 }
 
-/* Tupperware 2 Electric Boogaloo */
-.main-container {
+/* Tupperware Party */
+.tupperware {
   display: flex;
   justify-content: flex-start;
   width: 100vw;
@@ -280,18 +280,4 @@ img.title {
     cursor: pointer;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
