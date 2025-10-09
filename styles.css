@@ -330,13 +330,14 @@ body {
     margin: 0 4px;
   }
 
-  img.title {
+  .lid {
     width: 500px;
     height: auto;
     margin: 0;
     display: block;
   }
 }
+
 
 
 
