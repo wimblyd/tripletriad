@@ -250,9 +250,14 @@ body {
   pointer-events: auto;
 }
 
-.card.flipped .card-counter {
+.card.flipped .card-counter.visible {
   opacity: 1;
   pointer-events: auto;
+}
+
+.card-counter {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .counter-arrow {
@@ -336,6 +341,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
