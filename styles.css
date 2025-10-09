@@ -331,12 +331,13 @@ body {
   }
 
   img.title {
-    width: auto;
-    height: 150px;
-    margin: auto;
+    width: 500px;
+    height: auto;
+    margin: 0;
     display: block;
   }
 }
+
 
 
 
