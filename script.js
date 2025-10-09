@@ -253,18 +253,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // It's Log, from Blam-O!
   function addLogEntry(message) {
-    if (!logDiv) return;
-    const now = new Date();
-    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-    const entry = `[${timestamp}] ${message}`;
-    logDiv.appendChild(Object.assign(document.createElement('div'), { textContent: entry }));
-    logDiv.scrollTop = logDiv.scrollHeight;
+  if (!logDiv) return;
 
-    const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-    logs.push(entry);
-    localStorage.setItem("operationLog", JSON.stringify(logs));
+  const now = new Date();
+  const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+  const entry = `[${timestamp}] ${message}`;
+
+  const entryDiv = document.createElement('div');
+  entryDiv.textContent = entry;
+
+  // Color code logic
+  if (message.startsWith("Lost ")) {
+    entryDiv.style.color = "#ffbe32"; // Yellow
+  } else if (message.startsWith("Acquired ") || message.includes("flipped")) {
+    entryDiv.style.color = "#5b86da"; // Blue
+  } else {
+    entryDiv.style.color = "#ffffff"; // White (default for counts)
   }
 
+  logDiv.appendChild(entryDiv);
+  logDiv.scrollTop = logDiv.scrollHeight;
+
+  const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+  logs.push(entry);
+  localStorage.setItem("operationLog", JSON.stringify(logs));
+}
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
