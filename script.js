@@ -19,24 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cards = document.querySelectorAll('.card');
 
-  // Shuffle or Boogie
+  // Flipadephia
   const toggleFlip = (card, id) => {
     const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
-
 
     if (boostUsed && card.classList.contains("flipped")) return;
 
     card.classList.toggle("flipped");
 
     if (boostUsed) {
-      card.classList.add("boost-locked"); 
+      card.classList.add("boost-locked");
     } else {
       card.classList.remove("boost-locked");
     }
 
     const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
     saveCardState(id, state);
-
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
     if (card.classList.contains("flipped")) {
@@ -57,24 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
       addLogEntry(`Lost ${card.title}`);
     }
   };
-
-  // Flipadelphia
-  cards.forEach(card => {
-    const id = card.dataset.cardId;
-    if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
-
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-
-    card.addEventListener("click", () => toggleFlip(card, id));
-    card.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleFlip(card, id);
-      }
-    });
-  });
 
   // Unflipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
@@ -112,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Everything but the Kitchen Sync
-  window.addEventListener("storage", event => {
+    window.addEventListener("storage", event => {
     if (!event.key) return;
 
     if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
@@ -164,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Copy Log
+  // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
     const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
     navigator.clipboard.writeText(text)
@@ -172,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(err => console.error("Failed to copy log:", err));
   });
 
-  // Clear Log
+  // Clear log
   document.getElementById("clearLogButton")?.addEventListener("click", () => {
     logDiv.innerHTML = "";
     const now = new Date();
@@ -189,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addLogEntry("Guide Downloaded");
   });
 
-  // For The Grind
+  // Numberwang!
   (function addCardCounters() {
     const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
     counterCardIds.forEach(id => {
@@ -230,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderNumber(count);
 
       const updateCount = delta => {
-        count = Math.max(0, Math.min(100, count + delta)); // allow 0
+        count = Math.max(0, Math.min(100, count + delta));
         localStorage.setItem(`card-${id}-count`, count);
         renderNumber(count);
         addLogEntry(`${card.title} count changed to ${count}`);
@@ -239,27 +219,26 @@ document.addEventListener("DOMContentLoaded", () => {
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
-boost.addEventListener("click", e => {
-  e.stopPropagation();
+      boost.addEventListener("click", e => {
+        e.stopPropagation();
+        const boostKey = `card-${id}-boost`;
+        const boostUsed = localStorage.getItem(boostKey) === "used";
 
-  const boostKey = `card-${id}-boost`;
-  const boostUsed = localStorage.getItem(boostKey) === "used";
-
-  if (!boostUsed) {
-    count = 1; 
-    localStorage.setItem(`card-${id}-count`, count);
-    renderNumber(count);
-    counter.classList.add("visible");
-    boost.classList.add("used");
-    localStorage.setItem(boostKey, "used");
-    addLogEntry(`${card.title} count changed to ${count}`);
-  } else {
-    count = 0; 
-    localStorage.setItem(`card-${id}-count`, count);
-    renderNumber(count);
-    addLogEntry(`${card.title} count cleared`);
-  }
-});
+        if (!boostUsed) {
+          count = 1;
+          localStorage.setItem(`card-${id}-count`, count);
+          renderNumber(count);
+          counter.classList.add("visible");
+          boost.classList.add("used");
+          localStorage.setItem(boostKey, "used");
+          addLogEntry(`${card.title} count changed to ${count}`);
+        } else {
+          count = 0;
+          localStorage.setItem(`card-${id}-count`, count);
+          renderNumber(count);
+          addLogEntry(`${card.title} count cleared`);
+        }
+      });
     });
   })();
 
@@ -274,13 +253,12 @@ boost.addEventListener("click", e => {
     const entryDiv = document.createElement('div');
     entryDiv.textContent = entry;
 
-    // 🎨 Yellow for flipping/unflipping
-    if (/^Lost\s/.test(message) || /flipped/i.test(message)) || /cleared/i.test(message)) {
-      entryDiv.style.color = "#ffbe32";
+    if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
+      entryDiv.style.color = "#ffbe32"; // yellow
     } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-      entryDiv.style.color = "#5b86da";
+      entryDiv.style.color = "#5b86da"; // blue
     } else {
-      entryDiv.style.color = "#ffffff";
+      entryDiv.style.color = "#ffffff"; // white
     }
 
     logDiv.appendChild(entryDiv);
