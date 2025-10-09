@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const boost = Object.assign(document.createElement("img"), { className: "boost-button", src: "img/Boost.png", alt: "Show counter" });
 
       cardInner.append(boost);
-      frontFace.append(counter);
+      cardInner.append(counter);
 
       let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
 
