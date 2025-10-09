@@ -243,11 +243,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(boostKey, "used");
     addLogEntry(`${card.title} count changed to ${count}`);
   } else {
-    // Second boost click resets count to 1
     count = 1;
     localStorage.setItem(`card-${id}-count`, count);
     renderNumber(count);
-    addLogEntry(`${card.title} count reset to ${count}`);
+    addLogEntry(`${card.title} count cleared`);
   }
 });
     });
@@ -264,12 +263,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const entryDiv = document.createElement('div');
   entryDiv.textContent = entry;
 
-  if (/^Lost\s/.test(message)) {
-  entryDiv.style.color = "#ffbe32"; // Yellow
+  if (/^Lost\s/.test(message)) || /flipped/i.test(message)) {
+  entryDiv.style.color = "#ffbe32"; 
 } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-  entryDiv.style.color = "#5b86da"; // Blue
+  entryDiv.style.color = "#5b86da"; 
 } else {
-  entryDiv.style.color = "#ffffff"; // White (default for counts)
+  entryDiv.style.color = "#ffffff"; 
 }
 
   logDiv.appendChild(entryDiv);
