@@ -168,7 +168,8 @@ if (clearLogButton) {
     if (!card) return;
 
     const cardInner = card.querySelector(".card-inner");
-    const frontFace = card.querySelector(".card-front");
+
+    // That's Numberwang!
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
@@ -190,19 +191,22 @@ if (clearLogButton) {
     counter.appendChild(numberContainer);
     counter.appendChild(downArrow);
 
-    // Boost
+    // === CREATE BOOST BUTTON ===
     const boost = document.createElement("img");
     boost.className = "boost-button";
     boost.src = "img/Boost.png";
     boost.alt = "Show counter";
 
-    frontFace.appendChild(boost);
-    frontFace.appendChild(counter);
+    // Append once to cardInner
+    cardInner.appendChild(boost);
+    cardInner.appendChild(counter);
 
-    // That's Numberwang!
+    // Maths
+    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
+    renderNumber(count);
+
     function renderNumber(count) {
       numberContainer.innerHTML = "";
-
       if (count >= 100) {
         const star = document.createElement("img");
         star.src = "img/Star.png";
@@ -211,7 +215,6 @@ if (clearLogButton) {
         numberContainer.appendChild(star);
         return;
       }
-
       const digits = count.toString().split("");
       digits.forEach(d => {
         const digitImg = document.createElement("img");
@@ -222,15 +225,13 @@ if (clearLogButton) {
       });
     }
 
-    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
-    renderNumber(count);
-
     const updateCount = (delta) => {
-      count = Math.max(1, Math.min(100, count + delta)); // start at 1, clamp 1–100
+      count = Math.max(1, Math.min(100, count + delta));
       localStorage.setItem(`card-${id}-count`, count);
       renderNumber(count);
     };
 
+    // Clicky
     upArrow.addEventListener("click", (e) => {
       e.stopPropagation();
       updateCount(1);
@@ -241,7 +242,6 @@ if (clearLogButton) {
       updateCount(-1);
     });
 
-    // Clicky
     boost.addEventListener("click", (e) => {
       e.stopPropagation();
       counter.classList.toggle("visible");
