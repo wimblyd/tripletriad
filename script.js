@@ -159,7 +159,7 @@ if (clearLogButton) {
     // For the Grind
 (function addCardCounters() {
 
-  // Cards that get counters: 1–47 and 49–77
+  // Collectable Cards Only
   const counterCardIds = [
     ...Array(47).fill().map((_, i) => i + 1),   // 1–47
     ...Array(29).fill().map((_, i) => i + 49)   // 49–77
@@ -169,14 +169,13 @@ if (clearLogButton) {
     const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
     if (!card) return;
 
-    // A neat little bow
     const frontFace = card.querySelector(".card-front");
     const frontContainer = document.createElement("div");
     frontContainer.classList.add("card-front-container");
     frontFace.parentNode.insertBefore(frontContainer, frontFace);
     frontContainer.appendChild(frontFace);
 
-    // That's numberwang!
+    // That's Wangernumb
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
@@ -186,11 +185,8 @@ if (clearLogButton) {
     upArrow.src = "img/UpArrow.png";
     upArrow.alt = "+1";
 
-    const numberImg = document.createElement("img");
-    numberImg.className = "counter-number";
-    const savedCount = localStorage.getItem(`card-${id}-count`) || "0";
-    numberImg.src = `img/numbers/${savedCount}.png`;
-    numberImg.alt = savedCount;
+    const numberContainer = document.createElement("div");
+    numberContainer.className = "counter-number-container";
 
     const downArrow = document.createElement("img");
     downArrow.className = "counter-arrow down";
@@ -198,21 +194,46 @@ if (clearLogButton) {
     downArrow.alt = "-1";
 
     counter.appendChild(upArrow);
-    counter.appendChild(numberImg);
+    counter.appendChild(numberContainer);
     counter.appendChild(downArrow);
     frontContainer.appendChild(counter);
 
+    // Math
+    function renderNumber(count) {
+      numberContainer.innerHTML = "";
+
+      if (count >= 100) {
+        const star = document.createElement("img");
+        star.src = "img/Star.png";
+        star.alt = "100";
+        star.className = "counter-number";
+        numberContainer.appendChild(star);
+        return;
+      }
+
+      const digits = count.toString().split("");
+      digits.forEach(d => {
+        const digitImg = document.createElement("img");
+        digitImg.src = `img/${d}.png`;
+        digitImg.alt = d;
+        digitImg.className = "counter-number";
+        numberContainer.appendChild(digitImg);
+      });
+    }
+
+    // Save Your Game
+    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "0", 10);
+    renderNumber(count);
+
     // Clicky
     const updateCount = (delta) => {
-      let count = parseInt(localStorage.getItem(`card-${id}-count`) || "0", 10);
-      count = Math.max(0, count + delta); // no negatives
+      count = Math.max(0, Math.min(100, count + delta));
       localStorage.setItem(`card-${id}-count`, count);
-      numberImg.src = `img/${count}.png`;
-      numberImg.alt = count;
+      renderNumber(count);
     };
 
     upArrow.addEventListener("click", (e) => {
-      e.stopPropagation(); // don’t flip card
+      e.stopPropagation();
       updateCount(1);
     });
 
@@ -251,7 +272,7 @@ function addLogEntry(message) {
   localStorage.setItem("operationLog", JSON.stringify(logs));
 }
 
-  // Save State
+  // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
