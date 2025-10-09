@@ -228,7 +228,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Only show Boost button if card is flipped OR boost is used */
 .card.flipped .boost-button,
 .boost-button.used {
   opacity: 1;
@@ -256,6 +255,9 @@ body {
   opacity: 0.9;
   filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
   animation: boostPulse 0.4s ease-out;
+}
+.card.boost-locked {
+  border: 2px solid #ffbe32;
 }
 
 /* Card Counter visibility logic */
@@ -373,6 +375,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
