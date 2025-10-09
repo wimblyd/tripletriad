@@ -46,7 +46,7 @@ body {
   align-items: flex-start;
   padding: 2px;
   gap: 2px;
-  top: 50%;
+  margin-top: 150px;
   height: auto;
   box-sizing: border-box;
 }
@@ -279,6 +279,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
