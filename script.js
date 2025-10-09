@@ -158,8 +158,6 @@ if (clearLogButton) {
 
     // For the Grind
 (function addCardCounters() {
-
-  // Collectable Cards Only
   const counterCardIds = [
     ...Array(47).fill().map((_, i) => i + 1),   // 1–47
     ...Array(29).fill().map((_, i) => i + 49)   // 49–77
@@ -169,13 +167,8 @@ if (clearLogButton) {
     const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
     if (!card) return;
 
+    const cardInner = card.querySelector(".card-inner");
     const frontFace = card.querySelector(".card-front");
-    const frontContainer = document.createElement("div");
-    frontContainer.classList.add("card-front-container");
-    frontFace.parentNode.insertBefore(frontContainer, frontFace);
-    frontContainer.appendChild(frontFace);
-
-    // That's Numberwang!
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
@@ -196,9 +189,17 @@ if (clearLogButton) {
     counter.appendChild(upArrow);
     counter.appendChild(numberContainer);
     counter.appendChild(downArrow);
-    frontContainer.appendChild(counter);
 
-    // Math
+    // Boost
+    const boost = document.createElement("img");
+    boost.className = "boost-button";
+    boost.src = "img/Boost.png";
+    boost.alt = "Show counter";
+
+    frontFace.appendChild(boost);
+    frontFace.appendChild(counter);
+
+    // That's Numberwang!
     function renderNumber(count) {
       numberContainer.innerHTML = "";
 
@@ -221,13 +222,11 @@ if (clearLogButton) {
       });
     }
 
-    // Save Your Game
-    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "0", 10);
+    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
     renderNumber(count);
 
-    // Clicky
     const updateCount = (delta) => {
-      count = Math.max(0, Math.min(100, count + delta));
+      count = Math.max(1, Math.min(100, count + delta)); // start at 1, clamp 1–100
       localStorage.setItem(`card-${id}-count`, count);
       renderNumber(count);
     };
@@ -240,6 +239,12 @@ if (clearLogButton) {
     downArrow.addEventListener("click", (e) => {
       e.stopPropagation();
       updateCount(-1);
+    });
+
+    // Clicky
+    boost.addEventListener("click", (e) => {
+      e.stopPropagation();
+      counter.classList.toggle("visible");
     });
   });
 })();
