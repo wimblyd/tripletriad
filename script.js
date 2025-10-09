@@ -144,12 +144,17 @@ document.addEventListener("DOMContentLoaded", () => {
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
-      boost.addEventListener("click", e => {
-      e.stopPropagation();
-      const counter = card.querySelector(".card-counter"); // <--- find it inside the card
-      if (counter) {
-        counter.classList.toggle("visible");
+boost.addEventListener("click", e => {
+  e.stopPropagation();
+  const counter = card.querySelector(".card-counter"); 
+  if (counter) {
+    count = 1; // Reset to 1
+    localStorage.setItem(`card-${id}-count`, count); // Store it
+    renderNumber(count); // Update the display
+    counter.classList.add("visible"); // Always show counter
+    addLogEntry(`${card.title} count changed to 1`);
   }
+});
 });
     });
   })();
