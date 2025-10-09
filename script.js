@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addLogEntry(`${card.title} was ${state}`);
 
     if (card.classList.contains("flipped")) {
-      addLogEntry(`Counters for ${card.title} are now available`);
+      addLogEntry(`Acquired ${card.title}`);
     }
   };
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Guide
   document.getElementById("guideButton")?.addEventListener("click", () => {
     window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1", "_blank");
-    addLogEntry("Guide opened");
+    addLogEntry("Guide Downloaded");
   });
 
   // For the Grind
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       boost.addEventListener("click", e => {
         e.stopPropagation();
         counter.classList.toggle("visible");
-        addLogEntry(`${card.title} Aquired`);
+        addLogEntry(`${card.title} count changed to 1`);
       });
     });
   })();
