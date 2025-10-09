@@ -228,7 +228,6 @@ body {
   pointer-events: auto;
 }
 
-/* Counter hidden by default, shown when card is flipped */
 .card-counter {
   position: absolute;
   top: 50%;
@@ -246,7 +245,7 @@ body {
   transition: opacity 0.3s ease-in-out;
 }
 
-.card.flipped .card-counter {
+.card-counter.visible {
   opacity: 1;
   pointer-events: auto;
 }
@@ -332,6 +331,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
