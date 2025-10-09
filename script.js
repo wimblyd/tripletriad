@@ -1,6 +1,6 @@
   document.addEventListener("DOMContentLoaded", () => {
  
-  // Restore Operation Log
+  // Come on and get your Log!
   const logDiv = document.getElementById('operation-log');
   const savedLogs = JSON.parse(localStorage.getItem("operationLog") || "[]");
   savedLogs.forEach(entry => {
@@ -105,6 +105,7 @@
     });
   }
 
+    // Clear Log
 const clearLogButton = document.getElementById("clearLogButton");
 if (clearLogButton) {
   clearLogButton.addEventListener("click", () => {
