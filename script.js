@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
  
   // Restore Operation Log
   const logDiv = document.getElementById('operation-log');
@@ -105,28 +105,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Clear Log
-  const clearLogButton = document.getElementById("clearLogButton");
-  if (clearLogButton) {
-    clearLogButton.addEventListener("click", () => {
-      if (logDiv) {
-        logDiv.innerHTML = "";
-      }
-      const entry = `[${timestamp}] Log cleared`;
+const clearLogButton = document.getElementById("clearLogButton");
+if (clearLogButton) {
+  clearLogButton.addEventListener("click", () => {
+    if (logDiv) {
+      logDiv.innerHTML = "";
+    }
 
-      localStorage.setItem("operationLog", JSON.stringify([entry]));
-
-      const div = document.createElement("div");
-      div.textContent = entry;
-      logDiv.appendChild(div);
-      logDiv.scrollTop = logDiv.scrollHeight;
-
-      clearLogButton.src = "img/ClearButton2.png";
-      setTimeout(() => {
-        clearLogButton.src = "img/ClearButton.png";
-      }, 500);
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = now.toLocaleString('en-US', { month: 'short' });
+    const year = now.getFullYear();
+    const time = now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
     });
-  }
+    const timestamp = `${day} ${month} ${year} | ${time}`;
+
+    const entry = `[${timestamp}] Log cleared`;
+
+    localStorage.setItem("operationLog", JSON.stringify([entry]));
+
+    const div = document.createElement("div");
+    div.textContent = entry;
+    logDiv.appendChild(div);
+    logDiv.scrollTop = logDiv.scrollHeight;
+
+    clearLogButton.src = "img/ClearButton2.png";
+    setTimeout(() => {
+      clearLogButton.src = "img/ClearButton.png";
+    }, 500);
+  });
+}
 
     // Guide Button
   const guideButton = document.getElementById("guideButton");
