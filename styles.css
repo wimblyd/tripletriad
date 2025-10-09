@@ -234,10 +234,16 @@ body {
   border-radius: 4px;
   padding: 3px;
   z-index: 6;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .card-counter.visible {
   display: flex;
+}
+
+.card.flipped .card-counter {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .counter-arrow {
@@ -256,17 +262,9 @@ body {
   width: 10px;
 }
 
-.card .boost-button,
-.card .card-counter {
+.card .boost-button {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.card.flipped .boost-button,
-.card.flipped .card-counter {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .card-front-container {
@@ -337,6 +335,7 @@ body {
     display: block;
   }
 }
+
 
 
 
