@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
-  
-// Come on and get your Log! 
+
+  // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entry => {
     const div = document.createElement('div');
     div.textContent = entry;
@@ -20,42 +20,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.card');
 
   // Shuffle or Boogie
-const toggleFlip = (card, id) => {
-  const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
+  const toggleFlip = (card, id) => {
+    const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
 
-  if (boostUsed && card.classList.contains("flipped")) return;
 
-  card.classList.toggle("flipped");
+    if (boostUsed && card.classList.contains("flipped")) return;
 
-  if (boostUsed) {
-    card.classList.add("boost-locked");
-  } else {
-    card.classList.remove("boost-locked");
-  }
+    card.classList.toggle("flipped");
 
-  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-  saveCardState(id, state);
-  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-
-  if (card.classList.contains("flipped")) {
-    addLogEntry(`Acquired ${card.title}`);
-  } else {
-    const counterNumberContainer = card.querySelector(".counter-number-container");
-    if (counterNumberContainer) {
-      const idNumber = card.dataset.cardId.replace("card-", "");
-      localStorage.setItem(`card-${idNumber}-count`, 0);
-      counterNumberContainer.innerHTML = "";
-      const digitImg = Object.assign(document.createElement("img"), {
-        src: `img/0.png`,
-        alt: "0",
-        className: "counter-number"
-      });
-      counterNumberContainer.appendChild(digitImg);
+    if (boostUsed) {
+      card.classList.add("boost-locked"); 
+    } else {
+      card.classList.remove("boost-locked");
     }
-    addLogEntry(`Lost ${card.title}`);
-  }
-};
-  
+
+    const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+    saveCardState(id, state);
+
+    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+
+    if (card.classList.contains("flipped")) {
+      addLogEntry(`Acquired ${card.title}`);
+    } else {
+      const counterNumberContainer = card.querySelector(".counter-number-container");
+      if (counterNumberContainer) {
+        const idNumber = card.dataset.cardId.replace("card-", "");
+        localStorage.setItem(`card-${idNumber}-count`, 0);
+        counterNumberContainer.innerHTML = "";
+        const digitImg = Object.assign(document.createElement("img"), {
+          src: `img/0.png`,
+          alt: "0",
+          className: "counter-number"
+        });
+        counterNumberContainer.appendChild(digitImg);
+      }
+      addLogEntry(`Lost ${card.title}`);
+    }
+  };
+
+  // Flipadelphia
+  cards.forEach(card => {
+    const id = card.dataset.cardId;
+    if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
+
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+
+    card.addEventListener("click", () => toggleFlip(card, id));
+    card.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleFlip(card, id);
+      }
+    });
+  });
+
   // Unflipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
     cards.forEach(card => {
@@ -169,7 +189,7 @@ const toggleFlip = (card, id) => {
     addLogEntry("Guide Downloaded");
   });
 
-  // For the Grind
+  // For The Grind
   (function addCardCounters() {
     const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
     counterCardIds.forEach(id => {
@@ -209,66 +229,67 @@ const toggleFlip = (card, id) => {
 
       renderNumber(count);
 
-     const updateCount = delta => {
-  count = Math.max(0, Math.min(100, count + delta)); // allow 0
-  localStorage.setItem(`card-${id}-count`, count);
-  renderNumber(count);
-  addLogEntry(`${card.title} count changed to ${count}`);
-};
+      const updateCount = delta => {
+        count = Math.max(0, Math.min(100, count + delta)); // allow 0
+        localStorage.setItem(`card-${id}-count`, count);
+        renderNumber(count);
+        addLogEntry(`${card.title} count changed to ${count}`);
+      };
 
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
       boost.addEventListener("click", e => {
-  e.stopPropagation();
+        e.stopPropagation();
+        const boostKey = `card-${id}-boost`;
+        const boostUsed = localStorage.getItem(boostKey) === "used";
 
-  const boostKey = `card-${id}-boost`;
-  const boostUsed = localStorage.getItem(boostKey) === "used";
-
-  if (!boostUsed) {
-    count = 1; // Start at 1
-    localStorage.setItem(`card-${id}-count`, count);
-    renderNumber(count);
-    counter.classList.add("visible");
-    boost.classList.add("used");
-    localStorage.setItem(boostKey, "used");
-    addLogEntry(`${card.title} count changed to ${count}`);
-  } else {
-    count = 1;
-    localStorage.setItem(`card-${id}-count`, count);
-    renderNumber(count);
-    addLogEntry(`${card.title} count cleared`);
-  }
-});
+        if (!boostUsed) {
+          count = 1; // Start at 1
+          localStorage.setItem(`card-${id}-count`, count);
+          renderNumber(count);
+          counter.classList.add("visible");
+          boost.classList.add("used");
+          localStorage.setItem(boostKey, "used");
+          addLogEntry(`${card.title} count changed to ${count}`);
+        } else {
+          count = 1;
+          localStorage.setItem(`card-${id}-count`, count);
+          renderNumber(count);
+          addLogEntry(`${card.title} count cleared`);
+        }
+      });
     });
   })();
 
   // It's Log, from Blam-O!
   function addLogEntry(message) {
-  if (!logDiv) return;
+    if (!logDiv) return;
 
-  const now = new Date();
-  const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-  const entry = `[${timestamp}] ${message}`;
+    const now = new Date();
+    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+    const entry = `[${timestamp}] ${message}`;
 
-  const entryDiv = document.createElement('div');
-  entryDiv.textContent = entry;
+    const entryDiv = document.createElement('div');
+    entryDiv.textContent = entry;
 
-  if (/^Lost\s/.test(message)) || /flipped/i.test(message)) {
-  entryDiv.style.color = "#ffbe32"; 
-} else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-  entryDiv.style.color = "#5b86da"; 
-} else {
-  entryDiv.style.color = "#ffffff"; 
-}
+    // 🎨 Yellow for flipping/unflipping
+    if (/^Lost\s/.test(message) || /flipped/i.test(message)) {
+      entryDiv.style.color = "#ffbe32";
+    } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
+      entryDiv.style.color = "#5b86da";
+    } else {
+      entryDiv.style.color = "#ffffff";
+    }
 
-  logDiv.appendChild(entryDiv);
-  logDiv.scrollTop = logDiv.scrollHeight;
+    logDiv.appendChild(entryDiv);
+    logDiv.scrollTop = logDiv.scrollHeight;
 
-  const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-  logs.push(entry);
-  localStorage.setItem("operationLog", JSON.stringify(logs));
-}
+    const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+    logs.push(entry);
+    localStorage.setItem("operationLog", JSON.stringify(logs));
+  }
+
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
