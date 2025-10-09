@@ -60,13 +60,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("resetButton")?.addEventListener("click", () => {
-    cards.forEach(card => {
-      card.classList.remove("flipped");
-      saveCardState(card.dataset.cardId, "unflipped");
-      card.setAttribute("aria-pressed", "false");
-    });
-    addLogEntry("Cards unflipped");
+  cards.forEach(card => {
+    card.classList.remove("flipped");
+    saveCardState(card.dataset.cardId, "unflipped");
+    card.setAttribute("aria-pressed", "false");
+    
+    const counter = card.querySelector(".card-counter");
+    if (counter) {
+      const id = counter.dataset.cardId;
+      localStorage.setItem(`card-${id}-count`, 0);
+
+      const numberContainer = counter.querySelector(".counter-number-container");
+      if (numberContainer) {
+        numberContainer.innerHTML = "";
+        const zeroImg = Object.assign(document.createElement("img"), {
+          src: "img/0.png",
+          alt: "0",
+          className: "counter-number"
+        });
+        numberContainer.appendChild(zeroImg);
+      }
+      counter.classList.remove("visible");
+    }
+
+    const boost = card.querySelector(".boost-button");
+    if (boost) {
+      boost.classList.remove("used");
+      boost.src = "img/Boost.png";
+    }
   });
+
+  addLogEntry("Cards unflipped");
+});
 
   // Sync
   window.addEventListener("storage", event => {
