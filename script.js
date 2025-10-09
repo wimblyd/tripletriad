@@ -239,26 +239,27 @@ document.addEventListener("DOMContentLoaded", () => {
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
-      boost.addEventListener("click", e => {
-        e.stopPropagation();
-        const boostKey = `card-${id}-boost`;
-        const boostUsed = localStorage.getItem(boostKey) === "used";
+boost.addEventListener("click", e => {
+  e.stopPropagation();
 
-        if (!boostUsed) {
-          count = 1; // Start at 1
-          localStorage.setItem(`card-${id}-count`, count);
-          renderNumber(count);
-          counter.classList.add("visible");
-          boost.classList.add("used");
-          localStorage.setItem(boostKey, "used");
-          addLogEntry(`${card.title} count changed to ${count}`);
-        } else {
-          count = 1;
-          localStorage.setItem(`card-${id}-count`, count);
-          renderNumber(count);
-          addLogEntry(`${card.title} count cleared`);
-        }
-      });
+  const boostKey = `card-${id}-boost`;
+  const boostUsed = localStorage.getItem(boostKey) === "used";
+
+  if (!boostUsed) {
+    count = 1; 
+    localStorage.setItem(`card-${id}-count`, count);
+    renderNumber(count);
+    counter.classList.add("visible");
+    boost.classList.add("used");
+    localStorage.setItem(boostKey, "used");
+    addLogEntry(`${card.title} count changed to ${count}`);
+  } else {
+    count = 0; 
+    localStorage.setItem(`card-${id}-count`, count);
+    renderNumber(count);
+    addLogEntry(`${card.title} count cleared`);
+  }
+});
     });
   })();
 
@@ -274,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     entryDiv.textContent = entry;
 
     // 🎨 Yellow for flipping/unflipping
-    if (/^Lost\s/.test(message) || /flipped/i.test(message)) {
+    if (/^Lost\s/.test(message) || /flipped/i.test(message)) || /cleared/i.test(message)) {
       entryDiv.style.color = "#ffbe32";
     } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
       entryDiv.style.color = "#5b86da";
