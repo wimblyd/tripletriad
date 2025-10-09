@@ -25,18 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     saveCardState(id, state);
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
     addLogEntry(`${card.title} was ${state}`);
-
-    if (card.classList.contains("flipped")) {
-      addLogEntry(`Acquired ${card.title}`);
-    }
+    if (card.classList.contains("flipped")) addLogEntry(`Acquired ${card.title}`);
   };
 
   // Flip Flip Flipadelphia
   cards.forEach(card => {
     const id = card.dataset.cardId;
-    if (localStorage.getItem(id) === "flipped") {
-      card.classList.add("flipped");
-    }
+    if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
 
     card.tabIndex = 0;
     card.setAttribute("role", "button");
@@ -75,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Copy Log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
     const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
-    navigator.clipboard.writeText(text).then(() => {
-      addLogEntry("Log copied to clipboard");
-    }).catch(err => console.error("Failed to copy log:", err));
+    navigator.clipboard.writeText(text)
+      .then(() => addLogEntry("Log copied to clipboard"))
+      .catch(err => console.error("Failed to copy log:", err));
   });
 
   // Clear Log
@@ -104,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
       if (!card) return;
 
+      const cardInner = card.querySelector(".card-inner"); 
       const frontFace = card.querySelector(".card-front");
 
       const counter = document.createElement("div");
@@ -118,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
       counter.append(upArrow, numberContainer, downArrow);
 
       const boost = Object.assign(document.createElement("img"), { className: "boost-button", src: "img/Boost.png", alt: "Show counter" });
-      frontFace.append(boost, counter);
+
+      cardInner.append(boost);
+      frontFace.append(counter);
 
       let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
       const renderNumber = c => {
@@ -148,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       boost.addEventListener("click", e => {
         e.stopPropagation();
         counter.classList.toggle("visible");
-        addLogEntry(`${card.title} count changed to 1`);
+        addLogEntry(`${card.title} counter toggled`);
       });
     });
   })();
