@@ -16,16 +16,16 @@ body {
   to { opacity: 1; }
 }
 
-/* Wrap it Up Dude */
+/* Wrap it up dude! */
 .wrapper {
   display: flex;
-  flex-direction: column; 
-  height: 100vh; 
+  flex-direction: column;
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
 }
 
-/* Wimbly's Shriple Shriad Shrecklist */
+/* Wimbly’s Shriple Shriad Shrecklist */
 .lid {
   position: relative;
   width: 100%;
@@ -34,11 +34,11 @@ body {
   background-repeat: no-repeat;
   background-size: 888px;
   background-position: top right;
-  background-attachment: fixed; 
+  background-attachment: fixed;
   cursor: pointer;
 }
 
-/* The Hardest Little Button to Button */
+/* the Hardest Little Button to Button */
 .buttons {
   display: flex;
   flex: 20% 0 0;
@@ -51,37 +51,14 @@ body {
   box-sizing: border-box;
 }
 
-/* Unflip */
-#resetButton { 
-  position: relative;
-  left: 20px; 
-  cursor: pointer; 
-}
+#resetButton { position: relative; left: 20px; cursor: pointer; }
+#copyLogButton { position: relative; left: 40px; cursor: pointer; }
+#clearLogButton { position: relative; left: 60px; cursor: pointer; }
+#guideButton { position: relative; left: 80px; cursor: pointer; }
 
-/* Copy Log */ 
-#copyLogButton { 
-  position: relative;
-  left: 40px; 
-  cursor: pointer; 
-}
-
-/* Clear Log */ 
-#clearLogButton { 
-  position: relative; 
-  left: 60px; 
-  cursor: pointer; 
-}
-
-/* Guide */ 
-#guideButton { 
-  position: relative; 
-  left: 80px; 
-  cursor: pointer; 
-}
-
-/* Scrollbar */ 
-::-webkit-scrollbar { width: 13px; height: 13px; } 
-::-webkit-scrollbar-track-piece { background-color: #ebebeb; } 
+/* Fancy scrollbar because why not */
+::-webkit-scrollbar { width: 13px; height: 13px; }
+::-webkit-scrollbar-track-piece { background-color: #ebebeb; }
 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, #e1d9c4), color-stop(100%, #7c97a0));
@@ -90,15 +67,15 @@ body {
   border-left: 1px solid #e1d9c4;
 }
 
-/* Card Flip */ 
+/* Card Flip magic */
 .card {
-  flex: 0 1 auto;     
-  width: 76px;          
-  height: 97px;         
+  flex: 0 1 auto;
+  width: 76px;
+  height: 97px;
   perspective: 1000px;
   cursor: pointer;
   margin: 4px;
-  display: inline-block; 
+  display: inline-block;
 }
 
 .card-inner {
@@ -111,7 +88,7 @@ body {
 }
 
 .card.flipped .card-inner {
-  transform: rotateY(0deg); 
+  transform: rotateY(0deg);
 }
 
 .card-face {
@@ -123,15 +100,10 @@ body {
   pointer-events: none;
 }
 
-.card-front {
-  transform: rotateY(0deg);
-}
+.card-front { transform: rotateY(0deg); }
+.card-back { transform: rotateY(180deg); }
 
-.card-back {
-  transform: rotateY(180deg);
-}
-
-/* Don't Label Me */
+/* Labelmaker */
 .card-label {
   font-size: 8px;
   color: #fff;
@@ -140,7 +112,7 @@ body {
   pointer-events: none;
 }
 
-/* Tupperware Party */
+/* Tupperware party */
 .tupperware {
   display: flex;
   justify-content: flex-start;
@@ -164,10 +136,10 @@ body {
   max-width: calc(100% - 520px);
 }
 
-/* It's Log! by Blam-O! */
+/* It's big, it's heavy, it's wood! */
 #operation-log {
   flex: 0 0 20%;
-  height: auto; 
+  height: auto;
   overflow-y: auto;
   padding: 10px;
   color: #ffffff;
@@ -183,8 +155,7 @@ body {
   border-left-color: #8a8a8a;
   border-bottom-color: #1a1a1a;
   border-right-color: #1a1a1a;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
-              inset -1px -1px 0 rgba(0,0,0,0.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.6);
 }
 
 /* Panels */
@@ -201,8 +172,7 @@ body {
   border-left-color: #8a8a8a;
   border-bottom-color: #1a1a1a;
   border-right-color: #1a1a1a;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),
-              inset -1px -1px 0 rgba(0,0,0,0.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset -1px -1px 0 rgba(0,0,0,0.6);
 }
 
 /* Wangernumb */
@@ -217,16 +187,10 @@ body {
   z-index: 5;
   opacity: 0;
   pointer-events: none;
-  transition:
-    transform 0.2s ease,
-    opacity 0.3s ease-in-out,
-    filter 0.3s ease,
-    content 0.3s ease-in-out;
+  transition: transform 0.2s ease, opacity 0.3s ease-in-out, filter 0.3s ease, content 0.3s ease-in-out;
 }
 
-.boost-button:hover {
-  transform: scale(1.1);
-}
+.boost-button:hover { transform: scale(1.1); }
 
 .card.flipped .boost-button,
 .boost-button.used {
@@ -235,18 +199,9 @@ body {
 }
 
 @keyframes boostPulse {
-  0% {
-    filter: brightness(2) drop-shadow(0 0 10px rgba(255,255,255,0.9));
-    transform: scale(1.2);
-  }
-  50% {
-    filter: brightness(1.5) drop-shadow(0 0 6px rgba(255,255,255,0.6));
-    transform: scale(0.9);
-  }
-  100% {
-    filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
-    transform: scale(0.95);
-  }
+  0% { filter: brightness(2) drop-shadow(0 0 10px rgba(255,255,255,0.9)); transform: scale(1.2); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 6px rgba(255,255,255,0.6)); transform: scale(0.9); }
+  100% { filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4)); transform: scale(0.95); }
 }
 
 .boost-button.used {
@@ -256,11 +211,12 @@ body {
   filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
   animation: boostPulse 0.4s ease-out;
 }
+
 .card.boost-locked {
   border: 2px solid #ffbe32;
 }
 
-/* Card Counter visibility logic */
+/* For the Grind */
 .card-counter {
   position: absolute;
   top: 50%;
@@ -284,16 +240,6 @@ body {
   pointer-events: auto;
 }
 
-.card.flipped .card-counter.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.card-counter {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .counter-arrow {
   width: 10px;
   cursor: pointer;
@@ -312,7 +258,6 @@ body {
 
 /* Mobile */
 @media (max-width: 600px) {
-
   .buttons {
     flex-direction: row;
     justify-content: space-around;
@@ -321,7 +266,6 @@ body {
     margin-top: 0;
     padding: 4px;
   }
-
   .screen {
     flex-wrap: wrap;
     justify-content: center;
@@ -331,20 +275,16 @@ body {
     max-height: 80vh;
     padding: 4px;
   }
-
   .card {
     flex: 1 1 30%;
     margin: 2px;
     width: auto;
     height: auto;
   }
-
   .card-inner {
     width: 100%;
     height: 100%;
   }
-
-
   #operation-log {
     flex: 0 0 auto;
     width: 100%;
@@ -354,7 +294,6 @@ body {
     font-size: 10px;
     line-height: 11px;
   }
-
   #resetButton,
   #copyLogButton,
   #clearLogButton,
@@ -365,7 +304,6 @@ body {
     cursor: pointer;
     margin: 0 4px;
   }
-
   .lid {
     flex-wrap: wrap;
     justify-content: right;
@@ -375,21 +313,3 @@ body {
     padding: 4px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
