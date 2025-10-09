@@ -247,7 +247,7 @@ body {
 
 .counter-number-container {
   display: flex;
-  gap: 1px;
+  gap: 16px;
   align-items: center;
   justify-content: center;
 }
@@ -337,5 +337,6 @@ body {
     display: block;
   }
 }
+
 
 
