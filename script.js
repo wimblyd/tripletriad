@@ -112,8 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (logDiv) {
         logDiv.innerHTML = "";
       }
-
-      const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
       const entry = `[${timestamp}] Log cleared`;
 
       localStorage.setItem("operationLog", JSON.stringify([entry]));
