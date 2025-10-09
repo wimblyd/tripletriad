@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
-
-  // Come on and get your Log!
+  
+// Come on and get your Log! 
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entry => {
     const div = document.createElement('div');
     div.textContent = entry;
@@ -18,30 +18,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const cards = document.querySelectorAll('.card');
-  
-  // Flip Flip Flipadelphia
-  const toggleFlip = (card, id) => {
-  card.classList.toggle("flipped");
-  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-  saveCardState(id, state);
-  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-
-  if (card.classList.contains("flipped")) {
-    addLogEntry(`Acquired ${card.title}`);
-  } else {
-    const counterNumberContainer = card.querySelector(".counter-number-container");
-    if (counterNumberContainer) {
-      const idNumber = card.dataset.cardId.replace("card-", "");
-      localStorage.setItem(`card-${idNumber}-count`, 0);
-      counterNumberContainer.innerHTML = "";
-      const digitImg = Object.assign(document.createElement("img"), { src: `img/0.png`, alt: "0", className: "counter-number" });
-      counterNumberContainer.appendChild(digitImg);
-    }
-    addLogEntry(`Lost ${card.title}`);
-  }
-};
 
   // Shuffle or Boogie
+  const toggleFlip = (card, id) => {
+    const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
+    if (boostUsed && !card.classList.contains("flipped")) return; // LOCK if boost used
+
+    card.classList.toggle("flipped");
+    const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+    saveCardState(id, state);
+    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+
+    if (card.classList.contains("flipped")) {
+      addLogEntry(`Acquired ${card.title}`);
+    } else {
+      const counterNumberContainer = card.querySelector(".counter-number-container");
+      if (counterNumberContainer) {
+        const idNumber = card.dataset.cardId.replace("card-", "");
+        localStorage.setItem(`card-${idNumber}-count`, 0);
+        counterNumberContainer.innerHTML = "";
+        const digitImg = Object.assign(document.createElement("img"), {
+          src: `img/0.png`,
+          alt: "0",
+          className: "counter-number"
+        });
+        counterNumberContainer.appendChild(digitImg);
+      }
+      addLogEntry(`Lost ${card.title}`);
+    }
+  };
+
   cards.forEach(card => {
     const id = card.dataset.cardId;
     if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
@@ -59,100 +65,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Unflipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
-  cards.forEach(card => {
-    card.classList.remove("flipped");
-    saveCardState(card.dataset.cardId, "unflipped");
-    card.setAttribute("aria-pressed", "false");
-    
-    const counter = card.querySelector(".card-counter");
-    if (counter) {
-      const id = counter.dataset.cardId;
-      localStorage.setItem(`card-${id}-count`, 0);
+    cards.forEach(card => {
+      card.classList.remove("flipped");
+      saveCardState(card.dataset.cardId, "unflipped");
+      card.setAttribute("aria-pressed", "false");
 
-      const numberContainer = counter.querySelector(".counter-number-container");
-      if (numberContainer) {
-        numberContainer.innerHTML = "";
-        const zeroImg = Object.assign(document.createElement("img"), {
-          src: "img/0.png",
-          alt: "0",
-          className: "counter-number"
-        });
-        numberContainer.appendChild(zeroImg);
+      const counter = card.querySelector(".card-counter");
+      if (counter) {
+        const id = counter.dataset.cardId;
+        localStorage.setItem(`card-${id}-count`, 0);
+        const numberContainer = counter.querySelector(".counter-number-container");
+        if (numberContainer) {
+          numberContainer.innerHTML = "";
+          const zeroImg = Object.assign(document.createElement("img"), {
+            src: "img/0.png",
+            alt: "0",
+            className: "counter-number"
+          });
+          numberContainer.appendChild(zeroImg);
+        }
+        counter.classList.remove("visible");
       }
-      counter.classList.remove("visible");
+
+      const boost = card.querySelector(".boost-button");
+      if (boost) {
+        boost.classList.remove("used");
+        boost.src = "img/Boost.png";
+        localStorage.removeItem(`${card.dataset.cardId}-boost`);
+      }
+    });
+
+    addLogEntry("Cards unflipped");
+  });
+
+  // Everything but the Kitchen Sync
+  window.addEventListener("storage", event => {
+    if (!event.key) return;
+
+    if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
+      const card = document.querySelector(`[data-card-id="${event.key}"]`);
+      if (card) {
+        card.classList.toggle("flipped", event.newValue === "flipped");
+        card.setAttribute("aria-pressed", event.newValue === "flipped" ? "true" : "false");
+      }
     }
 
-    const boost = card.querySelector(".boost-button");
-    if (boost) {
-      boost.classList.remove("used");
-      boost.src = "img/Boost.png";
+    if (event.key.endsWith("-count")) {
+      const id = event.key.replace("card-", "").replace("-count", "");
+      const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
+      if (counter) {
+        const numberContainer = counter.querySelector(".counter-number-container");
+        const newCount = parseInt(event.newValue, 10) || 0;
+
+        numberContainer.innerHTML = "";
+        if (newCount >= 100) {
+          const star = Object.assign(document.createElement("img"), {
+            src: "img/Star.png",
+            alt: "100",
+            className: "counter-number"
+          });
+          numberContainer.appendChild(star);
+        } else {
+          newCount.toString().split("").forEach(d => {
+            const digitImg = Object.assign(document.createElement("img"), {
+              src: `img/${d}.png`,
+              alt: d,
+              className: "counter-number"
+            });
+            numberContainer.appendChild(digitImg);
+          });
+        }
+
+        if (newCount > 0) counter.classList.add("visible");
+        else counter.classList.remove("visible");
+      }
+    }
+
+    if (event.key.endsWith("-boost")) {
+      const id = event.key.replace("card-", "").replace("-boost", "");
+      const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
+      if (boost) {
+        if (event.newValue === "used") boost.classList.add("used");
+        else boost.classList.remove("used");
+      }
     }
   });
 
-  addLogEntry("Cards unflipped");
-});
-
-  // Everything but the Kitchen Sync
-window.addEventListener("storage", event => {
-  if (!event.key) return;
-
-  if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
-    const card = document.querySelector(`[data-card-id="${event.key}"]`);
-    if (card) {
-      card.classList.toggle("flipped", event.newValue === "flipped");
-      card.setAttribute("aria-pressed", event.newValue === "flipped" ? "true" : "false");
-    }
-  }
-
-  if (event.key.endsWith("-count")) {
-    const id = event.key.replace("card-", "").replace("-count", "");
-    const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
-    if (counter) {
-      const numberContainer = counter.querySelector(".counter-number-container");
-      const newCount = parseInt(event.newValue, 10) || 0;
-
-      numberContainer.innerHTML = "";
-      if (newCount >= 100) {
-        const star = Object.assign(document.createElement("img"), {
-          src: "img/Star.png",
-          alt: "100",
-          className: "counter-number"
-        });
-        numberContainer.appendChild(star);
-      } else {
-        newCount.toString().split("").forEach(d => {
-          const digitImg = Object.assign(document.createElement("img"), {
-            src: `img/${d}.png`,
-            alt: d,
-            className: "counter-number"
-          });
-          numberContainer.appendChild(digitImg);
-        });
-      }
-
-      if (newCount > 0) {
-        counter.classList.add("visible");
-      } else {
-        counter.classList.remove("visible");
-      }
-    }
-  }
-
-  if (event.key.endsWith("-boost")) {
-    const id = event.key.replace("card-", "").replace("-boost", "");
-    const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
-    if (boost) {
-      if (event.newValue === "used") {
-        boost.classList.add("used");
-      } else {
-        boost.classList.remove("used");
-      }
-    }
-  }
-});
-
-  // Copy log
+  // Copy Log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
     const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
     navigator.clipboard.writeText(text)
@@ -160,7 +161,7 @@ window.addEventListener("storage", event => {
       .catch(err => console.error("Failed to copy log:", err));
   });
 
-  // Clear log
+  // Clear Log
   document.getElementById("clearLogButton")?.addEventListener("click", () => {
     logDiv.innerHTML = "";
     const now = new Date();
@@ -177,79 +178,79 @@ window.addEventListener("storage", event => {
     addLogEntry("Guide Downloaded");
   });
 
-  // For the grind
- (function addCardCounters() {
-  const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
-  counterCardIds.forEach(id => {
-    const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
-    if (!card) return;
+  // For the Grind
+  (function addCardCounters() {
+    const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
+    counterCardIds.forEach(id => {
+      const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
+      if (!card) return;
 
-    const cardInner = card.querySelector(".card-inner");
+      const cardInner = card.querySelector(".card-inner");
 
-    const counter = document.createElement("div");
-    counter.className = "card-counter";
-    counter.dataset.cardId = id;
+      const counter = document.createElement("div");
+      counter.className = "card-counter";
+      counter.dataset.cardId = id;
 
-    const upArrow = Object.assign(document.createElement("img"), { className: "counter-arrow up", src: "img/UpArrow.png", alt: "+1" });
-    const downArrow = Object.assign(document.createElement("img"), { className: "counter-arrow down", src: "img/DownArrow.png", alt: "-1" });
-    const numberContainer = document.createElement("div");
-    numberContainer.className = "counter-number-container";
+      const upArrow = Object.assign(document.createElement("img"), { className: "counter-arrow up", src: "img/UpArrow.png", alt: "+1" });
+      const downArrow = Object.assign(document.createElement("img"), { className: "counter-arrow down", src: "img/DownArrow.png", alt: "-1" });
+      const numberContainer = document.createElement("div");
+      numberContainer.className = "counter-number-container";
 
-    counter.append(upArrow, numberContainer, downArrow);
+      counter.append(upArrow, numberContainer, downArrow);
 
-    const boost = Object.assign(document.createElement("img"), { className: "boost-button", src: "img/Boost.png", alt: "Show counter" });
+      const boost = Object.assign(document.createElement("img"), { className: "boost-button", src: "img/Boost.png", alt: "Show counter" });
+      cardInner.append(boost, counter);
 
-    cardInner.append(boost, counter);
+      let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
 
-    let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
+      const renderNumber = c => {
+        numberContainer.innerHTML = "";
+        if (c >= 100) {
+          const star = Object.assign(document.createElement("img"), { src: "img/Star.png", alt: "100", className: "counter-number" });
+          numberContainer.appendChild(star);
+        } else {
+          c.toString().split("").forEach(d => {
+            const digitImg = Object.assign(document.createElement("img"), { src: `img/${d}.png`, alt: d, className: "counter-number" });
+            numberContainer.appendChild(digitImg);
+          });
+        }
+      };
 
-    const renderNumber = c => {
-      numberContainer.innerHTML = "";
-      if (c >= 100) {
-        const star = Object.assign(document.createElement("img"), { src: "img/Star.png", alt: "100", className: "counter-number" });
-        numberContainer.appendChild(star);
-      } else {
-        c.toString().split("").forEach(d => {
-          const digitImg = Object.assign(document.createElement("img"), { src: `img/${d}.png`, alt: d, className: "counter-number" });
-          numberContainer.appendChild(digitImg);
-        });
-      }
-    };
-
-    renderNumber(count);
-
-    const updateCount = delta => {
-      count = Math.max(1, Math.min(100, count + delta));
-      localStorage.setItem(`card-${id}-count`, count);
       renderNumber(count);
-      addLogEntry(`${card.title} count changed to ${count}`);
-    };
 
-    upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
-    downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
+      const updateCount = delta => {
+        count = Math.max(1, Math.min(100, count + delta));
+        localStorage.setItem(`card-${id}-count`, count);
+        renderNumber(count);
+        addLogEntry(`${card.title} count changed to ${count}`);
+      };
 
-    boost.addEventListener("click", e => {
-      e.stopPropagation();
-      count = 1;
-      localStorage.setItem(`card-${id}-count`, count);
-      renderNumber(count);
-      counter.classList.add("visible");
-      boost.classList.add("used");
-      addLogEntry(`${card.title} count changed to 1`);
+      upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
+      downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
+
+      boost.addEventListener("click", e => {
+        e.stopPropagation();
+        count = 1;
+        localStorage.setItem(`card-${id}-count`, count);
+        renderNumber(count);
+        counter.classList.add("visible");
+        boost.classList.add("used");
+        localStorage.setItem(`card-${id}-boost`, "used");
+        addLogEntry(`${card.title} count changed to 1`);
+      });
+
+      card.addEventListener("click", () => {
+        const isFlipped = card.classList.contains("flipped");
+        if (!isFlipped) {
+          localStorage.setItem(`card-${id}-count`, 0);
+          count = 0;
+          counter.classList.remove("visible");
+          renderNumber(0);
+        }
+      });
     });
+  })();
 
-    card.addEventListener("click", () => {
-      const isFlipped = card.classList.contains("flipped");
-      if (!isFlipped) {
-        localStorage.setItem(`card-${id}-count`, 0);
-        count = 0;
-        counter.classList.remove("visible");
-        renderNumber(0);
-      }
-    });
-  });
-})();
-  
   // It's Log, from Blam-O!
   function addLogEntry(message) {
     if (!logDiv) return;
