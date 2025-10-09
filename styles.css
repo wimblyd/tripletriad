@@ -29,7 +29,7 @@ body {
 .lid {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 100px;
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -279,6 +279,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
