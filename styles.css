@@ -217,15 +217,43 @@ body {
   z-index: 5;
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.2s ease, opacity 0.3s ease-in-out;
+  transition:
+    transform 0.2s ease,
+    opacity 0.3s ease-in-out,
+    filter 0.3s ease,
+    content 0.3s ease-in-out; /* ✨ fade cross-swap */
 }
 
 .boost-button:hover {
   transform: scale(1.1);
 }
+
 .card.flipped .boost-button {
   opacity: 1;
   pointer-events: auto;
+}
+
+@keyframes boostPulse {
+  0% {
+    filter: brightness(2) drop-shadow(0 0 10px rgba(255,255,255,0.9));
+    transform: scale(1.2);
+  }
+  50% {
+    filter: brightness(1.5) drop-shadow(0 0 6px rgba(255,255,255,0.6));
+    transform: scale(0.9);
+  }
+  100% {
+    filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
+    transform: scale(0.95);
+  }
+}
+
+.boost-button.used {
+  content: url("img/BoostX.png");
+  transform: scale(0.95);
+  opacity: 0.9;
+  filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
+  animation: boostPulse 0.4s ease-out; /* ⚡ the magic pulse */
 }
 
 .card-counter {
@@ -238,7 +266,6 @@ body {
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
-  gap: 16px;
   padding: 3px;
   z-index: 6;
   opacity: 0;
@@ -268,7 +295,7 @@ body {
 
 .counter-number-container {
   display: flex;
-  gap: 16px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
@@ -342,6 +369,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
