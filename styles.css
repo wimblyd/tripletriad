@@ -213,10 +213,11 @@ body {
   width: 30px;
   height: auto;
   cursor: pointer;
-  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
   z-index: 5;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.3s ease-in-out;
 }
+
 .boost-button:hover {
   transform: scale(1.1);
 }
@@ -229,7 +230,7 @@ body {
   display: none;
   flex-direction: column;
   align-items: center;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
   padding: 3px;
   z-index: 6;
@@ -243,19 +244,35 @@ body {
   width: 10px;
   cursor: pointer;
 }
+
 .counter-number-container {
   display: flex;
   gap: 1px;
   align-items: center;
   justify-content: center;
 }
+
 .counter-number {
   width: 10px;
+}
+
+.card .boost-button,
+.card .card-counter {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card.flipped .boost-button,
+.card.flipped .card-counter {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .card-front-container {
   position: relative;
 }
+
 
 /* Mobile */
 @media (max-width: 600px) {
@@ -320,4 +337,5 @@ body {
     display: block;
   }
 }
+
 
