@@ -124,7 +124,6 @@ body {
 }
 
 .card-front {
-  position: relative;
   transform: rotateY(0deg);
 }
 
@@ -333,6 +332,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
