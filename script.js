@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   logDiv.scrollTop = logDiv.scrollHeight;
 
-  // I don't like Labels
+  // Labelmaker
   document.querySelectorAll('.card').forEach(card => {
     const label = document.createElement('div');
     label.className = 'card-label';
@@ -24,12 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
     saveCardState(id, state);
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-  if (card.classList.contains("flipped")) {
-  addLogEntry(`Acquired ${card.title}`);
-} else {
-  addLogEntry(`Lost ${card.title}`);
-}};
-  // Flip Flip Flipadelphia
+
+    if (card.classList.contains("flipped")) {
+      addLogEntry(`Acquired ${card.title}`);
+    } else {
+      addLogEntry(`Lost ${card.title}`);
+    }
+  };
+
+  // Shuffle or Boogie
   cards.forEach(card => {
     const id = card.dataset.cardId;
     if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Unflipadelphia
+  // Flip Flip Flipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
     cards.forEach(card => {
       card.classList.remove("flipped");
@@ -68,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Copy Log
+  // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
     const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
     navigator.clipboard.writeText(text)
@@ -76,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(err => console.error("Failed to copy log:", err));
   });
 
-  // Clear Log
+  // Clear log
   document.getElementById("clearLogButton")?.addEventListener("click", () => {
     logDiv.innerHTML = "";
     const now = new Date();
@@ -93,14 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
     addLogEntry("Guide Downloaded");
   });
 
-  // For the Grind
+  // For the grind
   (function addCardCounters() {
     const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
     counterCardIds.forEach(id => {
       const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
       if (!card) return;
 
-      const cardInner = card.querySelector(".card-inner"); 
+      const cardInner = card.querySelector(".card-inner");
       const frontFace = card.querySelector(".card-front");
 
       const counter = document.createElement("div");
@@ -120,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       frontFace.append(counter);
 
       let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
+
       const renderNumber = c => {
         numberContainer.innerHTML = "";
         if (c >= 100) {
@@ -132,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
       };
+
       renderNumber(count);
 
       const updateCount = delta => {
@@ -144,22 +149,21 @@ document.addEventListener("DOMContentLoaded", () => {
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
-boost.addEventListener("click", e => {
-  e.stopPropagation();
-  const counter = card.querySelector(".card-counter"); 
-  if (counter) {
-    count = 1;
-    localStorage.setItem(`card-${id}-count`, count); 
-    renderNumber(count); 
-    counter.classList.add("visible"); 
-    addLogEntry(`${card.title} count changed to 1`);
-  }
-});
-});
+      boost.addEventListener("click", e => {
+        e.stopPropagation();
+        const counter = card.querySelector(".card-counter");
+        if (counter) {
+          count = 1;
+          localStorage.setItem(`card-${id}-count`, count);
+          renderNumber(count);
+          counter.classList.add("visible");
+          addLogEntry(`${card.title} count changed to 1`);
+        }
+      });
     });
   })();
 
-  // It's Log! From Blam-O!
+  // It's Log, from Blam-O!
   function addLogEntry(message) {
     if (!logDiv) return;
     const now = new Date();
