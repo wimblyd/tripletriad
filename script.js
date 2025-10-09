@@ -183,8 +183,8 @@ if (clearLogButton) {
 
     const upArrow = document.createElement("img");
     upArrow.className = "counter-arrow up";
-    upArrow.src = "img/arrow-up.png";
-    upArrow.alt = "Up";
+    upArrow.src = "img/UpArrow.png";
+    upArrow.alt = "+1";
 
     const numberImg = document.createElement("img");
     numberImg.className = "counter-number";
@@ -194,8 +194,8 @@ if (clearLogButton) {
 
     const downArrow = document.createElement("img");
     downArrow.className = "counter-arrow down";
-    downArrow.src = "img/arrow-down.png";
-    downArrow.alt = "Down";
+    downArrow.src = "img/DownArrow.png";
+    downArrow.alt = "-1";
 
     counter.appendChild(upArrow);
     counter.appendChild(numberImg);
@@ -207,7 +207,7 @@ if (clearLogButton) {
       let count = parseInt(localStorage.getItem(`card-${id}-count`) || "0", 10);
       count = Math.max(0, count + delta); // no negatives
       localStorage.setItem(`card-${id}-count`, count);
-      numberImg.src = `img/numbers/${count}.png`;
+      numberImg.src = `img/${count}.png`;
       numberImg.alt = count;
     };
 
