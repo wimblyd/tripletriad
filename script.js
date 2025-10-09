@@ -24,9 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
     saveCardState(id, state);
     card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-    addLogEntry(`${card.title} was ${state}`);
-    if (card.classList.contains("flipped")) addLogEntry(`Acquired ${card.title}`);
-  };
+  if (card.classList.contains("flipped")) {
+  addLogEntry(`Acquired ${card.title}`);
+} else {
+  addLogEntry(`Lost ${card.title}`);
+}
 
   // Flip Flip Flipadelphia
   cards.forEach(card => {
@@ -144,10 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
       boost.addEventListener("click", e => {
-        e.stopPropagation();
+      e.stopPropagation();
+      const counter = card.querySelector(".card-counter"); // <--- find it inside the card
+      if (counter) {
         counter.classList.toggle("visible");
-        addLogEntry(`${card.title} counter toggled`);
-      });
+  }
+});
     });
   })();
 
