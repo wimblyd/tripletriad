@@ -175,7 +175,7 @@ if (clearLogButton) {
     frontFace.parentNode.insertBefore(frontContainer, frontFace);
     frontContainer.appendChild(frontFace);
 
-    // That's Wangernumb
+    // That's Numberwang!
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
