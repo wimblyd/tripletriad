@@ -206,7 +206,7 @@ body {
 }
 
 /* Wangernumb */
-.boost-button {
+boost-button {
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -221,14 +221,16 @@ body {
     transform 0.2s ease,
     opacity 0.3s ease-in-out,
     filter 0.3s ease,
-    content 0.3s ease-in-out; /* ✨ fade cross-swap */
+    content 0.3s ease-in-out;
 }
 
 .boost-button:hover {
   transform: scale(1.1);
 }
 
-.card.flipped .boost-button {
+/* Only show Boost button if card is flipped OR boost is used */
+.card.flipped .boost-button,
+.boost-button.used {
   opacity: 1;
   pointer-events: auto;
 }
@@ -253,9 +255,10 @@ body {
   transform: scale(0.95);
   opacity: 0.9;
   filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4));
-  animation: boostPulse 0.4s ease-out; /* ⚡ the magic pulse */
+  animation: boostPulse 0.4s ease-out;
 }
 
+/* Card Counter visibility logic */
 .card-counter {
   position: absolute;
   top: 50%;
@@ -370,6 +373,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
