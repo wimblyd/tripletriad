@@ -44,7 +44,7 @@ img.title {
 /* The Hardest Little Button to Button */
 .buttons {
   display: flex;
-  flex: 260px 0 0;
+  flex: 20% 0 0;
   flex-direction: column;
   align-items: flex-start;
   padding: 2px;
@@ -169,7 +169,7 @@ img.title {
 
 /* It's Log! by Blam-O! */
 #operation-log {
-  flex: 0 0 260px;
+  flex: 0 0 20%;
   height: auto; 
   overflow-y: auto;
   padding: 10px;
@@ -282,6 +282,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
