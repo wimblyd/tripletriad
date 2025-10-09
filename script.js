@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       boost.addEventListener("click", e => {
         e.stopPropagation();
         counter.classList.toggle("visible");
-        addLogEntry(`${card.title} counter toggled`);
+        addLogEntry(`${card.title} Aquired`);
       });
     });
   })();
