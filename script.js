@@ -168,8 +168,8 @@ if (clearLogButton) {
     if (!card) return;
 
     const cardInner = card.querySelector(".card-inner");
+    const frontFace = card.querySelector(".card-front");
 
-    // That's Numberwang!
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
@@ -191,17 +191,14 @@ if (clearLogButton) {
     counter.appendChild(numberContainer);
     counter.appendChild(downArrow);
 
-    // === CREATE BOOST BUTTON ===
     const boost = document.createElement("img");
     boost.className = "boost-button";
     boost.src = "img/Boost.png";
     boost.alt = "Show counter";
 
-    // Append once to cardInner
-    cardInner.appendChild(boost);
-    cardInner.appendChild(counter);
+    frontFace.appendChild(boost);
+    frontFace.appendChild(counter);
 
-    // Maths
     let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
     renderNumber(count);
 
@@ -215,8 +212,7 @@ if (clearLogButton) {
         numberContainer.appendChild(star);
         return;
       }
-      const digits = count.toString().split("");
-      digits.forEach(d => {
+      count.toString().split("").forEach(d => {
         const digitImg = document.createElement("img");
         digitImg.src = `img/${d}.png`;
         digitImg.alt = d;
@@ -231,7 +227,6 @@ if (clearLogButton) {
       renderNumber(count);
     };
 
-    // Clicky
     upArrow.addEventListener("click", (e) => {
       e.stopPropagation();
       updateCount(1);
@@ -244,11 +239,13 @@ if (clearLogButton) {
 
     boost.addEventListener("click", (e) => {
       e.stopPropagation();
-      counter.classList.toggle("visible");
+      if (!card.classList.contains("flipped")) { 
+        counter.classList.toggle("visible");
+      }
     });
   });
 })();
-
+    
  // It's Log! From Blam-O!
 function addLogEntry(message) {
   if (!logDiv) return;
