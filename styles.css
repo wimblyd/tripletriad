@@ -32,7 +32,7 @@ body {
   height: 200px;
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
-  background-size: 600px;
+  background-size: 800px;
   background-position: top right;
   background-attachment: fixed; 
   cursor: pointer;
@@ -279,6 +279,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
