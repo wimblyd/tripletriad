@@ -156,6 +156,73 @@ if (clearLogButton) {
     });
   }
 
+    // For the Grind
+(function addCardCounters() {
+
+  // Cards that get counters: 1–47 and 49–77
+  const counterCardIds = [
+    ...Array(47).fill().map((_, i) => i + 1),   // 1–47
+    ...Array(29).fill().map((_, i) => i + 49)   // 49–77
+  ];
+
+  counterCardIds.forEach(id => {
+    const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
+    if (!card) return;
+
+    // A neat little bow
+    const frontFace = card.querySelector(".card-front");
+    const frontContainer = document.createElement("div");
+    frontContainer.classList.add("card-front-container");
+    frontFace.parentNode.insertBefore(frontContainer, frontFace);
+    frontContainer.appendChild(frontFace);
+
+    // That's numberwang!
+    const counter = document.createElement("div");
+    counter.className = "card-counter";
+    counter.dataset.cardId = id;
+
+    const upArrow = document.createElement("img");
+    upArrow.className = "counter-arrow up";
+    upArrow.src = "img/arrow-up.png";
+    upArrow.alt = "Up";
+
+    const numberImg = document.createElement("img");
+    numberImg.className = "counter-number";
+    const savedCount = localStorage.getItem(`card-${id}-count`) || "0";
+    numberImg.src = `img/numbers/${savedCount}.png`;
+    numberImg.alt = savedCount;
+
+    const downArrow = document.createElement("img");
+    downArrow.className = "counter-arrow down";
+    downArrow.src = "img/arrow-down.png";
+    downArrow.alt = "Down";
+
+    counter.appendChild(upArrow);
+    counter.appendChild(numberImg);
+    counter.appendChild(downArrow);
+    frontContainer.appendChild(counter);
+
+    // Clicky
+    const updateCount = (delta) => {
+      let count = parseInt(localStorage.getItem(`card-${id}-count`) || "0", 10);
+      count = Math.max(0, count + delta); // no negatives
+      localStorage.setItem(`card-${id}-count`, count);
+      numberImg.src = `img/numbers/${count}.png`;
+      numberImg.alt = count;
+    };
+
+    upArrow.addEventListener("click", (e) => {
+      e.stopPropagation(); // don’t flip card
+      updateCount(1);
+    });
+
+    downArrow.addEventListener("click", (e) => {
+      e.stopPropagation();
+      updateCount(-1);
+    });
+  });
+})();
+
  // It's Log! From Blam-O!
 function addLogEntry(message) {
   if (!logDiv) return;
