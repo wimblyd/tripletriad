@@ -94,15 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
   // Everything but the Kitchen Sync
-  window.addEventListener("storage", event => {
-    if (event.key?.startsWith("card-")) {
-      const card = document.querySelector(`[data-card-id="${event.key}"]`);
-      if (card) {
-        card.classList.toggle("flipped", event.newValue === "flipped");
-        card.setAttribute("aria-pressed", event.newValue === "flipped" ? "true" : "false");
-      }
+window.addEventListener("storage", event => {
+  if (!event.key) return;
+
+  if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
+    const card = document.querySelector(`[data-card-id="${event.key}"]`);
+    if (card) {
+      card.classList.toggle("flipped", event.newValue === "flipped");
+      card.setAttribute("aria-pressed", event.newValue === "flipped" ? "true" : "false");
     }
-  });
+  }
 
   if (event.key.endsWith("-count")) {
     const id = event.key.replace("card-", "").replace("-count", "");
@@ -137,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-});
 
   if (event.key.endsWith("-boost")) {
     const id = event.key.replace("card-", "").replace("-boost", "");
