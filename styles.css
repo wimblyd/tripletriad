@@ -26,15 +26,15 @@ body {
 }
 
 /* Wimbly's Shriple Shriad Shrecklist */
-img.title { 
-  position: relative; 
-  top: 20px; 
-  right: 0; 
-  } 
 
 .lid {
   position: relative;
   width: 100%;
+  background-image: url("img/Wimblys.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top right;
+  background-attachment: fixed;
   z-index: 10;
   top: 20px; 
   right: 0; 
@@ -282,6 +282,7 @@ img.title {
     cursor: pointer;
   }
 }
+
 
 
 
