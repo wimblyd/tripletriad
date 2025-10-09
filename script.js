@@ -56,6 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+        cards.forEach(card => {
+  card.addEventListener("click", () => {
+    toggleFlip(card, card.dataset.cardId);
+  });
+});
+
   // Unflipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
     cards.forEach(card => {
