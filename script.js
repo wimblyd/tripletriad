@@ -99,56 +99,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Everything but the Kitchen Sync
     window.addEventListener("storage", event => {
-    if (!event.key) return;
+  if (!event.key) return;
 
-    if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
-      const card = document.querySelector(`[data-card-id="${event.key}"]`);
-      if (card) {
-        card.classList.toggle("flipped", event.newValue === "flipped");
-        card.setAttribute("aria-pressed", event.newValue === "flipped" ? "true" : "false");
+  // Flip Sync
+  if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
+    const card = document.querySelector(`[data-card-id="${event.key}"]`);
+    if (card) {
+      const shouldBeFlipped = event.newValue === "flipped";
+      if (card.classList.contains("flipped") !== shouldBeFlipped) {
+        toggleFlip(card, event.key);
       }
     }
+  }
 
-    if (event.key.endsWith("-count")) {
-      const id = event.key.replace("card-", "").replace("-count", "");
-      const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
-      if (counter) {
-        const numberContainer = counter.querySelector(".counter-number-container");
-        const newCount = parseInt(event.newValue, 10) || 0;
-
-        numberContainer.innerHTML = "";
-        if (newCount >= 100) {
-          const star = Object.assign(document.createElement("img"), {
-            src: "img/Star.png",
-            alt: "100",
+  // Counter Sync
+  if (event.key.endsWith("-count")) {
+    const id = event.key.replace("card-", "").replace("-count", "");
+    const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
+    if (counter) {
+      const numberContainer = counter.querySelector(".counter-number-container");
+      const newCount = parseInt(event.newValue, 10) || 0;
+      numberContainer.innerHTML = "";
+      if (newCount >= 100) {
+        const star = Object.assign(document.createElement("img"), {
+          src: "img/Star.png",
+          alt: "100",
+          className: "counter-number"
+        });
+        numberContainer.appendChild(star);
+      } else {
+        newCount.toString().split("").forEach(d => {
+          const digitImg = Object.assign(document.createElement("img"), {
+            src: `img/${d}.png`,
+            alt: d,
             className: "counter-number"
           });
-          numberContainer.appendChild(star);
-        } else {
-          newCount.toString().split("").forEach(d => {
-            const digitImg = Object.assign(document.createElement("img"), {
-              src: `img/${d}.png`,
-              alt: d,
-              className: "counter-number"
-            });
-            numberContainer.appendChild(digitImg);
-          });
-        }
-
-        if (newCount > 0) counter.classList.add("visible");
-        else counter.classList.remove("visible");
+          numberContainer.appendChild(digitImg);
+        });
       }
+      if (newCount > 0) counter.classList.add("visible");
+      else counter.classList.remove("visible");
     }
+  }
 
-    if (event.key.endsWith("-boost")) {
-      const id = event.key.replace("card-", "").replace("-boost", "");
-      const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
-      if (boost) {
-        if (event.newValue === "used") boost.classList.add("used");
-        else boost.classList.remove("used");
-      }
+  // Boost Sync
+  if (event.key.endsWith("-boost")) {
+    const id = event.key.replace("card-", "").replace("-boost", "");
+    const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
+    if (boost) {
+      if (event.newValue === "used") boost.classList.add("used");
+      else boost.classList.remove("used");
     }
-  });
+  }
+});
 
   // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
