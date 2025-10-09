@@ -20,17 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.card');
 
   const toggleFlip = (card, id) => {
-    card.classList.toggle("flipped");
-    const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-    saveCardState(id, state);
-    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+  card.classList.toggle("flipped");
+  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+  saveCardState(id, state);
+  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
 
-    if (card.classList.contains("flipped")) {
-      addLogEntry(`Acquired ${card.title}`);
-    } else {
-      addLogEntry(`Lost ${card.title}`);
+  if (card.classList.contains("flipped")) {
+    addLogEntry(`Acquired ${card.title}`);
+  } else {
+    const counterNumberContainer = card.querySelector(".counter-number-container");
+    if (counterNumberContainer) {
+      const idNumber = card.dataset.cardId.replace("card-", "");
+      localStorage.setItem(`card-${idNumber}-count`, 0);
+      counterNumberContainer.innerHTML = "";
+      const digitImg = Object.assign(document.createElement("img"), { src: `img/0.png`, alt: "0", className: "counter-number" });
+      counterNumberContainer.appendChild(digitImg);
     }
-  };
+    addLogEntry(`Lost ${card.title}`);
+  }
+};
 
   // Shuffle or Boogie
   cards.forEach(card => {
