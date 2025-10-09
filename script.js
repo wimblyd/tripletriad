@@ -28,8 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addLogEntry(`Acquired ${card.title}`);
 } else {
   addLogEntry(`Lost ${card.title}`);
-}
-
+}};
   // Flip Flip Flipadelphia
   cards.forEach(card => {
     const id = card.dataset.cardId;
