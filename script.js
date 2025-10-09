@@ -20,12 +20,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.card');
 
   // Shuffle or Boogie
- const toggleFlip = (card, id) => {
+const toggleFlip = (card, id) => {
   const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
 
   if (boostUsed && card.classList.contains("flipped")) return;
 
   card.classList.toggle("flipped");
+
+  if (boostUsed) {
+    card.classList.add("boost-locked");
+  } else {
+    card.classList.remove("boost-locked");
+  }
+
   const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
   saveCardState(id, state);
   card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
@@ -48,23 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addLogEntry(`Lost ${card.title}`);
   }
 };
-  cards.forEach(card => {
-    const id = card.dataset.cardId;
-    if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
-
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-
-    card.addEventListener("click", () => toggleFlip(card, id));
-    card.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleFlip(card, id);
-      }
-    });
-  });
-
+  
   // Unflipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
     cards.forEach(card => {
