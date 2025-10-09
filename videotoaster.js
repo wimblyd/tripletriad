@@ -36,12 +36,8 @@ window.addEventListener("load", () => {
   function createGrid(el) {
   el.innerHTML = "";
   el.style.display = "grid";
-
-  // Flexible columns/rows to prevent fractional gaps
   el.style.gridTemplateColumns = `repeat(${GRID_COLS}, 1fr)`;
   el.style.gridTemplateRows = `repeat(${GRID_ROWS}, 1fr)`;
-
-  // Lock container size
   el.style.width = `${GRID_COLS * squareSize}px`;
   el.style.height = `${GRID_ROWS * squareSize}px`;
 
