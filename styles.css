@@ -30,12 +30,13 @@ body {
 .lid {
   position: relative;
   width: 100%;
+  height: 200px;
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top right;
-  background-attachment: fixed;
-  padding: 0px;
+  background-attachment: fixed; 
+  cursor: pointer;
 }
 
 /* The Hardest Little Button to Button */
@@ -280,6 +281,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
