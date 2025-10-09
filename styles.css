@@ -266,6 +266,7 @@ body {
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
+  gap: 8px;
   padding: 3px;
   z-index: 6;
   opacity: 0;
@@ -369,6 +370,7 @@ body {
     padding: 4px;
   }
 }
+
 
 
 
