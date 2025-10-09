@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addLogEntry("Cards unflipped");
 });
 
-  // Sync
+  // Everything but the Kitchen Sync
   window.addEventListener("storage", event => {
     if (event.key?.startsWith("card-")) {
       const card = document.querySelector(`[data-card-id="${event.key}"]`);
@@ -103,6 +103,41 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  if (event.key.endsWith("-count")) {
+    const id = event.key.replace("card-", "").replace("-count", "");
+    const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
+    if (counter) {
+      const numberContainer = counter.querySelector(".counter-number-container");
+      const newCount = parseInt(event.newValue, 10) || 0;
+
+      numberContainer.innerHTML = "";
+      if (newCount >= 100) {
+        const star = Object.assign(document.createElement("img"), {
+          src: "img/Star.png",
+          alt: "100",
+          className: "counter-number"
+        });
+        numberContainer.appendChild(star);
+      } else {
+        newCount.toString().split("").forEach(d => {
+          const digitImg = Object.assign(document.createElement("img"), {
+            src: `img/${d}.png`,
+            alt: d,
+            className: "counter-number"
+          });
+          numberContainer.appendChild(digitImg);
+        });
+      }
+
+      if (newCount > 0) {
+        counter.classList.add("visible");
+      } else {
+        counter.classList.remove("visible");
+      }
+    }
+  }
+});
 
   // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
