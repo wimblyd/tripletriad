@@ -229,12 +229,12 @@ body {
 }
 
 .counter-arrow {
-  width: 16px;
+  width: 10px;
   cursor: pointer;
 }
 
 .counter-number {
-  width: 20px;
+  width: 10px;
   margin: 2px 0;
 }
 
@@ -312,6 +312,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
