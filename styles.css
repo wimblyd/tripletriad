@@ -47,7 +47,7 @@ body {
   align-items: flex-start;
   padding: 2px;
   gap: 2px;
-  width: 120px;
+  top: 100px;
   height: auto;
   box-sizing: border-box;
 }
@@ -55,7 +55,6 @@ body {
 /* Unflip */
 #resetButton { 
   position: relative;
-  top: 100px;
   left: 20px; 
   cursor: pointer; 
 }
@@ -281,6 +280,7 @@ body {
     cursor: pointer;
   }
 }
+
 
 
 
