@@ -20,34 +20,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.card');
 
   // Shuffle or Boogie
-  const toggleFlip = (card, id) => {
-    const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
-    if (boostUsed && !card.classList.contains("flipped")) return; // LOCK if boost used
+ const toggleFlip = (card, id) => {
+  const boostUsed = localStorage.getItem(`${id}-boost`) === "used";
 
-    card.classList.toggle("flipped");
-    const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
-    saveCardState(id, state);
-    card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+  if (boostUsed && card.classList.contains("flipped")) return;
 
-    if (card.classList.contains("flipped")) {
-      addLogEntry(`Acquired ${card.title}`);
-    } else {
-      const counterNumberContainer = card.querySelector(".counter-number-container");
-      if (counterNumberContainer) {
-        const idNumber = card.dataset.cardId.replace("card-", "");
-        localStorage.setItem(`card-${idNumber}-count`, 0);
-        counterNumberContainer.innerHTML = "";
-        const digitImg = Object.assign(document.createElement("img"), {
-          src: `img/0.png`,
-          alt: "0",
-          className: "counter-number"
-        });
-        counterNumberContainer.appendChild(digitImg);
-      }
-      addLogEntry(`Lost ${card.title}`);
+  card.classList.toggle("flipped");
+  const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
+  saveCardState(id, state);
+  card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+
+  if (card.classList.contains("flipped")) {
+    addLogEntry(`Acquired ${card.title}`);
+  } else {
+    const counterNumberContainer = card.querySelector(".counter-number-container");
+    if (counterNumberContainer) {
+      const idNumber = card.dataset.cardId.replace("card-", "");
+      localStorage.setItem(`card-${idNumber}-count`, 0);
+      counterNumberContainer.innerHTML = "";
+      const digitImg = Object.assign(document.createElement("img"), {
+        src: `img/0.png`,
+        alt: "0",
+        className: "counter-number"
+      });
+      counterNumberContainer.appendChild(digitImg);
     }
-  };
-
+    addLogEntry(`Lost ${card.title}`);
+  }
+};
   cards.forEach(card => {
     const id = card.dataset.cardId;
     if (localStorage.getItem(id) === "flipped") card.classList.add("flipped");
@@ -218,36 +218,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
       renderNumber(count);
 
-      const updateCount = delta => {
-        count = Math.max(1, Math.min(100, count + delta));
-        localStorage.setItem(`card-${id}-count`, count);
-        renderNumber(count);
-        addLogEntry(`${card.title} count changed to ${count}`);
-      };
+     const updateCount = delta => {
+  count = Math.max(0, Math.min(100, count + delta)); // allow 0
+  localStorage.setItem(`card-${id}-count`, count);
+  renderNumber(count);
+  addLogEntry(`${card.title} count changed to ${count}`);
+};
 
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
       boost.addEventListener("click", e => {
-        e.stopPropagation();
-        count = 1;
-        localStorage.setItem(`card-${id}-count`, count);
-        renderNumber(count);
-        counter.classList.add("visible");
-        boost.classList.add("used");
-        localStorage.setItem(`card-${id}-boost`, "used");
-        addLogEntry(`${card.title} count changed to 1`);
-      });
+  e.stopPropagation();
 
-      card.addEventListener("click", () => {
-        const isFlipped = card.classList.contains("flipped");
-        if (!isFlipped) {
-          localStorage.setItem(`card-${id}-count`, 0);
-          count = 0;
-          counter.classList.remove("visible");
-          renderNumber(0);
-        }
-      });
+  const boostKey = `card-${id}-boost`;
+  const boostUsed = localStorage.getItem(boostKey) === "used";
+
+  if (!boostUsed) {
+    count = 1; // Start at 1
+    localStorage.setItem(`card-${id}-count`, count);
+    renderNumber(count);
+    counter.classList.add("visible");
+    boost.classList.add("used");
+    localStorage.setItem(boostKey, "used");
+    addLogEntry(`${card.title} count changed to ${count}`);
+  } else {
+    // Second boost click resets count to 1
+    count = 1;
+    localStorage.setItem(`card-${id}-count`, count);
+    renderNumber(count);
+    addLogEntry(`${card.title} count reset to ${count}`);
+  }
+});
     });
   })();
 
@@ -262,14 +264,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const entryDiv = document.createElement('div');
   entryDiv.textContent = entry;
 
-  // Color code logic
-  if (message.startsWith("Lost ")) {
-    entryDiv.style.color = "#ffbe32"; // Yellow
-  } else if (message.startsWith("Acquired ") || message.includes("flipped")) {
-    entryDiv.style.color = "#5b86da"; // Blue
-  } else {
-    entryDiv.style.color = "#ffffff"; // White (default for counts)
-  }
+  if (/^Lost\s/.test(message)) {
+  entryDiv.style.color = "#ffbe32"; // Yellow
+} else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
+  entryDiv.style.color = "#5b86da"; // Blue
+} else {
+  entryDiv.style.color = "#ffffff"; // White (default for counts)
+}
 
   logDiv.appendChild(entryDiv);
   logDiv.scrollTop = logDiv.scrollHeight;
