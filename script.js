@@ -139,6 +139,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+  if (event.key.endsWith("-boost")) {
+    const id = event.key.replace("card-", "").replace("-boost", "");
+    const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
+    if (boost) {
+      if (event.newValue === "used") {
+        boost.classList.add("used");
+      } else {
+        boost.classList.remove("used");
+      }
+    }
+  }
+});
+
   // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
     const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
