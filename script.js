@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const cards = document.querySelectorAll('.card');
-
+  
+  // Flip Flip Flipadelphia
   const toggleFlip = (card, id) => {
   card.classList.toggle("flipped");
   const state = card.classList.contains("flipped") ? "flipped" : "unflipped";
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Flip Flip Flipadelphia
   document.getElementById("resetButton")?.addEventListener("click", () => {
     cards.forEach(card => {
       card.classList.remove("flipped");
