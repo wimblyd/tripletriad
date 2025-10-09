@@ -215,6 +215,8 @@ body {
   cursor: pointer;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
   z-index: 5;
+  opacity: 0;
+  pointer-events: none;
   transition: transform 0.2s ease, opacity 0.3s ease-in-out;
 }
 
@@ -222,28 +224,32 @@ body {
   transform: scale(1.1);
 }
 
+.card.flipped .boost-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Counter hidden by default, shown when card is flipped */
 .card-counter {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
   padding: 3px;
   z-index: 6;
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease-in-out;
 }
 
-.card-counter.visible {
-  display: flex;
-}
-
 .card.flipped .card-counter {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .counter-arrow {
@@ -253,7 +259,7 @@ body {
 
 .counter-number-container {
   display: flex;
-  gap: 16px;
+  gap: 1px;
   align-items: center;
   justify-content: center;
 }
@@ -261,16 +267,6 @@ body {
 .counter-number {
   width: 10px;
 }
-
-.card .boost-button {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.card-front-container {
-  position: relative;
-}
-
 
 /* Mobile */
 @media (max-width: 600px) {
@@ -290,7 +286,7 @@ body {
     align-items: flex-start;
     overflow: auto;
     max-width: 100%;
-    max-height: 60vh;
+    max-height: 80vh;
     padding: 4px;
   }
 
@@ -329,12 +325,15 @@ body {
   }
 
   .lid {
-    width: 500px;
-    height: auto;
-    margin: 0;
-    display: block;
+    flex-wrap: wrap;
+    justify-content: right;
+    align-items: flex-start;
+    max-width: 100%;
+    max-height: 60vh;
+    padding: 4px;
   }
 }
+
 
 
 
