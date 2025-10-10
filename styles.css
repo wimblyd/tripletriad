@@ -301,7 +301,7 @@ body {
   }
 
   .card-label {
-    font-size: 6px !important;
+    font-size: 4px !important;
   }
 
   #operation-log {
@@ -311,6 +311,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
