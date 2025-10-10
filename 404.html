@@ -26,7 +26,7 @@
     padding: 20px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scaleY(1.1);
     overflow: hidden;
     text-align: left;
     z-index: 0;
@@ -130,34 +130,33 @@
     function appendText() {
       const frag = randomFragment();
       text += frag;
-      if (text.length > 4000) text = text.slice(-2000);
+      if (text.length > 4000) text = text.slice(-2000); // keep text smaller
       block.textContent = text;
     }
 
     // Smooth scrolling and x-drift
     function scrollUp() {
       yOffset += 0.2; // faster upward scroll
-      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1; // random jump
       xDrift += driftDirection * 0.2;
       if (Math.abs(xDrift) > 4) driftDirection *= -1;
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
-    // Ghost Cloner
-    function makeGhost() {
-      if (Math.random() < 0.02) {
-        const ghost = document.createElement('div');
-        ghost.className = 'ghost';
-        ghost.textContent = text.slice(-100); // only last fragment
-        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
-        screen.appendChild(ghost);
-        setTimeout(() => ghost.remove(), 1000);
-      }
+    // Ghost Text
+    function makeGhost() { 
+      if (Math.random() < 0.02) { 
+        const ghost = block.cloneNode(true); 
+        ghost.classList.add('ghost'); 
+        ghost.style.transform = translate(${xDrift}px, -${yOffset}px); 
+        screen.appendChild(ghost); 
+        setTimeout(() => ghost.remove(), 1000); 
+      } 
     }
 
-    setInterval(appendText, 200);
+    setInterval(appendText, 100);
     setInterval(scrollUp, 40);
-    setInterval(makeGhost, 250);
+    setInterval(makeGhost, 150);
   </script>
 </body>
 </html>
