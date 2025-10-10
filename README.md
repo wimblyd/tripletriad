@@ -4,7 +4,7 @@ Interactive Triple Triad Card Checklist for Final Fantasy VIII
 
 click to flip the card over, click to flip it back
 
-hit the boost button to open a card counter tool
+hit the boost button to open card counter tool
 
 hit the boost button again to clear the count
 
