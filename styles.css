@@ -288,12 +288,14 @@ body {
     align-items: center;
     width: 100%;
   }
-
   .screen {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     padding: 2px;
     overflow: auto;
+    justify-content: center;
   }
+}
 
   .card {
     width: 30px !important;
@@ -342,6 +344,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
