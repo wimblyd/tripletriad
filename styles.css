@@ -213,7 +213,7 @@ body {
 }
 
 .card.boost-locked {
-  border: 1px solid #ffbe32;
+  box-shadow: 1px 1px 2px 2px #ffbe32;
 }
 
 /* For the Grind */
@@ -329,5 +329,6 @@ body {
     overflow-y: scroll;
   }
 }
+
 
 
