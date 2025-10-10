@@ -68,6 +68,7 @@ body {
 /* The Hardest Little Button to Button */
 .buttons{
   display: flex;
+  height: clamp(100px, 255px, 350px);
   flex-direction: column;
   gap: 8px;
   padding: 6px;
@@ -370,4 +371,5 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
