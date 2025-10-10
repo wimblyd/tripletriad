@@ -22,8 +22,8 @@
     letter-spacing: 0;
     word-spacing: 0;
     text-transform: uppercase;
-    width: 480px;
-    height: 100vh;
+    width: 450px;
+    height: 50vh;
     margin: 0 auto;
     padding: 20px;
     overflow: hidden;
@@ -143,7 +143,7 @@
       if (Math.random() < 0.02) {
         const ghost = block.cloneNode(true);
         ghost.classList.add('ghost');
-        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`; // Align with current text
+        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
         screen.appendChild(ghost);
         setTimeout(() => ghost.remove(), 1000); // longer fade
       }
@@ -151,7 +151,7 @@
 
     setInterval(appendText, 200);
     setInterval(scrollUp, 40);
-    setInterval(makeGhost, 300);
+    setInterval(makeGhost, 250);
   </script>
 </body>
 </html>
