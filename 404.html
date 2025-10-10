@@ -18,9 +18,7 @@
     color: #912319;
     font-weight: bold;
     font-size: 1.7rem;
-    line-height: 1.1;
-    letter-spacing: 0;
-    word-spacing: 0;
+    line-height: 1.25;
     text-transform: uppercase;
     width: 50vw;
     height: 50vh;
@@ -56,13 +54,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: auto;
     color: rgba(255, 100, 100, 0.5);
     pointer-events: none;
     mix-blend-mode: screen;
     filter: blur(0.4px);
     animation: ghostRise 1s ease-out forwards;
-    z-index: 1;
+    z-index: 10;
   }
 
   @keyframes ghostRise {
@@ -70,7 +68,7 @@
     50% { opacity: 0.6; transform: translateY(-0.8em); }
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
-  
+
   @keyframes flicker {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.85; }
@@ -124,30 +122,36 @@
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
-    for (let i = 0; i < 15; i++) text += randomFragment();
+    // Initialize text with some fragments
+    for (let i = 0; i < 20; i++) text += randomFragment();
     block.textContent = text;
 
+    // Append new fragment periodically
     function appendText() {
-      text += randomFragment();
-      if (text.length > 6000) text = text.slice(-4000);
+      const frag = randomFragment();
+      text += frag;
+      if (text.length > 4000) text = text.slice(-2000);
       block.textContent = text;
     }
 
+    // Smooth scrolling and x-drift
     function scrollUp() {
-      yOffset += 0.05; 
-      if (Math.random() < 0.004) yOffset += Math.random() * 4 - 1;
-      xDrift += driftDirection * 0.1;
-      if (Math.abs(xDrift) > 2) driftDirection *= -1;
+      yOffset += 0.2; // faster upward scroll
+      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+      xDrift += driftDirection * 0.2;
+      if (Math.abs(xDrift) > 4) driftDirection *= -1;
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
+    // Ghost Cloner
     function makeGhost() {
       if (Math.random() < 0.02) {
-        const ghost = block.cloneNode(true);
-        ghost.classList.add('ghost');
+        const ghost = document.createElement('div');
+        ghost.className = 'ghost';
+        ghost.textContent = text.slice(-100); // only last fragment
         ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
         screen.appendChild(ghost);
-        setTimeout(() => ghost.remove(), 1000); // longer fade
+        setTimeout(() => ghost.remove(), 1000);
       }
     }
 
