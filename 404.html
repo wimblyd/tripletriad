@@ -19,8 +19,8 @@
     font-weight: bold;
     font-size: 1.2rem;
     line-height: 1.1;
-    letter-spacing: -1;
-    word-spacing: -1;
+    letter-spacing: -1px;
+    word-spacing: -1px;
     text-transform: uppercase;
     width: 480px;
     height: 100vh;
@@ -35,18 +35,17 @@
     animation: flicker 0.08s infinite, distort 3s infinite;
     filter: contrast(150%) brightness(120%);
     text-shadow:
-      0 0 1px rgba(255, 0, 0, 0.6),
-      0 0 4px rgba(255, 0, 0, 0.3);
+      0 0 1px rgba(255, 0, 0, 0.5),
+      0 0 4px rgba(255, 0, 0, 0.2);
   }
 
   #textBlock {
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: normal;
-    overflow-wrap: break-word;
-    hyphens: none;
+    white-space: pre; /* PREVENT line wrapping */
     transform: translate3d(0, 0, 0);
+    will-change: transform;
   }
 
   @keyframes flicker {
@@ -94,26 +93,31 @@
     const block = document.getElementById('textBlock');
     let text = "";
     let yOffset = 0;
+    let xDrift = 0;
+    let driftDirection = 1;
 
     function randomFragment() {
-      return Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
+      return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
     function appendText() {
       text += randomFragment();
-      if (text.length > 4000) text = text.slice(-3000);
+      if (text.length > 6000) text = text.slice(-4000);
       block.textContent = text;
     }
 
     function scrollUp() {
-      yOffset += 0.25;
-      if (Math.random() < 0.015) yOffset += Math.random() * 30 - 15;
-      if (Math.random() < 0.002) yOffset -= 80 + Math.random() * 60;
-      block.style.transform = `translateY(-${yOffset}px)`;
+      yOffset += 0.05; // 🔹 much slower scroll
+      // occasional vertical jitter
+      if (Math.random() < 0.005) yOffset += Math.random() * 5 - 2.5;
+      // vertical sync drift: slow left-right movement
+      xDrift += driftDirection * 0.1;
+      if (Math.abs(xDrift) > 2) driftDirection *= -1;
+      block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
-    setInterval(appendText, 30);
-    setInterval(scrollUp, 100);
+    setInterval(appendText, 200); // 🔹 slower fragment generation
+    setInterval(scrollUp, 30);
   </script>
 </body>
 </html>
