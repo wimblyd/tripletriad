@@ -44,6 +44,7 @@ body {
 /* Elephants All The Way Down */
 .wrapper{
   display: flex;
+  height: clamp(100px, 255px, 350px);
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
@@ -268,6 +269,10 @@ body {
   max-height: var(--log-max-h);
 }
 
+/* VIII Box Style */ .panel-style { background-image: url('img/Panel.png'); background-size: cover; background-position: center; border: 4px solid #8a8a8a; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset -1px -1px 0 rgba(0,0,0,0.6); } /* Scroller Skates */ ::-webkit-scrollbar { width: 13px; height: 13px; } ::-webkit-scrollbar-track-piece { background-color: #ebebeb; } ::-webkit-scrollbar-thumb:vertical { height: 50px; background: -webkit-gradient(linear, left top, right top, color-stop(0%, #e1d9c4), color-stop(100%, #7c97a0)); border: 1px solid #0d0d0d; border-top: 1px solid #e1d9c4; border-left: 1px solid #e1d9c4; }
+
+
+
 /* Media Queries */
 
 /* Large laptop / smaller desktop */
@@ -365,3 +370,4 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
