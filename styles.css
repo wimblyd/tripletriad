@@ -7,8 +7,8 @@
   --bp-laptop: 1024px;
   --bp-tablet: 768px;
   --bp-phone: 480px;
-  --card-w: 76px;
-  --card-h: 97px;
+  --card-w: 93px;
+  --card-h: 120px;
   --card-min-w: 30px;
   --card-min-h: 39px;
   --card-margin: 4px;
@@ -379,4 +379,5 @@ body {
     flex: 1 1 auto;
   }
 }
+
 
