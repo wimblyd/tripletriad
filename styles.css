@@ -25,7 +25,7 @@ body {
   overflow: hidden;
 }
 
-/* Wimbly’s Shriple Shriad Shrecklist */
+/* Wambles Shriple Shriad Shrecklist */
 .lid {
   position: relative;
   width: 100%;
@@ -38,7 +38,7 @@ body {
   cursor: pointer;
 }
 
-/* the Hardest Little Button to Button */
+/* The Hardest Little Button to Button */
 .buttons {
   display: flex;
   flex: 20% 0 0;
@@ -269,7 +269,7 @@ body {
   }
 
   .buttons {
-    max-height: 150px;
+    max-height: 50px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
@@ -314,6 +314,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
