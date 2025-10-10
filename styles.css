@@ -214,7 +214,7 @@ body {
 }
 
 .card.boost-locked {
-  outline: 1px #ffbe32;
+ box-shadow: 1px 1px 1px 1px #ffbe32;
 }
 
 /* For the Grind */
@@ -284,6 +284,7 @@ body {
     max-height: 200px; /* adjust log height for mobile */
   }
 }
+
 
 
 
