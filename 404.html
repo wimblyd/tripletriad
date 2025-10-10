@@ -17,7 +17,7 @@
     font-family: 'Trebuchet MS', sans-serif;
     color: #912319;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     line-height: 1.1;
     letter-spacing: -1px;
     word-spacing: -1px;
@@ -43,7 +43,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: pre-wrap; /* wrap naturally without huge gaps */
+    white-space: pre-wrap;
     overflow-wrap: break-word;
     transform: translate3d(0, 0, 0);
     will-change: transform;
@@ -111,17 +111,25 @@
     }
 
     function scrollUp() {
-      yOffset += 0.05; // 🔹 slow scroll
-      // occasional vertical jitter
-      if (Math.random() < 0.004) yOffset += Math.random() * 4 - 2;
-      // vertical sync drift: slow left-right movement
+      yOffset += 0.05; 
+      if (Math.random() < 0.004) yOffset += Math.random() * 4 - 1;
       xDrift += driftDirection * 0.1;
       if (Math.abs(xDrift) > 2) driftDirection *= -1;
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
+        function makeGhost() {
+      if (Math.random() < 0.02) {
+        const ghost = block.cloneNode(true);
+        ghost.classList.add('ghost');
+        screen.appendChild(ghost);
+        setTimeout(() => ghost.remove(), 600);
+      }
+    }
+
     setInterval(appendText, 200);
     setInterval(scrollUp, 30);
+    setInterval(makeGhost, 300);
   </script>
 </body>
 </html>
