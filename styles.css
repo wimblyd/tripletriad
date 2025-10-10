@@ -52,10 +52,10 @@ body {
 .lid{
   position: relative;
   width: 100%;
-  height: clamp(140px, 18vw, 255px);
+  height: clamp(140px, 190px, 255px);
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
-  background-size: clamp(300px, 35vw, 888px);
+  background-size: clamp(300px, 65vw, 800px);
   background-position: top right;
   cursor: pointer;
 }
@@ -67,8 +67,13 @@ body {
   gap: 8px;
   padding: 6px;
   align-items: flex-start;
-  margin-top: 0; /* let layout decide */
+  margin-top: 0;
 }
+
+.buttons img.button:nth-child(1) { margin-left: 0; }
+.buttons img.button:nth-child(2) { margin-left: 20px; }
+.buttons img.button:nth-child(3) { margin-left: 40px; }
+.buttons img.button:nth-child(4) { margin-left: 60px; }
 
 #resetButton, #copyLogButton, #clearLogButton, #guideButton {
   cursor: pointer;
@@ -81,9 +86,9 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  gap: 8px;
-  padding: 10px;
-  overflow: visible; /* let children control their own overflow */
+  gap: 6px;
+  padding: 2px;
+  overflow: visible;
 }
 
 /* Intranet */
@@ -94,8 +99,8 @@ body {
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
-  overflow: auto;            /* allow scrolling when needed */
-  padding: 8px;
+  overflow: auto; 
+  padding: 2px;
   border-radius: 6px;
   max-height: 100%;
   box-sizing: border-box;
@@ -280,7 +285,7 @@ body {
     --log-font: 8.5px;
   }
 
-  .tupperware { flex-direction: row; padding: 8px; gap: 6px; }
+  .tupperware { flex-direction: row; padding: 4px; gap: 4px; }
 
   .screen { max-width: calc(100% - 360px); }
   #operation-log { min-width: 200px; max-width: 360px; }
@@ -305,14 +310,14 @@ body {
   .tupperware {
     flex-direction: column;
     align-items: stretch;
-    padding: 6px;
-    gap: 6px;
+    padding: 4px;
+    gap: 4px;
   }
   
   .screen {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 6px;
+    padding: 4px;
     overflow-x: auto;
     overflow-y: hidden;
     justify-content: flex-start; 
@@ -345,9 +350,18 @@ body {
   }
 
   .buttons img.button { width: 110px; }
-  .screen { padding: 4px; gap: 6px; }
+  .screen { padding: 2px; gap: 2px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
+@media (min-width: 1025px) {
+  #operation-log {
+    align-self: stretch;
+    min-height: calc(100vh - 260px);
+    height: auto;
+  }
+}
+
