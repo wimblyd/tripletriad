@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
       entryDiv.style.color = "#ffbe32";
     } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-      entryDiv.style.color = "#5b86da";
+      entryDiv.style.color = "#0384fc";
     } else {
       entryDiv.style.color = "#ffffff";
     }
