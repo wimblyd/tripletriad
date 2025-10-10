@@ -359,26 +359,32 @@ body {
 
 @media (min-width: 1025px) {
   .tupperware {
-    align-items: stretch; 
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    gap: var(--gutter);
   }
 
   #operation-log {
-    flex: 0 0 auto;
-    height: auto;
-    min-height: auto;
-    align-self: stretch;
+    flex: 0 0 auto; 
+    align-self: stretch; 
   }
 
-   .screen {
+  .screen {
+    flex: 1 1 auto; 
+    align-self: stretch;
+    display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
-    align-self: stretch;
     width: auto;
     max-width: none;
-    flex: 1 1 auto;
   }
 }
+
+
 
 
 
