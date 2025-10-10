@@ -15,12 +15,14 @@
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     filter: contrast(1.4);
-    transform: scaleY(1.1); /* vertical stretch */
+    transform: scaleY(1.1); /* stretch vertically */
   }
 
-  .glitch-block {
+  .glitch-text {
     position: absolute;
+    width: 90%;
     left: 50%;
     transform: translateX(-50%);
     color: #ff2b2b;
@@ -28,9 +30,9 @@
     text-transform: uppercase;
     font-size: 2rem;
     line-height: 1.1;
-    white-space: pre;
-    animation: scroll-up 20s linear infinite;
-    animation-delay: 0s;
+    white-space: normal; /* allow wrapping */
+    word-wrap: break-word;
+    animation: scroll-up 60s linear infinite;
   }
 
   @keyframes scroll-up {
@@ -38,22 +40,25 @@
     100% { transform: translate(-50%, -200%); }
   }
 
-  .glitch-block::before, .glitch-block::after {
+  .glitch-text::before,
+  .glitch-text::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0.8;
+    width: 100%;
     color: #ff2b2b;
+    pointer-events: none;
   }
 
-  .glitch-block::before {
+  .glitch-text::before {
     left: 2px;
     text-shadow: -2px 0 cyan;
     animation: glitch-anim 1s infinite linear alternate-reverse;
   }
 
-  .glitch-block::after {
+  .glitch-text::after {
     left: -2px;
     text-shadow: 2px 0 magenta;
     animation: glitch-anim2 0.8s infinite linear alternate-reverse;
@@ -72,98 +77,4 @@
     0% { clip-path: inset(0 0 90% 0); transform: translate(-1px, 1px); }
     25% { clip-path: inset(20% 0 60% 0); transform: translate(2px, -1px); }
     50% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 0); }
-    75% { clip-path: inset(60% 0 20% 0); transform: translate(1px, 1px); }
-    100% { clip-path: inset(0 0 0 0); transform: none; }
-  }
-
-  @keyframes flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-    20%, 24%, 55% { opacity: 0.8; }
-  }
-
-  /* Rolling interference */
-  .tracking {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(transparent 0%, rgba(255,255,255,0.02) 1px, transparent 2px);
-    animation: roll 3s linear infinite;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  @keyframes roll {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-  }
-</style>
-</head>
-<body>
-  <div class="tracking" id="tracking"></div>
-  <div class="glitch-container" id="glitch-container"></div>
-
-  <script>
-    const baseText = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME";
-    const fragments = [
-      "BACKTHEREI'LLNEVERLETYOUFORGET",
-      "I'LLNEVERLETYOUABOUTME",
-      "ALIVEHEREI'MALIVEHERE",
-      "FORGETABOUTMEBACKTHERE",
-      "LETMEBACKTHEREI'MALIVE"
-    ];
-
-    const container = document.getElementById('glitch-container');
-    const tracking = document.getElementById('tracking');
-    const r = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-    function generateBlockText() {
-      const lines = [];
-      for (let i = 0; i < 15; i++) {
-        if (Math.random() < 0.3) {
-          // combine fragments
-          let line = '';
-          for (let j = 0; j < r(2, 4); j++) {
-            line += fragments[r(0, fragments.length - 1)];
-          }
-          lines.push(line);
-        } else {
-          lines.push(baseText);
-        }
-      }
-      return lines.join('\n');
-    }
-
-    function spawnBlock() {
-      const div = document.createElement('div');
-      div.className = 'glitch-block';
-      const text = generateBlockText();
-      div.dataset.text = text;
-      div.textContent = text;
-      container.appendChild(div);
-
-      const move = div.animate([
-        { transform: `translate(-50%, 100%)` },
-        { transform: `translate(-50%, -200%)` }
-      ], {
-        duration: r(18000, 24000),
-        easing: 'linear',
-        fill: 'forwards'
-      });
-
-      move.onfinish = () => div.remove();
-    }
-
-    // continuously generate paragraph blocks
-    setInterval(spawnBlock, 7000);
-    spawnBlock();
-
-    // occasional glitch bursts
-    setInterval(() => {
-      tracking.style.animationDuration = `${r(1, 6)}s`;
-      tracking.style.opacity = Math.random() * 0.5 + 0.5;
-      container.style.filter = Math.random() > 0.7 ? 'invert(1)' : 'contrast(1.4)';
-      setTimeout(() => container.style.filter = 'contrast(1.4)', 200);
-    }, 4000);
-  </script>
-</body>
-</html>
+    75% { clip-path: inset(60% 0 20%
