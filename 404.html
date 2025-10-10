@@ -2,79 +2,113 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>404 - LET ME BACK THERE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 FILE NOT FOUND</title>
 <style>
   html, body {
+    margin: 0;
+    height: 100%;
     background: black;
     overflow: hidden;
-    height: 100%;
-    margin: 0;
   }
 
-  .glitch-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    filter: contrast(1.4);
-    transform: scaleY(1.1); /* stretch vertically */
-  }
-
-  .glitch-text {
-    position: absolute;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff2b2b;
+  .screen {
     font-family: 'Trebuchet MS', sans-serif;
-    text-transform: uppercase;
-    font-size: 2rem;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
     line-height: 1.1;
-    white-space: normal; /* allow wrapping */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transform: scaleY(1.1);
+    white-space: normal;
     word-wrap: break-word;
-    animation: scroll-up 60s linear infinite;
+    overflow: hidden;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
   }
 
-  @keyframes scroll-up {
-    0% { transform: translate(-50%, 100%); }
-    100% { transform: translate(-50%, -200%); }
+  .glitch {
+    animation: flicker 0.08s infinite, distort 3s infinite;
+    filter: contrast(150%) brightness(120%);
   }
 
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes distort {
+    0%, 100% {
+      transform: scaleY(1.1) translate(0, 0);
+      filter: hue-rotate(0deg);
+    }
+    20% {
+      transform: scaleY(1.12) skewX(2deg);
+      filter: hue-rotate(15deg);
+    }
+    40% {
+      transform: scaleY(1.08) skewX(-3deg);
+      filter: hue-rotate(-10deg);
+    }
+    60% {
+      transform: scaleY(1.1) translateY(-2px);
+    }
+    80% {
+      transform: scaleY(1.11) skewX(1deg);
+      filter: hue-rotate(5deg);
+    }
+  }
+
+  /* scanline / interference */
+  .screen::after {
+    content: "";
     position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0.8;
-    width: 100%;
-    color: #ff2b2b;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode: screen;
     pointer-events: none;
   }
+</style>
+</head>
+<body>
+  <div class="screen glitch" id="screen"></div>
 
-  .glitch-text::before {
-    left: 2px;
-    text-shadow: -2px 0 cyan;
-    animation: glitch-anim 1s infinite linear alternate-reverse;
-  }
+  <script>
+    const base = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME ";
+    const fragments = [
+      "BACKTHEREI'LLNEVERLETYOUFORGET",
+      "I'LLNEVERLETYOUABOUTME",
+      "ALIVEHERELETMEBACK",
+      "FORGETABOUTMEI'MALIVE"
+    ];
+    const screen = document.getElementById('screen');
+    let text = "";
 
-  .glitch-text::after {
-    left: -2px;
-    text-shadow: 2px 0 magenta;
-    animation: glitch-anim2 0.8s infinite linear alternate-reverse;
-  }
+    function randomFragment() {
+      return Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
+    }
 
-  @keyframes glitch-anim {
-    0% { clip-path: inset(80% 0 0 0); transform: translate(2px, -2px); }
-    20% { clip-path: inset(10% 0 85% 0); transform: translate(-2px, 2px); }
-    40% { clip-path: inset(40% 0 40% 0); transform: translate(-1px, 0); }
-    60% { clip-path: inset(70% 0 20% 0); transform: translate(1px, 2px); }
-    80% { clip-path: inset(10% 0 70% 0); transform: translate(0, -1px); }
-    100% { clip-path: inset(0 0 0 0); transform: none; }
-  }
+    function appendText() {
+      text += randomFragment() + " ";
+      // Keep the text block growing but limit it to prevent overflow memory
+      if (text.length > 3000) text = text.slice(-2000);
+      screen.textContent = text;
+      screen.scrollTop = screen.scrollHeight;
+    }
 
-  @keyframes glitch-anim2 {
-    0% { clip-path: inset(0 0 90% 0); transform: translate(-1px, 1px); }
-    25% { clip-path: inset(20% 0 60% 0); transform: translate(2px, -1px); }
-    50% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 0); }
-    75% { clip-path: inset(60% 0 20%
+    // Continuously append without delay
+    setInterval(appendText, 40);
+  </script>
+</body>
+</html>
