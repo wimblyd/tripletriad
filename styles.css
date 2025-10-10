@@ -358,10 +358,24 @@ body {
 }
 
 @media (min-width: 1025px) {
+  .tupperware {
+    align-items: stretch; 
+  }
+
   #operation-log {
-    align-self: stretch;
-    min-height: calc(100vh - 260px);
+    flex: 0 0 auto;
     height: auto;
+    min-height: auto;
+    align-self: stretch;
+  }
+
+   .screen {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-self: stretch;
+    width: auto;
+    max-width: none;
+    flex: 1 1 auto;
   }
 }
-
