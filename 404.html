@@ -23,7 +23,7 @@
     text-transform: uppercase;
     transform: scaleY(1.1);
     width: 400px;
-    height: 50vh;
+    height: 100vh;
     margin: 0 auto;
     padding: 20px;
     overflow: hidden;
@@ -41,6 +41,7 @@
     width: 100%;
     white-space: normal;
     word-wrap: break-word;
+    transform: translateY(0);
   }
 
   @keyframes flicker {
@@ -61,3 +62,84 @@
       transform: scaleY(1.08) skewX(-3deg);
       filter: hue-rotate(-10deg);
     }
+    60% {
+      transform: scaleY(1.1) translateY(-2px);
+    }
+    80% {
+      transform: scaleY(1.11) skewX(1deg);
+      filter: hue-rotate(5deg);
+    }
+  }
+
+  /* CRT scanline overlay */
+  .screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="screen glitch">
+    <div id="textBlock"></div>
+  </div>
+
+  <script>
+    const base = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME ";
+    const fragments = [
+      "BACKTHEREI'LLNEVERLETYOUFORGET",
+      "I'LLNEVERLETYOUABOUTME",
+      "ALIVEHERELETMEBACK",
+      "FORGETABOUTMEI'MALIVE"
+    ];
+
+    const block = document.getElementById('textBlock');
+    let text = "";
+    let yOffset = 0;
+
+    // Generate the stream of words
+    function randomFragment() {
+      return Math.random() < 0.7
+        ? base
+        : fragments[Math.floor(Math.random() * fragments.length)];
+    }
+
+    function appendText() {
+      text += randomFragment();
+      if (text.length > 4000) text = text.slice(-3000);
+      block.textContent = text;
+    }
+
+    // Scroll upward with occasional jitter
+    function scrollUp() {
+      // steady drift upward
+      yOffset += 0.25;
+
+      // occasional analog sync jumps
+      if (Math.random() < 0.015) {
+        yOffset += Math.random() * 30 - 15; // brief vertical shake
+      }
+
+      // short “tracking loss” jump
+      if (Math.random() < 0.002) {
+        yOffset -= 80 + Math.random() * 60;
+      }
+
+      block.style.transform = `translateY(-${yOffset}px)`;
+    }
+
+    // continuous text + motion
+    setInterval(appendText, 80);   // how fast new fragments appear
+    setInterval(scrollUp, 30);     // how smooth the scroll is
+  </script>
+</body>
+</html>
