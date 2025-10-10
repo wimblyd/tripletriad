@@ -115,6 +115,7 @@ body {
 /* Tupperware party */
 .tupperware {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   width: 100vw;
   gap: 6px;
@@ -257,78 +258,33 @@ body {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
-  .wrapper {
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-  }
-
-  .lid {
-    height: 150px;
-    background-size: contain;
-    background-position: center;
-    background-attachment: scroll;
-  }
-
+ @media (max-width: 768px) {
   .tupperware {
-    flex-direction: column;
-    padding: 0;
-    gap: 0;
+    flex-direction: column; /* stack vertically */
+    align-items: stretch;
   }
 
   .buttons {
-    flex-direction: row;
-    flex-wrap: wrap;
+    order: 1;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 5px;
-    margin-top: 0;
+    flex-wrap: wrap;
     gap: 5px;
   }
 
-  .buttons img {
-    width: 45%;
-    max-width: 140px;
-    height: auto;
-    margin: 5px 0;
-    left: 0 !important;
-    position: relative;
-  }
-
   .screen {
+    order: 2;
     width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding: 5px;
-    justify-content: flex-start;
-  }
-
-  .screen table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .card {
-    width: 60px;
-    height: 80px;
-    margin: 2px;
-  }
-
-  .card-label {
-    font-size: 7px;
   }
 
   #operation-log {
-    flex: 0 0 auto;
-    height: 150px;
-    font-size: 9px;
-    padding: 5px;
-    overflow-y: scroll;
+    order: 3;
+    width: 100%;
+    max-height: 200px; /* adjust log height for mobile */
   }
 }
+
 
 
 
