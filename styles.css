@@ -264,8 +264,8 @@ body {
   }
 
   .lid {
-    height: 200px !important;
-    background-size: 300px;
+    height: 120px !important;
+    background-size: 400px;
   }
 
   .buttons {
@@ -311,6 +311,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
