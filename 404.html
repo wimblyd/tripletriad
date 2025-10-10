@@ -43,7 +43,8 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: pre; /* PREVENT line wrapping */
+    white-space: pre-wrap; /* wrap naturally without huge gaps */
+    overflow-wrap: break-word;
     transform: translate3d(0, 0, 0);
     will-change: transform;
   }
@@ -100,6 +101,10 @@
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
+    // Fill some initial text buffer so the screen isn't empty
+    for (let i = 0; i < 15; i++) text += randomFragment();
+    block.textContent = text;
+
     function appendText() {
       text += randomFragment();
       if (text.length > 6000) text = text.slice(-4000);
@@ -107,16 +112,16 @@
     }
 
     function scrollUp() {
-      yOffset += 0.05; // 🔹 much slower scroll
+      yOffset += 0.05; // 🔹 slow scroll
       // occasional vertical jitter
-      if (Math.random() < 0.005) yOffset += Math.random() * 5 - 2.5;
+      if (Math.random() < 0.004) yOffset += Math.random() * 4 - 2;
       // vertical sync drift: slow left-right movement
       xDrift += driftDirection * 0.1;
       if (Math.abs(xDrift) > 2) driftDirection *= -1;
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
-    setInterval(appendText, 200); // 🔹 slower fragment generation
+    setInterval(appendText, 250); // slow fragment injection
     setInterval(scrollUp, 30);
   </script>
 </body>
