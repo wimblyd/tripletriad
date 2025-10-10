@@ -13,25 +13,21 @@
   }
 
   .screen {
+    position: relative;
     font-family: 'Trebuchet MS', sans-serif;
-    color: red;
+    color: #912319;
     font-weight: bold;
     font-size: 1.2rem;
     line-height: 1.1;
     letter-spacing: 1px;
     text-transform: uppercase;
     transform: scaleY(1.1);
-    white-space: normal;
-    word-wrap: break-word;
-    overflow: hidden;
-    padding: 20px;
     width: 400px;
-    height: auto;
+    height: 100vh;
     margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+    text-align: left;
   }
 
   .glitch {
@@ -39,14 +35,22 @@
     filter: contrast(150%) brightness(120%);
   }
 
+  #textBlock {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
   @keyframes flicker {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+    50% { opacity: 0.85; }
   }
 
   @keyframes distort {
     0%, 100% {
-      transform: scaleY(1.1) translate(0, 0);
+      transform: scaleY(1.1);
       filter: hue-rotate(0deg);
     }
     20% {
@@ -57,60 +61,3 @@
       transform: scaleY(1.08) skewX(-3deg);
       filter: hue-rotate(-10deg);
     }
-    60% {
-      transform: scaleY(1.1) translateY(-2px);
-    }
-    80% {
-      transform: scaleY(1.11) skewX(1deg);
-      filter: hue-rotate(5deg);
-    }
-  }
-
-  /* scanline / interference */
-  .screen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(255, 0, 0, 0.05) 0px,
-      rgba(255, 0, 0, 0.05) 1px,
-      transparent 2px,
-      transparent 3px
-    );
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-</style>
-</head>
-<body>
-  <div class="screen glitch" id="screen"></div>
-
-  <script>
-    const base = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME ";
-    const fragments = [
-      "BACKTHEREI'LLNEVERLETYOUFORGET",
-      "I'LLNEVERLETYOUABOUTME",
-      "ALIVEHERELETMEBACK",
-      "FORGETABOUTMEI'MALIVE"
-    ];
-    const screen = document.getElementById('screen');
-    let text = "";
-
-    function randomFragment() {
-      return Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
-    }
-
-    function appendText() {
-      text += randomFragment() + " ";
-      // Keep the text block growing but limit it to prevent overflow memory
-      if (text.length > 3000) text = text.slice(-2000);
-      screen.textContent = text;
-      screen.scrollTop = screen.scrollHeight;
-    }
-
-    // Continuously append without delay
-    setInterval(appendText, 100);
-  </script>
-</body>
-</html>
