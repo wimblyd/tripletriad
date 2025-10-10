@@ -52,10 +52,10 @@ body {
 .lid{
   position: relative;
   width: 100%;
-  height: clamp(140px, 190px, 255px);
+  height: clamp(140px, 200px, 300px);
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
-  background-size: clamp(300px, 65vw, 800px);
+  background-size: clamp(300px, 65vw, 1000px);
   background-position: top right;
   cursor: pointer;
 }
@@ -379,3 +379,4 @@ body {
     flex: 1 1 auto;
   }
 }
+
