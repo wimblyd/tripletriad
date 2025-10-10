@@ -367,9 +367,53 @@ body {
   .screen { padding: 2px; gap: 2px; }
 }
 
+@media (max-width: 1024px) {
+  .lid {
+    height: clamp(80px, 20vw, 200px);
+    background-size: clamp(200px, 50vw, 600px);
+  }
+}
+
+@media (max-width: 768px) {
+  .lid {
+    height: clamp(60px, 18vw, 150px);
+    background-size: clamp(150px, 40vw, 400px);
+  }
+}
+
+@media (max-width: 480px) {
+  .lid {
+    height: clamp(50px, 16vw, 120px);
+    background-size: clamp(120px, 35vw, 300px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .buttons {
+    padding: 4px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    padding: 2px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    padding: 2px;
+    gap: 2px;
+  }
+}
+
+
 /* Motion prefs */
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
