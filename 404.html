@@ -85,10 +85,10 @@
   <script>
     const base = "LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME";
     const fragments = [
-      "BACK THERE I'LL NEVER LET YOU FORGET LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME",
-      "I'LL NEVER LET YOU ABOUT ME LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME",
-      "ALIVE HERE LET ME BACK LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME",
-      "FORGET ABOUT ME I'M ALIVE LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME"
+      "BACK THERE I'LL NEVER LET YOU FORGET",
+      "I'LL NEVER LET YOU ABOUT ME",
+      "ALIVE HERE LET ME BACK LET ME BACK",
+      "FORGET ABOUT ME I'M ALIVE"
     ];
 
     const block = document.getElementById('textBlock');
@@ -101,7 +101,6 @@
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
-    // Fill some initial text buffer so the screen isn't empty
     for (let i = 0; i < 15; i++) text += randomFragment();
     block.textContent = text;
 
@@ -121,7 +120,7 @@
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
-    setInterval(appendText, 250); // slow fragment injection
+    setInterval(appendText, 200);
     setInterval(scrollUp, 30);
   </script>
 </body>
