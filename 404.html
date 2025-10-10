@@ -19,8 +19,8 @@
     font-weight: bold;
     font-size: 1.7rem;
     line-height: 1.1;
-    letter-spacing: -1px;
-    word-spacing: -1px;
+    letter-spacing: -1.7rem;
+    word-spacing: -2rem;
     text-transform: uppercase;
     width: 480px;
     height: 100vh;
@@ -60,6 +60,24 @@
     50% { filter: hue-rotate(-10deg) contrast(120%); }
     75% { filter: hue-rotate(5deg) brightness(105%); }
   }
+
+   .ghost {
+    position: absolute;
+    top: -1.1em;
+    left: 0;
+    width: 100%;
+    color: rgba(255, 100, 100, 0.6);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(0.3px);
+    animation: ghostFade 0.5s ease-out forwards;
+  }
+
+  @keyframes ghostFade {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-0.5em); }
+  }
+
 
   .screen::after {
     content: "";
@@ -128,7 +146,7 @@
     }
 
     setInterval(appendText, 200);
-    setInterval(scrollUp, 30);
+    setInterval(scrollUp, 40);
     setInterval(makeGhost, 300);
   </script>
 </body>
