@@ -290,9 +290,8 @@ body {
   }
 
   .screen {
-    max-width: 100%;
+    width: 100%;
     padding: 2px;
-    justify-content: center;
     overflow: auto;
   }
 
@@ -314,6 +313,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
