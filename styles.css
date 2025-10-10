@@ -269,7 +269,7 @@ body {
   }
 
   .buttons {
-    max-height: 50px;
+    max-height: 45px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
@@ -295,7 +295,6 @@ body {
     overflow: auto;
     justify-content: center;
   }
-}
 
   .card {
     width: 30px !important;
@@ -344,6 +343,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
