@@ -301,16 +301,18 @@ body {
   }
 
   .card-label {
-    font-size: 4px !important;
+    font-size: 3px !important;
   }
 
   #operation-log {
     width: 100%;
     max-height: 150px;
-    font-size: 4px;
+    font-size: 5px;
+    line-height: 6px;
     padding: 6px;
   }
 }
+
 
 
 
