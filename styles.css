@@ -305,6 +305,35 @@ body {
     font-size: 3px !important;
   }
 
+  .boost-button {
+  width: 15px !important;
+  height: auto;
+  }
+
+  .boost-button.used {
+    width: 15px !important;
+    height: auto;
+  }
+
+  .card-counter {
+    width: 15px !important;
+    height: auto;
+  }
+
+  .counter-arrow {
+    width: 8px !important;
+    cursor: pointer;
+}
+
+  .counter-number-container {
+    width: 15px !important;
+    height: auto;
+}
+
+.counter-number {
+  width: 8px !important;
+}
+
   #operation-log {
     width: 100%;
     max-height: 150px;
@@ -313,6 +342,7 @@ body {
     padding: 6px;
   }
 }
+
 
 
 
