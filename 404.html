@@ -95,10 +95,7 @@
     let yOffset = 0;
 
     function randomFragment() {
-      // Add a space *within* fragments sometimes, to create more natural wrap points
-      let frag = Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
-      if (Math.random() < 0.5) frag = frag.replace(/([A-Z])(?=[A-Z])/g, "$1 "); // occasional internal spacing
-      return frag + " ";
+      return Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
     }
 
     function appendText() {
