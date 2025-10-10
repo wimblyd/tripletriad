@@ -19,20 +19,23 @@
     font-weight: bold;
     font-size: 1.2rem;
     line-height: 1.1;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    transform: scaleY(1.1);
-    width: 400px;
+    width: 480px; /* slightly wider */
     height: 100vh;
     margin: 0 auto;
     padding: 20px;
     overflow: hidden;
     text-align: left;
+    transform: scaleY(1.1);
   }
 
   .glitch {
     animation: flicker 0.08s infinite, distort 3s infinite;
     filter: contrast(150%) brightness(120%);
+    text-shadow:
+      0 0 1px rgba(255, 0, 0, 0.6),
+      0 0 4px rgba(255, 0, 0, 0.3);
   }
 
   #textBlock {
@@ -40,8 +43,9 @@
     bottom: 0;
     width: 100%;
     white-space: normal;
-    word-wrap: break-word;
-    transform: translateY(0);
+    overflow-wrap: break-word;
+    hyphens: none;
+    transform: translate3d(0, 0, 0);
   }
 
   @keyframes flicker {
@@ -50,28 +54,12 @@
   }
 
   @keyframes distort {
-    0%, 100% {
-      transform: scaleY(1.1);
-      filter: hue-rotate(0deg);
-    }
-    20% {
-      transform: scaleY(1.12) skewX(2deg);
-      filter: hue-rotate(15deg);
-    }
-    40% {
-      transform: scaleY(1.08) skewX(-3deg);
-      filter: hue-rotate(-10deg);
-    }
-    60% {
-      transform: scaleY(1.1) translateY(-2px);
-    }
-    80% {
-      transform: scaleY(1.11) skewX(1deg);
-      filter: hue-rotate(5deg);
-    }
+    0%, 100% { filter: hue-rotate(0deg); }
+    25% { filter: hue-rotate(10deg) brightness(110%); }
+    50% { filter: hue-rotate(-10deg) contrast(120%); }
+    75% { filter: hue-rotate(5deg) brightness(105%); }
   }
 
-  /* CRT scanline overlay */
   .screen::after {
     content: "";
     position: absolute;
@@ -94,7 +82,7 @@
   </div>
 
   <script>
-    const base = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME ";
+    const base = "LETMEBACKTHEREI'MALIVEHEREI'LLNEVERLETYOUFORGETABOUTME";
     const fragments = [
       "BACKTHEREI'LLNEVERLETYOUFORGET",
       "I'LLNEVERLETYOUABOUTME",
@@ -106,11 +94,11 @@
     let text = "";
     let yOffset = 0;
 
-    // Generate the stream of words
     function randomFragment() {
-      return Math.random() < 0.7
-        ? base
-        : fragments[Math.floor(Math.random() * fragments.length)];
+      // Add a space *within* fragments sometimes, to create more natural wrap points
+      let frag = Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)];
+      if (Math.random() < 0.5) frag = frag.replace(/([A-Z])(?=[A-Z])/g, "$1 "); // occasional internal spacing
+      return frag + " ";
     }
 
     function appendText() {
@@ -119,27 +107,15 @@
       block.textContent = text;
     }
 
-    // Scroll upward with occasional jitter
     function scrollUp() {
-      // steady drift upward
       yOffset += 0.25;
-
-      // occasional analog sync jumps
-      if (Math.random() < 0.015) {
-        yOffset += Math.random() * 30 - 15; // brief vertical shake
-      }
-
-      // short “tracking loss” jump
-      if (Math.random() < 0.002) {
-        yOffset -= 80 + Math.random() * 60;
-      }
-
+      if (Math.random() < 0.015) yOffset += Math.random() * 30 - 15;
+      if (Math.random() < 0.002) yOffset -= 80 + Math.random() * 60;
       block.style.transform = `translateY(-${yOffset}px)`;
     }
 
-    // continuous text + motion
-    setInterval(appendText, 80);   // how fast new fragments appear
-    setInterval(scrollUp, 30);     // how smooth the scroll is
+    setInterval(appendText, 80);
+    setInterval(scrollUp, 30);
   </script>
 </body>
 </html>
