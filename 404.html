@@ -12,26 +12,27 @@
     overflow: hidden;
   }
 
-  .screen {
-    position: relative;
-    font-family: 'Trebuchet MS', sans-serif;
-    color: #912319;
-    font-weight: bold;
-    font-size: 1.7rem;
-    line-height: 1.25;
-    text-transform: uppercase;
-    width: 400px;
-    height: 50vh;
-    margin: 0 auto;
-    padding: 20px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden;
-    text-align: left;
-    z-index: 0;
-  }
-
+ .screen {
+  position: relative;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #912319;
+  font-weight: bold;
+  font-size: 2.5rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+  width: 80vw;       
+  max-width: 1200px;
+  height: 70vh;     
+  padding: 30px;   
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden; 
+  text-align: left;
+  z-index: 0;
+}
+  
   .glitch {
     animation: flicker 0.08s infinite, distort 3s infinite;
     filter: contrast(150%) brightness(120%);
@@ -130,7 +131,7 @@
     function appendText() {
       const frag = randomFragment();
       text += frag;
-      if (text.length > 4000) text = text.slice(-2000); // keep text smaller
+      if (text.length > 4000) text = text.slice(-2000);
       block.textContent = text;
     }
 
@@ -148,7 +149,7 @@
       if (Math.random() < 0.02) { 
         const ghost = block.cloneNode(true); 
         ghost.classList.add('ghost'); 
-        ghost.style.transform = translate(${xDrift}px, -${yOffset}px); 
+        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`; 
         screen.appendChild(ghost); 
         setTimeout(() => ghost.remove(), 1000); 
       } 
