@@ -302,28 +302,10 @@ popOutButton.style.top = "10px";
 popOutButton.style.right = "10px";
 popOutButton.style.zIndex = "9999";
 popOutButton.style.padding = "8px 12px";
-popOutButton.style.fontFamily = "Silkscreen, monospace";
 popOutButton.style.cursor = "pointer";
+
+const lidDiv = document.querySelector(".lid");
 lidDiv.appendChild(popOutButton);
-
-let popOutWin = null;
-
-popOutButton.addEventListener("click", () => {
-  const screenDiv = document.querySelector(".screen");
-  if (!screenDiv) return;
-
-  // If already popped out, focus it
-  if (popOutWin && !popOutWin.closed) {
-    popOutWin.focus();
-    return;
-  }
-
-  // Pop Out
-  const popOutButton = document.createElement("img");
-popOutButton.src = "img/PopOut.png";
-popOutButton.alt = "Pop Out Card Screen";
-popOutButton.style.cursor = "pointer";
-buttonsDiv.appendChild(popOutButton);
 
 let popOutWin = null;
 
@@ -354,6 +336,8 @@ popOutButton.addEventListener("click", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
   });
 });
+
+  
   // It's Log, from Blam-O!
 function addLogEntry(message) {
   if (!logDiv) return;
