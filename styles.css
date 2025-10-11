@@ -81,7 +81,40 @@ body {
 .buttons img.button:nth-child(3) { margin-left: 40px; }
 .buttons img.button:nth-child(4) { margin-left: 60px; }
 
-#resetButton, #copyLogButton, #clearLogButton, #guideButton { cursor: none; }
+#resetButton, #copyLogButton, #clearLogButton, #guideButton { 
+  cursor: none; 
+  transition: filter 0.05s ease; /* optional smoothness */
+}
+
+/* RESET BUTTON */
+#resetButton:hover,
+#resetButton:active {
+  content: url("img/UnflipButtonHoverClicked.png");
+}
+
+/* COPY LOG BUTTON */
+#copyLogButton:hover {
+  content: url("img/CopyButtonHover.png");
+}
+#copyLogButton:active {
+  content: url("img/CopyButtonClicked.png");
+}
+
+/* CLEAR LOG BUTTON */
+#clearLogButton:hover {
+  content: url("img/ClearButtonHover.png");
+}
+#clearLogButton:active {
+  content: url("img/ClearButtonClicked.png");
+}
+
+/* GUIDE BUTTON */
+#guideButton:hover {
+  content: url("img/GuideButtonHover.png");
+}
+#guideButton:active {
+  content: url("img/GuideButtonClicked.png");
+}
 
 /* Tupperware Party */
 .tupperware {
@@ -437,6 +470,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
