@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   // Toaster
-const popOutButton = document.createElement("button");
+const popOutButton = document.createElement("img");
 popOutButton.src = "img/PopUp.png";
 popOutButton.style.position = "fixed";
 popOutButton.style.top = "10px";
@@ -318,7 +318,13 @@ popOutButton.addEventListener("click", () => {
   }
 
   // Pop Up
-  popOutWin = window.open("", "_blank", "width=900,height=600,scrollbars=yes");
+  const screenDiv = document.querySelector(".screen");
+  const rect = screenDiv.getBoundingClientRect();
+  popOutWin = window.open(
+  "",
+  "_blank",
+  `width=${Math.ceil(rect.width + 20)},height=${Math.ceil(rect.height + 20)},scrollbars=yes`
+);
 
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
   styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
