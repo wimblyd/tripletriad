@@ -337,6 +337,15 @@ body {
 }
 
 /* Media Queries */
+:root {
+  --log-max-h: 40vh;
+}
+
+@supports (height: 100svh) {
+  :root {
+    --log-max-h: 40svh;
+  }
+}
 
 /* Large laptop / smaller desktop */
 @media (max-width: 1200px) {
@@ -345,7 +354,9 @@ body {
     --card-h: 84px;
     --label-font: 7px;
     --boost-size: 26px;
-    --counter-arrow-w: 9px;
+    --counter-bg-padding: 3px;
+    --counter-gap: 7px;
+    --counter-arrow-w: 10px;
     --counter-number-w: 9px;
     --log-font: 9px;
   }
@@ -360,7 +371,8 @@ body {
     --card-h: 68px;
     --label-font: 6px;
     --boost-size: 22px;
-    --counter-arrow-w: 8px;
+    --counter-bg-padding: 2.5px;
+    --counter-gap: 6px;
     --counter-number-w: 8px;
     --log-font: 8.5px;
   }
@@ -368,6 +380,16 @@ body {
   .tupperware { flex-direction: row; padding: 4px; gap: 4px; }
   .screen { max-width: calc(100% - 360px); }
   #operation-log { min-width: 200px; max-width: 360px; }
+
+  .lid {
+    height: clamp(80px, 20vw, 200px);
+    background-size: clamp(200px, 50vw, 600px);
+  }
+
+  .buttons {
+    padding: 4px;
+    gap: 6px;
+  }
 }
 
 /* Tablet / big phone */
@@ -380,10 +402,11 @@ body {
     --label-font: 4px;
     --boost-size: 16px;
     --boost-min: 10px;
-    --counter-arrow-w: 8px;
-    --counter-number-w: 8px;
+    --counter-bg-padding: 2px;
+    --counter-gap: 5px;
+    --counter-number-w: 6px;
     --log-font: 7px;
-    --log-max-h: 18vh;
+    --log-max-h: 18svh;
   }
 
   .tupperware {
@@ -392,7 +415,7 @@ body {
     padding: 4px;
     gap: 4px;
   }
-  
+
   .screen {
     width: 100% !important;
     max-width: 100% !important;
@@ -403,7 +426,9 @@ body {
     flex-wrap: nowrap;
   }
 
-  .card { flex: 0 0 auto; }
+  .card-counter {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
 
   #operation-log {
     width: 100%;
@@ -411,6 +436,16 @@ body {
     min-width: 0;
     max-height: var(--log-max-h);
     font-size: var(--log-font);
+  }
+
+  .lid {
+    height: clamp(60px, 18vw, 150px);
+    background-size: clamp(150px, 40vw, 400px);
+  }
+
+  .buttons {
+    padding: 2px;
+    gap: 4px;
   }
 }
 
@@ -421,61 +456,40 @@ body {
     --card-h: 44px;
     --label-font: 3px;
     --boost-size: 14px;
+    --counter-bg-padding: 1.5px;
+    --counter-gap: 4px;
+    --counter-number-w: 5px;
     --log-font: 6px;
-    --log-max-h: 14vh;
+    --log-max-h: 14svh;
   }
 
   .buttons img.button { width: 110px; }
   .screen { padding: 2px; gap: 2px; }
-}
 
-@media (max-width: 1024px) {
-  .lid {
-    height: clamp(80px, 20vw, 200px);
-    background-size: clamp(200px, 50vw, 600px);
+  .card-counter {
+    transform: translate(-50%, -50%) scale(0.8);
   }
-}
 
-@media (max-width: 768px) {
-  .lid {
-    height: clamp(60px, 18vw, 150px);
-    background-size: clamp(150px, 40vw, 400px);
-  }
-}
-
-@media (max-width: 480px) {
   .lid {
     height: clamp(50px, 16vw, 120px);
     background-size: clamp(120px, 35vw, 300px);
   }
-}
 
-@media (max-width: 1024px) {
-  .buttons {
-    padding: 4px;
-    gap: 6px;
-  }
-}
-
-@media (max-width: 768px) {
-  .buttons {
-    padding: 2px;
-    gap: 4px;
-  }
-}
-
-@media (max-width: 480px) {
   .buttons {
     padding: 2px;
     gap: 2px;
   }
 }
 
-
 /* Motion prefs */
 @media (prefers-reduced-motion: reduce) {
-  .card-inner, .boost-button { transition: none !important; animation: none !important; }
+  .card-inner, .boost-button { 
+    transition: none !important; 
+    animation: none !important; 
+  }
 }
+
+
 
 
 
