@@ -71,10 +71,11 @@ body {
   display: flex;
   height: clamp(100px, 255px, 350px);
   flex-direction: column;
-  gap: 8px;
-  padding: 6px;
+  gap: 0px;
+  padding: 0px;
   align-items: flex-start;
   margin-top: 0;
+  position: relative;
 }
 
 .buttons img.button:nth-child(1) { margin-left: 0; }
@@ -84,7 +85,11 @@ body {
 
 #resetButton, #copyLogButton, #clearLogButton, #guideButton { 
   cursor: none; 
-  transition: filter 0.05s ease; /* optional smoothness */
+  transition: filter 0.05s ease;
+}
+
+.buttons img.button + img.button {
+  margin-top: -25px;
 }
 
 /* RESET BUTTON */
@@ -471,6 +476,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
