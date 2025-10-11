@@ -89,7 +89,7 @@ body {
 }
 
 .buttons img.button + img.button {
-  margin-top: -25px;
+  margin-top: -35px;
 }
 
 /* RESET BUTTON */
@@ -476,6 +476,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
