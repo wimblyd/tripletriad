@@ -383,7 +383,7 @@ body {
 
   .lid {
     height: clamp(80px, 20vw, 200px);
-    background-size: clamp(200px, 50vw, 600px);
+    background-size: clamp(200px, 66vw, 600px);
   }
 
   .buttons {
@@ -444,7 +444,7 @@ body {
 
   .lid {
     height: clamp(60px, 18vw, 150px);
-    background-size: clamp(150px, 40vw, 400px);
+    background-size: clamp(150px, 66vw, 400px);
   }
 
   .buttons {
@@ -481,7 +481,7 @@ body {
   }
 
   .lid {
-    height: clamp(50px, 16vw, 120px);
+    height: clamp(100px, 66vw, 300px);
     background-size: clamp(120px, 35vw, 300px);
   }
 
@@ -498,6 +498,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
