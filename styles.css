@@ -19,7 +19,7 @@
   --boost-min: 12px;
 
   --counter-bg-padding: 3px;
-  --counter-gap: 5px;
+  --counter-gap: 3px;
   --counter-arrow-w: 10px;
   --counter-number-w: 10px;
 
@@ -352,7 +352,7 @@ body {
     --label-font: 7px;
     --boost-size: 26px;
     --counter-bg-padding: 3px;
-    --counter-gap: 5px;
+    --counter-gap: 3px;
     --counter-arrow-w: 10px;
     --counter-number-w: 9px;
     --log-font: 8px;
@@ -368,7 +368,7 @@ body {
     --label-font: 6px;
     --boost-size: 22px;
     --counter-bg-padding: 2.5px;
-    --counter-gap: 4px;
+    --counter-gap: 3px;
     --counter-number-w: 8px;
     --log-font: 7px;
   }
@@ -394,7 +394,7 @@ body {
     --boost-size: 16px;
     --boost-min: 10px;
     --counter-bg-padding: 2px;
-    --counter-gap: 4px;
+    --counter-gap: 2px;
     --counter-number-w: 6px;
     --log-font: 6px;
     --log-height: 100px; 
@@ -439,7 +439,7 @@ body {
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
-    --counter-gap: 3px;
+    --counter-gap: 1px;
     --counter-number-w: 5px;
     --log-font: 6px;
   }
@@ -468,6 +468,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
