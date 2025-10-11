@@ -37,6 +37,7 @@ body {
   opacity: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url('FlowerCursor.png') 35 41, auto;
 }
 
 @keyframes body-fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -470,6 +471,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
