@@ -23,8 +23,8 @@
   --counter-arrow-w: 10px;
   --counter-number-w: 10px;
 
-  --log-font: 10px;
-  --log-width: 320px; 
+  --log-font: 8px;
+  --log-width: 350px; 
   --log-height: calc(100vh - 150px);
 
   --gutter: 12px;
@@ -355,7 +355,7 @@ body {
     --counter-gap: 7px;
     --counter-arrow-w: 10px;
     --counter-number-w: 9px;
-    --log-font: 9px;
+    --log-font: 8px;
   }
 
   .screen { max-width: calc(100% - 420px); }
@@ -370,7 +370,7 @@ body {
     --counter-bg-padding: 2.5px;
     --counter-gap: 6px;
     --counter-number-w: 8px;
-    --log-font: 8.5px;
+    --log-font: 7px;
   }
 
   .tupperware { flex-direction: row; padding: 4px; gap: 4px; }
@@ -396,7 +396,7 @@ body {
     --counter-bg-padding: 2px;
     --counter-gap: 5px;
     --counter-number-w: 6px;
-    --log-font: 7px;
+    --log-font: 6px;
     --log-height: 100px; 
     --log-width: 100%; 
   }
@@ -468,6 +468,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
