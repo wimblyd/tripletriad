@@ -19,7 +19,7 @@
   --boost-min: 12px;
 
   --counter-bg-padding: 3px;
-  --counter-gap: 2px;
+  --counter-gap: 6px;
   --counter-arrow-w: 10px;
   --counter-number-w: 10px;
 
@@ -281,7 +281,7 @@ body {
 
 .counter-number-container { 
   display:flex; 
-  gap:10px; 
+  gap: 2px; 
   align-items:center; 
   justify-content:center; 
 } 
@@ -498,6 +498,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
