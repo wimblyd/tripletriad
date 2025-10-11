@@ -334,9 +334,9 @@ popOutButton.addEventListener("click", () => {
 
   popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
+    location.reload();
   });
 });
-
   
   // It's Log, from Blam-O!
 function addLogEntry(message) {
