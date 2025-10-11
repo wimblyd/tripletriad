@@ -438,7 +438,7 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    max-height: var(--log-max-h);
+    height: var(--log-max-h);
     font-size: var(--log-font);
   }
 
@@ -498,6 +498,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
