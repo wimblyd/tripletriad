@@ -387,8 +387,12 @@ body {
   }
 
   .buttons {
-    padding: 4px;
-    gap: 6px;
+    padding: 0px;
+    gap: 0px;
+  }
+  
+  .buttons img.button + img.button {
+    margin-top: -30px;
   }
 }
 
@@ -444,8 +448,11 @@ body {
   }
 
   .buttons {
-    padding: 2px;
-    gap: 4px;
+    padding: 0px;
+    gap: 0px;
+  }
+  .buttons img.button + img.button {
+    margin-top: -22px;
   }
 }
 
@@ -464,6 +471,9 @@ body {
   }
 
   .buttons img.button { width: 110px; }
+  .buttons img.button + img.button {
+    margin-top: -12px;
+  }
   .screen { padding: 2px; gap: 2px; }
 
   .card-counter {
@@ -488,6 +498,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
