@@ -318,7 +318,6 @@ popOutButton.addEventListener("click", () => {
   }
 
   // Pop Up
-  const screenDiv = document.querySelector(".screen");
   const rect = screenDiv.getBoundingClientRect();
   popOutWin = window.open(
   "",
