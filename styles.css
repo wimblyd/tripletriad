@@ -93,35 +93,22 @@ body {
   margin-top: -35px;
 }
 
-/* RESET BUTTON */
-#resetButton:hover,
-#resetButton:active {
-  content: url("img/UnflipButtonHoverClicked.png");
-}
+#resetButton { background-image: url('img/UnflipButton.png'); }
+#copyLogButton { background-image: url('img/CopyButton.png'); }
+#clearLogButton { background-image: url('img/ClearButton.png'); }
+#guideButton { background-image: url('img/GuideButton.png'); }
 
-/* COPY LOG BUTTON */
-#copyLogButton:hover {
-  content: url("img/CopyButtonHover.png");
-}
-#copyLogButton:active {
-  content: url("img/CopyButtonClicked.png");
-}
+/* Hover */
+#resetButton:hover { background-image: url('img/UnflipButtonHoverClicked.png'); }
+#copyLogButton:hover { background-image: url('img/CopyButtonHover.png'); }
+#clearLogButton:hover { background-image: url('img/ClearButtonHover.png'); }
+#guideButton:hover { background-image: url('img/GuideButtonHover.png'); }
 
-/* CLEAR LOG BUTTON */
-#clearLogButton:hover {
-  content: url("img/ClearButtonHover.png");
-}
-#clearLogButton:active {
-  content: url("img/ClearButtonClicked.png");
-}
-
-/* GUIDE BUTTON */
-#guideButton:hover {
-  content: url("img/GuideButtonHover.png");
-}
-#guideButton:active {
-  content: url("img/GuideButtonClicked.png");
-}
+/* Active */
+#resetButton:active { background-image: url('img/UnflipButtonHoverClicked.png'); }
+#copyLogButton:active { background-image: url('img/CopyButtonClicked.png'); }
+#clearLogButton:active { background-image: url('img/ClearButtonClicked.png'); }
+#guideButton:active { background-image: url('img/GuideButtonClicked.png'); }
 
 /* Tupperware Party */
 .tupperware {
@@ -470,3 +457,4 @@ body {
     animation: none !important; 
   }
 }
+
