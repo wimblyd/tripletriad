@@ -449,7 +449,9 @@ body {
   }
   .buttons .button + .button { margin-top: -25px; }
 
-  .screen { padding: 2px; gap: 2px; }
+  .screen { padding: 2px; gap: 2px; 
+          overflow: auto;
+          }
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
@@ -467,6 +469,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
