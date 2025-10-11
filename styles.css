@@ -377,7 +377,7 @@ body {
   .screen { max-width: calc(100% - 360px); }
   
   .lid {
-    height: clamp(80px, 20vw, 200px);
+    height: clamp(200px, 50vw, 600px);
     background-size: clamp(200px, 50vw, 600px);
   }
 
@@ -412,8 +412,7 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     padding: 4px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto;
     justify-content: flex-start; 
     flex-wrap: nowrap;
   }
@@ -468,6 +467,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
