@@ -429,7 +429,7 @@ body {
     width: 180px;
     height: 80px;
   }
-  .buttons .button + .button { margin-top: -22px; }
+  .buttons .button + .button { margin-top: -30px; }
 }
 
 @media (max-width: 480px) {
@@ -448,7 +448,7 @@ body {
     width: 140px;
     height: 60px;
   }
-  .buttons .button + .button { margin-top: -12px; }
+  .buttons .button + .button { margin-top: -25px; }
 
   .screen { padding: 2px; gap: 2px; }
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
@@ -468,6 +468,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
