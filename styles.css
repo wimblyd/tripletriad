@@ -126,9 +126,9 @@ body {
 .tupperware {
   display: flex;
   flex-direction: row;
-  align-items: stretch; /* snap heights */
+  align-items: stretch; 
   justify-content: flex-start;
-  width: auto; /* shrinkwrap */
+  width: auto; 
   gap: var(--gutter);
   padding: 2px;
 }
@@ -293,7 +293,7 @@ body {
 /* It's Log, from Blam-O! */
 #operation-log {
   flex: 0 0 auto;
-  align-self: stretch; /* match screen height */
+  align-self: stretch;
   height: auto;
   min-height: auto;
   overflow-y: auto;
@@ -306,7 +306,7 @@ body {
   background-size: cover;
   border: 4px solid #8a8a8a;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset -1px -1px 0 rgba(0,0,0,0.6);
-  max-height: var(--log-max-h);
+  max-height: 100%;
 }
 
 /* VIII Box Style */ 
@@ -476,6 +476,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
