@@ -142,7 +142,7 @@ body {
   align-self: stretch;
   width: auto;
   padding: 2px;
-  gap: 4px;
+  gap: 8px;
   border-radius: 6px;
   overflow: auto;
   max-height: 100%;
@@ -355,7 +355,7 @@ body {
     --label-font: 7px;
     --boost-size: 26px;
     --counter-bg-padding: 3px;
-    --counter-gap: 5px;
+    --counter-gap: 7px;
     --counter-arrow-w: 10px;
     --counter-number-w: 9px;
     --log-font: 9px;
@@ -372,7 +372,7 @@ body {
     --label-font: 6px;
     --boost-size: 22px;
     --counter-bg-padding: 2.5px;
-    --counter-gap: 4px;
+    --counter-gap: 6px;
     --counter-number-w: 8px;
     --log-font: 8.5px;
   }
@@ -383,7 +383,7 @@ body {
 
   .lid {
     height: clamp(80px, 20vw, 200px);
-    background-size: clamp(200px, 66vw, 600px);
+    background-size: clamp(200px, 50vw, 600px);
   }
 
   .buttons {
@@ -407,7 +407,7 @@ body {
     --boost-size: 16px;
     --boost-min: 10px;
     --counter-bg-padding: 2px;
-    --counter-gap: 4px;
+    --counter-gap: 5px;
     --counter-number-w: 6px;
     --log-font: 7px;
     --log-max-h: 18svh;
@@ -423,7 +423,7 @@ body {
   .screen {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 2px;
+    padding: 4px;
     overflow-x: auto;
     overflow-y: hidden;
     justify-content: flex-start; 
@@ -438,13 +438,13 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    height: var(--log-max-h);
+    max-height: var(--log-max-h);
     font-size: var(--log-font);
   }
 
   .lid {
     height: clamp(60px, 18vw, 150px);
-    background-size: clamp(150px, 66vw, 400px);
+    background-size: clamp(150px, 40vw, 400px);
   }
 
   .buttons {
@@ -464,7 +464,7 @@ body {
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
-    --counter-gap: 3px;
+    --counter-gap: 4px;
     --counter-number-w: 5px;
     --log-font: 6px;
     --log-max-h: 14svh;
@@ -481,7 +481,7 @@ body {
   }
 
   .lid {
-    height: clamp(100px, 66vw, 300px);
+    height: clamp(50px, 16vw, 120px);
     background-size: clamp(120px, 35vw, 300px);
   }
 
@@ -498,22 +498,5 @@ body {
     animation: none !important; 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
