@@ -293,6 +293,49 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
+  // Toaster
+const popOutButton = document.createElement("button");
+popOutButton.textContent = "Pop Out Screen";
+popOutButton.style.position = "fixed";
+popOutButton.style.top = "10px";
+popOutButton.style.right = "10px";
+popOutButton.style.zIndex = "9999";
+popOutButton.style.padding = "8px 12px";
+popOutButton.style.fontFamily = "Silkscreen, monospace";
+popOutButton.style.cursor = "pointer";
+document.body.appendChild(popOutButton);
+
+let popOutWin = null;
+
+popOutButton.addEventListener("click", () => {
+  const screenDiv = document.querySelector(".screen");
+  if (!screenDiv) return;
+
+  // If already popped out, focus it
+  if (popOutWin && !popOutWin.closed) {
+    popOutWin.focus();
+    return;
+  }
+
+  // Pop Up
+  popOutWin = window.open("", "_blank", "width=900,height=600,scrollbars=yes");
+
+  const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
+  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+
+  popOutWin.document.body.style.margin = "0";
+  popOutWin.document.body.style.background = "black";
+  popOutWin.document.body.appendChild(screenDiv);
+
+  const script = document.createElement("script");
+  script.textContent = document.querySelector("script[src]")?.textContent || "";
+  popOutWin.document.body.appendChild(script);
+
+  popOutWin.addEventListener("beforeunload", () => {
+    document.querySelector(".wrapper").appendChild(screenDiv);
+  });
+});
+
   // It's Log, from Blam-O!
 function addLogEntry(message) {
   if (!logDiv) return;
