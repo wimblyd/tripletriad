@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toaster
 const popOutButton = document.createElement("img");
-popOutButton.src = "img/PopUp.png";
+popOutButton.src = "img/PopOut.png";
 popOutButton.style.position = "fixed";
 popOutButton.style.top = "10px";
 popOutButton.style.right = "10px";
@@ -317,7 +317,7 @@ popOutButton.addEventListener("click", () => {
     return;
   }
 
-  // Pop Up
+  // Pop Out
   const rect = screenDiv.getBoundingClientRect();
   popOutWin = window.open(
   "",
