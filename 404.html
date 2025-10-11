@@ -12,27 +12,27 @@
     overflow: hidden;
   }
 
- .screen {
-  position: relative;
-  font-family: 'Trebuchet MS', sans-serif;
-  color: #912319;
-  font-weight: bold;
-  font-size: 2.5rem;
-  line-height: 1.25;
-  text-transform: uppercase;
-  width: 80vw;       
-  max-width: 1200px;
-  height: 70vh;     
-  padding: 30px;   
-  margin: 0 auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden; 
-  text-align: left;
-  z-index: 0;
-}
-  
+  .screen {
+    position: absolute;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #912319;
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 1.25;
+    text-transform: uppercase;
+    width: 80vw;
+    max-width: 1200px;
+    height: 70vh;
+    padding: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    text-align: left;
+    z-index: 0;
+  }
+
+  /* Glitch */
   .glitch {
     animation: flicker 0.08s infinite, distort 3s infinite;
     filter: contrast(150%) brightness(120%);
@@ -41,6 +41,7 @@
       0 0 4px rgba(255, 0, 0, 0.2);
   }
 
+  /* Interference */
   #textBlock {
     position: absolute;
     bottom: 0;
@@ -51,6 +52,7 @@
     will-change: transform;
   }
 
+  /* Ghosts */
   .ghost {
     position: absolute;
     top: 0;
@@ -82,6 +84,7 @@
     75% { filter: hue-rotate(5deg) brightness(105%); }
   }
 
+  /* Scanlines */
   .screen::after {
     content: "";
     position: absolute;
@@ -123,36 +126,38 @@
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
-    // Initialize text with some fragments
+    // Initialize text
     for (let i = 0; i < 20; i++) text += randomFragment();
     block.textContent = text;
 
-    // Append new fragment periodically
+    // Append new fragments
     function appendText() {
       const frag = randomFragment();
       text += frag;
       if (text.length > 4000) text = text.slice(-2000);
-      block.textContent = text;
     }
 
-    // Smooth scrolling and x-drift
+    // Scroll and glitch drift
     function scrollUp() {
-      yOffset += 0.2; // faster upward scroll
-      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1; // random jump
+      yOffset += 0.2; // vertical scroll
+      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+
+      // horizontal glitch drift
       xDrift += driftDirection * 0.2;
       if (Math.abs(xDrift) > 4) driftDirection *= -1;
+
       block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
     }
 
-    // Ghost Text
-    function makeGhost() { 
-      if (Math.random() < 0.02) { 
-        const ghost = block.cloneNode(true); 
-        ghost.classList.add('ghost'); 
-        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`; 
-        screen.appendChild(ghost); 
-        setTimeout(() => ghost.remove(), 1000); 
-      } 
+    // Ghost effect
+    function makeGhost() {
+      if (Math.random() < 0.02) {
+        const ghost = block.cloneNode(true);
+        ghost.classList.add('ghost');
+        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
+        screen.appendChild(ghost);
+        setTimeout(() => ghost.remove(), 1000);
+      }
     }
 
     setInterval(appendText, 100);
