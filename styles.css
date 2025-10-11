@@ -63,7 +63,7 @@ body {
   background-repeat: no-repeat;
   background-size: clamp(300px, 65vw, 900px);
   background-position: top right;
-  cursor: pointer;
+  cursor: url("FlowerCursor.png") 35 41, auto;
 }
 
 /* The Hardest Little Button to Button */
@@ -476,6 +476,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { transition: none !important; animation: none !important; }
 }
+
 
 
 
