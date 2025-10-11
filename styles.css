@@ -142,7 +142,7 @@ body {
   align-self: stretch;
   width: auto;
   padding: 2px;
-  gap: 8px;
+  gap: 4px;
   border-radius: 6px;
   overflow: auto;
   max-height: 100%;
@@ -355,7 +355,7 @@ body {
     --label-font: 7px;
     --boost-size: 26px;
     --counter-bg-padding: 3px;
-    --counter-gap: 7px;
+    --counter-gap: 5px;
     --counter-arrow-w: 10px;
     --counter-number-w: 9px;
     --log-font: 9px;
@@ -372,7 +372,7 @@ body {
     --label-font: 6px;
     --boost-size: 22px;
     --counter-bg-padding: 2.5px;
-    --counter-gap: 6px;
+    --counter-gap: 4px;
     --counter-number-w: 8px;
     --log-font: 8.5px;
   }
@@ -407,7 +407,7 @@ body {
     --boost-size: 16px;
     --boost-min: 10px;
     --counter-bg-padding: 2px;
-    --counter-gap: 5px;
+    --counter-gap: 4px;
     --counter-number-w: 6px;
     --log-font: 7px;
     --log-max-h: 18svh;
@@ -423,7 +423,7 @@ body {
   .screen {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 4px;
+    padding: 2px;
     overflow-x: auto;
     overflow-y: hidden;
     justify-content: flex-start; 
@@ -464,7 +464,7 @@ body {
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
-    --counter-gap: 4px;
+    --counter-gap: 3px;
     --counter-number-w: 5px;
     --log-font: 6px;
     --log-max-h: 14svh;
@@ -498,6 +498,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
