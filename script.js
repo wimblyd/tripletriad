@@ -304,7 +304,7 @@ popOutButton.style.zIndex = "9999";
 popOutButton.style.padding = "8px 12px";
 popOutButton.style.fontFamily = "Silkscreen, monospace";
 popOutButton.style.cursor = "pointer";
-buttonsDiv.appendChild(popOutButton);
+lidDiv.appendChild(popOutButton);
 
 let popOutWin = null;
 
