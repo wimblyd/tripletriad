@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toaster
 const popOutButton = document.createElement("button");
-popOutButton.textContent = "Pop Out Screen";
+popOutButton.src = "img/PopUp.png";
 popOutButton.style.position = "fixed";
 popOutButton.style.top = "10px";
 popOutButton.style.right = "10px";
