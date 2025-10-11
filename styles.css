@@ -420,8 +420,8 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
 
   .lid {
-    height: clamp(150px, 40vw, 400px);
-    background-size: clamp(150px, 40vw, 400px);
+    height: clamp(150px, 30vh, 400px);
+    background-size: clamp(150px, 60vw, 400px);
   }
 
   .buttons .button {
@@ -453,8 +453,8 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
-    height: clamp(50px, 16vw, 120px);
-    background-size: clamp(120px, 35vw, 300px);
+    height: clamp(50px, 25vh, 120px);
+    background-size: clamp(120px, 60vw, 300px);
   }
 
   .buttons { padding: 2px; gap: 2px; }
@@ -467,6 +467,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
