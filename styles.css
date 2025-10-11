@@ -68,15 +68,25 @@ body {
 }
 
 /* The Hardest Little Button to Button */
-.buttons{
+.buttons {
   display: flex;
-  height: clamp(100px, 255px, 350px);
   flex-direction: column;
   gap: 0px;
   padding: 0px;
   align-items: flex-start;
   margin-top: 0;
   position: relative;
+  height: clamp(100px, 255px, 350px);
+}
+
+.buttons .button {
+  width: 255px;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: filter 0.05s ease;
+  cursor: none; 
 }
 
 .buttons .button:nth-child(1) { margin-left: 0; }
@@ -84,11 +94,8 @@ body {
 .buttons .button:nth-child(3) { margin-left: 40px; }
 .buttons .button:nth-child(4) { margin-left: 60px; }
 
-.buttons .button + .button { margin-top: -35px; }
-
-#resetButton, #copyLogButton, #clearLogButton, #guideButton { 
-  cursor: none; 
-  transition: filter 0.05s ease;
+.buttons .button + .button {
+  margin-top: -35px;
 }
 
 #resetButton { background-image: url('img/UnflipButton.png'); }
@@ -338,7 +345,6 @@ body {
 
 
 /* Media Queries */
-
 @media (max-width: 1200px) {
   :root {
     --card-w: 62px;
@@ -375,7 +381,7 @@ body {
     background-size: clamp(200px, 50vw, 600px);
   }
 
-  .buttons img.button + img.button { margin-top: -30px; }
+  .buttons .button + .button { margin-top: -30px; }
 }
 
 @media (max-width: 768px) {
@@ -419,7 +425,11 @@ body {
     background-size: clamp(150px, 40vw, 400px);
   }
 
-  .buttons img.button + img.button { margin-top: -22px; }
+  .buttons .button {
+    width: 180px;
+    height: 80px;
+  }
+  .buttons .button + .button { margin-top: -22px; }
 }
 
 @media (max-width: 480px) {
@@ -434,10 +444,13 @@ body {
     --log-font: 6px;
   }
 
-  .buttons img.button { width: 110px; }
-  .buttons img.button + img.button { margin-top: -12px; }
-  .screen { padding: 2px; gap: 2px; }
+  .buttons .button {
+    width: 140px;
+    height: 60px;
+  }
+  .buttons .button + .button { margin-top: -12px; }
 
+  .screen { padding: 2px; gap: 2px; }
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
@@ -455,5 +468,7 @@ body {
     animation: none !important; 
   }
 }
+
+
 
 
