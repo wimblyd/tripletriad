@@ -421,7 +421,7 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
 
   .lid {
-    height: clamp(60px, 18vw, 150px);
+    height: clamp(150px, 40vw, 400px);
     background-size: clamp(150px, 40vw, 400px);
   }
 
@@ -439,7 +439,7 @@ body {
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
-    --counter-gap: 1px;
+    --counter-gap: 2px;
     --counter-number-w: 5px;
     --log-font: 6px;
   }
@@ -468,6 +468,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
