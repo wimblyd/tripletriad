@@ -79,18 +79,16 @@ body {
   position: relative;
 }
 
-.buttons img.button:nth-child(1) { margin-left: 0; }
-.buttons img.button:nth-child(2) { margin-left: 20px; }
-.buttons img.button:nth-child(3) { margin-left: 40px; }
-.buttons img.button:nth-child(4) { margin-left: 60px; }
+.buttons .button:nth-child(1) { margin-left: 0; }
+.buttons .button:nth-child(2) { margin-left: 20px; }
+.buttons .button:nth-child(3) { margin-left: 40px; }
+.buttons .button:nth-child(4) { margin-left: 60px; }
+
+.buttons .button + .button { margin-top: -35px; }
 
 #resetButton, #copyLogButton, #clearLogButton, #guideButton { 
   cursor: none; 
   transition: filter 0.05s ease;
-}
-
-.buttons img.button + img.button {
-  margin-top: -35px;
 }
 
 #resetButton { background-image: url('img/UnflipButton.png'); }
@@ -457,4 +455,5 @@ body {
     animation: none !important; 
   }
 }
+
 
