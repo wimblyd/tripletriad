@@ -130,27 +130,28 @@ const staticDiv = document.getElementById('static');
 let text = "";
 let yOffset = 0;
 let xJitter = 0;
+let smoothYOffset = 0;
 
 // Speed
-const scrollSpeed = 20;    // pixels per second
-const textRate = .3;    // seconds between fragments
+const scrollSpeed = 10;   // pixels per second — slower crawl
+const textRate = 0.35;    // seconds between fragments
 
-// Interference
+// Build initial text
 function randomFragment() {
   return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
 }
-
-for (let i = 0; i < 20; i++) text += randomFragment();
+for (let i = 0; i < 30; i++) text += randomFragment();
 block.textContent = text.replace(/\s+/g, '');
 
+// Append new fragments
 function appendText() {
   const frag = randomFragment().replace(/\s+/g, '');
   text += frag;
-  if (text.length > 4000) text = text.slice(-2000);
+  if (text.length > 5000) text = text.slice(-2500);
   block.textContent = text;
 }
 
-// Ghosts
+// Ghost flickers
 function makeGhost() {
   if (Math.random() < 0.02) {
     const ghost = block.cloneNode(true);
@@ -161,7 +162,7 @@ function makeGhost() {
   }
 }
 
-// Static
+// Static bursts
 function randomStatic() {
   staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
   setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
@@ -169,20 +170,7 @@ function randomStatic() {
 }
 randomStatic();
 
-// Glitches
-function updateTransform() {
-  block.style.transform = `translate(${xJitter}px, -${yOffset}px)`;
-}
-
-// Jitter
-function subtleJitter() {
-  xJitter = (Math.random() - 0.5) * 1;
-  updateTransform();
-  setTimeout(subtleJitter, 300 + Math.random() * 300);
-}
-subtleJitter();
-
-// Flicker
+// Flash flickers
 function randomFlash() {
   screen.classList.add('flash');
   xJitter = (Math.random() - 0.5) * 10;
@@ -198,24 +186,48 @@ function randomFlash() {
 }
 randomFlash();
 
-// Scroller
+// Gentle horizontal jitter
+function subtleJitter() {
+  xJitter = (Math.random() - 0.5) * 1;
+  updateTransform();
+  setTimeout(subtleJitter, 300 + Math.random() * 300);
+}
+subtleJitter();
+
+// Transform updater
+function updateTransform() {
+  block.style.transform = `translate(${xJitter}px, -${smoothYOffset.toFixed(2)}px)`;
+}
+
+// Main scroll loop
 let lastTime = null;
 let textTimer = 0;
-
 function smoothScroll(timestamp) {
   if (!lastTime) lastTime = timestamp;
   const delta = (timestamp - lastTime) / 1000;
   lastTime = timestamp;
 
+  // Move text upward
   yOffset += scrollSpeed * delta;
+
+  // Smooth interpolation (lerp)
+  smoothYOffset += (yOffset - smoothYOffset) * 0.1;
+
+  // Loop when it goes too far
+  if (smoothYOffset > block.scrollHeight / 2) {
+    yOffset = 0;
+    smoothYOffset = 0;
+  }
+
   updateTransform();
 
+  // Add new fragments occasionally
   textTimer += delta;
   if (textTimer >= textRate) {
     appendText();
     textTimer = 0;
   }
-  
+
   makeGhost();
   requestAnimationFrame(smoothScroll);
 }
