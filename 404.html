@@ -33,6 +33,19 @@
     z-index: 0;
   }
 
+   .screen::before {
+        content: ""; 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: url('img/Static.gif');
+        background-size: cover; 
+        opacity: 0.3;
+        z-index: -1;
+    }
+
   /* Interference */
   #textBlock {
     position: absolute;
