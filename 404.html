@@ -46,8 +46,8 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
+    white-space: normal;
+    word-break: break-all;
     transform: translate3d(0, 0, 0);
     will-change: transform;
   }
@@ -72,10 +72,11 @@
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
 
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-  }
+  @keyframes flickerFlash {
+  0% { filter: brightness(100%) contrast(100%); opacity: 1; }
+  40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
+  100% { filter: brightness(100%) contrast(100%); opacity: 1; }
+}
 
   @keyframes distort {
     0%, 100% { filter: hue-rotate(0deg); }
@@ -128,7 +129,7 @@
 
     // Initialize text
     for (let i = 0; i < 20; i++) text += randomFragment();
-    block.textContent = text;
+    block.textContent = text.replace(/\s+/g, '');
 
     // Append new fragments
     function appendText() {
@@ -137,31 +138,36 @@
       if (text.length > 4000) text = text.slice(-2000);
     }
 
-    // Scroll and glitch drift
-    function scrollUp() {
-      yOffset += 0.2; // vertical scroll
-      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+    // Glitches
 
-      // horizontal glitch drift
-      xDrift += driftDirection * 0.2;
-      if (Math.abs(xDrift) > 4) driftDirection *= -1;
+    .flash {
+  animation: flickerFlash 0.25s ease-out;
+}
+    
+function scrollUp() {
+  yOffset += 0.2;
+  if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
 
-      block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
-    }
+  // horizontal drift still happens
+  xDrift += driftDirection * 0.2;
+  if (Math.abs(xDrift) > 4) driftDirection *= -1;
 
-    // Ghost effect
-    function makeGhost() {
-      if (Math.random() < 0.02) {
-        const ghost = block.cloneNode(true);
-        ghost.classList.add('ghost');
-        ghost.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
-        screen.appendChild(ghost);
-        setTimeout(() => ghost.remove(), 1000);
-      }
-    }
+  block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
+}
+
+function makeGhost() {
+  if (Math.random() < 0.02) {
+    const ghost = block.cloneNode(true);
+    ghost.classList.add('ghost');
+    ghost.style.transform = `translate(0, -${yOffset}px)`; // drift straight up
+    screen.appendChild(ghost);
+    setTimeout(() => ghost.remove(), 1000);
+  }
+}
+
 
     setInterval(appendText, 100);
-    setInterval(scrollUp, 40);
+    setInterval(scrollUp, 60);
     setInterval(makeGhost, 150);
   </script>
 </body>
