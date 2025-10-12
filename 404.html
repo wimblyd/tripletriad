@@ -35,7 +35,7 @@
   /* Interference */
   #textBlock {
     position: absolute;
-    bottom: 0;
+    bottom: -1em;
     width: 100%;
     white-space: normal;
     word-break: break-all;
@@ -89,11 +89,34 @@
     mix-blend-mode: screen;
     pointer-events: none;
   }
+
+  // Static
+#static {
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(255,255,255,0.03) 0%,
+    rgba(255,255,255,0.01) 2%,
+    transparent 3%
+  );
+  opacity: 0.15;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  animation: staticShift 0.15s steps(2) infinite;
+}
+
+@keyframes staticShift {
+  from { background-position: 0 0; }
+  to { background-position: 0 100%; }
+}
+  
 </style>
 </head>
 <body>
   <div class="screen">
     <div id="textBlock"></div>
+    <div id="static"></div>
   </div>
 
   <script>
