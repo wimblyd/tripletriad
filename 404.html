@@ -32,15 +32,6 @@
     z-index: 0;
   }
 
-  /* Glitch */
-  .glitch {
-    animation: flicker 0.08s infinite, distort 3s infinite;
-    filter: contrast(150%) brightness(120%);
-    text-shadow:
-      0 0 1px rgba(255, 0, 0, 0.5),
-      0 0 4px rgba(255, 0, 0, 0.2);
-  }
-
   /* Interference */
   #textBlock {
     position: absolute;
@@ -72,21 +63,15 @@
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
 
-  .flash {
-  animation: flickerFlash 0.25s ease-out;
-}
-
+  /* Flicker */
   @keyframes flickerFlash {
-  0% { filter: brightness(100%) contrast(100%); opacity: 1; }
-  40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
-  100% { filter: brightness(100%) contrast(100%); opacity: 1; }
-}
+    0% { filter: brightness(100%) contrast(100%); opacity: 1; }
+    40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
+    100% { filter: brightness(100%) contrast(100%); opacity: 1; }
+  }
 
-  @keyframes distort {
-    0%, 100% { filter: hue-rotate(0deg); }
-    25% { filter: hue-rotate(10deg) brightness(110%); }
-    50% { filter: hue-rotate(-10deg) contrast(120%); }
-    75% { filter: hue-rotate(5deg) brightness(105%); }
+  .flash {
+    animation: flickerFlash 0.25s ease-out;
   }
 
   /* Scanlines */
@@ -107,7 +92,7 @@
 </style>
 </head>
 <body>
-  <div class="screen glitch">
+  <div class="screen">
     <div id="textBlock"></div>
   </div>
 
@@ -124,58 +109,54 @@
     const block = document.getElementById('textBlock');
     let text = "";
     let yOffset = 0;
-    let xDrift = 0;
-    let driftDirection = 1;
 
+    // Randomizer
     function randomFragment() {
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
 
-    // Initialize text
+    // Initialize
     for (let i = 0; i < 20; i++) text += randomFragment();
     block.textContent = text.replace(/\s+/g, '');
 
-    // Append new fragments
+    // Append
     function appendText() {
-  const frag = randomFragment().replace(/\s+/g, '');
-  text += frag;
-  if (text.length > 4000) text = text.slice(-2000);
-}
+      const frag = randomFragment().replace(/\s+/g, '');
+      text += frag;
+      if (text.length > 4000) text = text.slice(-2000);
+      block.textContent = text;
+    }
 
-    // Glitches
-  function scrollUp() {
-  yOffset += 0.2;
-  if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+    // Scroll
+    function scrollUp() {
+      yOffset += 0.2;
+      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
+      block.style.transform = `translate(0, -${yOffset}px)`;
+    }
 
-  // horizontal drift still happens
-  xDrift += driftDirection * 0.2;
-  if (Math.abs(xDrift) > 4) driftDirection *= -1;
+    // Ghosts
+    function makeGhost() {
+      if (Math.random() < 0.02) {
+        const ghost = block.cloneNode(true);
+        ghost.classList.add('ghost');
+        ghost.style.transform = `translate(0, -${yOffset}px)`;
+        screen.appendChild(ghost);
+        setTimeout(() => ghost.remove(), 1000);
+      }
+    }
 
-  block.style.transform = `translate(${xDrift}px, -${yOffset}px)`;
-}
+    // Flicker
+    function randomFlash() {
+      screen.classList.add('flash');
+      setTimeout(() => screen.classList.remove('flash'), 250);
+      setTimeout(randomFlash, 500 + Math.random() * 4000);
+    }
 
-function makeGhost() {
-  if (Math.random() < 0.02) {
-    const ghost = block.cloneNode(true);
-    ghost.classList.add('ghost');
-    ghost.style.transform = `translate(0, -${yOffset}px)`; // drift straight up
-    screen.appendChild(ghost);
-    setTimeout(() => ghost.remove(), 1000);
-  }
-}
-
-
-    setInterval(appendText, 5);
-    setInterval(scrollUp, 30);
+    // Animations
+    setInterval(appendText, 100);
+    setInterval(scrollUp, 60);
     setInterval(makeGhost, 150);
-
-function randomFlash() {
-  screen.classList.add('flash');
-  setTimeout(() => screen.classList.remove('flash'), 250);
-  setTimeout(randomFlash, 500 + Math.random() * 4000);
-}
-randomFlash();
-    
+    randomFlash();
   </script>
 </body>
 </html>
