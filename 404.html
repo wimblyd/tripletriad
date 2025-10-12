@@ -129,16 +129,16 @@ const staticDiv = document.getElementById('static');
 let text = "";
 let yOffset = 0;
 
-// Randomizer
+// Random fragment
 function randomFragment() {
   return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
 }
 
-// Initialize
+// Initialize text
 for (let i = 0; i < 20; i++) text += randomFragment();
 block.textContent = text.replace(/\s+/g, '');
 
-// Append
+// Append text
 function appendText() {
   const frag = randomFragment().replace(/\s+/g, '');
   text += frag;
@@ -180,7 +180,7 @@ function jitterScanline() {
 }
 jitterScanline();
 
-// Scroll
+// Smooth rolling scroll using requestAnimationFrame
 let lastTime = null;
 const scrollSpeed = 20; // pixels per second
 
@@ -191,4 +191,5 @@ function smoothScroll(timestamp) {
 
   yOffset += scrollSpeed * delta;
 
+  // Apply transform without breaking jitter (only horizontal offset is jittered separately)
   block.style.transform = `translate(${(Math.random()-0.5)*2}px, -$*
