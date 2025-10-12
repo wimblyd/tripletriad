@@ -131,16 +131,18 @@ let text = "";
 let yOffset = 0;
 let xJitter = 0;
 
-// Randomizer
+// Speed
+const scrollSpeed = 3;    // pixels per second
+const textRate = 0.25;    // seconds between fragments
+
+// Interference
 function randomFragment() {
   return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
 }
 
-// Initialize
 for (let i = 0; i < 20; i++) text += randomFragment();
 block.textContent = text.replace(/\s+/g, '');
 
-// Append
 function appendText() {
   const frag = randomFragment().replace(/\s+/g, '');
   text += frag;
@@ -167,13 +169,14 @@ function randomStatic() {
 }
 randomStatic();
 
+// Glitches
 function updateTransform() {
   block.style.transform = `translate(${xJitter}px, -${yOffset}px)`;
 }
 
 // Jitter
 function subtleJitter() {
-  xJitter = (Math.random() - 0.5) * 1; // tiny shake
+  xJitter = (Math.random() - 0.5) * 1;
   updateTransform();
   setTimeout(subtleJitter, 300 + Math.random() * 300);
 }
@@ -182,8 +185,6 @@ subtleJitter();
 // Flicker
 function randomFlash() {
   screen.classList.add('flash');
-
-  // Big Jitter
   xJitter = (Math.random() - 0.5) * 10;
   updateTransform();
 
@@ -197,9 +198,9 @@ function randomFlash() {
 }
 randomFlash();
 
-// Scroll
+// Scroller
 let lastTime = null;
-const scrollSpeed = 1; // pixels per second
+let textTimer = 0;
 
 function smoothScroll(timestamp) {
   if (!lastTime) lastTime = timestamp;
@@ -209,9 +210,13 @@ function smoothScroll(timestamp) {
   yOffset += scrollSpeed * delta;
   updateTransform();
 
-  appendText();
+  textTimer += delta;
+  if (textTimer >= textRate) {
+    appendText();
+    textTimer = 0;
+  }
+  
   makeGhost();
-
   requestAnimationFrame(smoothScroll);
 }
 requestAnimationFrame(smoothScroll);
