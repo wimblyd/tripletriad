@@ -211,7 +211,7 @@ function smoothScroll(timestamp) {
   yOffset += scrollSpeed * delta;
 
   // Smooth interpolation (lerp)
-  smoothYOffset += (yOffset - smoothYOffset) * 0.1;
+  smoothYOffset += (yOffset - smoothYOffset) * 0.3;
 
   // Loop when it goes too far
   if (smoothYOffset > block.scrollHeight / 2) {
