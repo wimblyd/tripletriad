@@ -126,19 +126,21 @@ const fragments = [
 const screen = document.querySelector('.screen');
 const block = document.getElementById('textBlock');
 const staticDiv = document.getElementById('static');
+
 let text = "";
 let yOffset = 0;
+let xJitter = 0;
 
-// Random fragment
+// Randomizer
 function randomFragment() {
   return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
 }
 
-// Initialize text
+// Initialize
 for (let i = 0; i < 20; i++) text += randomFragment();
 block.textContent = text.replace(/\s+/g, '');
 
-// Append text
+// Append
 function appendText() {
   const frag = randomFragment().replace(/\s+/g, '');
   text += frag;
@@ -157,13 +159,6 @@ function makeGhost() {
   }
 }
 
-// Flicker
-function randomFlash() {
-  screen.classList.add('flash');
-  setTimeout(() => screen.classList.remove('flash'), 250);
-  setTimeout(randomFlash, 500 + Math.random() * 4000);
-}
-
 // Static
 function randomStatic() {
   staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
@@ -172,24 +167,54 @@ function randomStatic() {
 }
 randomStatic();
 
-// Jitter
-function jitterScanline() {
-  const offset = (Math.random() - 0.5) * 4;
-  block.style.transform = `translate(${offset}px, -${yOffset}px)`;
-  setTimeout(jitterScanline, 100 + Math.random() * 200);
+function updateTransform() {
+  block.style.transform = `translate(${xJitter}px, -${yOffset}px)`;
 }
-jitterScanline();
 
-// Smooth rolling scroll using requestAnimationFrame
+// Jitter
+function subtleJitter() {
+  xJitter = (Math.random() - 0.5) * 1; // tiny shake
+  updateTransform();
+  setTimeout(subtleJitter, 300 + Math.random() * 300);
+}
+subtleJitter();
+
+// Flicker
+function randomFlash() {
+  screen.classList.add('flash');
+
+  // Big Jitter
+  xJitter = (Math.random() - 0.5) * 10;
+  updateTransform();
+
+  setTimeout(() => {
+    screen.classList.remove('flash');
+    xJitter = 0;
+    updateTransform();
+  }, 250);
+
+  setTimeout(randomFlash, 500 + Math.random() * 4000);
+}
+randomFlash();
+
+// Scroll
 let lastTime = null;
 const scrollSpeed = 20; // pixels per second
 
 function smoothScroll(timestamp) {
   if (!lastTime) lastTime = timestamp;
-  const delta = (timestamp - lastTime) / 1000; // seconds
+  const delta = (timestamp - lastTime) / 1000;
   lastTime = timestamp;
 
   yOffset += scrollSpeed * delta;
+  updateTransform();
 
-  // Apply transform without breaking jitter (only horizontal offset is jittered separately)
-  block.style.transform = `translate(${(Math.random()-0.5)*2}px, -$*
+  appendText();
+  makeGhost();
+
+  requestAnimationFrame(smoothScroll);
+}
+requestAnimationFrame(smoothScroll);
+</script>
+</body>
+</html>
