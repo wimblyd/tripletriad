@@ -130,7 +130,7 @@ const baseLines = [
   "FORGET ABOUT ME I'M ALIVE HERE LET",
 ];
 
-let longText = baseLines.join('').repeat(10); 
+let longText = baseLines.map(line => line.replace(/\s+/g, '')).join('').repeat(10);
 
 const block1 = document.getElementById('block1');
 const block2 = document.getElementById('block2');
