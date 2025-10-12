@@ -136,14 +136,14 @@ let smoothYOffset = 0;
 const scrollSpeed = 10;   // pixels per second — slower crawl
 const textRate = 0.35;    // seconds between fragments
 
-// Build initial text
+// Interference
 function randomFragment() {
   return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
 }
 for (let i = 0; i < 30; i++) text += randomFragment();
 block.textContent = text.replace(/\s+/g, '');
 
-// Append new fragments
+// Append
 function appendText() {
   const frag = randomFragment().replace(/\s+/g, '');
   text += frag;
@@ -151,7 +151,7 @@ function appendText() {
   block.textContent = text;
 }
 
-// Ghost flickers
+// Ghosts
 function makeGhost() {
   if (Math.random() < 0.02) {
     const ghost = block.cloneNode(true);
@@ -162,7 +162,7 @@ function makeGhost() {
   }
 }
 
-// Static bursts
+// Static
 function randomStatic() {
   staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
   setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
@@ -170,7 +170,7 @@ function randomStatic() {
 }
 randomStatic();
 
-// Flash flickers
+// Flicker
 function randomFlash() {
   screen.classList.add('flash');
   xJitter = (Math.random() - 0.5) * 10;
@@ -186,7 +186,7 @@ function randomFlash() {
 }
 randomFlash();
 
-// Gentle horizontal jitter
+// Jitter
 function subtleJitter() {
   xJitter = (Math.random() - 0.5) * 1;
   updateTransform();
@@ -194,26 +194,23 @@ function subtleJitter() {
 }
 subtleJitter();
 
-// Transform updater
+// Transform
 function updateTransform() {
-  block.style.transform = `translate(${xJitter}px, -${smoothYOffset.toFixed(2)}px)`;
+function updateTransform() {
+  block.style.transform = `translate3d(${xJitter}px, -${smoothYOffset.toFixed(3)}px, 0)`;
 }
 
-// Main scroll loop
-let lastTime = null;
-let textTimer = 0;
 function smoothScroll(timestamp) {
   if (!lastTime) lastTime = timestamp;
   const delta = (timestamp - lastTime) / 1000;
   lastTime = timestamp;
 
-  // Move text upward
-  yOffset += scrollSpeed * delta;
+  const pixelsThisFrame = scrollSpeed * delta;
+  yOffset += pixelsThisFrame;
 
-  // Smooth interpolation (lerp)
-  smoothYOffset += (yOffset - smoothYOffset) * 0.3;
+  // Interpolator
+  smoothYOffset += (yOffset - smoothYOffset) * 0.25;
 
-  // Loop when it goes too far
   if (smoothYOffset > block.scrollHeight / 2) {
     yOffset = 0;
     smoothYOffset = 0;
@@ -221,7 +218,6 @@ function smoothScroll(timestamp) {
 
   updateTransform();
 
-  // Add new fragments occasionally
   textTimer += delta;
   if (textTimer >= textRate) {
     appendText();
@@ -231,7 +227,6 @@ function smoothScroll(timestamp) {
   makeGhost();
   requestAnimationFrame(smoothScroll);
 }
-requestAnimationFrame(smoothScroll);
 </script>
 </body>
 </html>
