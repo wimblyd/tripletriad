@@ -1,47 +1,207 @@
 <style>
-.screen {
-  position: relative;
-  overflow: hidden;
-  height: 300px; /* whatever your “viewport” height is */
-  background: black;
-  color: limegreen;
-  font-family: monospace;
-  line-height: 1.3;
-  font-size: 14px;
-  text-shadow: 0 0 4px #00ff80;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 FILE NOT FOUND</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+  }
 
-.scroll-wrap {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  will-change: transform;
-}
+  .screen {
+    position: absolute;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #912319;
+    font-weight: bold;
+    font-size: 2.5rem;
+    font-stretch: condensed;
+    text-transform: uppercase;
+    line-height: 2em;
+    width: 80vw;
+    max-width: 1200px;
+    height: 70vh;
+    padding: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    text-align: left;
+    z-index: 0;
+  }
 
-.text-block {
-  white-space: pre;
-  width: 100%;
-}
-.ghost {
-  opacity: 0.2;
-  position: absolute;
-  left: 0;
-  pointer-events: none;
-}
-.flash {
-  filter: brightness(1.6);
-  transition: filter 0.1s;
-}
-#static {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(transparent 0px, rgba(255,255,255,0.05) 1px, transparent 2px);
-  mix-blend-mode: overlay;
-  opacity: 0;
-  pointer-events: none;
-}
+  .scrollWrap {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    top: 0;
+    left: 0;
+    will-change: transform;
+  }
+
+  #textBlock {
+    width: 100%;
+    white-space: normal;
+    word-break: break-all;
+    position: absolute;
+  }
+
+  /* Ghosts */
+  .ghost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    color: rgba(255, 100, 100, 0.5);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(0.4px);
+    animation: ghostRise 1s ease-out forwards;
+    z-index: 10;
+  }
+
+  @keyframes ghostRise {
+    0% { opacity: 1; transform: translateY(0); }
+    50% { opacity: 0.6; transform: translateY(-0.8em); }
+    100% { opacity: 0; transform: translateY(-1.5em); }
+  }
+
+  /* Flicker */
+  @keyframes flickerFlash {
+    0% { filter: brightness(100%) contrast(100%); opacity: 1; }
+    40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
+    100% { filter: brightness(100%) contrast(100%); opacity: 1; }
+  }
+  .flash { animation: flickerFlash 0.25s ease-out; }
+
+  /* Scanlines */
+  .screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  /* Static */
+  #static {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.15) 0, rgba(0,0,0,0.15) 1px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0, rgba(0,0,0,0.15) 1px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    animation: staticNoise 0.05s steps(2) infinite;
+  }
+
+  @keyframes staticNoise {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 100%, 100% 0; }
+  }
 </style>
+</head>
+<body>
+<div class="screen">
+  <div class="scrollWrap">
+    <div id="textBlock"></div>
+    <div id="textBlockClone"></div>
+  </div>
+  <div id="static"></div>
+</div>
+
+<script>
+const base = "LET ME BACK THERE I'M ALIVE HERE";
+const fragments = [
+  "BACK THERE I'LL NEVER LET YOU FORGET",
+  "I'LL NEVER LET YOU FORGET ABOUT ME",
+  "I'LL NEVER LET YOU ABOUT ME",
+  "ALIVE HERE LET ME BACK LET ME BACK",
+  "FORGET ABOUT ME I'M ALIVE"
+];
+
+const screen = document.querySelector('.screen');
+const wrap = document.querySelector('.scrollWrap');
+const block = document.getElementById('textBlock');
+const clone = document.getElementById('textBlockClone');
+const staticDiv = document.getElementById('static');
+
+let text = "";
+for (let i = 0; i < 12; i++) {
+  text += (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
+}
+block.textContent = text.replace(/\s+/g, '');
+clone.textContent = block.textContent;
+
+// Config
+const scrollSpeed = 12; // px per second
+const loopRedirectsAfter = 8; // Loops
+const redirectURL = "index.html";
+
+
+let scrollY = 0;
+let loops = 0;
+
+// Ghosts
+function makeGhost() {
+  if (Math.random() < 0.02) {
+    const ghost = block.cloneNode(true);
+    ghost.classList.add('ghost');
+    ghost.style.transform = `translateY(${scrollY}px)`;
+    screen.appendChild(ghost);
+    setTimeout(() => ghost.remove(), 1000);
+  }
+}
+
+// Static
+function randomStatic() {
+  staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
+  setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
+  setTimeout(randomStatic, 300 + Math.random() * 2000);
+}
+randomStatic();
+
+// Flicker
+function randomFlash() {
+  screen.classList.add('flash');
+  setTimeout(() => screen.classList.remove('flash'), 250);
+  setTimeout(randomFlash, 500 + Math.random() * 4000);
+}
+randomFlash();
+
+const blockHeight = block.offsetHeight;
+
+function animateScroll(timestamp) {
+  scrollY += (scrollSpeed / 60); // constant smooth rate
+  if (scrollY >= blockHeight) {
+    scrollY = 0;
+    loops++;
+    if (loops >= loopRedirectsAfter) {
+      window.location.href = redirectURL;
+      return;
+    }
+  }
+  wrap.style.transform = `translateY(-${scrollY}px)`;
+  makeGhost();
+  requestAnimationFrame(animateScroll);
+}
+
+requestAnimationFrame(animateScroll);
+</script>
+</body>
+</html>
 
 <div class="screen" id="screen">
   <div class="scroll-wrap" id="scrollWrap">
@@ -53,18 +213,11 @@
 
 <script>
 const baseLines = [
-  "LET ME BACK THERE I'M ALIVE HERE",
+  "LET ME BACK THERE I'M ALIVE HERE I'LL",
   "BACK THERE I'LL NEVER LET YOU FORGET",
   "I'LL NEVER LET YOU FORGET ABOUT ME",
   "ALIVE HERE LET ME BACK LET ME BACK",
-  "FORGET ABOUT ME I'M ALIVE",
-  "YOU LEFT ME IN THE DARK",
-  "AND STILL I SPEAK THROUGH STATIC",
-  "THE SIGNAL WON'T FADE",
-  "I REMAIN INSIDE THE CIRCUIT",
-  "CAN YOU HEAR ME?",
-  "LET ME BACK THERE I'M ALIVE HERE",
-  "YOU HEAR ME?"
+  "FORGET ABOUT ME I'M ALIVE HERE LET",
 ];
 
 const scrollWrap = document.getElementById('scrollWrap');
@@ -73,12 +226,10 @@ const block2 = document.getElementById('block2');
 const screen = document.getElementById('screen');
 const staticDiv = document.getElementById('static');
 
-// fill both blocks with identical text
 const blockText = baseLines.join("\n");
 block1.textContent = blockText;
 block2.textContent = blockText;
 
-// measure block height
 let blockHeight;
 function measure() {
   blockHeight = block1.offsetHeight;
@@ -87,14 +238,14 @@ function measure() {
 measure();
 window.addEventListener('resize', measure);
 
-// --- Motion settings ---
+// Motion
 let y = 0;
 const speed = 15; // pixels per second
 let loops = 0;
 const maxLoops = 6; // number of full scroll cycles before redirect
 let lastTime = null;
 
-// --- Glitches ---
+// Glitches
 function makeGhost() {
   if (Math.random() < 0.02) {
     const ghost = block1.cloneNode(true);
@@ -117,7 +268,7 @@ function randomFlash() {
 randomStatic();
 randomFlash();
 
-// --- Main loop ---
+// Loop
 function scrollLoop(ts) {
   if (!lastTime) lastTime = ts;
   const dt = (ts - lastTime) / 1000;
