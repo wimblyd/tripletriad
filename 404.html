@@ -33,7 +33,7 @@
     z-index: 0;
   }
 
-  /* Text block */
+  /* Interference */
   #textBlock {
     position: absolute;
     bottom: -5.5em;
@@ -64,7 +64,7 @@
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
 
-  /* Flicker flash */
+  /* Flicker */
   @keyframes flickerFlash {
     0% { filter: brightness(100%) contrast(100%); opacity: 1; }
     40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
@@ -91,17 +91,17 @@
     pointer-events: none;
   }
 
-  /* Sharp digital static */
-  #static {
+  /* Static */
+   #static {
     position: absolute;
     inset: 0;
     background-image:
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0, rgba(0,0,0,0.05) 1px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0, rgba(0,0,0,0.05) 1px);
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.15) 0, rgba(0,0,0,0.15) 1px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0, rgba(0,0,0,0.15) 1px);
     mix-blend-mode: screen;
     opacity: 0;
     pointer-events: none;
-    animation: staticNoise 0.08s steps(2) infinite;
+    animation: staticNoise 0.05s steps(2) infinite;
   }
 
   @keyframes staticNoise {
@@ -132,7 +132,7 @@
     let text = "";
     let yOffset = 0;
 
-    // Random fragment
+    // Randomizer
     function randomFragment() {
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
@@ -141,7 +141,7 @@
     for (let i = 0; i < 20; i++) text += randomFragment();
     block.textContent = text.replace(/\s+/g, '');
 
-    // Append new text
+    // Append
     function appendText() {
       const frag = randomFragment().replace(/\s+/g, '');
       text += frag;
@@ -149,7 +149,7 @@
       block.textContent = text;
     }
 
-    // Scroll up
+    // Scroll
     function scrollUp() {
       yOffset += 0.2;
       if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
@@ -174,14 +174,15 @@
       setTimeout(randomFlash, 500 + Math.random() * 4000);
     }
 
-    // Random sharp static bursts
-    function randomStatic() {
-      staticDiv.style.opacity = 0.25 + Math.random() * 0.25; // flicker
-      setTimeout(() => staticDiv.style.opacity = 0, 80 + Math.random() * 100); // fade quickly
-      setTimeout(randomStatic, 500 + Math.random() * 3000); // next random burst
-    }
+    // Static
+   function randomStatic() {
+    staticDiv.style.opacity = 0.5 + Math.random() * 0.5; // 0.5–1.0
+    setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
+    setTimeout(randomStatic, 300 + Math.random() * 2000);
+  }
 
-    // Optional horizontal jitter (scanline shake)
+  randomStatic(); 
+    // Jitter
     function jitterScanline() {
       const offset = (Math.random() - 0.5) * 4; // -2px to +2px
       block.style.transform = `translate(${offset}px, -${yOffset}px)`;
