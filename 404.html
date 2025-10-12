@@ -47,6 +47,8 @@
     white-space: normal;    
     word-break: break-all; 
     position: absolute;
+    transform: scaleX(0.75);
+    transform-origin: left top;
   }
 
   /* Ghosts */
@@ -158,7 +160,7 @@ let lastTime = null;
 
 // Ghosts
 function makeGhost() {
-  if (Math.random() < 0.02) {
+  if (Math.random() < 0.01) {
     const ghost = block1.cloneNode(true);
     ghost.classList.add('ghost');
     ghost.style.transform = `translate3d(0, ${-y}px, 0)`;
