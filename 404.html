@@ -33,7 +33,7 @@
     z-index: 0;
   }
 
-  /* Interference */
+  /* Text block */
   #textBlock {
     position: absolute;
     bottom: -1em;
@@ -64,7 +64,7 @@
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
 
-  /* Flicker */
+  /* Flicker flash */
   @keyframes flickerFlash {
     0% { filter: brightness(100%) contrast(100%); opacity: 1; }
     40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
@@ -91,27 +91,23 @@
     pointer-events: none;
   }
 
-  // Static
-#static {
-  position: absolute;
-  inset: 0;
-  background: repeating-radial-gradient(
-    circle at center,
-    rgba(255,255,255,0.03) 0%,
-    rgba(255,255,255,0.01) 2%,
-    transparent 3%
-  );
-  opacity: 0.15;
-  pointer-events: none;
-  mix-blend-mode: lighten;
-  animation: staticShift 0.15s steps(2) infinite;
-}
+  /* Sharp digital static */
+  #static {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0, rgba(0,0,0,0.05) 1px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0, rgba(0,0,0,0.05) 1px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    animation: staticNoise 0.08s steps(2) infinite;
+  }
 
-@keyframes staticShift {
-  from { background-position: 0 0; }
-  to { background-position: 0 100%; }
-}
-  
+  @keyframes staticNoise {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 100%, 100% 0; }
+  }
 </style>
 </head>
 <body>
@@ -131,10 +127,11 @@
 
     const screen = document.querySelector('.screen');
     const block = document.getElementById('textBlock');
+    const staticDiv = document.getElementById('static');
     let text = "";
     let yOffset = 0;
 
-    // Randomizer
+    // Random fragment
     function randomFragment() {
       return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
     }
@@ -143,7 +140,7 @@
     for (let i = 0; i < 20; i++) text += randomFragment();
     block.textContent = text.replace(/\s+/g, '');
 
-    // Append
+    // Append new text
     function appendText() {
       const frag = randomFragment().replace(/\s+/g, '');
       text += frag;
@@ -151,7 +148,7 @@
       block.textContent = text;
     }
 
-    // Scroll
+    // Scroll up
     function scrollUp() {
       yOffset += 0.2;
       if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
@@ -176,11 +173,27 @@
       setTimeout(randomFlash, 500 + Math.random() * 4000);
     }
 
-    // Animations
-    setInterval(appendText, 100);
-    setInterval(scrollUp, 60);
+    // Random sharp static bursts
+    function randomStatic() {
+      staticDiv.style.opacity = 0.25 + Math.random() * 0.25; // flicker
+      setTimeout(() => staticDiv.style.opacity = 0, 80 + Math.random() * 100); // fade quickly
+      setTimeout(randomStatic, 500 + Math.random() * 3000); // next random burst
+    }
+
+    // Optional horizontal jitter (scanline shake)
+    function jitterScanline() {
+      const offset = (Math.random() - 0.5) * 4; // -2px to +2px
+      block.style.transform = `translate(${offset}px, -${yOffset}px)`;
+      setTimeout(jitterScanline, 100 + Math.random() * 200);
+    }
+
+    // Start animations
+    setInterval(appendText, 80);
+    setInterval(scrollUp, 40);
     setInterval(makeGhost, 150);
     randomFlash();
+    randomStatic();
+    jitterScanline(); // comment out if you want no horizontal shake
   </script>
 </body>
 </html>
