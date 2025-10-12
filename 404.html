@@ -72,6 +72,10 @@
     100% { opacity: 0; transform: translateY(-1.5em); }
   }
 
+  .flash {
+  animation: flickerFlash 0.25s ease-out;
+}
+
   @keyframes flickerFlash {
   0% { filter: brightness(100%) contrast(100%); opacity: 1; }
   40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
@@ -139,12 +143,7 @@
     }
 
     // Glitches
-
-    .flash {
-  animation: flickerFlash 0.25s ease-out;
-}
-    
-function scrollUp() {
+  function scrollUp() {
   yOffset += 0.2;
   if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
 
