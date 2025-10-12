@@ -168,6 +168,14 @@ function makeGhost() {
     setInterval(appendText, 100);
     setInterval(scrollUp, 60);
     setInterval(makeGhost, 150);
+
+function randomFlash() {
+  screen.classList.add('flash');
+  setTimeout(() => screen.classList.remove('flash'), 250);
+  setTimeout(randomFlash, 500 + Math.random() * 4000);
+}
+randomFlash();
+    
   </script>
 </body>
 </html>
