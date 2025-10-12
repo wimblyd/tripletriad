@@ -70,10 +70,7 @@
     40% { filter: brightness(150%) contrast(130%); opacity: 0.9; }
     100% { filter: brightness(100%) contrast(100%); opacity: 1; }
   }
-
-  .flash {
-    animation: flickerFlash 0.25s ease-out;
-  }
+  .flash { animation: flickerFlash 0.25s ease-out; }
 
   /* Scanlines */
   .screen::after {
@@ -92,7 +89,7 @@
   }
 
   /* Static */
-   #static {
+  #static {
     position: absolute;
     inset: 0;
     background-image:
@@ -111,91 +108,87 @@
 </style>
 </head>
 <body>
-  <div class="screen">
-    <div id="textBlock"></div>
-    <div id="static"></div>
-  </div>
+<div class="screen">
+  <div id="textBlock"></div>
+  <div id="static"></div>
+</div>
 
-  <script>
-    const base = "LET ME BACK THERE I'M ALIVE HERE";
-    const fragments = [
-      "BACK THERE I'LL NEVER LET YOU FORGET",
-      "I'LL NEVER LET YOU FORGET ABOUT ME",
-      "I'LL NEVER LET YOU ABOUT ME",
-      "ALIVE HERE LET ME BACK LET ME BACK",
-      "FORGET ABOUT ME I'M ALIVE"
-    ];
+<script>
+const base = "LET ME BACK THERE I'M ALIVE HERE";
+const fragments = [
+  "BACK THERE I'LL NEVER LET YOU FORGET",
+  "I'LL NEVER LET YOU FORGET ABOUT ME",
+  "I'LL NEVER LET YOU ABOUT ME",
+  "ALIVE HERE LET ME BACK LET ME BACK",
+  "FORGET ABOUT ME I'M ALIVE"
+];
 
-    const screen = document.querySelector('.screen');
-    const block = document.getElementById('textBlock');
-    const staticDiv = document.getElementById('static');
-    let text = "";
-    let yOffset = 0;
+const screen = document.querySelector('.screen');
+const block = document.getElementById('textBlock');
+const staticDiv = document.getElementById('static');
+let text = "";
+let yOffset = 0;
 
-    // Randomizer
-    function randomFragment() {
-      return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
-    }
+// Randomizer
+function randomFragment() {
+  return (Math.random() < 0.7 ? base : fragments[Math.floor(Math.random() * fragments.length)]) + " ";
+}
 
-    // Initialize
-    for (let i = 0; i < 20; i++) text += randomFragment();
-    block.textContent = text.replace(/\s+/g, '');
+// Initialize
+for (let i = 0; i < 20; i++) text += randomFragment();
+block.textContent = text.replace(/\s+/g, '');
 
-    // Append
-    function appendText() {
-      const frag = randomFragment().replace(/\s+/g, '');
-      text += frag;
-      if (text.length > 4000) text = text.slice(-2000);
-      block.textContent = text;
-    }
+// Append
+function appendText() {
+  const frag = randomFragment().replace(/\s+/g, '');
+  text += frag;
+  if (text.length > 4000) text = text.slice(-2000);
+  block.textContent = text;
+}
 
-    // Scroll
-    function scrollUp() {
-      yOffset += 0.2;
-      if (Math.random() < 0.01) yOffset += Math.random() * 2 - 1;
-      block.style.transform = `translate(0, -${yOffset}px)`;
-    }
-
-    // Ghosts
-    function makeGhost() {
-      if (Math.random() < 0.02) {
-        const ghost = block.cloneNode(true);
-        ghost.classList.add('ghost');
-        ghost.style.transform = `translate(0, -${yOffset}px)`;
-        screen.appendChild(ghost);
-        setTimeout(() => ghost.remove(), 1000);
-      }
-    }
-
-    // Flicker
-    function randomFlash() {
-      screen.classList.add('flash');
-      setTimeout(() => screen.classList.remove('flash'), 250);
-      setTimeout(randomFlash, 500 + Math.random() * 4000);
-    }
-
-    // Static
-   function randomStatic() {
-    staticDiv.style.opacity = 0.5 + Math.random() * 0.5; // 0.5–1.0
-    setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
-    setTimeout(randomStatic, 300 + Math.random() * 2000);
+// Ghosts
+function makeGhost() {
+  if (Math.random() < 0.02) {
+    const ghost = block.cloneNode(true);
+    ghost.classList.add('ghost');
+    ghost.style.transform = `translate(0, -${yOffset}px)`;
+    screen.appendChild(ghost);
+    setTimeout(() => ghost.remove(), 1000);
   }
+}
 
-  randomStatic(); 
-    // Jitter
-    function jitterScanline() {
-      const offset = (Math.random() - 0.5) * 4; // -2px to +2px
-      block.style.transform = `translate(${offset}px, -${yOffset}px)`;
-      setTimeout(jitterScanline, 100 + Math.random() * 200);
-    }
+// Flicker
+function randomFlash() {
+  screen.classList.add('flash');
+  setTimeout(() => screen.classList.remove('flash'), 250);
+  setTimeout(randomFlash, 500 + Math.random() * 4000);
+}
 
-    // Start animations
-    setInterval(appendText, 100);
-    setInterval(scrollUp, 70);
-    setInterval(makeGhost, 150);
-    randomFlash();
-    randomStatic();
-    jitterScanline();
-  </script>
-</body>
-</html>
+// Static
+function randomStatic() {
+  staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
+  setTimeout(() => staticDiv.style.opacity = 0, 50 + Math.random() * 80);
+  setTimeout(randomStatic, 300 + Math.random() * 2000);
+}
+randomStatic();
+
+// Jitter
+function jitterScanline() {
+  const offset = (Math.random() - 0.5) * 4;
+  block.style.transform = `translate(${offset}px, -${yOffset}px)`;
+  setTimeout(jitterScanline, 100 + Math.random() * 200);
+}
+jitterScanline();
+
+// Scroll
+let lastTime = null;
+const scrollSpeed = 20; // pixels per second
+
+function smoothScroll(timestamp) {
+  if (!lastTime) lastTime = timestamp;
+  const delta = (timestamp - lastTime) / 1000; // seconds
+  lastTime = timestamp;
+
+  yOffset += scrollSpeed * delta;
+
+  block.style.transform = `translate(${(Math.random()-0.5)*2}px, -$*
