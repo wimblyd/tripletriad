@@ -137,10 +137,10 @@
 
     // Append new fragments
     function appendText() {
-      const frag = randomFragment();
-      text += frag;
-      if (text.length > 4000) text = text.slice(-2000);
-    }
+  const frag = randomFragment().replace(/\s+/g, '');
+  text += frag;
+  if (text.length > 4000) text = text.slice(-2000);
+}
 
     // Glitches
   function scrollUp() {
