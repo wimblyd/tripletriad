@@ -47,7 +47,7 @@
     white-space: normal;    
     word-break: break-all; 
     position: absolute;
-    transform: scaleX(0.75);
+    transform: scaleX(0.75);       /* squash letters horizontally */
     transform-origin: left top;
   }
 
@@ -132,6 +132,7 @@ const baseLines = [
   "FORGET ABOUT ME I'M ALIVE HERE LET",
 ];
 
+// Remove all spaces and make one huge repeated block
 let longText = baseLines.map(line => line.replace(/\s+/g, '')).join('').repeat(10);
 
 const block1 = document.getElementById('block1');
@@ -160,10 +161,11 @@ let lastTime = null;
 
 // Ghosts
 function makeGhost() {
-  if (Math.random() < 0.01) {
+  if (Math.random() < 0.01) { // half as frequent
     const ghost = block1.cloneNode(true);
     ghost.classList.add('ghost');
-    ghost.style.transform = `translate3d(0, ${-y}px, 0)`;
+    ghost.style.transform = `translate3d(0, ${-y}px, 0) scaleX(0.75)`; // keep ghosts scaled
+    ghost.style.transformOrigin = 'left top';
     screen.appendChild(ghost);
     setTimeout(() => ghost.remove(), 1000);
   }
