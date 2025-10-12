@@ -44,8 +44,8 @@
 
   .text-block {
     width: 100%;
-    white-space: normal;
-    word-break: break-all;
+    white-space: normal;    
+    word-break: break-all; 
     position: absolute;
   }
 
@@ -130,15 +130,16 @@ const baseLines = [
   "FORGET ABOUT ME I'M ALIVE HERE LET",
 ];
 
-const scrollWrap = document.getElementById('scrollWrap');
+let longText = baseLines.join('').repeat(10); 
+
 const block1 = document.getElementById('block1');
 const block2 = document.getElementById('block2');
+block1.textContent = longText;
+block2.textContent = longText;
+
+const scrollWrap = document.getElementById('scrollWrap');
 const screen = document.getElementById('screen');
 const staticDiv = document.getElementById('static');
-
-const blockText = baseLines.join(" ");
-block1.textContent = blockText;
-block2.textContent = blockText;
 
 let blockHeight;
 function measure() {
@@ -148,9 +149,9 @@ function measure() {
 measure();
 window.addEventListener('resize', measure);
 
-// Motion & loops
+// Motion
 let y = 0;
-const speed = 15; // pixels per second
+const speed = 15; // pixels/sec
 let loops = 0;
 const maxLoops = 8;
 let lastTime = null;
