@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
   popOutButton.style.padding = "8px 12px";
   popOutButton.style.cursor = "pointer";
 
-  const startDiv = document.querySelector("#start .sys-left");
+  const startDiv = document.querySelector("#start .sys-center");
   startDiv.appendChild(popOutButton);
 
   let popOutWin = null;
