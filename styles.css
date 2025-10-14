@@ -534,7 +534,7 @@ body {
 
   .lid {
     height: calc(100vw * 0.2925);
-    max-height: 400px;
+    max-height: 200px;
     min-height: 150px;
     background-size: 100% auto;
   }
@@ -549,6 +549,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
