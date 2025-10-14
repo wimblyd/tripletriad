@@ -318,12 +318,17 @@ popOutButton.addEventListener("click", () => {
   }
 
   // Sizer
-  const screenWidth = window.screen.availWidth;
-  const screenHeight = window.screen.availHeight;
-  const winWidth = Math.ceil(screenWidth * 0.85);
-  const winHeight = Math.ceil(screenHeight * 0.85);
+  const rect = screenDiv.getBoundingClientRect();
+  const paddingWidth = 20;  // horizontal buffer for window chrome
+  const paddingHeight = 40; // vertical buffer
 
-  const features = `width=${winWidth},height=${winHeight},scrollbars=auto,resizable=yes`;
+  const minWidth = window.innerWidth * 0.85;   // 85% of viewport width
+  const minHeight = window.innerHeight * 0.85; // 85% of viewport height
+
+  const winWidth = Math.max(rect.width + paddingWidth, minWidth);
+  const winHeight = Math.max(rect.height + paddingHeight, minHeight);
+
+  const features = `width=${Math.ceil(winWidth)},height=${Math.ceil(winHeight)},scrollbars=auto,resizable=yes`;
   popOutWin = window.open("", "_blank", features);
 
   // Inline Styles
@@ -358,7 +363,7 @@ popOutButton.addEventListener("click", () => {
   `;
   popOutWin.document.head.appendChild(fixStyle);
 
-  // Move the screen into popout
+  // Pop
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
@@ -366,20 +371,20 @@ popOutButton.addEventListener("click", () => {
   popOutWin.addEventListener("beforeunload", () => {
     if (resizeObserver) resizeObserver.disconnect();
     document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload(); // ensures layout fixes on main page
+    location.reload(); // fixes layout on main page
   });
 
   // Resize
   resizeObserver = new ResizeObserver(entries => {
     if (!popOutWin || popOutWin.closed) return;
     const rect = entries[0].contentRect;
-    // Only resize if content exceeds current window (prevents tiny windows)
-    const newWidth = Math.max(rect.width + 20, winWidth);
-    const newHeight = Math.max(rect.height + 40, winHeight);
+    const newWidth = Math.max(rect.width + paddingWidth, minWidth);
+    const newHeight = Math.max(rect.height + paddingHeight, minHeight);
     popOutWin.resizeTo(newWidth, newHeight);
   });
   resizeObserver.observe(screenDiv);
 });
+
 
 // Tooltip
 const tooltip = document.createElement("div");
