@@ -59,25 +59,12 @@ body {
 .lid {
   position: relative;
   width: 100%;
-  aspect-ratio: 800 / 234; 
-  max-height: 300px;
-  min-height: 150px;
-  overflow: hidden;
+  background: url("img/Wimblys.png") no-repeat top right;
+  background-size: contain;
+  aspect-ratio: 800 / 234;  /* matches your image’s native ratio */
+  max-width: 100%;
+  height: auto;
   cursor: url("FlowerCursor.png") 35 41, auto;
-}
-
-/* Lid image */
-.lid::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: url("img/Wimblys.png");
-  background-repeat: no-repeat;
-  background-size: contain;      
-  background-position: top right;
 }
 
 /* The Hardest Little Button to Button */
@@ -562,6 +549,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
