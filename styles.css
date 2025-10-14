@@ -394,6 +394,8 @@ body {
 .sys-btn {
   width: 20px;
   height: 20px;
+  box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
   cursor: pointer;
   transition: transform 0.1s, filter 0.2s;
 }
@@ -549,6 +551,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
