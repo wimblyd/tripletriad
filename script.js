@@ -303,21 +303,78 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // Toaster
-document.getElementById('popOutButton').addEventListener('click', () => {
-  const screen = document.querySelector('.screen');
-  const newWin = window.open('', 'popout', 'width=800,height=600,resizable,scrollbars');
-  if (newWin) {
-    newWin.document.write('<html><head><title>Checklist</title></head><body></body></html>');
-    const clone = screen.cloneNode(true);
-    clone.style.position = 'static';
-    clone.style.height = '100vh';
-    clone.style.overflow = 'auto';
-    newWin.document.body.appendChild(clone);
+const popOutButton = document.createElement("img");
+popOutButton.src = "img/PopOut.png";
+popOutButton.alt = "Pop Out Card Screen";
+popOutButton.style.position = "fixed";
+popOutButton.style.top = "10px";
+popOutButton.style.right = "10px";
+popOutButton.style.zIndex = "9999";
+popOutButton.style.padding = "8px 12px";
+popOutButton.style.cursor = "pointer";
 
-    newWin.addEventListener('beforeunload', () => {
-      location.reload();
-    });
+const startDiv = document.querySelector(".start");
+startDiv.appendChild(popOutButton);
+
+let popOutWin = null;
+
+popOutButton.addEventListener("click", () => {
+  const screenDiv = document.querySelector(".screen");
+  if (!screenDiv) return;
+  if (popOutWin && !popOutWin.closed) {
+    popOutWin.focus();
+    return;
   }
+
+  const rect = screenDiv.getBoundingClientRect();
+  const isMobile = window.innerWidth <= 768; 
+  const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
+  const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
+  const features = isMobile
+    ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
+    : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+
+  popOutWin = window.open("", "_blank", features);
+
+  // Inline Styles
+  const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
+  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+
+  // Pop Out Styles
+  const fixStyle = popOutWin.document.createElement("style");
+  fixStyle.textContent = `
+    html, body.popout-mode {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: black;
+      touch-action: manipulation;
+    }
+    .popout-mode .screen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      overflow: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+    }
+  `;
+  popOutWin.document.head.appendChild(fixStyle);
+
+  // Attach screen to the pop-out window
+  popOutWin.document.body.classList.add("popout-mode");
+  popOutWin.document.body.appendChild(screenDiv);
+
+  // On close → restore screen to wrapper + refresh layout
+  popOutWin.addEventListener("beforeunload", () => {
+    document.querySelector(".wrapper").appendChild(screenDiv);
+    location.reload();
+  });
 });
 
   // Media Sizes
