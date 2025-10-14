@@ -321,19 +321,22 @@ let popOutWin = null;
 popOutButton.addEventListener("click", () => {
   const screenDiv = document.querySelector(".screen");
   if (!screenDiv) return;
+
+  // Refocus
   if (popOutWin && !popOutWin.closed) {
     popOutWin.focus();
     return;
   }
 
   const rect = screenDiv.getBoundingClientRect();
-  const isMobile = window.innerWidth <= 768; 
+  const isMobile = window.innerWidth <= 768;
   const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
   const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
   const features = isMobile
     ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
     : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
 
+  // New Window
   popOutWin = window.open("", "_blank", features);
 
   // Inline Styles
@@ -365,12 +368,10 @@ popOutButton.addEventListener("click", () => {
     }
   `;
   popOutWin.document.head.appendChild(fixStyle);
-
-  // Attach screen to the pop-out window
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
-  // On close → restore screen to wrapper + refresh layout
+  // Restore Refresh
   popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
     location.reload();
