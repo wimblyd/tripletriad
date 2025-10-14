@@ -27,7 +27,7 @@
   --log-width: 350px; 
   --log-height: calc(100vh - 150px);
 
-  --gutter: 12px;
+  --gutter: 2px;
 }
 
 body {
@@ -509,6 +509,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
