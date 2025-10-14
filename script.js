@@ -306,9 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popOutButton = document.createElement("img");
   popOutButton.src = "img/PopOut.png";
   popOutButton.alt = "Pop Out";
-  popOutButton.style.zIndex = "9999";
-  popOutButton.style.padding = "8px 12px";
-  popOutButton.style.cursor = "pointer";
+  popOutButton.classList.add("sys-btn");
 
   const startDiv = document.querySelector("#start .sys-center");
   startDiv.appendChild(popOutButton);
