@@ -456,7 +456,7 @@ body {
     width: clamp(250px, 40vw, 700px);
   }
 
-  .buttons .button + .button { margin-top: -25px; }
+  .buttons .button + .button { margin-top: -24px; }
 }
 
 /* Tablets */
@@ -503,7 +503,7 @@ body {
     width: 140px;
     height: 60px;
   }
-  .buttons .button + .button { margin-top: -20px; }
+  .buttons .button + .button { margin-top: -16px; }
 }
 
 /* Phones */
@@ -523,7 +523,7 @@ body {
     width: 120px;
     height: 50px;
   }
-  .buttons .button + .button { margin-top: -15px; }
+  .buttons .button + .button { margin-top: -8px; }
 
   .screen {
     padding: 2px;
@@ -547,6 +547,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
