@@ -352,6 +352,7 @@ body {
   height: 28px;
   background: url('img/StartBar.png') no-repeat center / cover;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: 8px;
@@ -365,6 +366,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 100px;
 }
 
 .sys-btn {
@@ -509,6 +511,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
