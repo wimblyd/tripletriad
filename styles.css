@@ -403,18 +403,6 @@ body {
   filter: brightness(1.2);
 }
 
-/* Ping animation */
-@keyframes ping {
-  0% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.3); filter: brightness(1.5); }
-  100% { transform: scale(1); filter: brightness(1); }
-}
-
-/* Add ping to buttons */
-.sys-btn.ping {
-  animation: ping 0.8s ease-in-out infinite;
-}
-
 /* Clock */
 #sys-clock {
   font-weight: 300;
@@ -547,6 +535,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
