@@ -303,73 +303,56 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
 
   // Toaster
-  const popOutButton = document.createElement("img");
-  popOutButton.src = "img/PopOut.png";
-  popOutButton.alt = "Pop Out";
-  popOutButton.classList.add("sys-btn");
+const popOutButton = document.getElementById("popOutBtn");
 
-  const startDiv = document.querySelector("#start .sys-center");
-  startDiv.appendChild(popOutButton);
+let popOutWin = null;
 
-  let popOutWin = null;
+popOutButton.addEventListener("click", () => {
+  const screenDiv = document.querySelector(".screen");
+  if (!screenDiv) return;
 
-  popOutButton.addEventListener("click", () => {
-    const screenDiv = document.querySelector(".screen");
-    if (!screenDiv) return;
+  if (popOutWin && !popOutWin.closed) {
+    popOutWin.focus();
+    return;
+  }
 
-    if (popOutWin && !popOutWin.closed) {
-      popOutWin.focus();
-      return;
+  const rect = screenDiv.getBoundingClientRect();
+  const winWidth = Math.ceil(rect.width + 40);
+  const winHeight = Math.ceil(rect.height + 40);
+  const features = `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+
+  popOutWin = window.open("", "_blank", features);
+
+  const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
+  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+
+  const fixStyle = document.createElement("style");
+  fixStyle.textContent = `
+    html, body.popout-mode {
+      margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; background: black;
     }
+    .popout-mode .screen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      overflow: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+    }
+  `;
+  popOutWin.document.head.appendChild(fixStyle);
 
-    const rect = screenDiv.getBoundingClientRect();
-    const isMobile = window.innerWidth <= 768;
-    const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
-    const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
-    const features = isMobile
-      ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
-      : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+  popOutWin.document.body.classList.add("popout-mode");
+  popOutWin.document.body.appendChild(screenDiv);
 
-    popOutWin = window.open("", "_blank", features);
-
-    // Inline Styles
-    const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-    styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
-
-    // Pop Out Styles
-    const fixStyle = popOutWin.document.createElement("style");
-    fixStyle.textContent = `
-      html, body.popout-mode {
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        background: black;
-        touch-action: manipulation;
-      }
-      .popout-mode .screen {
-        width: 100vw !important;
-        height: 100vh !important;
-        max-width: 100vw !important;
-        max-height: 100vh !important;
-        overflow: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box;
-        -webkit-overflow-scrolling: touch;
-      }
-    `;
-    popOutWin.document.head.appendChild(fixStyle);
-
-    popOutWin.document.body.classList.add("popout-mode");
-    popOutWin.document.body.appendChild(screenDiv);
-
-    popOutWin.addEventListener("beforeunload", () => {
-      document.querySelector(".wrapper").appendChild(screenDiv);
-      location.reload();
-    });
+  popOutWin.addEventListener("beforeunload", () => {
+    document.querySelector(".wrapper").appendChild(screenDiv);
+    location.reload();
   });
+});
 
   // It's Log, from Blam-O!
   function addLogEntry(message) {
