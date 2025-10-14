@@ -304,55 +304,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toaster
 const popOutButton = document.getElementById("popOutBtn");
-
 let popOutWin = null;
+let resizeObserver = null;
 
 popOutButton.addEventListener("click", () => {
   const screenDiv = document.querySelector(".screen");
   if (!screenDiv) return;
 
+  // Focus
   if (popOutWin && !popOutWin.closed) {
     popOutWin.focus();
     return;
   }
 
   const rect = screenDiv.getBoundingClientRect();
-  const winWidth = Math.ceil(rect.width + 40);
-  const winHeight = Math.ceil(rect.height + 40);
-  const features = `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
-
+  const winWidth = Math.ceil(rect.width);
+  const winHeight = Math.ceil(rect.height);
+  const features = `width=${winWidth + 20},height=${winHeight + 40},scrollbars=auto,resizable=yes`;
   popOutWin = window.open("", "_blank", features);
 
+  // Inline Styles
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+  styles.forEach(style => popOutWin.document.head.appendChild(style.cloneNode(true)));
 
+  // Pop Out Styles
   const fixStyle = document.createElement("style");
   fixStyle.textContent = `
     html, body.popout-mode {
-      margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; background: black;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .popout-mode .screen {
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      overflow: auto !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
       box-sizing: border-box;
-      -webkit-overflow-scrolling: touch;
+      object-fit: contain;
     }
   `;
   popOutWin.document.head.appendChild(fixStyle);
 
+  // Pop
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
+  // Restore Refresh
   popOutWin.addEventListener("beforeunload", () => {
+    if (resizeObserver) resizeObserver.disconnect();
     document.querySelector(".wrapper").appendChild(screenDiv);
     location.reload();
   });
+
+  // Resize
+  resizeObserver = new ResizeObserver(entries => {
+    if (!popOutWin || popOutWin.closed) return;
+    const rect = entries[0].contentRect;
+    // Resize popout to match screen dimensions + browser chrome padding
+    popOutWin.resizeTo(rect.width + 20, rect.height + 40);
+  });
+  resizeObserver.observe(screenDiv);
 });
+
 
 // Tooltip
 const tooltip = document.createElement("div");
