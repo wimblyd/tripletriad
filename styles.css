@@ -352,7 +352,6 @@ body {
   height: 28px;
   padding: 0 10px;
   font-size: 8px;
-  background-color: #c0c0c0;
   z-index: 999;
 }
 
@@ -363,7 +362,11 @@ body {
   background: url('img/StartBar.png') no-repeat bottom right;
   background-size: 915px 28px;
   gap: 10px;
-  border-top: 1px fff;
+}
+
+.sys-center {
+ background-color: #c0c0c0;
+ border-top: 1px fff;
 }
 
 .sys-right {
@@ -517,6 +520,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
