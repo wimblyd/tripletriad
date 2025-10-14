@@ -371,7 +371,7 @@ tooltip.style.zIndex = "9999";
 document.body.appendChild(tooltip);
 popOutButton.addEventListener("mouseenter", e => {
   tooltip.style.left = `${e.clientX + 10}px`;
-  tooltip.style.top = `${e.clientY + 10}px`;
+  tooltip.style.top = `${e.clientY + 30}px`;
   tooltip.style.opacity = "1";
 });
 
