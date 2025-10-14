@@ -56,16 +56,16 @@ body {
 }
 
 /* Wambles Shriple Shriad Shrecklist */
-.lid{
+.lid {
   position: relative;
   width: 100%;
-  /* Maintain image aspect ratio: 234/800 ≈ 0.2925 */
-  height: calc(100vw * 0.2925);
-  max-height: 400px; /* optional cap for desktop */
-  min-height: 150px; /* optional minimum for tiny devices */
+  max-width: 900px;      
+  margin: 0 auto;    
+  height: calc(100% * 234 / 800); 
+  aspect-ratio: 800 / 234;    
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
-  background-size: 100% auto; /* fit width, scale height */
+  background-size: contain;     
   background-position: top right;
   cursor: url("FlowerCursor.png") 35 41, auto;
 }
@@ -546,3 +546,4 @@ body {
     animation: none !important; 
   }
 }
+
