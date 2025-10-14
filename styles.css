@@ -343,20 +343,57 @@ body {
   border-left: 1px solid #e1d9c4; 
 }
 
-// Start
-#start { display: flex; width: 100%; height: 28px; }
-.sys-left { width: 153px; height: 100%; background: url('img/StartBar.png') no-repeat left center; background-size: contain; }
-.sys-center { flex: 1; display: flex; align-items: center; justify-content: center; background-color: #c0c0c0; }
-.sys-right { width: 106px; height: 100%; background: url('img/StartBarR.png') no-repeat center center; background-size: contain; display: flex; align-items: center; justify-content: center; }
-
-#sys-clock {
-  font-weight: 300;
-  color: #000;
-  display: block;
+/* Start Bar */
+#start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  text-align: center; /* centers clock inside right panel */
+  height: 28px;
+  font-size: 8px;
+  z-index: 999;
+  background: transparent; /* bar itself doesn't need a color, the left/right have images */
 }
 
+/* Left: Start button */
+.sys-left {
+  width: 153px; /* smaller realistic width */
+  height: 100%;
+  background: url('img/StartBar.png') no-repeat left center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Center: error + pop-out buttons */
+.sys-center {
+  flex: 1; /* takes remaining space */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: #c0c0c0; /* classic gray bar */
+  z-index: 2;
+  min-width: 50px; /* ensures it doesn’t collapse */
+}
+
+/* Right: clock */
+.sys-right {
+  width: 106px; /* fixed width */
+  height: 100%;
+  background: url('img/StartBarR.png') no-repeat center center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+/* Buttons */
 .sys-btn {
   width: 20px;
   height: 20px;
@@ -367,6 +404,14 @@ body {
 .sys-btn:hover {
   transform: scale(1.1);
   filter: brightness(1.2);
+}
+
+/* Clock styling */
+#sys-clock {
+  font-weight: 300;
+  color: #000;
+  text-align: center;
+  width: 100%;
 }
 
 /* Media Queries */
@@ -493,5 +538,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
