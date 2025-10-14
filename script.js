@@ -322,16 +322,41 @@ popOutButton.addEventListener("click", () => {
   popOutWin = window.open(
     "",
     "_blank",
-    `width=${Math.ceil(rect.width + 20)},height=${Math.ceil(rect.height + 20)},scrollbars=yes`
+    `width=${Math.ceil(rect.width + 40)},height=${Math.ceil(rect.height + 40)},scrollbars=yes`
   );
 
+  // Inline Style
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
   styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
 
-  popOutWin.document.body.style.margin = "0";
-  popOutWin.document.body.style.background = "black";
+  // Pop Out Style
+  const fixStyle = popOutWin.document.createElement("style");
+  fixStyle.textContent = `
+    html, body.popout-mode {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: black;
+    }
+    .popout-mode .screen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      overflow: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+    }
+  `;
+  popOutWin.document.head.appendChild(fixStyle);
+
+  popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
+  // Close, Restore, Reload
   popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
     location.reload();
