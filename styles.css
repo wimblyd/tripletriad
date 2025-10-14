@@ -370,7 +370,7 @@ body {
 .sys-btn {
   width: 20px;
   height: 20px;
-  margin: 100px;
+  margin: 30px;
   cursor: pointer;
   transition: transform 0.1s, filter 0.2s;
 }
@@ -510,6 +510,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
