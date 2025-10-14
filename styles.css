@@ -467,7 +467,7 @@ body {
   /* Adjust lid to maintain aspect ratio while scaling nicely */
   .lid {
     height: calc(100vw * 0.2925);
-    max-height: 400px;
+    max-height: 300px;
     min-height: 150px;
     background-size: 100% auto;
   }
@@ -512,7 +512,7 @@ body {
 
   .lid {
     height: calc(100vw * 0.2925);
-    max-height: 400px;
+    max-height: 300px;
     min-height: 150px;
     background-size: 100% auto;
   }
@@ -521,7 +521,7 @@ body {
     width: 140px;
     height: 60px;
   }
-  .buttons .button + .button { margin-top: -30px; }
+  .buttons .button + .button { margin-top: -20px; }
 }
 
 @media (max-width: 480px) {
@@ -564,6 +564,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
