@@ -60,7 +60,7 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 800 / 234; 
-  max-height: 400px;
+  max-height: 300px;
   min-height: 150px;
   overflow: hidden;
   cursor: url("FlowerCursor.png") 35 41, auto;
@@ -563,6 +563,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
