@@ -57,7 +57,7 @@ body {
 
 /* Wambles Shriple Shriad Shrecklist */
 .lid {
-  position: absolute;   
+  position: relative;   
   top: 0;
   right: 0;
   width: clamp(300px, 35vw, 800px); 
@@ -547,6 +547,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
