@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
-  // Toaster
+ // Toaster
 const popOutButton = document.createElement("img");
 popOutButton.src = "img/PopOut.png";
 popOutButton.alt = "Pop Out Card Screen";
@@ -312,24 +312,28 @@ let popOutWin = null;
 popOutButton.addEventListener("click", () => {
   const screenDiv = document.querySelector(".screen");
   if (!screenDiv) return;
-
   if (popOutWin && !popOutWin.closed) {
     popOutWin.focus();
     return;
   }
 
   const rect = screenDiv.getBoundingClientRect();
-  popOutWin = window.open(
-    "",
-    "_blank",
-    `width=${Math.ceil(rect.width + 40)},height=${Math.ceil(rect.height + 40)},scrollbars=yes`
-  );
+  const isMobile = window.innerWidth <= 768; // adjust breakpoint if needed
 
-  // Inline Style
+  // Media Sizes
+  const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
+  const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
+  const features = isMobile
+    ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
+    : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+
+  popOutWin = window.open("", "_blank", features);
+
+  // Inline Styles
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
   styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
 
-  // Pop Out Style
+  // Pop Out Styles
   const fixStyle = popOutWin.document.createElement("style");
   fixStyle.textContent = `
     html, body.popout-mode {
@@ -339,6 +343,7 @@ popOutButton.addEventListener("click", () => {
       height: 100vh;
       overflow: hidden;
       background: black;
+      touch-action: manipulation;
     }
     .popout-mode .screen {
       width: 100vw !important;
@@ -349,14 +354,14 @@ popOutButton.addEventListener("click", () => {
       margin: 0 !important;
       padding: 0 !important;
       box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
     }
   `;
   popOutWin.document.head.appendChild(fixStyle);
-
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
-  // Close, Restore, Reload
+  // Restore & Refresh
   popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
     location.reload();
