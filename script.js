@@ -317,10 +317,13 @@ popOutButton.addEventListener("click", () => {
     return;
   }
 
-  const rect = screenDiv.getBoundingClientRect();
-  const winWidth = Math.ceil(rect.width);
-  const winHeight = Math.ceil(rect.height);
-  const features = `width=${winWidth + 20},height=${winHeight + 40},scrollbars=auto,resizable=yes`;
+  // Sizer
+  const screenWidth = window.screen.availWidth;
+  const screenHeight = window.screen.availHeight;
+  const winWidth = Math.ceil(screenWidth * 0.85);
+  const winHeight = Math.ceil(screenHeight * 0.85);
+
+  const features = `width=${winWidth},height=${winHeight},scrollbars=auto,resizable=yes`;
   popOutWin = window.open("", "_blank", features);
 
   // Inline Styles
@@ -355,7 +358,7 @@ popOutButton.addEventListener("click", () => {
   `;
   popOutWin.document.head.appendChild(fixStyle);
 
-  // Pop
+  // Move the screen into popout
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
@@ -363,19 +366,20 @@ popOutButton.addEventListener("click", () => {
   popOutWin.addEventListener("beforeunload", () => {
     if (resizeObserver) resizeObserver.disconnect();
     document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload();
+    location.reload(); // ensures layout fixes on main page
   });
 
   // Resize
   resizeObserver = new ResizeObserver(entries => {
     if (!popOutWin || popOutWin.closed) return;
     const rect = entries[0].contentRect;
-    // Resize popout to match screen dimensions + browser chrome padding
-    popOutWin.resizeTo(rect.width + 20, rect.height + 40);
+    // Only resize if content exceeds current window (prevents tiny windows)
+    const newWidth = Math.max(rect.width + 20, winWidth);
+    const newHeight = Math.max(rect.height + 40, winHeight);
+    popOutWin.resizeTo(newWidth, newHeight);
   });
   resizeObserver.observe(screenDiv);
 });
-
 
 // Tooltip
 const tooltip = document.createElement("div");
