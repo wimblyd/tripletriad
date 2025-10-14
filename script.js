@@ -305,15 +305,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Toaster
   const popOutButton = document.createElement("img");
   popOutButton.src = "img/PopOut.png";
-  popOutButton.alt = "Pop Out Card Screen";
-  popOutButton.style.position = "fixed";
+  popOutButton.alt = "Pop Out";
   popOutButton.style.top = "10px";
   popOutButton.style.right = "10px";
   popOutButton.style.zIndex = "9999";
   popOutButton.style.padding = "8px 12px";
   popOutButton.style.cursor = "pointer";
 
-  const startDiv = document.querySelector(".start");
+  const startDiv = document.querySelector("start .sys-left");
   startDiv.appendChild(popOutButton);
 
   let popOutWin = null;
