@@ -353,7 +353,7 @@ body {
   background: url('img/StartBar.png');
   background-position: top right;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   font-size: 8px;
   color: black;
@@ -364,7 +364,7 @@ body {
 
 .sys-left, .sys-right, .sys-center {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
@@ -511,6 +511,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
