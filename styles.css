@@ -443,7 +443,7 @@ body {
 
 @media (min-width: 1025px) { 
   .lid::before {
-    width: 80%;      
+    width: 70%;      
     height: auto;    
     background-size: contain; 
   }
@@ -564,6 +564,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
