@@ -305,7 +305,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Toaster
 const popOutButton = document.getElementById("popOutBtn");
 let popOutWin = null;
-let resizeObserver = null;
 
 popOutButton.addEventListener("click", () => {
   const screenDiv = document.querySelector(".screen");
@@ -319,49 +318,52 @@ popOutButton.addEventListener("click", () => {
 
   // Sizer
   const rect = screenDiv.getBoundingClientRect();
-  const paddingWidth = 20;  // horizontal buffer for window chrome
-  const paddingHeight = 40; // vertical buffer
+  const paddingWidth = 20;   // buffer for window chrome
+  const paddingHeight = 40;
 
-  const minWidth = window.innerWidth * 0.85;   // 85% of viewport width
-  const minHeight = window.innerHeight * 0.85; // 85% of viewport height
+  const minWidth = window.innerWidth * 0.85;   // 85% viewport for mobile
+  const minHeight = window.innerHeight * 0.85;
 
   const winWidth = Math.max(rect.width + paddingWidth, minWidth);
   const winHeight = Math.max(rect.height + paddingHeight, minHeight);
 
-  const features = `width=${Math.ceil(winWidth)},height=${Math.ceil(winHeight)},scrollbars=auto,resizable=yes`;
+  const features = `width=${Math.ceil(winWidth)},height=${Math.ceil(winHeight)},scrollbars=no,resizable=yes`;
   popOutWin = window.open("", "_blank", features);
 
   // Inline Styles
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-  styles.forEach(style => popOutWin.document.head.appendChild(style.cloneNode(true)));
+  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
 
   // Pop Out Styles
-  const fixStyle = document.createElement("style");
-  fixStyle.textContent = `
+  const style = document.createElement("style");
+  style.textContent = `
     html, body.popout-mode {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       background: black;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
+
     .popout-mode .screen {
-      width: 100%;
-      height: 100%;
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: auto;
       max-width: 100%;
-      max-height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: auto;
+      padding: 2px;
+      gap: 8px;
       box-sizing: border-box;
-      object-fit: contain;
+      overflow: auto;
+      margin: 10px; /* keep some padding from edges */
     }
   `;
-  popOutWin.document.head.appendChild(fixStyle);
+  popOutWin.document.head.appendChild(style);
 
   // Pop
   popOutWin.document.body.classList.add("popout-mode");
@@ -369,20 +371,19 @@ popOutButton.addEventListener("click", () => {
 
   // Restore Refresh
   popOutWin.addEventListener("beforeunload", () => {
-    if (resizeObserver) resizeObserver.disconnect();
     document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload(); // fixes layout on main page
+    location.reload(); // fixes layout when popping back
   });
 
   // Resize
-  resizeObserver = new ResizeObserver(entries => {
-    if (!popOutWin || popOutWin.closed) return;
-    const rect = entries[0].contentRect;
-    const newWidth = Math.max(rect.width + paddingWidth, minWidth);
-    const newHeight = Math.max(rect.height + paddingHeight, minHeight);
-    popOutWin.resizeTo(newWidth, newHeight);
-  });
-  resizeObserver.observe(screenDiv);
+  function resizePopout() {
+    const screenRect = screenDiv.getBoundingClientRect();
+    const newWidth = Math.max(screenRect.width + paddingWidth, minWidth);
+    const newHeight = Math.max(screenRect.height + paddingHeight, minHeight);
+    popOutWin.resizeTo(Math.ceil(newWidth), Math.ceil(newHeight));
+  }
+
+  setTimeout(resizePopout, 100);
 });
 
 
