@@ -350,37 +350,54 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 28px;
-  padding: 0 10px;
   font-size: 8px;
   z-index: 999;
+  width: 100%;
 }
 
+/* left */
 .sys-left {
+  flex: 0 0 915px; 
+  height: 100%;
+  background: url('img/StartBar.png') no-repeat left center;
+  background-size: contain;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  background: url('img/StartBar.png') no-repeat bottom right;
-  background-size: 915px 28px;
-  gap: 10px;
+  align-items: center;
+  padding-left: 5px; 
+  z-index: 1;
 }
 
+/* center */
 .sys-center {
- display: flex;
- align-items: center;
- flex-direction: row;
- align-items: flex-start;
- justify-content: space-between;
- background-color: #c0c0c0;
- border: 1px 0 0 0 fff;
+  flex: 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: #c0c0c0;
+  height: 100%;
+  z-index: 2;
 }
 
+/* right */
 .sys-right {
+  flex: 0 0 106px;
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  background: url('img/StartBarR.png') no-repeat bottom right;
-  background-size: 106px 28px;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: url('img/StartBarR.png') no-repeat center center;
+  background-size: contain;
+  padding: 0 4px;
+  z-index: 1;
+}
+
+#sys-clock {
+  font-weight: 300;
+  color: #000;
+  display: block;
+  width: 100%;
+  text-align: center; /* centers clock inside right panel */
 }
 
 .sys-btn {
@@ -394,12 +411,6 @@ body {
   transform: scale(1.1);
   filter: brightness(1.2);
 }
-
-#sys-clock {
-  font-weight: 300;
-  color: #000;
-}
-
 
 /* Media Queries */
 @media (max-width: 1200px) {
@@ -525,6 +536,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
