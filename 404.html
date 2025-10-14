@@ -43,11 +43,11 @@
   }
 
   .text-block {
-    width: 100%;
-    white-space: normal;    
-    word-break: break-all; 
+    width: 133%;
+    white-space: normal;
+    word-break: break-all;
     position: absolute;
-    transform: scaleX(0.75);       /* squash letters horizontally */
+    transform: scaleX(0.75);
     transform-origin: left top;
   }
 
@@ -56,19 +56,21 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: auto;
+    width: 133%; 
     color: rgba(255, 100, 100, 0.5);
     pointer-events: none;
     mix-blend-mode: screen;
     filter: blur(0.4px);
     animation: ghostRise 1s ease-out forwards;
+    transform: scaleX(0.75);    
+    transform-origin: left top;
     z-index: 10;
   }
 
   @keyframes ghostRise {
-    0% { opacity: 1; transform: translateY(0); }
-    50% { opacity: 0.6; transform: translateY(-0.8em); }
-    100% { opacity: 0; transform: translateY(-1.5em); }
+    0% { opacity: 1; transform: translateY(0) scaleX(0.75); }
+    50% { opacity: 0.6; transform: translateY(-0.8em) scaleX(0.75); }
+    100% { opacity: 0; transform: translateY(-1.5em) scaleX(0.75); }
   }
 
   /* Flicker */
@@ -132,7 +134,6 @@ const baseLines = [
   "FORGET ABOUT ME I'M ALIVE HERE LET",
 ];
 
-// Remove all spaces and make one huge repeated block
 let longText = baseLines.map(line => line.replace(/\s+/g, '')).join('').repeat(10);
 
 const block1 = document.getElementById('block1');
@@ -152,26 +153,21 @@ function measure() {
 measure();
 window.addEventListener('resize', measure);
 
-// Motion
 let y = 0;
-const speed = 15; // pixels/sec
+const speed = 25;
 let loops = 0;
 const maxLoops = 8;
 let lastTime = null;
 
-// Ghosts
 function makeGhost() {
-  if (Math.random() < 0.01) { // half as frequent
+  if (Math.random() < 0.01) {
     const ghost = block1.cloneNode(true);
     ghost.classList.add('ghost');
-    ghost.style.transform = `translate3d(0, ${-y}px, 0) scaleX(0.75)`; // keep ghosts scaled
-    ghost.style.transformOrigin = 'left top';
     screen.appendChild(ghost);
     setTimeout(() => ghost.remove(), 1000);
   }
 }
 
-// Static
 function randomStatic() {
   staticDiv.style.opacity = 0.5 + Math.random() * 0.5;
   setTimeout(() => staticDiv.style.opacity = 0, 60 + Math.random() * 80);
@@ -179,7 +175,6 @@ function randomStatic() {
 }
 randomStatic();
 
-// Flicker
 function randomFlash() {
   screen.classList.add('flash');
   setTimeout(() => screen.classList.remove('flash'), 200);
@@ -187,7 +182,6 @@ function randomFlash() {
 }
 randomFlash();
 
-// Scroll loop
 function scrollLoop(ts) {
   if (!lastTime) lastTime = ts;
   const dt = (ts - lastTime) / 1000;
