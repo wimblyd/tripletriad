@@ -441,6 +441,14 @@ body {
   .screen { max-width: calc(100% - 420px); }
 }
 
+@media (min-width: 1025px) { 
+  .lid::before {
+    width: 80%;      
+    height: auto;    
+    background-size: contain; 
+  }
+}
+
 @media (max-width: 1024px) {
   :root {
     --card-w: 52px;
@@ -510,8 +518,8 @@ body {
   }
 
   .buttons .button {
-    width: 180px;
-    height: 80px;
+    width: 140px;
+    height: 60px;
   }
   .buttons .button + .button { margin-top: -30px; }
 }
@@ -529,10 +537,10 @@ body {
   }
 
   .buttons .button {
-    width: 140px;
-    height: 60px;
+    width: 120px;
+    height: 50px;
   }
-  .buttons .button + .button { margin-top: -25px; }
+  .buttons .button + .button { margin-top: -15px; }
 
   .screen { padding: 2px; gap: 2px; 
           overflow: auto;
@@ -556,5 +564,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
