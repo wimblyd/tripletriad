@@ -127,11 +127,11 @@
 
 <script>
 const baseLines = [
-  "LET ME BACK THERE I'M ALIVE HERE I'LL",
+  "LET ME BACK THERE I'M ALIVE HERE I'LL NEVER LET YOU FORGET ABOUT ME",
   "BACK THERE I'LL NEVER LET YOU FORGET",
   "I'LL NEVER LET YOU FORGET ABOUT ME",
   "ALIVE HERE LET ME BACK LET ME BACK",
-  "FORGET ABOUT ME I'M ALIVE HERE LET",
+  "FORGET ABOUT ME I'M ALIVE HERE",
 ];
 
 let longText = baseLines.map(line => line.replace(/\s+/g, '')).join('').repeat(10);
@@ -154,7 +154,7 @@ measure();
 window.addEventListener('resize', measure);
 
 let y = 0;
-const speed = 25;
+const speed = 45;
 let loops = 0;
 const maxLoops = 8;
 let lastTime = null;
