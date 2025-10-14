@@ -345,7 +345,7 @@ body {
 
 // Start
 #start {
-  position: sticky;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -355,8 +355,8 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  font-size: 13px;
-  color: white;
+  font-size: 8px;
+  color: black;
   padding: 0 10px;
   box-shadow: 0 -2px 6px rgba(0,0,0,0.4);
   z-index: 999;
@@ -382,8 +382,8 @@ body {
 }
 
 #sys-clock {
-  font-weight: 400;
-  color: #eee;
+  font-weight: 300;
+  color: #000;
 }
 
 
@@ -511,6 +511,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
