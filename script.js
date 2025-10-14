@@ -293,32 +293,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
- // Toaster
-const popOutButton = document.createElement("img");
-popOutButton.src = "img/PopOut.png";
-popOutButton.alt = "Pop Out Card Screen";
-popOutButton.style.position = "fixed";
-popOutButton.style.top = "10px";
-popOutButton.style.right = "10px";
-popOutButton.style.zIndex = "9999";
-popOutButton.style.padding = "8px 12px";
-popOutButton.style.cursor = "pointer";
+// Clock
+function updateClock() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('sys-clock').textContent = timeString;
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-const lidDiv = document.querySelector(".lid");
-lidDiv.appendChild(popOutButton);
+// Toaster
+document.getElementById('popOutButton').addEventListener('click', () => {
+  const screen = document.querySelector('.screen');
+  const newWin = window.open('', 'popout', 'width=800,height=600,resizable,scrollbars');
+  if (newWin) {
+    newWin.document.write('<html><head><title>Checklist</title></head><body></body></html>');
+    const clone = screen.cloneNode(true);
+    clone.style.position = 'static';
+    clone.style.height = '100vh';
+    clone.style.overflow = 'auto';
+    newWin.document.body.appendChild(clone);
 
-let popOutWin = null;
-
-popOutButton.addEventListener("click", () => {
-  const screenDiv = document.querySelector(".screen");
-  if (!screenDiv) return;
-  if (popOutWin && !popOutWin.closed) {
-    popOutWin.focus();
-    return;
+    newWin.addEventListener('beforeunload', () => {
+      location.reload();
+    });
   }
-
-  const rect = screenDiv.getBoundingClientRect();
-  const isMobile = window.innerWidth <= 768; // adjust breakpoint if needed
+});
 
   // Media Sizes
   const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
