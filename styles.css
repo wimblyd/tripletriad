@@ -59,10 +59,13 @@ body {
 .lid{
   position: relative;
   width: 100%;
-  height: clamp(100px, 255px, 350px);
+  /* Maintain image aspect ratio: 234/800 ≈ 0.2925 */
+  height: calc(100vw * 0.2925);
+  max-height: 400px; /* optional cap for desktop */
+  min-height: 150px; /* optional minimum for tiny devices */
   background-image: url("img/Wimblys.png");
   background-repeat: no-repeat;
-  background-size: clamp(300px, 65vw, 900px);
+  background-size: 100% auto; /* fit width, scale height */
   background-position: top right;
   cursor: url("FlowerCursor.png") 35 41, auto;
 }
@@ -443,9 +446,12 @@ body {
   .tupperware { flex-direction: row; padding: 4px; gap: 4px; }
   .screen { max-width: calc(100% - 360px); }
   
+  /* Adjust lid to maintain aspect ratio while scaling nicely */
   .lid {
-    height: clamp(200px, 50vw, 600px);
-    background-size: clamp(200px, 50vw, 600px);
+    height: calc(100vw * 0.2925);
+    max-height: 400px;
+    min-height: 150px;
+    background-size: 100% auto;
   }
 
   .buttons .button + .button { margin-top: -30px; }
@@ -487,8 +493,10 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
 
   .lid {
-    height: clamp(150px, 30vh, 400px);
-    background-size: clamp(150px, 60vw, 400px);
+    height: calc(100vw * 0.2925);
+    max-height: 400px;
+    min-height: 150px;
+    background-size: 100% auto;
   }
 
   .buttons .button {
@@ -522,7 +530,10 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
-    background-size: clamp(120px, 60vw, 300px);
+    height: calc(100vw * 0.2925);
+    max-height: 400px;
+    min-height: 150px;
+    background-size: 100% auto;
   }
 
   .buttons { padding: 2px; gap: 2px; }
@@ -535,9 +546,3 @@ body {
     animation: none !important; 
   }
 }
-
-
-
-
-
-
