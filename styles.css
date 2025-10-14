@@ -497,7 +497,6 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
-    height: clamp(50px, 25vh, 120px);
     background-size: clamp(120px, 60vw, 300px);
   }
 
@@ -511,6 +510,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
