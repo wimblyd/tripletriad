@@ -364,9 +364,9 @@ body {
 
 .sys-left, .sys-right, .sys-center {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
-  margin: 100px;
 }
 
 .sys-btn {
@@ -511,6 +511,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
