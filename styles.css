@@ -364,14 +364,24 @@ body {
   width: 100%;
   height: 100%;
   background: url('img/StartBar.png') no-repeat bottom right;
-  background-size: 1020px 28px;
+  background-size: 915px 28px;
   z-index: -1; 
 }
 
-.sys-left, .sys-right, .sys-center {
+.sys-left, .sys-center, {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  gap: 10px;
+  border-top: 1px fff;
+}
+
+.sys-right {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: url('img/StartBarR.png') no-repeat bottom right;
+  background-size: 106px 28px;
   gap: 10px;
 }
 
@@ -517,6 +527,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
