@@ -428,15 +428,15 @@ body {
   }
 
   .screen { max-width: calc(100% - 420px); }
-}
 
-@media (min-width: 1025px) { 
-  .lid::before {
-    transform: scale(0.7);     
-    transform-origin: top right;
+  .lid {
+    width: clamp(300px, 35vw, 800px);
   }
 }
 
+/* Desktop default already handles lid scaling — no ::before needed */
+
+/* Laptops */
 @media (max-width: 1024px) {
   :root {
     --card-w: 52px;
@@ -451,17 +451,15 @@ body {
 
   .tupperware { flex-direction: row; padding: 4px; gap: 4px; }
   .screen { max-width: calc(100% - 360px); }
-  
+
   .lid {
-    height: calc(100vw * 0.2925);
-    max-height: 300px;
-    min-height: 150px;
-    background-size: 100% auto;
+    width: clamp(250px, 40vw, 700px);
   }
 
   .buttons .button + .button { margin-top: -25px; }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
   :root {
     --card-w: 40px;
@@ -498,10 +496,7 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
 
   .lid {
-    height: calc(100vw * 0.2925);
-    max-height: 300px;
-    min-height: 150px;
-    background-size: 100% auto;
+    width: clamp(200px, 45vw, 600px);
   }
 
   .buttons .button {
@@ -511,6 +506,7 @@ body {
   .buttons .button + .button { margin-top: -20px; }
 }
 
+/* Phones */
 @media (max-width: 480px) {
   :root {
     --card-w: 34px;
@@ -529,28 +525,29 @@ body {
   }
   .buttons .button + .button { margin-top: -15px; }
 
-  .screen { padding: 2px; gap: 2px; 
-          overflow: auto;
-          }
+  .screen {
+    padding: 2px;
+    gap: 2px;
+    overflow: auto;
+  }
+
   .card-counter { transform: translate(-50%, -50%) scale(0.8); }
 
   .lid {
-    height: calc(100vw * 0.2925);
-    max-height: 200px;
-    min-height: 150px;
-    background-size: 100% auto;
+    width: clamp(150px, 55vw, 400px);
   }
 
   .buttons { padding: 2px; gap: 2px; }
 }
 
-/* Motion prefs */
+/* Motion Prefs */
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { 
     transition: none !important; 
     animation: none !important; 
   }
 }
+
 
 
 
