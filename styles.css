@@ -280,7 +280,7 @@ body {
 
 .counter-number-container { 
   display:flex; 
-  gap: 2px; 
+  gap: 4px; 
   align-items:center; 
   justify-content:center; 
 } 
@@ -371,7 +371,7 @@ body {
  align-items: flex-start;
  justify-content: space-between;
  background-color: #c0c0c0;
- border-top: 1px fff;
+ border: 1px 0 0 0 fff;
 }
 
 .sys-right {
@@ -525,6 +525,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
