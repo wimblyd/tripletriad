@@ -57,14 +57,14 @@ body {
 
 /* Wambles Shriple Shriad Shrecklist */
 .lid {
-  position: relative;
-  width: 100%;
+  position: absolute;   
+  top: 0;
+  right: 0;
+  width: clamp(300px, 35vw, 800px); 
+  aspect-ratio: 800 / 234; 
   background: url("img/Wimblys.png") no-repeat top right;
   background-size: contain;
-  aspect-ratio: 800 / 234;  /* matches your image’s native ratio */
-  max-width: 100%;
-  height: auto;
-  cursor: url("FlowerCursor.png") 35 41, auto;
+  z-index: 10;
 }
 
 /* The Hardest Little Button to Button */
@@ -551,6 +551,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
