@@ -377,7 +377,7 @@ popOutButton.addEventListener("mouseenter", e => {
 
 popOutButton.addEventListener("mousemove", e => {
   tooltip.style.left = `${e.clientX + 10}px`;
-  tooltip.style.top = `${e.clientY + 10}px`;
+  tooltip.style.top = `${e.clientY + 30}px`;
 });
 
 popOutButton.addEventListener("mouseleave", () => {
