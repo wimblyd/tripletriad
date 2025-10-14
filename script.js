@@ -3,16 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entryObj => {
-  const div = document.createElement('div');
-  if (typeof entryObj === "string") {
-    div.textContent = entryObj;
-  } else {
-    div.textContent = entryObj.message;
-    div.style.color = entryObj.color;
-  }
-  logDiv.appendChild(div);
-});
-  
+    const div = document.createElement('div');
+    if (typeof entryObj === "string") {
+      div.textContent = entryObj;
+    } else {
+      div.textContent = entryObj.message;
+      div.style.color = entryObj.color;
+    }
+    logDiv.appendChild(div);
+  });
+
   logDiv.scrollTop = logDiv.scrollHeight;
 
   // Labelmaker
@@ -293,169 +293,119 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
-// Clock
-function updateClock() {
-  const now = new Date();
-  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  document.getElementById('sys-clock').textContent = timeString;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// Toaster
-const popOutButton = document.createElement("img");
-popOutButton.src = "img/PopOut.png";
-popOutButton.alt = "Pop Out Card Screen";
-popOutButton.style.position = "fixed";
-popOutButton.style.top = "10px";
-popOutButton.style.right = "10px";
-popOutButton.style.zIndex = "9999";
-popOutButton.style.padding = "8px 12px";
-popOutButton.style.cursor = "pointer";
-
-const startDiv = document.querySelector(".start");
-startDiv.appendChild(popOutButton);
-
-let popOutWin = null;
-
-popOutButton.addEventListener("click", () => {
-  const screenDiv = document.querySelector(".screen");
-  if (!screenDiv) return;
-
-  // Refocus
-  if (popOutWin && !popOutWin.closed) {
-    popOutWin.focus();
-    return;
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('sys-clock').textContent = timeString;
   }
+  setInterval(updateClock, 1000);
+  updateClock();
 
-  const rect = screenDiv.getBoundingClientRect();
-  const isMobile = window.innerWidth <= 768;
-  const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
-  const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
-  const features = isMobile
-    ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
-    : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+  // Toaster
+  const popOutButton = document.createElement("img");
+  popOutButton.src = "img/PopOut.png";
+  popOutButton.alt = "Pop Out Card Screen";
+  popOutButton.style.position = "fixed";
+  popOutButton.style.top = "10px";
+  popOutButton.style.right = "10px";
+  popOutButton.style.zIndex = "9999";
+  popOutButton.style.padding = "8px 12px";
+  popOutButton.style.cursor = "pointer";
 
-  // New Window
-  popOutWin = window.open("", "_blank", features);
+  const startDiv = document.querySelector(".start");
+  startDiv.appendChild(popOutButton);
 
-  // Inline Styles
-  const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+  let popOutWin = null;
 
-  // Pop Out Styles
-  const fixStyle = popOutWin.document.createElement("style");
-  fixStyle.textContent = `
-    html, body.popout-mode {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: black;
-      touch-action: manipulation;
+  popOutButton.addEventListener("click", () => {
+    const screenDiv = document.querySelector(".screen");
+    if (!screenDiv) return;
+
+    if (popOutWin && !popOutWin.closed) {
+      popOutWin.focus();
+      return;
     }
-    .popout-mode .screen {
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      overflow: auto !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box;
-      -webkit-overflow-scrolling: touch;
-    }
-  `;
-  popOutWin.document.head.appendChild(fixStyle);
-  popOutWin.document.body.classList.add("popout-mode");
-  popOutWin.document.body.appendChild(screenDiv);
 
-  // Restore Refresh
-  popOutWin.addEventListener("beforeunload", () => {
-    document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload();
+    const rect = screenDiv.getBoundingClientRect();
+    const isMobile = window.innerWidth <= 768;
+    const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
+    const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
+    const features = isMobile
+      ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
+      : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
+
+    popOutWin = window.open("", "_blank", features);
+
+    // Inline Styles
+    const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
+    styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+
+    // Pop Out Styles
+    const fixStyle = popOutWin.document.createElement("style");
+    fixStyle.textContent = `
+      html, body.popout-mode {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: black;
+        touch-action: manipulation;
+      }
+      .popout-mode .screen {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        overflow: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+      }
+    `;
+    popOutWin.document.head.appendChild(fixStyle);
+
+    popOutWin.document.body.classList.add("popout-mode");
+    popOutWin.document.body.appendChild(screenDiv);
+
+    popOutWin.addEventListener("beforeunload", () => {
+      document.querySelector(".wrapper").appendChild(screenDiv);
+      location.reload();
+    });
   });
-});
 
-  // Media Sizes
-  const winWidth = isMobile ? screen.width : Math.ceil(rect.width + 40);
-  const winHeight = isMobile ? screen.height : Math.ceil(rect.height + 40);
-  const features = isMobile
-    ? "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes"
-    : `width=${winWidth},height=${winHeight},scrollbars=yes,resizable=yes`;
-
-  popOutWin = window.open("", "_blank", features);
-
-  // Inline Styles
-  const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
-
-  // Pop Out Styles
-  const fixStyle = popOutWin.document.createElement("style");
-  fixStyle.textContent = `
-    html, body.popout-mode {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: black;
-      touch-action: manipulation;
-    }
-    .popout-mode .screen {
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      overflow: auto !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box;
-      -webkit-overflow-scrolling: touch;
-    }
-  `;
-  popOutWin.document.head.appendChild(fixStyle);
-  popOutWin.document.body.classList.add("popout-mode");
-  popOutWin.document.body.appendChild(screenDiv);
-
-  // Restore & Refresh
-  popOutWin.addEventListener("beforeunload", () => {
-    document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload();
-  });
-});
-  
   // It's Log, from Blam-O!
-function addLogEntry(message) {
-  if (!logDiv) return;
+  function addLogEntry(message) {
+    if (!logDiv) return;
 
-  const now = new Date();
-  const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-  const entry = `[${timestamp}] ${message}`;
+    const now = new Date();
+    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+    const entry = `[${timestamp}] ${message}`;
 
-  let color = "#ffffff"; // default
-  if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
-    color = "#ffbe32"; // yellow
-  } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-    color = "#0384fc"; // blue
+    let color = "#ffffff"; // default
+    if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
+      color = "#ffbe32"; // yellow
+    } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
+      color = "#0384fc"; // blue
+    }
+
+    const entryDiv = document.createElement('div');
+    entryDiv.textContent = entry;
+    entryDiv.style.color = color;
+
+    logDiv.appendChild(entryDiv);
+    logDiv.scrollTop = logDiv.scrollHeight;
+
+    const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+    logs.push({ message: entry, color });
+    localStorage.setItem("operationLog", JSON.stringify(logs));
   }
-
-  const entryDiv = document.createElement('div');
-  entryDiv.textContent = entry;
-  entryDiv.style.color = color;
-
-  logDiv.appendChild(entryDiv);
-  logDiv.scrollTop = logDiv.scrollHeight;
-
-  // Save both message and color
-  const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-  logs.push({ message: entry, color });
-  localStorage.setItem("operationLog", JSON.stringify(logs));
-}
 
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
+
 });
