@@ -293,6 +293,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
+  // Tooltip
+const tooltip = document.createElement("div");
+tooltip.textContent = "Pop Out The Card Screen";
+tooltip.style.position = "fixed";
+tooltip.style.background = "#e0e0e0";
+tooltip.style.border = "1px solid #000";
+tooltip.style.padding = "2px 6px";
+tooltip.style.fontSize = "12px";
+tooltip.style.boxShadow = "1px 1px 0 #808080";
+tooltip.style.borderRadius = "2px";
+tooltip.style.pointerEvents = "none";
+tooltip.style.transition = "opacity 0.15s ease";
+tooltip.style.opacity = "0";
+tooltip.style.zIndex = "9999";
+document.body.appendChild(tooltip);
+popOutButton.addEventListener("mouseenter", e => {
+  tooltip.style.left = `${e.clientX + 10}px`;
+  tooltip.style.top = `${e.clientY + 10}px`;
+  tooltip.style.opacity = "1";
+});
+
+popOutButton.addEventListener("mousemove", e => {
+  tooltip.style.left = `${e.clientX + 10}px`;
+  tooltip.style.top = `${e.clientY + 10}px`;
+});
+
+popOutButton.addEventListener("mouseleave", () => {
+  tooltip.style.opacity = "0";
+});
+  
   // Clock
   function updateClock() {
     const now = new Date();
