@@ -371,7 +371,7 @@ body {
 .sys-left, .sys-right, .sys-center {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -517,3 +517,4 @@ body {
     animation: none !important; 
   }
 }
+
