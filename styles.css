@@ -355,41 +355,35 @@ body {
   width: 100%;
 }
 
-/* left */
 .sys-left {
-  flex: 0 0 915px; 
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  width: 153px; /* smaller, realistic width */
   height: 100%;
   background: url('img/StartBar.png') no-repeat left center;
-  background-size: contain;
-  display: flex;
-  align-items: center;
-  padding-left: 5px; 
-  z-index: 1;
+  background-size: contain; /* ensures the image scales nicely */
 }
 
-/* center */
 .sys-center {
-  flex: 1; 
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1; /* takes remaining space */
+  height: 100%;
   gap: 4px;
   background-color: #c0c0c0;
-  height: 100%;
-  z-index: 2;
 }
 
-/* right */
 .sys-right {
-  flex: 0 0 106px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 106px; /* fixed width */
+  height: 100%;
   background: url('img/StartBarR.png') no-repeat center center;
   background-size: contain;
   padding: 0 4px;
-  z-index: 1;
 }
 
 #sys-clock {
@@ -536,6 +530,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
