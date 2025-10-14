@@ -361,8 +361,8 @@ body {
   position: absolute;
   top: 0; 
   left: 0; 
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: 28px;
   background: url('img/StartBar.png') no-repeat top right black;
   background-size: cover; 
   z-index: -1; 
@@ -517,4 +517,5 @@ body {
     animation: none !important; 
   }
 }
+
 
