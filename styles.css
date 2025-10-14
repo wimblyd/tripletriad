@@ -356,22 +356,12 @@ body {
   z-index: 999;
 }
 
-#start::before {
-  content: "";
-  position: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%;
-  height: 100%;
-  background: url('img/StartBar.png') no-repeat bottom right;
-  background-size: 915px 28px;
-  z-index: -1; 
-}
-
-.sys-left, .sys-center, {
+.sys-left {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  background: url('img/StartBar.png') no-repeat bottom right;
+  background-size: 915px 28px;
   gap: 10px;
   border-top: 1px fff;
 }
@@ -527,6 +517,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
