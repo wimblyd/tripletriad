@@ -32,7 +32,7 @@ if (logToggleBar) {
   helpMenu.style.border = '2px solid #000';
   helpMenu.style.padding = '10px';
   helpMenu.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-  helpMenu.style.fontSize = '14px';
+  helpMenu.style.fontSize = '10px';
   helpMenu.style.display = 'none';
   helpMenu.style.zIndex = '9999';
 
