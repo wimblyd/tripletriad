@@ -494,6 +494,11 @@ body {
     gap: 4px;
   }
 
+  .wrapper {
+    overflow-x: visible;
+    overflow-y: hidden;
+  }
+
   .screen {
     width: 100% !important;
     max-width: 100% !important;
@@ -554,6 +559,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
