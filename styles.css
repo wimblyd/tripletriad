@@ -254,7 +254,7 @@ body {
 } 
 
 /* That's Numberwang! */ 
-.card-counter { 
+.card- { 
   position: absolute; top: 50%; left: 50%; 
   transform: translate(-50%,-50%); 
   display: flex; 
@@ -262,27 +262,27 @@ body {
   align-items: center; 
   background: rgba(0,0,0,0.7); 
   border-radius: 4px; 
-  gap: var(--counter-gap); 
-  padding: var(--counter-bg-padding); 
+  gap: var(---gap); 
+  padding: var(---bg-padding); 
   z-index: 6; 
   opacity: 0; 
   pointer-events: none; 
   transition: opacity 0.25s ease-in-out; 
 } 
 
-.card-counter.visible { 
+.card-.visible { 
   opacity: 1; 
   pointer-events: auto; 
 } 
 
-.counter-arrow { 
-  width: var(--counter-arrow-w); 
+.-arrow { 
+  width: var(---arrow-w); 
   cursor: pointer; 
 } 
 
 .counter-number-container { 
   display:flex; 
-  gap: 2px; 
+  gap: 0px; 
   align-items:center; 
   justify-content:center; 
 } 
@@ -549,6 +549,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
