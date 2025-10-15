@@ -476,7 +476,6 @@ popOutButton.addEventListener("mouseleave", () => {
   // Start Button Menu
   const helpStyle = document.createElement('style');
   helpStyle.textContent = `
-  
     #helpMenu {
       position: fixed;
       bottom: 40px;
@@ -513,34 +512,33 @@ popOutButton.addEventListener("mouseleave", () => {
   const helpMenu = document.createElement('div');
   helpMenu.id = 'helpMenu';
   helpMenu.innerHTML = `
-   Click to Flip<br>
-   Click to Unflip<br>
-   Boost Button Locks Flipping and Opens a Counter!<br>
-   Use the Pop Out Button on the Start Bar to Open Cards in New Window<br>
-   Cards & Counts Sync Across Tabs & Save to localStorage<br>
+    Click to Flip<br>
+    Click to Unflip<br>
+    Boost Button Locks Flipping and Opens a Counter!<br>
+    Use the Pop Out Button on the Start Bar to Open Cards in New Window<br>
+    Cards & Counts Sync Across Tabs & Save to localStorage<br>
   `;
   document.body.appendChild(helpMenu);
 
-const startBtn = document.getElementById('startBtn');
-if (startBtn) {
-  startBtn.addEventListener('click', () => {
-    helpMenu.classList.toggle('show');
-  });
-}
+  const startBtn = document.getElementById('startBtn');
+  if (startBtn) {
+    startBtn.addEventListener('click', () => {
+      helpMenu.classList.toggle('show');
+    });
+  }
 
   document.addEventListener('click', (e) => {
     if (!helpMenu.contains(e.target) && e.target !== startBtn) {
       helpMenu.classList.remove('show');
     }
   });
-});
 
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
 
-// Resize Helper
+  // Resize Helper
   window.addEventListener("resize", () => {
     if (!logDiv || !logToggleBar) return;
     if (window.innerWidth <= 768) logDiv.style.display = "none";
