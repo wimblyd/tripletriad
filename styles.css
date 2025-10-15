@@ -558,9 +558,13 @@ body {
 }
 
 /* Mobile-only Log Toggle */
+#logToggleBar {
+  display: none; /* hidden by default */
+}
+
 @media (max-width: 480px) {
   #logToggleBar {
-    display: flex;
+    display: flex; /* only show on phones */
     justify-content: space-between;
     align-items: center;
     background-color: #808080;
@@ -587,6 +591,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
