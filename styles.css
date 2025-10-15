@@ -415,6 +415,14 @@ body {
   filter: brightness(1.05);
 }
 
+.sys-center a,
+.sys-center img.sys-btn {
+  display: flex;     
+  align-items: center;
+  justify-content: center;
+  line-height: 0; 
+}
+
 /* Clock */
 #sys-clock {
   font-weight: 300;
@@ -556,6 +564,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
