@@ -282,7 +282,7 @@ body {
 
 .counter-number-container { 
   display:flex; 
-  gap: 0px; 
+  gap: 1px; 
   align-items:center; 
   justify-content:center; 
 } 
@@ -547,3 +547,4 @@ body {
     animation: none !important; 
   }
 }
+
