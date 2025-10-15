@@ -12,7 +12,7 @@
   --card-h: 120px;
   --card-min-w: 30px;
   --card-min-h: 39px;
-  --card-margin: 4px;
+  --card-margin: 1px;
 
   --label-font: 8px;
   --boost-size: 30px;
@@ -587,6 +587,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
