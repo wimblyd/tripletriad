@@ -396,9 +396,9 @@ body {
 .sys-btn {
   width: 20px;
   height: 20px;
-  background-color: #c0c0c0; /* Classic gray */
+  background-color: #c0c0c0; 
   border: 2px solid;
-  border-color: #fff #808080 #808080 #fff; /* Light top/left, dark bottom/right */
+  border-color: #fff #808080 #808080 #fff;
   box-shadow: none;
   border-radius: 0;
   cursor: pointer;
@@ -444,8 +444,6 @@ body {
   }
 }
 
-/* Desktop default already handles lid scaling — no ::before needed */
-
 /* Laptops */
 @media (max-width: 1024px) {
   :root {
@@ -488,7 +486,7 @@ body {
   }
 
     .wrapper {
-    overflow-x: visible;
+    overflow-x: auto;
     overflow-y: hidden;
   }
 
@@ -559,6 +557,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
