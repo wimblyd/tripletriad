@@ -522,8 +522,8 @@ body {
   }
 
   .buttons .button {
-    width: 120px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
   }
   .buttons .button + .button { margin-top: -8px; }
 
@@ -546,4 +546,5 @@ body {
     animation: none !important; 
   }
 }
+
 
