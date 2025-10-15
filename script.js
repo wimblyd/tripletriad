@@ -335,7 +335,7 @@ popOutButton.addEventListener("click", () => {
   styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
 
   // Pop Out Styles
-  const style = document.createElement("style");
+   const style = document.createElement("style");
   style.textContent = `
     html, body.popout-mode {
       margin: 0;
@@ -344,9 +344,9 @@ popOutButton.addEventListener("click", () => {
       height: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: stretch; 
       background: black;
-      overflow: hidden;
+      overflow: hidden; 
     }
 
     .popout-mode .screen {
@@ -354,18 +354,32 @@ popOutButton.addEventListener("click", () => {
       flex-wrap: wrap;
       justify-content: flex-start;
       align-items: flex-start;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       max-width: 100%;
       max-height: 100%;
+      box-sizing: border-box;
       padding: 2px;
       gap: 2px;
-      box-sizing: border-box;
-      overflow: auto;
+
+      overflow-x: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; 
+
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.3) transparent;
+    }
+    .popout-mode .screen::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .popout-mode .screen::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
     }
   `;
   popOutWin.document.head.appendChild(style);
-
+  
   // Pop Out
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
