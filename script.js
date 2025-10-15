@@ -42,25 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   logDiv.scrollTop = logDiv.scrollHeight;
 
-  // Mobile-only Dropdown
-  const logToggleBar = document.getElementById('logToggleBar');
-  if (logToggleBar) {
-    logToggleBar.addEventListener('click', () => {
-      const arrow = logToggleBar.querySelector('.arrow');
-      if (logDiv.classList.contains('mobile-hidden')) {
-        logDiv.classList.remove('mobile-hidden');
-        logToggleBar.style.display = 'none';
-      } else {
-        logDiv.classList.add('mobile-hidden');
-        arrow.style.transform = 'rotate(0deg)';
-      }
-    });
-
-    if (window.innerWidth <= 480) {
-      logDiv.classList.add('mobile-hidden');
-    }
-  }
-
   // Labelmaker
   document.querySelectorAll('.card').forEach(card => {
     const label = document.createElement('div');
