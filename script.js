@@ -476,10 +476,12 @@ popOutButton.addEventListener("mouseleave", () => {
   `;
   document.body.appendChild(helpMenu);
 
-  const startBtn = document.getElementById('startBtn');
+const startBtn = document.getElementById('startBtn');
+if (startBtn) {
   startBtn.addEventListener('click', () => {
     helpMenu.classList.toggle('show');
   });
+}
 
   document.addEventListener('click', (e) => {
     if (!helpMenu.contains(e.target) && e.target !== startBtn) {
