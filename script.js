@@ -17,27 +17,53 @@ if (logToggleBar) {
 }
 
   // Start Menu
-  (function setupHelpMenu() {
-    const helpStyle = document.createElement('style');
-    helpStyle.textContent = `...`; // style as above
-    document.head.appendChild(helpStyle);
+ (function setupHelpMenu() {
+  const startBtn = document.getElementById('startBtn');
+  if (!startBtn) return;
 
-    const helpMenu = document.createElement('div');
-    helpMenu.id = 'helpMenu';
-    ["Click to Flip","Click to Unflip","Boost Button Locks Flipping..."].forEach(line => {
-      const div = document.createElement('div');
-      div.textContent = line;
-      helpMenu.appendChild(div);
-    });
-    document.body.appendChild(helpMenu);
+  // Create help menu
+  const helpMenu = document.createElement('div');
+  helpMenu.id = 'helpMenu';
+  helpMenu.style.position = 'fixed';
+  helpMenu.style.bottom = '40px';
+  helpMenu.style.left = '10px';
+  helpMenu.style.width = '220px';
+  helpMenu.style.backgroundColor = '#c0c0c0';
+  helpMenu.style.border = '2px solid #000';
+  helpMenu.style.padding = '10px';
+  helpMenu.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  helpMenu.style.fontSize = '14px';
+  helpMenu.style.display = 'none';
+  helpMenu.style.zIndex = '9999';
 
-    const startBtn = document.getElementById('startBtn');
-    if (startBtn) startBtn.addEventListener('click', () => helpMenu.classList.toggle('show'));
+  // Add lines
+  [
+    "Click to Flip",
+    "Click to Unflip",
+    "Boost Button Locks Flipping and Opens a Counter!",
+    "Use the Pop Out Button on the Start Bar to Open Cards in New Window",
+    "Cards & Counts Sync Across Tabs & Save to localStorage"
+  ].forEach(line => {
+    const div = document.createElement('div');
+    div.textContent = line;
+    helpMenu.appendChild(div);
+  });
 
-    document.addEventListener('click', e => {
-      if (!helpMenu.contains(e.target) && e.target !== startBtn) helpMenu.classList.remove('show');
-    });
-  })();
+  document.body.appendChild(helpMenu);
+
+  // Toggle menu
+  startBtn.addEventListener('click', e => {
+    e.stopPropagation(); // prevent immediate document click
+    helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', e => {
+    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
+      helpMenu.style.display = 'none';
+    }
+  });
+})();
 
   
   // Come on and get your Log!
