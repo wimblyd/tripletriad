@@ -355,27 +355,29 @@ popOutButton.addEventListener("click", () => {
       justify-content: flex-start;
       align-items: flex-start;
       width: auto;
+      height: auto;
       max-width: 100%;
+      max-height: 100%;
       padding: 2px;
       gap: 8px;
       box-sizing: border-box;
       overflow: auto;
-      margin: 10px; /* keep some padding from edges */
+      margin: 10px; /* small inset from edges */
     }
   `;
   popOutWin.document.head.appendChild(style);
 
-  // Pop
+  // Pop Out
   popOutWin.document.body.classList.add("popout-mode");
   popOutWin.document.body.appendChild(screenDiv);
 
   // Restore Refresh
   popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload(); // fixes layout when popping back
+    location.reload(); // ensures proper layout when returning
   });
 
-  // Resize
+  // Resizer
   function resizePopout() {
     const screenRect = screenDiv.getBoundingClientRect();
     const newWidth = Math.max(screenRect.width + paddingWidth, minWidth);
@@ -384,8 +386,8 @@ popOutButton.addEventListener("click", () => {
   }
 
   setTimeout(resizePopout, 100);
+  window.addEventListener("resize", resizePopout);
 });
-
 
 // Tooltip
 const tooltip = document.createElement("div");
