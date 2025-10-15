@@ -549,5 +549,3 @@ if (startBtn) {
     else logDiv.style.display = "block";
   });
 });
-
-});
