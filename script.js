@@ -546,4 +546,3 @@ if (startBtn) {
     if (window.innerWidth <= 768) logDiv.style.display = "none";
     else logDiv.style.display = "block";
   });
-});
