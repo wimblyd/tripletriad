@@ -542,8 +542,8 @@ body {
   .buttons .button + .button { margin-top: -8px; }
 
   .screen {
-    padding: 2px;
-    gap: 2px;
+    padding: 0px;
+    gap: 1px;
     overflow: auto;
   }
 
@@ -590,5 +590,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
