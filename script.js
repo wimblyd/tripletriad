@@ -488,6 +488,26 @@ popOutButton.addEventListener("mouseleave", () => {
   });
 });
 
+// Mobile-only Dropdown
+const logToggleBar = document.getElementById('logToggleBar');
+if (logToggleBar) {
+  logToggleBar.addEventListener('click', () => {
+    const arrow = logToggleBar.querySelector('.arrow');
+    if (logDiv.classList.contains('mobile-hidden')) {
+      logDiv.classList.remove('mobile-hidden');
+      logToggleBar.style.display = 'none'; // hide bar
+    } else {
+      logDiv.classList.add('mobile-hidden');
+      arrow.style.transform = 'rotate(0deg)';
+    }
+  });
+
+  // Hide Log on Mobile
+  if (window.innerWidth <= 480) {
+    logDiv.classList.add('mobile-hidden');
+  }
+}
+
   // It's Log, from Blam-O!
   function addLogEntry(message) {
     if (!logDiv) return;
