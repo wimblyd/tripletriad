@@ -3,19 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
  // Mobile-only Log Dropdown
   const logToggleBar = document.getElementById('logToggleBar');
-  if (logToggleBar && logDiv) {
-    const arrow = logToggleBar.querySelector('.arrow');
-    if (window.innerWidth <= 480) logDiv.classList.add('mobile-hidden');
-    logToggleBar.addEventListener('click', () => {
-      if (logDiv.classList.contains('mobile-hidden')) {
-        logDiv.classList.remove('mobile-hidden');
-        logToggleBar.style.display = 'none';
-      } else {
-        logDiv.classList.add('mobile-hidden');
-        if (arrow) arrow.style.transform = 'rotate(0deg)';
-      }
-    });
-  }
+if (logToggleBar) {
+  const logDiv = document.getElementById('operation-log');
+  const arrow = logToggleBar.querySelector('.arrow');
+
+  // Start hidden on mobile
+  if (window.innerWidth <= 480) logDiv.classList.add('mobile-hidden');
+
+  logToggleBar.addEventListener('click', () => {
+    const isHidden = logDiv.classList.toggle('mobile-hidden');
+    if (arrow) arrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
+}
 
   // Start Menu
   (function setupHelpMenu() {
