@@ -519,8 +519,8 @@ body {
 /* Phones */
 @media (max-width: 480px) {
   :root {
-    --card-w: 34px;
-    --card-h: 44px;
+    --card-w: 30px;
+    --card-h: 39px;
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
@@ -557,4 +557,5 @@ body {
     animation: none !important; 
   }
 }
+
 
