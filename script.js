@@ -318,10 +318,10 @@ popOutButton.addEventListener("click", () => {
 
   // Sizer
   const rect = screenDiv.getBoundingClientRect();
-  const paddingWidth = 20;   // buffer for window chrome
-  const paddingHeight = 40;
+  const paddingWidth = 10; 
+  const paddingHeight = 10;
 
-  const minWidth = window.innerWidth * 0.85;   // 85% viewport for mobile
+  const minWidth = window.innerWidth * 0.85; 
   const minHeight = window.innerHeight * 0.85;
 
   const winWidth = Math.max(rect.width + paddingWidth, minWidth);
@@ -359,10 +359,9 @@ popOutButton.addEventListener("click", () => {
       max-width: 100%;
       max-height: 100%;
       padding: 2px;
-      gap: 8px;
+      gap: 2px;
       box-sizing: border-box;
       overflow: auto;
-      margin: 10px; /* small inset from edges */
     }
   `;
   popOutWin.document.head.appendChild(style);
