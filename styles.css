@@ -538,8 +538,6 @@ body {
   .lid {
     width: clamp(150px, 55vw, 400px);
   }
-
-  .buttons { padding: 2px; gap: 2px; }
 }
 
 /* Motion Prefs */
@@ -549,21 +547,3 @@ body {
     animation: none !important; 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
