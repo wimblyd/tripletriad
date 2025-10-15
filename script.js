@@ -429,7 +429,7 @@ popOutButton.addEventListener("mouseleave", () => {
 });
 
   // Start Button Menu
-  const style = document.createElement('style');
+  const style = document.createElement('startstyle');
   style.textContent = `
   
     #helpMenu {
@@ -463,7 +463,7 @@ popOutButton.addEventListener("mouseleave", () => {
       margin: 5px 0;
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(startstyle);
 
   const helpMenu = document.createElement('div');
   helpMenu.id = 'helpMenu';
