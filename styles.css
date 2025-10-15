@@ -396,15 +396,23 @@ body {
 .sys-btn {
   width: 20px;
   height: 20px;
-  box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
+  background-color: #c0c0c0; /* Classic gray */
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff; /* Light top/left, dark bottom/right */
+  box-shadow: none;
+  border-radius: 0;
   cursor: pointer;
-  transition: transform 0.1s, filter 0.2s;
+  font-family: 'MS Sans Serif', sans-serif;
+  transition: none;
+}
+
+.sys-btn:active {
+  border-color: #808080 #fff #fff #808080; /* Invert the bevel when pressed */
+  background-color: #a0a0a0;
 }
 
 .sys-btn:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
+  filter: brightness(1.05);
 }
 
 /* Clock */
@@ -546,5 +554,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
