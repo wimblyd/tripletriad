@@ -25,13 +25,13 @@ if (logToggleBar) {
   const helpMenu = document.createElement('div');
   helpMenu.id = 'helpMenu';
   helpMenu.style.position = 'fixed';
-  helpMenu.style.bottom = '40px';
-  helpMenu.style.left = '10px';
+  helpMenu.style.bottom = '28px';
+  helpMenu.style.left = '0px';
   helpMenu.style.width = '220px';
   helpMenu.style.backgroundColor = '#c0c0c0';
   helpMenu.style.border = '2px solid #000';
   helpMenu.style.padding = '10px';
-  helpMenu.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  helpMenu.style.fontFamily = "Tahoma, sans-serif";
   helpMenu.style.fontSize = '10px';
   helpMenu.style.display = 'none';
   helpMenu.style.zIndex = '9999';
@@ -40,7 +40,7 @@ if (logToggleBar) {
   [
     "Click to Flip",
     "Click to Unflip",
-    "Boost Button Locks Flipping and Opens a Counter!",
+    "□ Button Locks Flipping and Opens Card Counter",
     "Use the Pop Out Button on the Start Bar to Open Cards in New Window",
     "Cards & Counts Sync Across Tabs & Save to localStorage"
   ].forEach(line => {
