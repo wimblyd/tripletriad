@@ -473,66 +473,7 @@ popOutButton.addEventListener("mouseleave", () => {
   tooltip.style.opacity = "0";
 });
 
-  // Start Button Menu
-  const helpStyle = document.createElement('style');
-  helpStyle.textContent = `
-    #helpMenu {
-      position: fixed;
-      bottom: 40px;
-      left: 10px;
-      width: 220px;
-      background-color: #c0c0c0;
-      border: 2px solid #000;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      padding: 10px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 14px;
-      display: none;
-      z-index: 999;
-      transform: translateY(10px);
-      opacity: 0;
-      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-    }
-    #helpMenu.show {
-      display: block;
-      transform: translateY(0);
-      opacity: 1;
-    }
-    #helpMenu h3 {
-      margin: 0 0 5px 0;
-      font-weight: bold;
-    }
-    #helpMenu ul {
-      padding-left: 20px;
-      margin: 5px 0;
-    }
-  `;
-  document.head.appendChild(helpStyle);
-
-  const helpMenu = document.createElement('div');
-  helpMenu.id = 'helpMenu';
-  helpMenu.innerHTML = `
-    Click to Flip<br>
-    Click to Unflip<br>
-    Boost Button Locks Flipping and Opens a Counter!<br>
-    Use the Pop Out Button on the Start Bar to Open Cards in New Window<br>
-    Cards & Counts Sync Across Tabs & Save to localStorage<br>
-  `;
-  document.body.appendChild(helpMenu);
-
-  const startBtn = document.getElementById('startBtn');
-  if (startBtn) {
-    startBtn.addEventListener('click', () => {
-      helpMenu.classList.toggle('show');
-    });
-  }
-
-  document.addEventListener('click', (e) => {
-    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
-      helpMenu.classList.remove('show');
-    }
-  });
-
+ 
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
