@@ -15,6 +15,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   logDiv.scrollTop = logDiv.scrollHeight;
 
+  // Mobile-only Dropdown
+const logToggleBar = document.getElementById('logToggleBar');
+if (logToggleBar) {
+  logToggleBar.addEventListener('click', () => {
+    const arrow = logToggleBar.querySelector('.arrow');
+    if (logDiv.classList.contains('mobile-hidden')) {
+      logDiv.classList.remove('mobile-hidden');
+      logToggleBar.style.display = 'none'; // hide bar
+    } else {
+      logDiv.classList.add('mobile-hidden');
+      arrow.style.transform = 'rotate(0deg)';
+    }
+  });
+
+  // Hide Log on Mobile
+  if (window.innerWidth <= 480) {
+    logDiv.classList.add('mobile-hidden');
+  }
+}
+
   // Labelmaker
   document.querySelectorAll('.card').forEach(card => {
     const label = document.createElement('div');
@@ -386,7 +406,6 @@ popOutButton.addEventListener("click", () => {
   setTimeout(resizePopout, 100);
 });
 
-
 // Tooltip
 const tooltip = document.createElement("div");
 tooltip.textContent = "Pop Out The Card Screen";
@@ -518,30 +537,17 @@ if (startBtn) {
     localStorage.setItem("operationLog", JSON.stringify(logs));
   }
 
-// Mobile-only Dropdown
-const logToggleBar = document.getElementById('logToggleBar');
-if (logToggleBar) {
-  logToggleBar.addEventListener('click', () => {
-    const arrow = logToggleBar.querySelector('.arrow');
-    if (logDiv.classList.contains('mobile-hidden')) {
-      logDiv.classList.remove('mobile-hidden');
-      logToggleBar.style.display = 'none'; // hide bar
-    } else {
-      logDiv.classList.add('mobile-hidden');
-      arrow.style.transform = 'rotate(0deg)';
-    }
-  });
-
-  // Hide Log on Mobile
-  if (window.innerWidth <= 480) {
-    logDiv.classList.add('mobile-hidden');
-  }
-}
-
-
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
+
+// Resize Helper
+  window.addEventListener("resize", () => {
+    if (!logDiv || !logToggleBar) return;
+    if (window.innerWidth <= 768) logDiv.style.display = "none";
+    else logDiv.style.display = "block";
+  });
+});
 
 });
