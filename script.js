@@ -1,33 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
 
-  // It's Log, from Blam-O! — inside DOMContentLoaded
-  function addLogEntry(message) {
-    if (!logDiv) return;
-
-    const now = new Date();
-    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-    const entry = `[${timestamp}] ${message}`;
-
-    let color = "#ffffff"; // default
-    if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
-      color = "#ffbe32"; // yellow
-    } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
-      color = "#0384fc"; // blue
-    }
-
-    const entryDiv = document.createElement('div');
-    entryDiv.textContent = entry;
-    entryDiv.style.color = color;
-
-    logDiv.appendChild(entryDiv);
-    logDiv.scrollTop = logDiv.scrollHeight;
-
-    const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
-    logs.push({ message: entry, color });
-    localStorage.setItem("operationLog", JSON.stringify(logs));
-  }
-
   // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entryObj => {
     const div = document.createElement('div');
@@ -413,6 +386,7 @@ popOutButton.addEventListener("click", () => {
   setTimeout(resizePopout, 100);
 });
 
+
 // Tooltip
 const tooltip = document.createElement("div");
 tooltip.textContent = "Pop Out The Card Screen";
@@ -453,16 +427,38 @@ popOutButton.addEventListener("mousemove", e => {
 popOutButton.addEventListener("mouseleave", () => {
   tooltip.style.opacity = "0";
 });
+  
 
- 
+  // It's Log, from Blam-O!
+  function addLogEntry(message) {
+    if (!logDiv) return;
+
+    const now = new Date();
+    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+    const entry = `[${timestamp}] ${message}`;
+
+    let color = "#ffffff"; // default
+    if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
+      color = "#ffbe32"; // yellow
+    } else if (/^Acquired\s/.test(message) || /flipped/i.test(message)) {
+      color = "#0384fc"; // blue
+    }
+
+    const entryDiv = document.createElement('div');
+    entryDiv.textContent = entry;
+    entryDiv.style.color = color;
+
+    logDiv.appendChild(entryDiv);
+    logDiv.scrollTop = logDiv.scrollHeight;
+
+    const logs = JSON.parse(localStorage.getItem("operationLog") || "[]");
+    logs.push({ message: entry, color });
+    localStorage.setItem("operationLog", JSON.stringify(logs));
+  }
+
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
 
-  // Resize Helper
-  window.addEventListener("resize", () => {
-    if (!logDiv || !logToggleBar) return;
-    if (window.innerWidth <= 768) logDiv.style.display = "none";
-    else logDiv.style.display = "block";
-  });
+});
