@@ -12,7 +12,7 @@
   --card-h: 120px;
   --card-min-w: 30px;
   --card-min-h: 39px;
-  --card-margin: 1px;
+  --card-margin: 4px;
 
   --label-font: 8px;
   --boost-size: 30px;
@@ -77,7 +77,7 @@ body {
   align-items: flex-start;
   margin-top: 0;
   position: relative;
-  height: auto;
+  height: clamp(100px, 255px, 350px);
 }
 
 .buttons .button {
@@ -121,29 +121,26 @@ body {
 .tupperware {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: stretch; 
   justify-content: flex-start;
-  width: 100%;
+  width: auto; 
   gap: var(--gutter);
   padding: 2px;
-  flex: 1 1 auto;
-  min-height: 0; 
 }
 
 /* Intranet */
-.screen {
+.screen{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  flex: 1 1 auto;
-  min-height: 0;
+  align-self: stretch;
+  width: auto;
   padding: 2px;
-  gap: 2px;
-  overflow-x: auto;
-  overflow-y: auto;
-  background: transparent;
+  gap: 8px;
+  overflow: auto;
   box-sizing: border-box;
+  background: transparent;
 }
 
 /* Shuffle or Boogie */
@@ -285,7 +282,7 @@ body {
 
 .counter-number-container { 
   display:flex; 
-  gap: 1px; 
+  gap: 2px; 
   align-items:center; 
   justify-content:center; 
 } 
@@ -335,36 +332,6 @@ body {
   width: 13px; 
   height: 13px; 
 } 
-
-/* Pop Out */
-.popout-mode html,
-.popout-mode body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  background: black;
-  overflow: hidden;
-}
-
-.popout-mode .screen {
-  flex: 1 1 auto;
-  min-height: 0;
-  width: auto;
-  max-width: 100%;
-  height: auto; /* lets flex stretch it */
-  max-height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 2px;
-  overflow-x: auto;
-  overflow-y: auto;
-}
 
 ::-webkit-scrollbar-track-piece { 
   background-color: #ebebeb; 
@@ -429,23 +396,15 @@ body {
 .sys-btn {
   width: 20px;
   height: 20px;
-  background-color: #c0c0c0; 
-  border: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
-  box-shadow: none;
-  border-radius: 0;
+  box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
   cursor: pointer;
-  font-family: 'MS Sans Serif', sans-serif;
-  transition: none;
-}
-
-.sys-btn:active {
-  border-color: #808080 #fff #fff #808080; /* Invert the bevel when pressed */
-  background-color: #a0a0a0;
+  transition: transform 0.1s, filter 0.2s;
 }
 
 .sys-btn:hover {
-  filter: brightness(1.05);
+  transform: scale(1.1);
+  filter: brightness(1.2);
 }
 
 .sys-center a,
@@ -484,6 +443,8 @@ body {
     width: clamp(300px, 35vw, 800px);
   }
 }
+
+/* Desktop default already handles lid scaling — no ::before needed */
 
 /* Laptops */
 @media (max-width: 1024px) {
@@ -526,24 +487,20 @@ body {
     --log-width: 100%; 
   }
 
-    .wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
   .tupperware {
     flex-direction: column;
     align-items: stretch;
-    overflow-x: visible;
     padding: 4px;
     gap: 4px;
   }
 
   .screen {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 4px;
     overflow: auto;
     justify-content: flex-start; 
     flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
   }
 
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
@@ -573,8 +530,8 @@ body {
   }
 
   .buttons .button {
-    width: 90px;
-    height: 30px;
+    width: 120px;
+    height: 50px;
   }
   .buttons .button + .button { margin-top: -8px; }
 
@@ -590,6 +547,9 @@ body {
     width: clamp(150px, 55vw, 400px);
   }
 
+  .buttons { padding: 2px; gap: 2px; }
+}
+
 /* Motion Prefs */
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { 
@@ -597,17 +557,4 @@ body {
     animation: none !important; 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
