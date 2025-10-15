@@ -550,6 +550,29 @@ body {
   .buttons { padding: 2px; gap: 2px; }
 }
 
+/* Mobile-only Log Toggle */
+@media (max-width: 480px) {
+  #logToggleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #808080;
+    color: white;
+    font-size: 12px;
+    padding: 6px 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #logToggleBar span.arrow {
+    transition: transform 0.2s ease;
+  }
+
+  #operation-log.mobile-hidden {
+    display: none;
+  }
+}
+
 /* Motion Prefs */
 @media (prefers-reduced-motion: reduce) {
   .card-inner, .boost-button { 
@@ -557,5 +580,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
