@@ -493,6 +493,7 @@ body {
   .tupperware {
     flex-direction: column;
     align-items: stretch;
+    overflow-x: visible;
     padding: 4px;
     gap: 4px;
   }
@@ -504,6 +505,7 @@ body {
     overflow: auto;
     justify-content: flex-start; 
     flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
 
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
@@ -557,6 +559,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
