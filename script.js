@@ -1,6 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
 
+ // Mobile-only Log Dropdown
+  const logToggleBar = document.getElementById('logToggleBar');
+  if (logToggleBar && logDiv) {
+    const arrow = logToggleBar.querySelector('.arrow');
+    if (window.innerWidth <= 480) logDiv.classList.add('mobile-hidden');
+    logToggleBar.addEventListener('click', () => {
+      if (logDiv.classList.contains('mobile-hidden')) {
+        logDiv.classList.remove('mobile-hidden');
+        logToggleBar.style.display = 'none';
+      } else {
+        logDiv.classList.add('mobile-hidden');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
+    });
+  }
+
+  // Start Menu
+  (function setupHelpMenu() {
+    const helpStyle = document.createElement('style');
+    helpStyle.textContent = `...`; // style as above
+    document.head.appendChild(helpStyle);
+
+    const helpMenu = document.createElement('div');
+    helpMenu.id = 'helpMenu';
+    ["Click to Flip","Click to Unflip","Boost Button Locks Flipping..."].forEach(line => {
+      const div = document.createElement('div');
+      div.textContent = line;
+      helpMenu.appendChild(div);
+    });
+    document.body.appendChild(helpMenu);
+
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) startBtn.addEventListener('click', () => helpMenu.classList.toggle('show'));
+
+    document.addEventListener('click', e => {
+      if (!helpMenu.contains(e.target) && e.target !== startBtn) helpMenu.classList.remove('show');
+    });
+  })();
+
+  
   // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entryObj => {
     const div = document.createElement('div');
