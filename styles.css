@@ -499,9 +499,6 @@ body {
   }
 
   .screen {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 4px;
     overflow: auto;
     justify-content: flex-start; 
     flex-wrap: nowrap;
@@ -559,6 +556,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
