@@ -496,16 +496,18 @@ popOutButton.addEventListener("mouseleave", () => {
   // Chocobo World
 const overlay = document.getElementById("boko-overlay");
 const button = document.getElementById("cwBtn");
+const hotspot = document.getElementById("boko-close-hotspot");
 
 button.addEventListener("click", () => {
   overlay.style.display = "block";
 });
 
-// Close overlay when clicking outside the iframe
 overlay.addEventListener("click", e => {
-  if (e.target === overlay) {
-    overlay.style.display = "none";
-  }
+  if (e.target === overlay) overlay.style.display = "none";
+});
+
+hotspot.addEventListener("click", () => {
+  overlay.style.display = "none";
 });
   
 
