@@ -152,52 +152,69 @@ if (logToggleBar) {
       }
     }
 
-    // Count sync
-    if (event.key.endsWith("-count")) {
-      const id = event.key.replace("card-", "").replace("-count", "");
-      const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
-      if (counter) {
-        const numberContainer = counter.querySelector(".counter-number-container");
-        const newCount = parseInt(event.newValue, 10) || 0;
-        numberContainer.innerHTML = "";
-        if (newCount >= 100) {
-          const star = Object.assign(document.createElement("img"), {
-            src: "img/Star.png",
-            alt: "100",
-            className: "counter-number"
-          });
-          numberContainer.appendChild(star);
-        } else {
-          newCount.toString().split("").forEach(d => {
-            const digitImg = Object.assign(document.createElement("img"), {
-              src: `img/${d}.png`,
-              alt: d,
-              className: "counter-number"
-            });
-            numberContainer.appendChild(digitImg);
-          });
-        }
-        if (newCount > 0) counter.classList.add("visible");
-        else counter.classList.remove("visible");
+  // Count sync
+  if (event.key.endsWith("-count")) {
+    const id = event.key.replace("card-", "").replace("-count", "");
+    const counter = document.querySelector(`.card-counter[data-card-id="${id}"]`);
+    if (counter) {
+      const numberContainer = counter.querySelector(".counter-number-container");
+      const newCount = parseInt(event.newValue, 10) || 0;
+      numberContainer.innerHTML = "";
+      if (newCount >= 100) {
+        const star = Object.assign(document.createElement("img"), { src: "img/Star.png", alt: "100", className: "counter-number" });
+        numberContainer.appendChild(star);
+      } else {
+        newCount.toString().split("").forEach(d => {
+          const digitImg = Object.assign(document.createElement("img"), { src: `img/${d}.png`, alt: d, className: "counter-number" });
+          numberContainer.appendChild(digitImg);
+        });
       }
+      if (newCount > 0) counter.classList.add("visible");
+      else counter.classList.remove("visible");
     }
+  }
 
     // Boost sync
-    if (event.key.endsWith("-boost")) {
-      const id = event.key.replace("card-", "").replace("-boost", "");
-      const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
-      const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
-      if (boost && card) {
-        if (event.newValue === "used") {
-          boost.classList.add("used");
-          if (card.classList.contains("flipped")) card.classList.add("boost-locked");
-        } else {
-          boost.classList.remove("used");
-          card.classList.remove("boost-locked");
-        }
-      }
+if (event.key.endsWith("-boost")) {
+  const id = event.key.replace("card-", "").replace("-boost", "");
+  const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
+  const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
+  const counter = card?.querySelector(".card-counter");
+  const numberContainer = counter?.querySelector(".counter-number-container");
+  if (boost && card && counter && numberContainer) {
+    if (event.newValue === "used") {
+      boost.classList.add("used");
+      if (card.classList.contains("flipped")) card.classList.add("boost-locked");
+
+      // Set counter to 1 visually and in localStorage
+      localStorage.setItem(`card-${id}-count`, 1);
+      numberContainer.innerHTML = "";
+      const digitImg = Object.assign(document.createElement("img"), {
+        src: `img/1.png`,
+        alt: "1",
+        className: "counter-number"
+      });
+      numberContainer.appendChild(digitImg);
+      counter.classList.add("visible");
+      addLogEntry(`${card.title} count changed to 1`);
+    } else {
+      boost.classList.remove("used");
+      card.classList.remove("boost-locked");
+
+      // Clear counter visually and in localStorage
+      localStorage.setItem(`card-${id}-count`, 0);
+      numberContainer.innerHTML = "";
+      const zeroImg = Object.assign(document.createElement("img"), {
+        src: "img/0.png",
+        alt: "0",
+        className: "counter-number"
+      });
+      numberContainer.appendChild(zeroImg);
+      counter.classList.remove("visible");
+      addLogEntry(`${card.title} count cleared`);
     }
-  });
+  }
+}
 
   // Copy log
   document.getElementById("copyLogButton")?.addEventListener("click", () => {
@@ -226,13 +243,8 @@ if (logToggleBar) {
 
   // Mathemathical!
  (function addCardCounters() {
-  const counterCardIds = [...Array(47).keys()].map(i => i + 1).concat([...Array(29).keys()].map(i => i + 49));
-  const syncCountChange = (id, count) => {
-    localStorage.setItem(`card-${id}-count`, count);
-    window.dispatchEvent(new CustomEvent("cardCountSync", {
-      detail: { key: `card-${id}-count`, newValue: count.toString() }
-    }));
-  };
+  const counterCardIds = [...Array(47).keys()].map(i => i + 1)
+    .concat([...Array(29).keys()].map(i => i + 49));
 
   counterCardIds.forEach(id => {
     const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
@@ -240,6 +252,7 @@ if (logToggleBar) {
 
     const cardInner = card.querySelector(".card-inner");
 
+    // Create counter
     const counter = document.createElement("div");
     counter.className = "card-counter";
     counter.dataset.cardId = id;
@@ -268,13 +281,15 @@ if (logToggleBar) {
           numberContainer.appendChild(digitImg);
         });
       }
+      if (c > 0) counter.classList.add("visible");
+      else counter.classList.remove("visible");
     };
 
     renderNumber(count);
 
     const updateCount = delta => {
       count = Math.max(0, Math.min(100, count + delta));
-      syncCountChange(id, count);
+      localStorage.setItem(`card-${id}-count`, count); // <-- Cross-tab sync happens here
       renderNumber(count);
       addLogEntry(`${card.title} count changed to ${count}`);
     };
@@ -289,20 +304,18 @@ if (logToggleBar) {
 
       if (!boostUsed) {
         count = 1;
-        syncCountChange(id, count);
+        localStorage.setItem(`card-${id}-count`, count); // <-- Cross-tab sync
         renderNumber(count);
         counter.classList.add("visible");
         boost.classList.add("used");
         localStorage.setItem(boostKey, "used");
 
-        if (card.classList.contains("flipped")) {
-          card.classList.add("boost-locked");
-        }
+        if (card.classList.contains("flipped")) card.classList.add("boost-locked");
 
         addLogEntry(`${card.title} count changed to ${count}`);
       } else {
         count = 0;
-        syncCountChange(id, count);
+        localStorage.setItem(`card-${id}-count`, count); // <-- Cross-tab sync
         renderNumber(count);
         counter.classList.remove("visible");
         boost.classList.remove("used");
@@ -315,31 +328,6 @@ if (logToggleBar) {
     });
   });
 })();
-
-  // Sync Tabs
-  window.addEventListener("cardCountSync", e => {
-    const { key, newValue } = e.detail;
-    const cardId = key.replace("card-", "").replace("-count", "");
-    const card = document.querySelector(`.card[data-card-id="card-${cardId}"]`);
-    if (!card) return;
-
-    const counter = card.querySelector(".card-counter");
-    const numberContainer = counter?.querySelector(".counter-number-container");
-    if (!numberContainer) return;
-
-    numberContainer.innerHTML = "";
-    const c = parseInt(newValue, 10);
-    if (c >= 100) {
-      const star = Object.assign(document.createElement("img"), { src: "img/Star.png", alt: "100", className: "counter-number" });
-      numberContainer.appendChild(star);
-    } else {
-      c.toString().split("").forEach(d => {
-        const digitImg = Object.assign(document.createElement("img"), { src: `img/${d}.png`, alt: d, className: "counter-number" });
-        numberContainer.appendChild(digitImg);
-      });
-    }
-  });
-
   
   // Clock
   function updateClock() {
