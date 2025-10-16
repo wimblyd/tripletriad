@@ -523,7 +523,7 @@ hotspot.addEventListener("click", () => {
       { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
       { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
       { icon: 'img/ChocoboWorld.png', text: 'Click into the Chocobo World Window' },
-      { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows, Space, and R & E keys' }
+      { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
     ];
 
     helpItems.forEach(item => {
