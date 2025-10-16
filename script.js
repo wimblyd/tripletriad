@@ -532,13 +532,21 @@ hotspot.addEventListener("click", () => {
       Object.assign(line.style, {
         background: `url(${item.icon}) no-repeat left center`,
         backgroundSize: '25px 25px',
-        paddingLeft: '22px',
+        paddingLeft: '30px',
         marginBottom: '4px',
         lineHeight: '25px'
       });
-      helpMenu.appendChild(line);
+        if (item.text.includes('Pop Out')) {
+    line.style.cursor = 'pointer';
+    line.addEventListener('click', () => {
+      const originalPopOutBtn = document.getElementById('popOutBtn');
+      if (originalPopOutBtn) originalPopOutBtn.click();
     });
+  }
 
+  helpMenu.appendChild(line);
+});
+    
     document.body.appendChild(helpMenu);
 
     // Toggle menu
