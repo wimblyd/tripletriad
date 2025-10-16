@@ -543,6 +543,13 @@ hotspot.addEventListener("click", () => {
       if (originalPopOutBtn) originalPopOutBtn.click();
     });
   }
+       if (item.text.includes('Chocobo')) {
+    line.style.cursor = 'pointer';
+    line.addEventListener('click', () => {
+      const overlay = document.getElementById('boko-overlay');
+      if (overlay) overlay.style.display = 'block';
+    });
+  }
 
   helpMenu.appendChild(line);
 });
