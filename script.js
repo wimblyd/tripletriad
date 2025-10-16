@@ -517,13 +517,13 @@ hotspot.addEventListener("click", () => {
     });
 
     const helpItems = [
-      { icon: 'img/icon-click.png', text: 'Click to Flip' },
-      { icon: 'img/icon-unflip.png', text: 'Click to Unflip' },
+      { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
+      { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
       { icon: 'img/icon-lock.png', text: 'Lock Flipping and Open Card Counter' },
-      { icon: 'img/PopOut.png', text: 'Use the Pop Out Button to Open Cards in New Window' },
+      { icon: 'img/PopOut.png', text: 'Pop Out to Open Cards in New Window' },
       { icon: 'img/icon-save.png', text: 'Syncs Across Tabs & Saves to localStorage' },
-      { icon: 'img/ChocoboWorld.png', text: 'To Play Chocobo World, Click in to the Window to Start.' },
-      { icon: 'img/icon-keys.png', text: 'Use Directional Arrows, Space Bar, and the R & E keys' }
+      { icon: 'img/ChocoboWorld.png', text: 'Click into the ChocoboWorld Window to Start.' },
+      { icon: 'img/icon-keys.png', text: 'Boko Uses Directional Arrows, Space Bar, and the R & E keys' }
     ];
 
     helpItems.forEach(item => {
