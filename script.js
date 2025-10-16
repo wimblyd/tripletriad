@@ -247,7 +247,8 @@ if (logToggleBar) {
       const boost = Object.assign(document.createElement("img"), { className: "boost-button", src: "img/Boost.png", alt: "Show counter" });
       cardInner.append(boost, counter);
 
-      let count = parseInt(localStorage.getItem(`card-${id}-count`) || "1", 10);
+      let count = parseInt(localStorage.getItem(`card-${id}-count`), 10);
+      if (isNaN(count)) count = 0;
 
       const renderNumber = c => {
         numberContainer.innerHTML = "";
@@ -265,12 +266,17 @@ if (logToggleBar) {
       renderNumber(count);
 
       const updateCount = delta => {
-        count = Math.max(0, Math.min(100, count + delta));
-        localStorage.setItem(`card-${id}-count`, count);
-        renderNumber(count);
-        addLogEntry(`${card.title} count changed to ${count}`);
-      };
+  count = Math.max(0, Math.min(100, count + delta));
+  localStorage.setItem(`card-${id}-count`, count);
+  window.dispatchEvent(new StorageEvent('storage', { 
+    key: `card-${id}-count`, 
+    newValue: count.toString() 
+  }));
 
+  renderNumber(count);
+  addLogEntry(`${card.title} count changed to ${count}`);
+};
+      
       upArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(1); });
       downArrow.addEventListener("click", e => { e.stopPropagation(); updateCount(-1); });
 
@@ -282,6 +288,10 @@ if (logToggleBar) {
         if (!boostUsed) {
           count = 1;
           localStorage.setItem(`card-${id}-count`, count);
+          window.dispatchEvent(new StorageEvent('storage', { 
+          key: `card-${id}-count`, 
+          newValue: count.toString() 
+          }));
           renderNumber(count);
           counter.classList.add("visible");
           boost.classList.add("used");
@@ -295,6 +305,10 @@ if (logToggleBar) {
         } else {
           count = 0;
           localStorage.setItem(`card-${id}-count`, count);
+         window.dispatchEvent(new StorageEvent('storage', { 
+          key: `card-${id}-count`, 
+          newValue: count.toString() 
+          }));
           renderNumber(count);
           counter.classList.remove("visible");
           boost.classList.remove("used");
