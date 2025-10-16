@@ -16,41 +16,56 @@ if (logToggleBar) {
   });
 }
 
-  // Start Menu
- (function setupHelpMenu() {
+// Start Menu
+(function setupHelpMenu() {
   const startBtn = document.getElementById('startBtn');
   if (!startBtn) return;
 
-  // Create help menu
+  // Create
   const helpMenu = document.createElement('div');
   helpMenu.id = 'helpMenu';
-  helpMenu.style.position = 'fixed';
-  helpMenu.style.bottom = '28px';
-  helpMenu.style.left = '0px';
-  helpMenu.style.width = '220px';
-  helpMenu.style.backgroundColor = '#c0c0c0';
-  helpMenu.style.border = '2px solid #000';
-  helpMenu.style.padding = '10px';
-  helpMenu.style.fontFamily = "Tahoma, sans-serif";
-  helpMenu.style.fontSize = '10px';
-  helpMenu.style.display = 'none';
-  helpMenu.style.zIndex = '9999';
+  Object.assign(helpMenu.style, {
+    position: 'fixed',
+    bottom: '28px',
+    left: '0px',
+    width: '220px',
+    backgroundColor: '#c0c0c0',
+    border: '2px solid #000',
+    padding: '8px 10px',
+    fontFamily: 'Tahoma, sans-serif',
+    fontSize: '10px',
+    display: 'none',
+    zIndex: '9999',
+    boxShadow: '2px 2px 0 #808080 inset, -1px -1px 0 #fff inset'
+  });
 
-  // Add lines
-  [
-    "Click to Flip",
-    "Click to Unflip",
-    "□ Button Locks Flipping and Opens Card Counter",
-    "Use the Pop Out Button on the Start Bar to Open Cards in New Window",
-    "Cards & Counts Sync Across Tabs & Save to localStorage",
-    "To Play Chocobo World, Use Directional Arrows, Space Bar, and the R & E keys"
-  ].forEach(line => {
-    const div = document.createElement('div');
-    div.textContent = line;
-    helpMenu.appendChild(div);
+  // Menu
+  const helpItems = [
+    { icon: 'img/icon-click.png', text: 'Click to Flip' },
+    { icon: 'img/icon-unflip.png', text: 'Click to Unflip' },
+    { icon: 'img/icon-lock.png', text: 'Lock Flipping and Open Card Counter' },
+    { icon: 'img/PopOut.png', text: 'Use the Pop Out Button to Open Cards in New Window' },
+    { icon: 'img/icon-save.png', text: 'Syncs Across Tabs & Saves to localStorage' },
+    { icon: 'img/ChocoboWorld.png', text: 'To Play Chocobo World, Click in to the Window to Start.' },
+    { icon: 'img/icon-keys.png', text: 'Use Directional Arrows, Space Bar, and the R & E keys' }
+  ];
+
+  // Icons
+  helpItems.forEach(item => {
+    const line = document.createElement('div');
+    line.textContent = item.text;
+    Object.assign(line.style, {
+      background: `url(${item.icon}) no-repeat left center`,
+      backgroundSize: '14px 14px',
+      paddingLeft: '22px',
+      marginBottom: '4px',
+      lineHeight: '16px'
+    });
+    helpMenu.appendChild(line);
   });
 
   document.body.appendChild(helpMenu);
+})();
 
   // Toggle menu
   startBtn.addEventListener('click', e => {
