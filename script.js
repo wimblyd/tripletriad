@@ -2,6 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
   const cards = document.querySelectorAll('.card');
 
+// Labelmaker 
+  document.querySelectorAll('.card').forEach(card => { 
+    const label = document.createElement('div'); 
+    label.className = 'card-label'; 
+    label.textContent = card.title || card.querySelector('.card-front')?.alt || ''; 
+    card.insertAdjacentElement('afterend', label); 
+  });
+  
   const createImg = (className, src, alt) => Object.assign(document.createElement("img"), { className, src, alt });
 
   // Mathematical!
