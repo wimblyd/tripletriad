@@ -314,6 +314,7 @@ if (logToggleBar) {
       }
     });
   });
+})();
 
   // Sync Tabs
   window.addEventListener("cardCountSync", e => {
@@ -338,7 +339,7 @@ if (logToggleBar) {
       });
     }
   });
-})();
+
   
   // Clock
   function updateClock() {
