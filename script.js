@@ -212,6 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
     logDiv.scrollTop = logDiv.scrollHeight;
   });
 
+  // Guide 
+  document.getElementById("guideButton")?.addEventListener("click", () => { 
+    window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1", "_blank"); 
+    addLogEntry("Guide Downloaded"); 
+  });
+
   // Clock
   const updateClock=()=>document.getElementById('sys-clock').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
   setInterval(updateClock,1000); updateClock();
