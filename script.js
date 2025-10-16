@@ -540,10 +540,10 @@ hotspot.addEventListener("click", () => {
     const helpItems = [
       { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
       { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
-      { icon: 'img/icon-lock.png', text: 'Lock Flipping/Open Card Counter' },
+      { icon: 'img/Boost.png', text: 'Locks Flipping/Open Card Counter' },
       { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
       { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
-      { icon: 'img/ChocoboWorld.png', text: 'Click into the Chocobo World Window' },
+      { icon: 'img/ChocoboWorld.png', text: 'Click Chocobo World Window to play' },
       { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
     ];
 
