@@ -216,7 +216,7 @@ window.addEventListener("storage", event => {
   }
 });
 
-// COPY, CLEAR, GUIDE buttons – now OUTSIDE the storage listener
+// COPY CLEAR GUIDE 
 document.getElementById("copyLogButton")?.addEventListener("click", () => {
   const logDiv = document.getElementById('operation-log');
   const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
