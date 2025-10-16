@@ -531,10 +531,10 @@ hotspot.addEventListener("click", () => {
       line.textContent = item.text;
       Object.assign(line.style, {
         background: `url(${item.icon}) no-repeat left center`,
-        backgroundSize: '14px 14px',
+        backgroundSize: '25px 25px',
         paddingLeft: '22px',
         marginBottom: '4px',
-        lineHeight: '16px'
+        lineHeight: '25px'
       });
       helpMenu.appendChild(line);
     });
