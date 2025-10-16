@@ -42,7 +42,8 @@ if (logToggleBar) {
     "Click to Unflip",
     "□ Button Locks Flipping and Opens Card Counter",
     "Use the Pop Out Button on the Start Bar to Open Cards in New Window",
-    "Cards & Counts Sync Across Tabs & Save to localStorage"
+    "Cards & Counts Sync Across Tabs & Save to localStorage",
+    "To Play Chocobo World, Use Directional Arrows, Space Bar, and the R & E keys"
   ].forEach(line => {
     const div = document.createElement('div');
     div.textContent = line;
