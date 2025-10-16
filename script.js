@@ -15,72 +15,6 @@ if (logToggleBar) {
     if (arrow) arrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
   });
 }
-
-// Start Menu
-(function setupHelpMenu() {
-  const startBtn = document.getElementById('startBtn');
-  if (!startBtn) return;
-
-  // Create
-  const helpMenu = document.createElement('div');
-  helpMenu.id = 'helpMenu';
-  Object.assign(helpMenu.style, {
-    position: 'fixed',
-    bottom: '28px',
-    left: '0px',
-    width: '220px',
-    backgroundColor: '#c0c0c0',
-    border: '2px solid #000',
-    padding: '8px 10px',
-    fontFamily: 'Tahoma, sans-serif',
-    fontSize: '10px',
-    display: 'none',
-    zIndex: '9999',
-    boxShadow: '2px 2px 0 #808080 inset, -1px -1px 0 #fff inset'
-  });
-
-  // Menu
-  const helpItems = [
-    { icon: 'img/icon-click.png', text: 'Click to Flip' },
-    { icon: 'img/icon-unflip.png', text: 'Click to Unflip' },
-    { icon: 'img/icon-lock.png', text: 'Lock Flipping and Open Card Counter' },
-    { icon: 'img/PopOut.png', text: 'Use the Pop Out Button to Open Cards in New Window' },
-    { icon: 'img/icon-save.png', text: 'Syncs Across Tabs & Saves to localStorage' },
-    { icon: 'img/ChocoboWorld.png', text: 'To Play Chocobo World, Click in to the Window to Start.' },
-    { icon: 'img/icon-keys.png', text: 'Use Directional Arrows, Space Bar, and the R & E keys' }
-  ];
-
-  // Icons
-  helpItems.forEach(item => {
-    const line = document.createElement('div');
-    line.textContent = item.text;
-    Object.assign(line.style, {
-      background: `url(${item.icon}) no-repeat left center`,
-      backgroundSize: '14px 14px',
-      paddingLeft: '22px',
-      marginBottom: '4px',
-      lineHeight: '16px'
-    });
-    helpMenu.appendChild(line);
-  });
-
-  document.body.appendChild(helpMenu);
-})();
-
-  // Toggle menu
-  startBtn.addEventListener('click', e => {
-    e.stopPropagation(); // prevent immediate document click
-    helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener('click', e => {
-    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
-      helpMenu.style.display = 'none';
-    }
-  });
-})();
-
   
   // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entryObj => {
@@ -558,5 +492,67 @@ hotspot.addEventListener("click", () => {
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
   }
+
+// Start Menu
+  (function setupHelpMenu() {
+    const startBtn = document.getElementById('startBtn');
+    if (!startBtn) return;
+
+    // Create
+    const helpMenu = document.createElement('div');
+    helpMenu.id = 'helpMenu';
+    Object.assign(helpMenu.style, {
+      position: 'fixed',
+      bottom: '28px',
+      left: '0px',
+      width: '220px',
+      backgroundColor: '#c0c0c0',
+      border: '2px solid #000',
+      padding: '8px 10px',
+      fontFamily: 'Tahoma, sans-serif',
+      fontSize: '10px',
+      display: 'none',
+      zIndex: '9999',
+      boxShadow: '2px 2px 0 #808080 inset, -1px -1px 0 #fff inset'
+    });
+
+    const helpItems = [
+      { icon: 'img/icon-click.png', text: 'Click to Flip' },
+      { icon: 'img/icon-unflip.png', text: 'Click to Unflip' },
+      { icon: 'img/icon-lock.png', text: 'Lock Flipping and Open Card Counter' },
+      { icon: 'img/PopOut.png', text: 'Use the Pop Out Button to Open Cards in New Window' },
+      { icon: 'img/icon-save.png', text: 'Syncs Across Tabs & Saves to localStorage' },
+      { icon: 'img/ChocoboWorld.png', text: 'To Play Chocobo World, Click in to the Window to Start.' },
+      { icon: 'img/icon-keys.png', text: 'Use Directional Arrows, Space Bar, and the R & E keys' }
+    ];
+
+    helpItems.forEach(item => {
+      const line = document.createElement('div');
+      line.textContent = item.text;
+      Object.assign(line.style, {
+        background: `url(${item.icon}) no-repeat left center`,
+        backgroundSize: '14px 14px',
+        paddingLeft: '22px',
+        marginBottom: '4px',
+        lineHeight: '16px'
+      });
+      helpMenu.appendChild(line);
+    });
+
+    document.body.appendChild(helpMenu);
+
+    // Toggle menu
+    startBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', e => {
+      if (!helpMenu.contains(e.target) && e.target !== startBtn) {
+        helpMenu.style.display = 'none';
+      }
+    });
+  })();
 
 });
