@@ -492,6 +492,21 @@ popOutButton.addEventListener("mousemove", e => {
 popOutButton.addEventListener("mouseleave", () => {
   tooltip.style.opacity = "0";
 });
+
+  // Chocobo World
+const overlay = document.getElementById("boko-overlay");
+const button = document.getElementById("cwBtn");
+
+button.addEventListener("click", () => {
+  overlay.style.display = "block";
+});
+
+// Close overlay when clicking outside the iframe
+overlay.addEventListener("click", e => {
+  if (e.target === overlay) {
+    overlay.style.display = "none";
+  }
+});
   
 
   // It's Log, from Blam-O!
