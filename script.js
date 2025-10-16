@@ -134,23 +134,23 @@ if (logToggleBar) {
   });
 
   // Everything but the Kitchen Sync
-  window.addEventListener("storage", event => {
-    if (!event.key) return;
+window.addEventListener("storage", event => {
+  if (!event.key) return;
 
-    // Flip sync
-    if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
-      const card = document.querySelector(`[data-card-id="${event.key}"]`);
-      if (card) {
-        const shouldBeFlipped = event.newValue === "flipped";
-        card.classList.toggle("flipped", shouldBeFlipped);
-        card.setAttribute("aria-pressed", shouldBeFlipped ? "true" : "false");
-        if (shouldBeFlipped && localStorage.getItem(`${event.key}-boost`) === "used") {
-          card.classList.add("boost-locked");
-        } else {
-          card.classList.remove("boost-locked");
-        }
+  // Flip sync
+  if (event.key.startsWith("card-") && !event.key.endsWith("-count") && !event.key.endsWith("-boost")) {
+    const card = document.querySelector(`[data-card-id="${event.key}"]`);
+    if (card) {
+      const shouldBeFlipped = event.newValue === "flipped";
+      card.classList.toggle("flipped", shouldBeFlipped);
+      card.setAttribute("aria-pressed", shouldBeFlipped ? "true" : "false");
+      if (shouldBeFlipped && localStorage.getItem(`${event.key}-boost`) === "used") {
+        card.classList.add("boost-locked");
+      } else {
+        card.classList.remove("boost-locked");
       }
     }
+  }
 
   // Count sync
   if (event.key.endsWith("-count")) {
@@ -174,72 +174,72 @@ if (logToggleBar) {
     }
   }
 
-    // Boost sync
-if (event.key.endsWith("-boost")) {
-  const id = event.key.replace("card-", "").replace("-boost", "");
-  const boost = document.querySelector(`.card[data-card-id="card-${id}"] .boost-button`);
-  const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
-  const counter = card?.querySelector(".card-counter");
-  const numberContainer = counter?.querySelector(".counter-number-container");
-  if (boost && card && counter && numberContainer) {
-    if (event.newValue === "used") {
-      boost.classList.add("used");
-      if (card.classList.contains("flipped")) card.classList.add("boost-locked");
+  // Boost sync
+  if (event.key.endsWith("-boost")) {
+    const id = event.key.replace("card-", "").replace("-boost", "");
+    const card = document.querySelector(`.card[data-card-id="card-${id}"]`);
+    const boost = card?.querySelector(".boost-button");
+    const counter = card?.querySelector(".card-counter");
+    const numberContainer = counter?.querySelector(".counter-number-container");
 
-      // Set counter to 1 visually and in localStorage
-      localStorage.setItem(`card-${id}-count`, 1);
-      numberContainer.innerHTML = "";
-      const digitImg = Object.assign(document.createElement("img"), {
-        src: `img/1.png`,
-        alt: "1",
-        className: "counter-number"
-      });
-      numberContainer.appendChild(digitImg);
-      counter.classList.add("visible");
-      addLogEntry(`${card.title} count changed to 1`);
-    } else {
-      boost.classList.remove("used");
-      card.classList.remove("boost-locked");
+    if (card && boost && counter && numberContainer) {
+      if (event.newValue === "used") {
+        boost.classList.add("used");
+        if (card.classList.contains("flipped")) card.classList.add("boost-locked");
 
-      // Clear counter visually and in localStorage
-      localStorage.setItem(`card-${id}-count`, 0);
-      numberContainer.innerHTML = "";
-      const zeroImg = Object.assign(document.createElement("img"), {
-        src: "img/0.png",
-        alt: "0",
-        className: "counter-number"
-      });
-      numberContainer.appendChild(zeroImg);
-      counter.classList.remove("visible");
-      addLogEntry(`${card.title} count cleared`);
+        localStorage.setItem(`card-${id}-count`, 1);
+        numberContainer.innerHTML = "";
+        const digitImg = Object.assign(document.createElement("img"), {
+          src: "img/1.png",
+          alt: "1",
+          className: "counter-number"
+        });
+        numberContainer.appendChild(digitImg);
+        counter.classList.add("visible");
+        addLogEntry(`${card.title} count changed to 1`);
+      } else {
+        boost.classList.remove("used");
+        card.classList.remove("boost-locked");
+
+        localStorage.setItem(`card-${id}-count`, 0);
+        numberContainer.innerHTML = "";
+        const zeroImg = Object.assign(document.createElement("img"), {
+          src: "img/0.png",
+          alt: "0",
+          className: "counter-number"
+        });
+        numberContainer.appendChild(zeroImg);
+        counter.classList.remove("visible");
+        addLogEntry(`${card.title} count cleared`);
+      }
     }
   }
-}
+});
 
-  // Copy log
-  document.getElementById("copyLogButton")?.addEventListener("click", () => {
-    const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
-    navigator.clipboard.writeText(text)
-      .then(() => addLogEntry("Log copied to clipboard"))
-      .catch(err => console.error("Failed to copy log:", err));
-  });
+// COPY, CLEAR, GUIDE buttons – now OUTSIDE the storage listener
+document.getElementById("copyLogButton")?.addEventListener("click", () => {
+  const logDiv = document.getElementById('operation-log');
+  const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
+  navigator.clipboard.writeText(text)
+    .then(() => addLogEntry("Log copied to clipboard"))
+    .catch(err => console.error("Failed to copy log:", err));
+});
 
-  // Clear log
-  document.getElementById("clearLogButton")?.addEventListener("click", () => {
-    logDiv.innerHTML = "";
-    const now = new Date();
-    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-    const entry = `[${timestamp}] Log cleared`;
-    localStorage.setItem("operationLog", JSON.stringify([entry]));
-    logDiv.appendChild(Object.assign(document.createElement("div"), { textContent: entry }));
-    logDiv.scrollTop = logDiv.scrollHeight;
-  });
+document.getElementById("clearLogButton")?.addEventListener("click", () => {
+  const logDiv = document.getElementById('operation-log');
+  logDiv.innerHTML = "";
+  const now = new Date();
+  const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+  const entry = `[${timestamp}] Log cleared`;
+  localStorage.setItem("operationLog", JSON.stringify([entry]));
+  logDiv.appendChild(Object.assign(document.createElement("div"), { textContent: entry }));
+  logDiv.scrollTop = logDiv.scrollHeight;
+});
 
-  // Guide
-  document.getElementById("guideButton")?.addEventListener("click", () => {
-    window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1", "_blank");
-    addLogEntry("Guide Downloaded");
-  });
+document.getElementById("guideButton")?.addEventListener("click", () => {
+  window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=1", "_blank");
+  addLogEntry("Guide Downloaded");
+});
 
   // Mathemathical!
  (function addCardCounters() {
