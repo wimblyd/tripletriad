@@ -56,13 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Shuffle or Boogie
   cards.forEach(card => {
-    const cardId = card.dataset.cardId;
+  const cardId = card.dataset.cardId;
+  const idNumber = parseInt(cardId.replace("card-",""), 10);
+
+  // Only add counters for 1–47 and 49–77
+  if ((idNumber >= 1 && idNumber <= 47) || (idNumber >= 49 && idNumber <= 77)) {
     const cardInner = card.querySelector(".card-inner");
 
     const counter = card.querySelector(".card-counter") || (() => {
       const div = document.createElement("div");
       div.className = "card-counter";
-      div.dataset.cardId = cardId.replace("card-", "");
+      div.dataset.cardId = idNumber;
       const numberContainer = document.createElement("div");
       numberContainer.className = "counter-number-container";
       const upArrow = createImg("counter-arrow up", "img/UpArrow.png", "+1");
