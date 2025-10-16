@@ -415,6 +415,25 @@ body {
   filter: brightness(1.05);
 }
 
+.sys-btn2 {
+  width: auto;
+  height: 20px;
+  background-color: #c0c0c0; 
+  box-shadow: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.sys-btn2:active {
+  border-color: #808080 #fff #fff #808080; /* Invert bevel when pressed */
+  background-color: #a0a0a0;
+}
+
+.sys-btn2:hover {
+  filter: brightness(1.05);
+}
+
+
 .sys-center a,
 .sys-center img.sys-btn {
   display: flex;     
@@ -591,6 +610,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
