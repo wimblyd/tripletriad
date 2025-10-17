@@ -482,7 +482,7 @@ function hideBokoOverlay() {
 }
 
 closeHotspot.addEventListener("click", hideBokoOverlay);
-  
+  });
 
   // It's Log, from Blam-O!
   function addLogEntry(message) {
