@@ -541,10 +541,10 @@ hotspot.addEventListener("click", () => {
     { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
     { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
     { icon: 'img/icon-lock.png', text: 'Locks Flipping/Opens Card Counter' },
-    { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
+    { icon: 'img/PopOut.png', text: 'Pop Out Cards in New Window' },
     { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
     { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
-    { icon: 'img/ChocoboWorld.png', text: 'Click Chocobo World Window to play' },
+    { icon: 'img/ChocoboWorld.png', text: 'Click in Window to play Chocobo World' },
     { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
   ];
 
@@ -585,19 +585,25 @@ hotspot.addEventListener("click", () => {
     });
 
     // Clickable
-    if (item.text.includes('Pop Out') || item.text.includes('Chocobo')) {
-      line.style.cursor = 'pointer';
-      line.addEventListener('click', () => {
-        if (item.text.includes('Pop Out')) {
-          const originalPopOutBtn = document.getElementById('popOutBtn');
-          if (originalPopOutBtn) originalPopOutBtn.click();
-        }
-        if (item.text.includes('Chocobo')) {
-          const overlay = document.getElementById('boko-overlay');
-          if (overlay) overlay.style.display = 'block';
-        }
-      });
+   if (item.text.includes('Pop Out') || item.text.includes('Chocobo') || item.text.includes('Close')) {
+  line.style.cursor = 'pointer';
+  line.addEventListener('click', () => {
+    if (item.text.includes('Pop Out')) {
+      const originalPopOutBtn = document.getElementById('popOutBtn');
+      if (originalPopOutBtn) originalPopOutBtn.click();
     }
+    if (item.text.includes('Chocobo')) {
+      const overlay = document.getElementById('boko-overlay');
+      if (overlay) overlay.style.display = 'block';
+    }
+    if (item.text.includes('Close')) {
+      if (popOutWin && !popOutWin.closed) {
+        popOutWin.close();
+        popOutWin = null; // reset reference
+      }
+    }
+  });
+}
 
     helpMenu.appendChild(line);
   });
