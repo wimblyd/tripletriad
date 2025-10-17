@@ -363,6 +363,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-left: 5px;
   gap: 23px;
   z-index: 1;
 }
@@ -373,7 +374,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 5px;
   gap: 4px;
   background-color: #c0c0c0;
   z-index: 2;
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
