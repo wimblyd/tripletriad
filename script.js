@@ -540,7 +540,7 @@ hotspot.addEventListener("click", () => {
     const helpItems = [
       { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
       { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
-      { icon: 'img/Boost.png', text: 'Locks Flipping/Open Card Counter' },
+      { icon: 'img/icon-lock.png', text: 'Locks Flipping/Open Card Counter' },
       { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
       { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
       { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
