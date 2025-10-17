@@ -428,7 +428,7 @@ popOutButton.addEventListener("click", () => {
       gap: 8px;
       box-sizing: border-box;
       overflow: auto;
-      margin: 10px; /* keep some padding from edges */
+      margin: 10px; 
     }
   `;
   popOutWin.document.head.appendChild(style);
@@ -560,8 +560,8 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
     { icon: 'img/icon-unlock.png', text: 'Unlocks Cards and Clears Count' },
     { icon: 'img/PopOut.png', text: 'Pops Out Cards in New Window' },
     { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
-    { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
-    { icon: 'img/ChocoboWorld.png', text: 'Click in Window to play Chocobo World' },
+    { icon: 'img/icon-save.png', text: 'Autosaves to localStorage' },
+    { icon: 'img/ChocoboWorld.png', text: 'Launch Chocobo World!' },
     { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
   ];
 
