@@ -60,7 +60,7 @@ if (logToggleBar) {
   if (boost) {
     if (boostUsed) {
       boost.classList.add("used");
-      boost.src = "img/BoostUsed.png"; // or whatever your “used” icon is
+      boost.src = "img/BoostUsed.png"; 
       card.classList.add("boost-locked");
     } else {
       boost.classList.remove("used");
