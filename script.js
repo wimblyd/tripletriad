@@ -585,7 +585,7 @@ hotspot.addEventListener("click", () => {
     });
 
     // Clickable
-   if (item.text.includes('Pop Out') || item.text.includes('Chocobo') || item.text.includes('Close')) {
+  if (item.text.includes('Pop Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Unflip')) {
   line.style.cursor = 'pointer';
   line.addEventListener('click', () => {
     if (item.text.includes('Pop Out')) {
@@ -599,8 +599,12 @@ hotspot.addEventListener("click", () => {
     if (item.text.includes('Close')) {
       if (popOutWin && !popOutWin.closed) {
         popOutWin.close();
-        popOutWin = null; // reset reference
+        popOutWin = null;
       }
+    }
+    if (item.text.includes('Unflip')) {
+      const resetBtn = document.getElementById("resetButton");
+      if (resetBtn) resetBtn.click(); // triggers Unflipadelphia
     }
   });
 }
