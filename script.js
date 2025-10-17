@@ -514,82 +514,105 @@ hotspot.addEventListener("click", () => {
     localStorage.setItem(id, state);
   }
 
-// Start Menu
-  (function setupHelpMenu() {
-    const startBtn = document.getElementById('startBtn');
-    if (!startBtn) return;
+ // Start Menu
+(function setupHelpMenu() {
+  const startBtn = document.getElementById('startBtn');
+  if (!startBtn) return;
 
-    // Create
-    const helpMenu = document.createElement('div');
-    helpMenu.id = 'helpMenu';
-    Object.assign(helpMenu.style, {
-      position: 'fixed',
-      bottom: '28px',
-      left: '0px',
-      width: '220px',
+  // Create menu
+  const helpMenu = document.createElement('div');
+  helpMenu.id = 'helpMenu';
+  Object.assign(helpMenu.style, {
+    position: 'fixed',
+    bottom: '28px',
+    left: '0px',
+    width: '220px',
+    backgroundColor: '#c0c0c0', // classic gray
+    border: '2px solid #000',
+    padding: '4px 0',
+    fontFamily: 'Tahoma, sans-serif',
+    fontSize: '10px',
+    display: 'none',
+    zIndex: '9999',
+    boxShadow: '2px 2px 0 #808080 inset, -1px -1px 0 #fff inset'
+  });
+
+  const helpItems = [
+    { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
+    { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
+    { icon: 'img/icon-lock.png', text: 'Locks Flipping/Opens Card Counter' },
+    { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
+    { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
+    { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
+    { icon: 'img/ChocoboWorld.png', text: 'Click Chocobo World Window to play' },
+    { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
+  ];
+
+  helpItems.forEach(item => {
+    const line = document.createElement('div');
+    line.textContent = item.text;
+
+    Object.assign(line.style, {
+      display: 'flex',
+      alignItems: 'center',
       backgroundColor: '#c0c0c0',
-      border: '2px solid #000',
-      padding: '8px 10px',
-      fontFamily: 'Tahoma, sans-serif',
+      padding: '2px 6px 2px 28px',
+      margin: '0',
+      height: '24px',
+      lineHeight: '20px',
       fontSize: '10px',
-      display: 'none',
-      zIndex: '9999',
-      boxShadow: '2px 2px 0 #808080 inset, -1px -1px 0 #fff inset'
+      cursor: item.text.includes('Pop Out') || item.text.includes('Chocobo') ? 'pointer' : 'default',
+      backgroundImage: `url(${item.icon})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '20px 20px',
+      backgroundPosition: '4px center',
+      borderTop: '1px solid #fff',
+      borderLeft: '1px solid #fff',
+      borderBottom: '1px solid #808080',
+      borderRight: '1px solid #808080',
     });
 
-    const helpItems = [
-      { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
-      { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
-      { icon: 'img/icon-lock.png', text: 'Locks Flipping/Opens Card Counter' },
-      { icon: 'img/PopOut.png', text: 'Open Cards in New Window' },
-      { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
-      { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
-      { icon: 'img/ChocoboWorld.png', text: 'Click Chocobo World Window to play' },
-      { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
-    ];
+    // Hover
+    line.addEventListener('mouseenter', () => {
+      line.style.backgroundColor = '#000080';
+      line.style.color = '#fff';
+    });
+    line.addEventListener('mouseleave', () => {
+      line.style.backgroundColor = '#c0c0c0';
+      line.style.color = '#000';
+    });
 
-    helpItems.forEach(item => {
-      const line = document.createElement('div');
-      line.textContent = item.text;
-      Object.assign(line.style, {
-        background: `url(${item.icon}) no-repeat left center`,
-        backgroundSize: '25px 25px',
-        paddingLeft: '30px',
-        marginBottom: '4px',
-        lineHeight: '25px'
+    // Clickable
+    if (item.text.includes('Pop Out')) {
+      line.addEventListener('click', () => {
+        const originalPopOutBtn = document.getElementById('popOutBtn');
+        if (originalPopOutBtn) originalPopOutBtn.click();
       });
-        if (item.text.includes('Pop Out')) {
-    line.style.cursor = 'pointer';
-    line.addEventListener('click', () => {
-      const originalPopOutBtn = document.getElementById('popOutBtn');
-      if (originalPopOutBtn) originalPopOutBtn.click();
-    });
-  }
-       if (item.text.includes('Chocobo')) {
-    line.style.cursor = 'pointer';
-    line.addEventListener('click', () => {
-      const overlay = document.getElementById('boko-overlay');
-      if (overlay) overlay.style.display = 'block';
-    });
-  }
+    }
+    if (item.text.includes('Chocobo')) {
+      line.addEventListener('click', () => {
+        const overlay = document.getElementById('boko-overlay');
+        if (overlay) overlay.style.display = 'block';
+      });
+    }
 
-  helpMenu.appendChild(line);
-});
-    
-    document.body.appendChild(helpMenu);
+    helpMenu.appendChild(line);
+  });
 
-    // Toggle menu
-    startBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
-    });
+  document.body.appendChild(helpMenu);
 
-    // Close when clicking outside
-    document.addEventListener('click', e => {
-      if (!helpMenu.contains(e.target) && e.target !== startBtn) {
-        helpMenu.style.display = 'none';
-      }
-    });
-  })();
+  // Toggle menu
+  startBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', e => {
+    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
+      helpMenu.style.display = 'none';
+    }
+  });
+})();
 
 });
