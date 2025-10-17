@@ -444,7 +444,7 @@ Object.assign(tooltip.style, {
 });
 document.body.appendChild(tooltip);
 
-// Attach tooltip to all buttons
+// Attach tooltip 
 document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   const text = btn.dataset.tooltip;
   if (!text) return;
@@ -468,20 +468,20 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 
   // Chocobo World
 const overlay = document.getElementById("boko-overlay");
-const button = document.getElementById("cwBtn");
-const hotspot = document.getElementById("boko-close-hotspot");
-
-button.addEventListener("click", () => {
+const iframe = document.querySelector("#boko-wrapper iframe");
+const closeHotspot = document.getElementById("boko-close-hotspot");
+function showBokoOverlay() {
   overlay.style.display = "block";
-});
+  overlay.setAttribute("tabindex", "-1");
+  overlay.focus();
+  setTimeout(() => iframe.contentWindow.focus(), 10);
+}
 
-overlay.addEventListener("click", e => {
-  if (e.target === overlay) overlay.style.display = "none";
-});
-
-hotspot.addEventListener("click", () => {
+function hideBokoOverlay() {
   overlay.style.display = "none";
-});
+}
+
+closeHotspot.addEventListener("click", hideBokoOverlay);
   
 
   // It's Log, from Blam-O!
