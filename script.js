@@ -466,24 +466,6 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   });
 });
 
-  // Chocobo World
-const overlay = document.getElementById("boko-overlay");
-const iframe = document.querySelector("#boko-wrapper iframe");
-const closeHotspot = document.getElementById("boko-close-hotspot");
-function showBokoOverlay() {
-  overlay.style.display = "block";
-  overlay.setAttribute("tabindex", "-1");
-  overlay.focus();
-  setTimeout(() => iframe.contentWindow.focus(), 10);
-}
-
-function hideBokoOverlay() {
-  overlay.style.display = "none";
-}
-
-closeHotspot.addEventListener("click", hideBokoOverlay);
-  });
-
   // It's Log, from Blam-O!
   function addLogEntry(message) {
     if (!logDiv) return;
@@ -630,4 +612,20 @@ closeHotspot.addEventListener("click", hideBokoOverlay);
   });
 })();
 
-});
+   // Chocobo World
+const overlay = document.getElementById("boko-overlay");
+const iframe = document.querySelector("#boko-wrapper iframe");
+const closeHotspot = document.getElementById("boko-close-hotspot");
+function showBokoOverlay() {
+  overlay.style.display = "block";
+  overlay.setAttribute("tabindex", "-1");
+  overlay.focus();
+  setTimeout(() => iframe.contentWindow.focus(), 10);
+}
+
+function hideBokoOverlay() {
+  overlay.style.display = "none";
+}
+
+closeHotspot.addEventListener("click", hideBokoOverlay);
+  });
