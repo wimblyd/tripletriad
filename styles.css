@@ -355,7 +355,7 @@ body {
 }
 
 .sys-left {
-  width: 106px; 
+  width: 95px; 
   height: 100%;
   background: url('img/StartBar.png') no-repeat left center;
   background-size: contain;
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
