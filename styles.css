@@ -242,7 +242,7 @@ body {
 
 .boost-button.used 
 { 
-  content: url("img/BoostX.png"); 
+  content: url("img/BoostUsed.png"); 
   opacity: 0.95; 
   animation: boostPulse 0.45s ease-out; 
 } 
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
