@@ -53,7 +53,22 @@ if (logToggleBar) {
       card.classList.remove("flipped");
       card.setAttribute("aria-pressed", "false");
     }
-  });
+  const boostKey = `${card.dataset.cardId}-boost`;
+  const boostUsed = localStorage.getItem(boostKey) === "used";
+  const boost = card.querySelector(".boost-button");
+
+  if (boost) {
+    if (boostUsed) {
+      boost.classList.add("used");
+      boost.src = "img/BoostUsed.png"; // or whatever your “used” icon is
+      card.classList.add("boost-locked");
+    } else {
+      boost.classList.remove("used");
+      boost.src = "img/Boost.png";
+      card.classList.remove("boost-locked");
+    }
+  }
+});
 
   // Flipadelphia
   const toggleFlip = (card, id) => {
