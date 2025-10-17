@@ -38,7 +38,7 @@ body {
   opacity: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url('FlowerCursor.png') 35 41, auto;
+  cursor: pointer;
 }
 
 @keyframes body-fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -152,7 +152,6 @@ body {
   min-width: var(--card-min-w);
   min-height: var(--card-min-h);
   perspective: 1000px;
-  cursor: pointer;
   margin: var(--card-margin);
   display: inline-block;
 }
@@ -212,7 +211,6 @@ body {
   width: var(--boost-size); 
   height: auto; 
   min-width: var(--boost-min); 
-  cursor: pointer; 
   filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); 
   z-index: 5; 
   opacity: 0; 
@@ -277,7 +275,6 @@ body {
 
 .counter-arrow { 
   width: var(--counter-arrow-w); 
-  cursor: pointer; 
 } 
 
 .counter-number-container { 
@@ -590,7 +587,6 @@ body {
     color: white;
     font-size: 12px;
     padding: 6px 10px;
-    cursor: pointer;
     user-select: none;
   }
 
@@ -610,6 +606,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
