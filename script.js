@@ -552,6 +552,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   });
 
   const helpItems = [
+    { icon: 'img/icon-about.png', text: 'How to Use This Checklist:' },
     { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
     { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
     { icon: 'img/Boost.png', text: 'Locks Flipping/Opens Card Counter' },
