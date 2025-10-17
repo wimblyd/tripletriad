@@ -574,7 +574,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       display: 'flex',
       alignItems: 'center',
       backgroundColor: '#c0c0c0',
-      padding: '2px 6px 2px 42px',
+      padding: '2px 6px 2px 48px',
       margin: '0',
       height: '40px',
       lineHeight: '12px',
