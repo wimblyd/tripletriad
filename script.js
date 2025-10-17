@@ -621,7 +621,7 @@ function showBokoOverlay() {
   overlay.style.display = "block";
   overlay.setAttribute("tabindex", "-1");
   overlay.focus();
-  setTimeout(() => iframe.contentWindow.focus(), 10);
+  iframe.contentWindow.focus();
 }
 
 function hideBokoOverlay() {
@@ -629,4 +629,8 @@ function hideBokoOverlay() {
 }
 
 closeHotspot.addEventListener("click", hideBokoOverlay);
+  const cwBtn = document.getElementById("cwBtn");
+if (cwBtn) {
+  cwBtn.addEventListener("click", showBokoOverlay);
+}
   });
