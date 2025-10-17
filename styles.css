@@ -364,7 +364,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   padding: 5px;
-  gap: 23px;
+  gap: 12px;
   z-index: 1;
 }
 
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
