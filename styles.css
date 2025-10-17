@@ -33,6 +33,7 @@
 body {
   margin: 0;
   font-family: 'Silkscreen', monospace;
+  font-size: 10px; 
   background: black url("img/GardenFestivalBkg.jpg") no-repeat top center / cover;
   animation: body-fade-in 0.8s ease-out forwards;
   opacity: 0;
@@ -607,6 +608,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
