@@ -557,7 +557,7 @@ body {
     width: 100px;
     height: 30px;
   }
-  .buttons .button + .button { margin-top: -6px; }
+  .buttons .button + .button { margin-top: -16px; }
 
   .screen {
     padding: 0px;
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
