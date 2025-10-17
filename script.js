@@ -652,11 +652,20 @@ function showBokoOverlay() {
   overlay.style.display = "block";
   overlay.setAttribute("tabindex", "-1");
   overlay.focus();
-  iframe.contentWindow.focus();
+
+  iframe.addEventListener("load", () => {
+    iframe.contentWindow.focus();
+  }, { once: true });
+
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+  }, 150);
 }
 
 function hideBokoOverlay() {
   overlay.style.display = "none";
+  const cwBtn = document.getElementById("cwBtn");
+  if (cwBtn) cwBtn.focus();
 }
 
 closeHotspot.addEventListener("click", hideBokoOverlay);
