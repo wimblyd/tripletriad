@@ -514,7 +514,7 @@ hotspot.addEventListener("click", () => {
     localStorage.setItem(id, state);
   }
 
- // Start Menu
+// Start Menu
 (function setupHelpMenu() {
   const startBtn = document.getElementById('startBtn');
   if (!startBtn) return;
@@ -527,7 +527,7 @@ hotspot.addEventListener("click", () => {
     bottom: '28px',
     left: '0px',
     width: '220px',
-    backgroundColor: '#c0c0c0', // classic gray
+    backgroundColor: '#c0c0c0',
     border: '2px solid #000',
     padding: '4px 0',
     fontFamily: 'Tahoma, sans-serif',
@@ -552,6 +552,7 @@ hotspot.addEventListener("click", () => {
     const line = document.createElement('div');
     line.textContent = item.text;
 
+    // Basic Windows 95 style
     Object.assign(line.style, {
       display: 'flex',
       alignItems: 'center',
@@ -561,7 +562,7 @@ hotspot.addEventListener("click", () => {
       height: '24px',
       lineHeight: '20px',
       fontSize: '10px',
-      cursor: item.text.includes('Pop Out') || item.text.includes('Chocobo') ? 'pointer' : 'default',
+      cursor: (item.text.includes('Pop Out') || item.text.includes('Chocobo')) ? 'pointer' : 'default',
       backgroundImage: `url(${item.icon})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '20px 20px',
@@ -570,6 +571,7 @@ hotspot.addEventListener("click", () => {
       borderLeft: '1px solid #fff',
       borderBottom: '1px solid #808080',
       borderRight: '1px solid #808080',
+      color: '#000'
     });
 
     // Hover
