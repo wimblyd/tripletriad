@@ -302,6 +302,23 @@ document.getElementById("guideButton")?.addEventListener("click", () => {
 
     renderNumber(count);
 
+    // Restore boost state if it was used
+const boostKey = `card-${id}-boost`;
+const boostUsed = localStorage.getItem(boostKey) === "used";
+
+if (boostUsed) {
+  boost.classList.add("used");
+  boost.src = "img/BoostUsed.png";
+  card.classList.add("boost-locked");
+
+  if (!count || count === 0) {
+    count = 1;
+    localStorage.setItem(`card-${id}-count`, count);
+    renderNumber(count);
+  }
+  counter.classList.add("visible");
+}
+
     const updateCount = delta => {
       count = Math.max(0, Math.min(100, count + delta));
       localStorage.setItem(`card-${id}-count`, count); // <-- Cross-tab sync happens here
