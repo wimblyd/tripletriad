@@ -216,7 +216,7 @@ window.addEventListener("storage", event => {
   }
 });
 
-// COPY CLEAR GUIDE 
+// Copy Log - Clear Log - Guide 
 document.getElementById("copyLogButton")?.addEventListener("click", () => {
   const logDiv = document.getElementById('operation-log');
   const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
@@ -425,7 +425,6 @@ popOutButton.addEventListener("click", () => {
 
 // Tooltip
 const tooltip = document.createElement("div");
-tooltip.textContent = "Pop Out The Card Screen";
 Object.assign(tooltip.style, {
   position: "fixed",
   background: "#e8e8e8",
@@ -445,23 +444,26 @@ Object.assign(tooltip.style, {
 });
 document.body.appendChild(tooltip);
 
-popOutButton.addEventListener("mouseenter", e => {
-  const x = e.clientX + 10;
-  const y = Math.max(0, e.clientY - 30);
-  tooltip.style.left = `${x}px`;
-  tooltip.style.top = `${y}px`;
-  tooltip.style.opacity = "1";
-});
+// Attach tooltip to all buttons
+document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
+  const text = btn.dataset.tooltip;
+  if (!text) return;
 
-popOutButton.addEventListener("mousemove", e => {
-  const x = e.clientX + 10;
-  const y = Math.max(0, e.clientY - 30);
-  tooltip.style.left = `${x}px`;
-  tooltip.style.top = `${y}px`;
-});
+  btn.addEventListener("mouseenter", e => {
+    tooltip.textContent = text;
+    tooltip.style.opacity = "1";
+    tooltip.style.left = `${e.clientX + 10}px`;
+    tooltip.style.top = `${Math.max(0, e.clientY - 30)}px`;
+  });
 
-popOutButton.addEventListener("mouseleave", () => {
-  tooltip.style.opacity = "0";
+  btn.addEventListener("mousemove", e => {
+    tooltip.style.left = `${e.clientX + 10}px`;
+    tooltip.style.top = `${Math.max(0, e.clientY - 30)}px`;
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    tooltip.style.opacity = "0";
+  });
 });
 
   // Chocobo World
