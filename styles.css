@@ -38,7 +38,7 @@ body {
   opacity: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: pointer;
+  cursor: url(http://www.rw-designer.com/cursor-extern.php?id=229022, auto);
 }
 
 @keyframes body-fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
