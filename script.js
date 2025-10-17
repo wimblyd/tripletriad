@@ -579,7 +579,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       fontSize: '10px',
       backgroundImage: `url(${item.icon})`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: '40px 40px',
+      backgroundSize: '40px 37px',
       backgroundPosition: '4px center',
       borderTop: '1px solid #fff',
       borderLeft: '1px solid #fff',
