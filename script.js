@@ -525,6 +525,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
     { icon: 'img/icon-click.png', text: 'Click Cards to Flip' },
     { icon: 'img/icon-unflip.png', text: 'Click Again to Unflip' },
     { icon: 'img/icon-lock.png', text: 'Locks Flipping/Opens Card Counter' },
+    { icon: 'img/icon-unlock.png', text: 'Unlock Card and Clear Count' },
     { icon: 'img/PopOut.png', text: 'Pop Out Cards in New Window' },
     { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
     { icon: 'img/icon-save.png', text: 'Syncs & Saves to localStorage' },
