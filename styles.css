@@ -10,8 +10,8 @@
 
   --card-w: 93px;
   --card-h: 120px;
-  --card-min-w: 25px;
-  --card-min-h: 32px;
+  --card-min-w: 23px;
+  --card-min-h: 30px;
   --card-margin: 1px;
 
   --label-font: 8px;
@@ -530,7 +530,7 @@ body {
   .card-counter { transform: translate(-50%, -50%) scale(0.9); }
 
   .lid {
-    width: clamp(200px, 45vw, 600px);
+    width: clamp(150px, 40vw, 550px);
   }
 
   .buttons .button {
@@ -543,8 +543,8 @@ body {
 /* Phones */
 @media (max-width: 480px) {
   :root {
-    --card-w: 25px;
-    --card-h: 32px;
+    --card-w: 23px;
+    --card-h: 30px;
     --label-font: 3px;
     --boost-size: 14px;
     --counter-bg-padding: 1.5px;
@@ -557,7 +557,7 @@ body {
     width: 100px;
     height: 30px;
   }
-  .buttons .button + .button { margin-top: -8px; }
+  .buttons .button + .button { margin-top: -6px; }
 
   .screen {
     padding: 0px;
@@ -607,6 +607,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
