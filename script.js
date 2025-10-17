@@ -662,14 +662,14 @@ function showBokoOverlay() {
 }
 
 function hideBokoOverlay() {
-  overlay.style.display = "none";
-  const cwBtn = document.getElementById("cwBtn");
-  if (cwBtn) cwBtn.focus();
-}
+  overlay.classList.add("minimizing");
 
-closeHotspot.addEventListener("click", hideBokoOverlay);
-  const cwBtn = document.getElementById("cwBtn");
-if (cwBtn) {
-  cwBtn.addEventListener("click", showBokoOverlay);
+  overlay.addEventListener("animationend", () => {
+    overlay.classList.remove("minimizing");
+    overlay.style.display = "none";
+
+    const cwBtn = document.getElementById("cwBtn");
+    if (cwBtn) cwBtn.focus();
+  }, { once: true });
 }
   });
