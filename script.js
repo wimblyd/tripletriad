@@ -552,7 +552,7 @@ hotspot.addEventListener("click", () => {
     const line = document.createElement('div');
     line.textContent = item.text;
 
-    // Basic Windows 95 style
+    // Windows 95 style
     Object.assign(line.style, {
       display: 'flex',
       alignItems: 'center',
@@ -562,7 +562,6 @@ hotspot.addEventListener("click", () => {
       height: '24px',
       lineHeight: '20px',
       fontSize: '10px',
-      cursor: (item.text.includes('Pop Out') || item.text.includes('Chocobo')) ? 'pointer' : 'default',
       backgroundImage: `url(${item.icon})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '20px 20px',
@@ -571,7 +570,8 @@ hotspot.addEventListener("click", () => {
       borderLeft: '1px solid #fff',
       borderBottom: '1px solid #808080',
       borderRight: '1px solid #808080',
-      color: '#000'
+      color: '#000',
+      cursor: 'default'
     });
 
     // Hover
@@ -585,16 +585,17 @@ hotspot.addEventListener("click", () => {
     });
 
     // Clickable
-    if (item.text.includes('Pop Out')) {
+    if (item.text.includes('Pop Out') || item.text.includes('Chocobo')) {
+      line.style.cursor = 'pointer';
       line.addEventListener('click', () => {
-        const originalPopOutBtn = document.getElementById('popOutBtn');
-        if (originalPopOutBtn) originalPopOutBtn.click();
-      });
-    }
-    if (item.text.includes('Chocobo')) {
-      line.addEventListener('click', () => {
-        const overlay = document.getElementById('boko-overlay');
-        if (overlay) overlay.style.display = 'block';
+        if (item.text.includes('Pop Out')) {
+          const originalPopOutBtn = document.getElementById('popOutBtn');
+          if (originalPopOutBtn) originalPopOutBtn.click();
+        }
+        if (item.text.includes('Chocobo')) {
+          const overlay = document.getElementById('boko-overlay');
+          if (overlay) overlay.style.display = 'block';
+        }
       });
     }
 
