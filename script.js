@@ -576,19 +576,18 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       backgroundColor: '#c0c0c0',
       padding: '2px 6px 2px 28px',
       margin: '0',
-      height: '24px',
-      lineHeight: '20px',
+      height: '40px',
+      lineHeight: '40px',
       fontSize: '10px',
       backgroundImage: `url(${item.icon})`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: '20px 20px',
+      backgroundSize: '40px 40px',
       backgroundPosition: '4px center',
       borderTop: '1px solid #fff',
       borderLeft: '1px solid #fff',
       borderBottom: '1px solid #808080',
       borderRight: '1px solid #808080',
       color: '#000',
-      cursor: 'default'
     });
 
     // Hover
