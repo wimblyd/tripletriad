@@ -644,55 +644,50 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 })();
 
    // Chocobo World
-// === Chocobo World Overlay Controls ===
 const overlay = document.getElementById("boko-overlay");
 const iframe = document.querySelector("#boko-wrapper iframe");
-const closeHotspot = document.getElementById("boko-close-hotspot");
 const cwBtn = document.getElementById("cwBtn");
-
 function showBokoOverlay() {
-  if (!overlay) return;
+  if (!overlay || !iframe) return;
 
   overlay.style.display = "block";
-  overlay.classList.add("restoring");
+  const wrapper = document.getElementById("boko-wrapper");
+  if (wrapper) {
+    wrapper.classList.add("restoring");
+    wrapper.addEventListener("animationend", function handleRestoreEnd() {
+      wrapper.classList.remove("restoring");
+      wrapper.removeEventListener("animationend", handleRestoreEnd);
+    });
+  }
 
-  overlay.addEventListener("animationend", function handleRestoreEnd() {
-    overlay.classList.remove("restoring");
-    overlay.removeEventListener("animationend", handleRestoreEnd);
-  });
-
-  // accessibility / focus logic
   overlay.setAttribute("tabindex", "-1");
   overlay.focus();
 
   iframe.addEventListener(
     "load",
-    () => {
-      iframe.contentWindow.focus();
-    },
+    () => iframe.contentWindow.focus(),
     { once: true }
   );
 
-  setTimeout(() => {
-    iframe.contentWindow.focus();
-  }, 150);
+  setTimeout(() => iframe.contentWindow.focus(), 150);
 }
 
 function hideBokoOverlay() {
   if (!overlay) return;
 
-  overlay.classList.add("minimizing");
+  const wrapper = document.getElementById("boko-wrapper");
+  if (wrapper) {
+    wrapper.classList.add("minimizing");
+    wrapper.addEventListener("animationend", function handleMinimizeEnd() {
+      wrapper.classList.remove("minimizing");
+      overlay.style.display = "none";
+      wrapper.removeEventListener("animationend", handleMinimizeEnd);
 
-  overlay.addEventListener("animationend", function handleMinimizeEnd() {
-    overlay.classList.remove("minimizing");
+      if (cwBtn) cwBtn.focus();
+    });
+  } else {
     overlay.style.display = "none";
-    overlay.removeEventListener("animationend", handleMinimizeEnd);
-
-    if (cwBtn) cwBtn.focus();
-  });
+  }
 }
-
-if (closeHotspot) closeHotspot.addEventListener("click", hideBokoOverlay);
-if (cwBtn) cwBtn.addEventListener("click", showBokoOverlay);
   
   });
