@@ -481,11 +481,11 @@ body {
   }
 }
 
-.minimizing {
+#boko-wrapper.minimizing {
   animation: minimize 0.35s ease-in forwards;
 }
 
-.restoring {
+#boko-wrapper.restoring {
   animation: restore 0.35s ease-out forwards;
 }
 
@@ -648,6 +648,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
