@@ -489,11 +489,6 @@ body {
   animation: restore 0.35s ease-out forwards;
 }
 
-#boko-overlay.minimizing {
-  animation: minimize-to-corner 0.4s ease-in-out forwards;
-  transform-origin: bottom left;
-}
-
 /* Media Queries */
 @media (max-width: 1200px) {
   :root {
@@ -653,6 +648,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
