@@ -449,8 +449,8 @@ body {
   width: 100%;
 }
 
-/* Screen Minimize */
-@keyframes minimize-to-corner {
+/* Windows-style minimize */
+@keyframes minimize {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -463,6 +463,30 @@ body {
     bottom: 28px;
     left: 96px;
   }
+}
+
+/* Windows-style restore */
+@keyframes restore {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    bottom: 28px;
+    left: 96px;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.minimizing {
+  animation: minimize 0.35s ease-in forwards;
+}
+
+.restoring {
+  animation: restore 0.35s ease-out forwards;
 }
 
 #boko-overlay.minimizing {
@@ -629,6 +653,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
