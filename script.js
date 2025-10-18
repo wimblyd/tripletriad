@@ -629,89 +629,47 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 
   document.body.appendChild(helpMenu);
 
-  // Toggle menu with animation
-startBtn.addEventListener('click', e => {
-  e.stopPropagation();
+  // Toggle menu
+  startBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
+  });
 
-  const isHidden = helpMenu.style.display === 'none' || helpMenu.style.display === '';
-
-  if (isHidden) {
-    helpMenu.style.display = 'block';
-    helpMenu.classList.add('helpMenu-restoring');
-
-    helpMenu.addEventListener('animationend', function handleRestoreEnd() {
-      helpMenu.classList.remove('helpMenu-restoring');
-      helpMenu.removeEventListener('animationend', handleRestoreEnd);
-    });
-  } else {
-    helpMenu.classList.add('helpMenu-minimizing');
-
-    helpMenu.addEventListener('animationend', function handleMinimizeEnd() {
-      helpMenu.classList.remove('helpMenu-minimizing');
+  // Close when clicking outside
+  document.addEventListener('click', e => {
+    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
       helpMenu.style.display = 'none';
-      helpMenu.removeEventListener('animationend', handleMinimizeEnd);
-    });
-  }
-});
-
-// Close when clicking outside
-document.addEventListener('click', e => {
-  if (!helpMenu.contains(e.target) && e.target !== startBtn && helpMenu.style.display === 'block') {
-    helpMenu.classList.add('helpMenu-minimizing');
-
-    helpMenu.addEventListener('animationend', function handleOutsideClose() {
-      helpMenu.classList.remove('helpMenu-minimizing');
-      helpMenu.style.display = 'none';
-      helpMenu.removeEventListener('animationend', handleOutsideClose);
-    });
-  }
-});
+    }
+  });
+})();
 
    // Chocobo World
 const overlay = document.getElementById("boko-overlay");
 const iframe = document.querySelector("#boko-wrapper iframe");
-const cwBtn = document.getElementById("cwBtn");
+const closeHotspot = document.getElementById("boko-close-hotspot");
 function showBokoOverlay() {
-  if (!overlay || !iframe) return;
-
   overlay.style.display = "block";
-  const wrapper = document.getElementById("boko-wrapper");
-  if (wrapper) {
-    wrapper.classList.add("restoring");
-    wrapper.addEventListener("animationend", function handleRestoreEnd() {
-      wrapper.classList.remove("restoring");
-      wrapper.removeEventListener("animationend", handleRestoreEnd);
-    });
-  }
-
   overlay.setAttribute("tabindex", "-1");
   overlay.focus();
 
-  iframe.addEventListener(
-    "load",
-    () => iframe.contentWindow.focus(),
-    { once: true }
-  );
+  iframe.addEventListener("load", () => {
+    iframe.contentWindow.focus();
+  }, { once: true });
 
-  setTimeout(() => iframe.contentWindow.focus(), 150);
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+  }, 150);
 }
 
 function hideBokoOverlay() {
-  if (!overlay) return;
-
-  const wrapper = document.getElementById("boko-wrapper");
-  if (wrapper) {
-    wrapper.classList.add("minimizing");
-    wrapper.addEventListener("animationend", function handleMinimizeEnd() {
-      wrapper.classList.remove("minimizing");
-      overlay.style.display = "none";
-      wrapper.removeEventListener("animationend", handleMinimizeEnd);
-
-      if (cwBtn) cwBtn.focus();
-    });
-  } else {
-    overlay.style.display = "none";
-  }
+  overlay.style.display = "none";
+  const cwBtn = document.getElementById("cwBtn");
+  if (cwBtn) cwBtn.focus();
 }
-  
+
+closeHotspot.addEventListener("click", hideBokoOverlay);
+  const cwBtn = document.getElementById("cwBtn");
+if (cwBtn) {
+  cwBtn.addEventListener("click", showBokoOverlay);
+}
   });
