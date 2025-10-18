@@ -460,8 +460,8 @@ body {
   100% {
     transform: scale(0);
     opacity: 0;
-    bottom: 28px;
-    left: 96px;
+    bottom: 0px;
+    left: 0px;
   }
 }
 
@@ -470,8 +470,8 @@ body {
   0% {
     transform: scale(0);
     opacity: 0;
-    bottom: 28px;
-    left: 96px;
+    bottom: 0px;
+    left: 0px;
   }
   100% {
     transform: scale(1);
@@ -648,6 +648,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
