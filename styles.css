@@ -465,7 +465,21 @@ body {
   }
 }
 
-/* Windows-style restore */
+@keyframes restore {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    bottom: 28px;
+    left: 96px;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    bottom: 0;
+    left: 0;
+  }
+}
+
 @keyframes restore {
   0% {
     transform: scale(0);
@@ -481,12 +495,43 @@ body {
   }
 }
 
+@keyframes restoreMenu {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes minimizeMenu {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+}
+
+
 #boko-wrapper.minimizing {
   animation: minimize 0.35s ease-in forwards;
 }
 
 #boko-wrapper.restoring {
   animation: restore 0.35s ease-out forwards;
+}
+
+.helpMenu-minimizing {
+  animation: minimizeMenu 0.25s ease-in forwards;
+}
+
+.helpMenu-restoring {
+  animation: restoreMenu 0.25s ease-out forwards;
 }
 
 /* Media Queries */
@@ -648,6 +693,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
