@@ -432,7 +432,6 @@ body {
   filter: brightness(1.05);
 }
 
-
 .sys-center a,
 .sys-center img.sys-btn {
   display: flex;     
@@ -447,76 +446,6 @@ body {
   color: #000;
   text-align: center;
   width: 100%;
-}
-
-/* Windows-style minimize */
-@keyframes minimize {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    bottom: 0;
-    left: 0;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0;
-    bottom: 0px;
-    left: 0px;
-  }
-}
-
-@keyframes restore {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-    bottom: 28px;
-    left: 96px;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-@keyframes restoreMenu {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes minimizeMenu {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0) translateY(10px);
-  }
-}
-
-
-#boko-wrapper.minimizing {
-  animation: minimize 0.25s ease-in forwards;
-}
-
-#boko-wrapper.restoring {
-  animation: restore 0.25s ease-out forwards;
-}
-
-.helpMenu-minimizing {
-  animation: minimizeMenu 0.25s ease-in forwards;
-}
-
-.helpMenu-restoring {
-  animation: restoreMenu 0.25s ease-out forwards;
 }
 
 /* Media Queries */
@@ -608,6 +537,12 @@ body {
     width: 140px;
     height: 60px;
   }
+  
+  .buttons { 
+  max-width: 150px;
+  height: auto; 
+  }
+  
   .buttons .button + .button { margin-top: -16px; }
 }
 
@@ -678,6 +613,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
