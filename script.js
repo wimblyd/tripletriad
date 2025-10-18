@@ -629,19 +629,43 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 
   document.body.appendChild(helpMenu);
 
-  // Toggle menu
-  startBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    helpMenu.style.display = helpMenu.style.display === 'none' ? 'block' : 'none';
-  });
+  // Toggle menu with animation
+startBtn.addEventListener('click', e => {
+  e.stopPropagation();
 
-  // Close when clicking outside
-  document.addEventListener('click', e => {
-    if (!helpMenu.contains(e.target) && e.target !== startBtn) {
+  const isHidden = helpMenu.style.display === 'none' || helpMenu.style.display === '';
+
+  if (isHidden) {
+    helpMenu.style.display = 'block';
+    helpMenu.classList.add('helpMenu-restoring');
+
+    helpMenu.addEventListener('animationend', function handleRestoreEnd() {
+      helpMenu.classList.remove('helpMenu-restoring');
+      helpMenu.removeEventListener('animationend', handleRestoreEnd);
+    });
+  } else {
+    helpMenu.classList.add('helpMenu-minimizing');
+
+    helpMenu.addEventListener('animationend', function handleMinimizeEnd() {
+      helpMenu.classList.remove('helpMenu-minimizing');
       helpMenu.style.display = 'none';
-    }
-  });
-})();
+      helpMenu.removeEventListener('animationend', handleMinimizeEnd);
+    });
+  }
+});
+
+// Close when clicking outside
+document.addEventListener('click', e => {
+  if (!helpMenu.contains(e.target) && e.target !== startBtn && helpMenu.style.display === 'block') {
+    helpMenu.classList.add('helpMenu-minimizing');
+
+    helpMenu.addEventListener('animationend', function handleOutsideClose() {
+      helpMenu.classList.remove('helpMenu-minimizing');
+      helpMenu.style.display = 'none';
+      helpMenu.removeEventListener('animationend', handleOutsideClose);
+    });
+  }
+});
 
    // Chocobo World
 const overlay = document.getElementById("boko-overlay");
