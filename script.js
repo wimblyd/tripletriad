@@ -644,17 +644,34 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 })();
 
    // Chocobo World
+// === Chocobo World Overlay Controls ===
 const overlay = document.getElementById("boko-overlay");
 const iframe = document.querySelector("#boko-wrapper iframe");
 const closeHotspot = document.getElementById("boko-close-hotspot");
+const cwBtn = document.getElementById("cwBtn");
+
 function showBokoOverlay() {
+  if (!overlay) return;
+
   overlay.style.display = "block";
+  overlay.classList.add("restoring");
+
+  overlay.addEventListener("animationend", function handleRestoreEnd() {
+    overlay.classList.remove("restoring");
+    overlay.removeEventListener("animationend", handleRestoreEnd);
+  });
+
+  // accessibility / focus logic
   overlay.setAttribute("tabindex", "-1");
   overlay.focus();
 
-  iframe.addEventListener("load", () => {
-    iframe.contentWindow.focus();
-  }, { once: true });
+  iframe.addEventListener(
+    "load",
+    () => {
+      iframe.contentWindow.focus();
+    },
+    { once: true }
+  );
 
   setTimeout(() => {
     iframe.contentWindow.focus();
@@ -662,14 +679,20 @@ function showBokoOverlay() {
 }
 
 function hideBokoOverlay() {
-  overlay.style.display = "none";
-  const cwBtn = document.getElementById("cwBtn");
-  if (cwBtn) cwBtn.focus();
+  if (!overlay) return;
+
+  overlay.classList.add("minimizing");
+
+  overlay.addEventListener("animationend", function handleMinimizeEnd() {
+    overlay.classList.remove("minimizing");
+    overlay.style.display = "none";
+    overlay.removeEventListener("animationend", handleMinimizeEnd);
+
+    if (cwBtn) cwBtn.focus();
+  });
 }
 
-closeHotspot.addEventListener("click", hideBokoOverlay);
-  const cwBtn = document.getElementById("cwBtn");
-if (cwBtn) {
-  cwBtn.addEventListener("click", showBokoOverlay);
-}
+if (closeHotspot) closeHotspot.addEventListener("click", hideBokoOverlay);
+if (cwBtn) cwBtn.addEventListener("click", showBokoOverlay);
+  
   });
