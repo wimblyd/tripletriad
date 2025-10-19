@@ -13,7 +13,7 @@ if (logToggleBar) {
     const isHidden = logDiv.classList.toggle('mobile-hidden');
   });
 }
-  
+
   // Come on and get your Log!
   (JSON.parse(localStorage.getItem("operationLog") || "[]")).forEach(entryObj => {
     const div = document.createElement('div');
