@@ -618,6 +618,10 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
         popOutWin = null;
       }
     }
+    } if (item.text.includes('Screensaver')) { 
+      const strsBtn = document.getElementById("starsButton"); 
+      if (strsBtn) strsBtn.click(); 
+  }
     if (item.text.includes('Unflip')) {
       const resetBtn = document.getElementById("resetButton");
       if (resetBtn) resetBtn.click(); // triggers Unflipadelphia
