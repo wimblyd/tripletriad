@@ -590,7 +590,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       color: '#000',
     });
 
-    // Hover effects
+    // Hover
     line.addEventListener('mouseenter', () => {
       line.style.backgroundColor = '#000080';
       line.style.color = '#fff';
@@ -600,56 +600,40 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       line.style.color = '#000';
     });
 
-    // Clickable lines
-    if (
-      item.text.includes('Pops Out') ||
-      item.text.includes('Chocobo') ||
-      item.text.includes('Close') ||
-      item.text.includes('Screensaver') ||
-      item.text.includes('Unflip') ||
-      item.text.includes('Autosave')
-    ) {
-      line.style.cursor = 'pointer';
-      line.addEventListener('click', () => {
-        if (item.text.includes('Pops Out')) {
-          const originalPopOutBtn = document.getElementById('popOutBtn');
-          if (originalPopOutBtn) originalPopOutBtn.click();
-        }
-        if (item.text.includes('Chocobo')) {
-          const overlay = document.getElementById('boko-overlay');
-          if (overlay) overlay.style.display = 'block';
-        }
-        if (item.text.includes('Close')) {
-          if (popOutWin && !popOutWin.closed) {
-            popOutWin.close();
-            popOutWin = null;
-          }
-        }
-        if (item.text.includes('Screensaver')) {
-          const strsBtn = document.getElementById("starsButton");
-          if (strsBtn) strsBtn.click();
-        }
-        if (item.text.includes('Unflip')) {
-          const resetBtn = document.getElementById("resetButton");
-          if (resetBtn) resetBtn.click();
-        }
-        if (item.text.includes('Autosave')) {
-          const logDiv = document.getElementById('operation-log');
-          if (logDiv) {
-            const newLog = document.createElement('div');
-            newLog.textContent = 'GAME FOLDER IN USE: localStorage [Clear Cookies] to Reset';
-            logDiv.appendChild(newLog);
-          }
-        }
-      });
+    // Clickable
+  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Unflip')) {
+  line.style.cursor = 'pointer';
+  line.addEventListener('click', () => {
+    if (item.text.includes('Pops Out')) {
+      const originalPopOutBtn = document.getElementById('popOutBtn');
+      if (originalPopOutBtn) originalPopOutBtn.click();
     }
+    if (item.text.includes('Chocobo')) {
+      const overlay = document.getElementById('boko-overlay');
+      if (overlay) overlay.style.display = 'block';
+    }
+    if (item.text.includes('Close')) {
+      if (popOutWin && !popOutWin.closed) {
+        popOutWin.close();
+        popOutWin = null;
+      }
+    }
+    } if (item.text.includes('Screensaver')) { 
+      const strsBtn = document.getElementById("starsButton"); 
+      if (strsBtn) strsBtn.click(); 
+  }
+    if (item.text.includes('Unflip')) {
+      const resetBtn = document.getElementById("resetButton");
+      if (resetBtn) resetBtn.click(); // triggers Unflipadelphia
+    }
+  });
+}
 
     helpMenu.appendChild(line);
   });
 
   document.body.appendChild(helpMenu);
-})();
-  
+
   // Toggle menu
   startBtn.addEventListener('click', e => {
     e.stopPropagation();
