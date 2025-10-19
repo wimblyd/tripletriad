@@ -590,7 +590,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       color: '#000',
     });
 
-    // Hover
+    // Hover effects
     line.addEventListener('mouseenter', () => {
       line.style.backgroundColor = '#000080';
       line.style.color = '#fff';
@@ -600,8 +600,16 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
       line.style.color = '#000';
     });
 
-    // Clickable
-  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Unflip')) {
+    // Clickable lines
+    if (
+      item.text.includes('Pops Out') ||
+      item.text.includes('Chocobo') ||
+      item.text.includes('Close') ||
+      item.text.includes('Screensaver') ||
+      item.text.includes('Unflip') ||
+      item.text.includes('Autosave')
+    ) {
+      line.style.cursor = 'pointer';
       line.addEventListener('click', () => {
         if (item.text.includes('Pops Out')) {
           const originalPopOutBtn = document.getElementById('popOutBtn');
@@ -625,6 +633,14 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
           const resetBtn = document.getElementById("resetButton");
           if (resetBtn) resetBtn.click();
         }
+        if (item.text.includes('Autosave')) {
+          const logDiv = document.getElementById('operation-log');
+          if (logDiv) {
+            const newLog = document.createElement('div');
+            newLog.textContent = 'GAME FOLDER IN USE: Slot 1';
+            logDiv.appendChild(newLog);
+          }
+        }
       });
     }
 
@@ -632,8 +648,8 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   });
 
   document.body.appendChild(helpMenu);
-
-
+})();
+  
   // Toggle menu
   startBtn.addEventListener('click', e => {
     e.stopPropagation();
