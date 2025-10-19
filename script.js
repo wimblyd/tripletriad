@@ -561,7 +561,8 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
     { icon: 'img/Close.png', text: 'Close Pop Out to Restore' },
     { icon: 'img/icon-save.png', text: 'Autosaves to localStorage' },
     { icon: 'img/ChocoboWorld.png', text: 'Launch Chocobo World!' },
-    { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' }
+    { icon: 'img/icon-keys.png', text: 'Boko Uses Arrows/Space/R & E keys' },
+    { icon: 'img/icon-screensaver.png', text: 'Launch Screensaver' }
   ];
 
   helpItems.forEach(item => {
@@ -600,7 +601,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
     });
 
     // Clickable
-  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Unflip')) {
+  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Unflip')) {
   line.style.cursor = 'pointer';
   line.addEventListener('click', () => {
     if (item.text.includes('Pops Out')) {
