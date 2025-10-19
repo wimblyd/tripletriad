@@ -637,7 +637,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
           const logDiv = document.getElementById('operation-log');
           if (logDiv) {
             const newLog = document.createElement('div');
-            newLog.textContent = 'GAME FOLDER IN USE: Slot 1';
+            newLog.textContent = 'GAME FOLDER IN USE: localStorage [Clear Cookies] to Reset';
             logDiv.appendChild(newLog);
           }
         }
