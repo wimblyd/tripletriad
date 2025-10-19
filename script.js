@@ -602,7 +602,6 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 
     // Clickable
   if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Unflip')) {
-      line.style.cursor = 'pointer';
       line.addEventListener('click', () => {
         if (item.text.includes('Pops Out')) {
           const originalPopOutBtn = document.getElementById('popOutBtn');
