@@ -110,13 +110,13 @@ body {
 #resetButton:hover { background-image: url('img/UnflipButtonHoverClicked.png'); }
 #copyLogButton:hover { background-image: url('img/CopyButtonHover.png'); }
 #clearLogButton:hover { background-image: url('img/ClearButtonHover.png'); }
-#guideButton:hover { background-image: url('img/GuideButtonHover.png'); }
+#guideButton:hover { background-image: url('img/GuideButtonHoverClicked.png'); }
 
 /* Active */
 #resetButton:active { background-image: url('img/UnflipButtonHoverClicked.png'); }
 #copyLogButton:active { background-image: url('img/CopyButtonClicked.png'); }
 #clearLogButton:active { background-image: url('img/ClearButtonClicked.png'); }
-#guideButton:active { background-image: url('img/GuideButtonClicked.png'); }
+#guideButton:active { background-image: url('img/GuideButtonHoverClicked.png'); }
 
 /* Tupperware Party */
 .tupperware {
@@ -613,6 +613,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
