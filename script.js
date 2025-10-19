@@ -434,7 +434,7 @@ popOutButton.addEventListener("click", () => {
 
   const now = new Date();
   const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-  const entry = `[${timestamp}] ${message}`;
+  const entry = `(${timestamp}) ${message}`;
 
   let color = "#ffffff"; // default
   if (/^Lost\s/.test(message) || /flipped/i.test(message) || /cleared/i.test(message)) {
