@@ -79,70 +79,73 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   ];
 
   helpItems.forEach(item => {
-    const line = document.createElement('div');
-    line.textContent = item.text;
+  const line = document.createElement('div');
+  line.textContent = item.text;
 
-    // Windows 95 style
-    Object.assign(line.style, {
-      display: 'flex',
-      alignItems: 'center',
-      backgroundColor: '#c0c0c0',
-      padding: '2px 6px 2px 48px',
-      margin: '0',
-      height: '40px',
-      lineHeight: '12px',
-      fontSize: '10px',
-      backgroundImage: `url(${item.icon})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: '40px 37px',
-      backgroundPosition: '4px center',
-      borderTop: '1px solid #fff',
-      borderLeft: '1px solid #fff',
-      borderBottom: '1px solid #808080',
-      borderRight: '1px solid #808080',
-      color: '#000',
-    });
-
-    // Hover
-    line.addEventListener('mouseenter', () => {
-      line.style.backgroundColor = '#000080';
-      line.style.color = '#fff';
-    });
-    line.addEventListener('mouseleave', () => {
-      line.style.backgroundColor = '#c0c0c0';
-      line.style.color = '#000';
-    });
-
-    // Clickable
-  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Unflip')) {
-      line.addEventListener('click', () => {
-        if (item.text.includes('Pops Out')) {
-          const originalPopOutBtn = document.getElementById('popOutBtn');
-          if (originalPopOutBtn) originalPopOutBtn.click();
-        }
-        if (item.text.includes('Chocobo')) {
-          const overlay = document.getElementById('boko-overlay');
-          if (overlay) overlay.style.display = 'block';
-        }
-        if (item.text.includes('Close')) {
-          if (popOutWin && !popOutWin.closed) {
-            popOutWin.close();
-            popOutWin = null;
-          }
-        }
-        if (item.text.includes('Screensaver')) {
-          const strsBtn = document.getElementById("starsButton");
-          if (strsBtn) strsBtn.click();
-        }
-        if (item.text.includes('Unflip')) {
-          const resetBtn = document.getElementById("resetButton");
-          if (resetBtn) resetBtn.click();
-        }
-      });
-    }
-
-    helpMenu.appendChild(line);
+  // Windows 95 style
+  Object.assign(line.style, {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#c0c0c0',
+    padding: '2px 6px 2px 48px',
+    margin: '0',
+    height: '40px',
+    lineHeight: '12px',
+    fontSize: '10px',
+    backgroundImage: `url(${item.icon})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '40px 37px',
+    backgroundPosition: '4px center',
+    borderTop: '1px solid #fff',
+    borderLeft: '1px solid #fff',
+    borderBottom: '1px solid #808080',
+    borderRight: '1px solid #808080',
+    color: '#000',
   });
+
+  // Hover
+  line.addEventListener('mouseenter', () => {
+    line.style.backgroundColor = '#000080';
+    line.style.color = '#fff';
+  });
+  line.addEventListener('mouseleave', () => {
+    line.style.backgroundColor = '#c0c0c0';
+    line.style.color = '#000';
+  });
+
+  // Clickable
+  if (item.text.includes('Pops Out') || item.text.includes('Chocobo') || item.text.includes('Close') || item.text.includes('Screensaver') || item.text.includes('Autosaves') || item.text.includes('Unflip')) {
+    line.addEventListener('click', () => {
+      if (item.text.includes('Pops Out')) {
+        const originalPopOutBtn = document.getElementById('popOutBtn');
+        if (originalPopOutBtn) originalPopOutBtn.click();
+      }
+      if (item.text.includes('Chocobo')) {
+        const overlay = document.getElementById('boko-overlay');
+        if (overlay) overlay.style.display = 'block';
+      }
+      if (item.text.includes('Close')) {
+        if (popOutWin && !popOutWin.closed) {
+          popOutWin.close();
+          popOutWin = null;
+        }
+      }
+      if (item.text.includes('Screensaver')) {
+        const strsBtn = document.getElementById("starsButton");
+        if (strsBtn) strsBtn.click();
+      }
+      if (item.text.includes('Autosaves')) {
+        addLogEntry("GAME FOLDER IN USE: localStorage [Clear Cookies] to Overwrite");
+      }
+      if (item.text.includes('Unflip')) {
+        const resetBtn = document.getElementById("resetButton");
+        if (resetBtn) resetBtn.click();
+      }
+    });
+  }
+
+  helpMenu.appendChild(line);
+});
 
   document.body.appendChild(helpMenu);
 
