@@ -973,8 +973,47 @@
 </div>
     
   <script src="script.js"></script>
+    <script src="win95.js"></script>
+    <script>
+// Copy Log
+const copyBtn = document.getElementById("copyLogButton");
+if (copyBtn) {
+  copyBtn.addEventListener("click", () => {
+    const logDiv = document.getElementById('operation-log');
+    const text = Array.from(logDiv.children).map(div => div.textContent).join("\n");
+    navigator.clipboard.writeText(text)
+      .then(() => addLogEntry("Log copied to clipboard"))
+      .catch(err => console.error("Failed to copy log:", err));
+  });
+}
+
+// Clear Log
+const clearBtn = document.getElementById("clearLogButton");
+if (clearBtn) {
+  clearBtn.addEventListener("click", () => {
+    const logDiv = document.getElementById('operation-log');
+    logDiv.innerHTML = "";
+    const now = new Date();
+    const timestamp = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} | ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+    const entry = `[${timestamp}] Log cleared`;
+    localStorage.setItem("operationLog", JSON.stringify([entry]));
+    logDiv.appendChild(Object.assign(document.createElement("div"), { textContent: entry }));
+    logDiv.scrollTop = logDiv.scrollHeight;
+  });
+}
+
+// Guide Button
+const guideBtn = document.getElementById("guideButton");
+if (guideBtn) {
+  guideBtn.addEventListener("click", () => {
+    window.open("https://www.dropbox.com/scl/fi/wzkqfhaz78xm8aazuwyoe/Wimbly-Donner-s-Guide-to-Triple-Triad-v.03.2.pdf?rlkey=v5blv7r5kodab77ksk71ll0sx&e=1&st=srlyik69&dl=0", "_blank");
+    addLogEntry("Guide Downloaded");
+  });
+}
+</script>
 </body>
 </html>
+
 
 
 
