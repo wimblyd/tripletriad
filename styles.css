@@ -42,6 +42,18 @@ body {
   cursor: url("img/cursor.cur"), auto;
 }
 
+h1 {
+    color: #fff;
+    font-size: 12px; 
+    font-family: 'Tahoma', sans-serif;
+}
+
+h2 {
+    color: #ffbe32;
+    font-size: 12px; 
+    font-family: 'Tahoma', sans-serif;
+}
+
 .sys-btn,
 .sys-btn2,
 .sys-btn img,
@@ -431,8 +443,8 @@ body {
 }
 
 .sys-btn2:active {
-  border-color: #808080 #fff #fff #808080;
-  background-color: #a0a0a0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff; /* Looks like Opened Program */
 }
 
 .sys-btn2:hover {
@@ -672,6 +684,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
