@@ -36,15 +36,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const logDiv = document.getElementById('operation-log');
 
  // Mobile-only Log Dropdown
-  const logToggleBar = document.getElementById('logToggleBar');
+const logToggleBar = document.getElementById('logToggleBar');
 if (logToggleBar) {
   const logDiv = document.getElementById('operation-log');
+  const logArrow = document.getElementById('logArrow');
 
   // Start hidden on mobile
   if (window.innerWidth <= 480) logDiv.classList.add('mobile-hidden');
 
   logToggleBar.addEventListener('click', () => {
     const isHidden = logDiv.classList.toggle('mobile-hidden');
+
+    // Toggle arrow direction
+    if (logArrow) {
+      if (isHidden) {
+        logArrow.classList.remove('open'); // points down
+      } else {
+        logArrow.classList.add('open'); // points up
+      }
+    }
   });
 }
 
