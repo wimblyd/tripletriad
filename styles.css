@@ -548,6 +548,24 @@ h2 {
   touch-action: manipulation;
 }
 
+/* Log Dropdown Arrow */
+#logArrow {
+  display: inline-block;
+  margin-left: 8px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #000;
+  vertical-align: middle;
+  transition: transform 0.25s ease;
+}
+
+#logArrow.open {
+  transform: rotate(180deg);
+}
+
+
 /* Media Queries */
 
 /* Desktop / Large screens */
@@ -694,6 +712,7 @@ h2 {
     animation: none !important; 
   }
 }
+
 
 
 
