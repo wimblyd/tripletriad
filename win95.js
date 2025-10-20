@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     "Again": [
       "Marks Card Lost",
-      "You can also [CLICK HERE] to Unflip All"
+      "[CLICK HERE] to Unflip All"
       ],
     "Lock": [
       "Cards won't Flip Back",
