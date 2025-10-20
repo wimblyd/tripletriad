@@ -934,9 +934,12 @@
 <div id="boko-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
 
   <div id="boko-wrapper" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:127px; height:158px;">
-    <iframe src="https://wimblyd.github.io/fauxcoboworld/chocoboworldexe.html"  allow="autoplay" tabindex="0"
-            style="width:127px; height:158px; border:none;">
-    </iframe>
+      <iframe
+  src="https://wimblyd.github.io/fauxcoboworld/chocoboworldexe.html"
+  allow="autoplay; clipboard-read; clipboard-write"
+  tabindex="0"
+  style="width:127px; height:158px; border:none; touch-action:manipulation; pointer-events:auto;">
+      </iframe>
 
     <div id="boko-close-hotspot"
          style="position:absolute;
@@ -954,7 +957,7 @@
 <div id="start">
   <div class="sys-left">
     <img src="img/StartButton.png" class="sys-btn" id="startBtn" data-tooltip="How to Use">
-    <img src="img/ChocoboWorld.png" class="sys-btn2" id="cwBtn" data-tooltip="Launch Chocobo World">
+    <img src="img/ChocoboWorld.png" class="sys-btn2" id="cwBtn" data-tooltip="Launch chocoboworld.exe">
   </div>
 
   <div class="sys-center">
@@ -1013,6 +1016,7 @@ if (guideBtn) {
 </script>
 </body>
 </html>
+
 
 
 
