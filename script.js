@@ -1,4 +1,7 @@
-  // It's Log, from Blam-O!
+// Global Popout Scope
+  window.popOutWin = null;
+
+// It's Log, from Blam-O!
   function addLogEntry(message) {
   const logDiv = document.getElementById('operation-log');
   if (!logDiv) return;
@@ -374,37 +377,32 @@ if (boostUsed) {
   setInterval(updateClock, 1000);
   updateClock();
 
-  // Toaster
+// Toaster
 const popOutButton = document.getElementById("popOutBtn");
-let popOutWin = null;
 
 popOutButton.addEventListener("click", () => {
   const screenDiv = document.querySelector(".screen");
   if (!screenDiv) return;
 
-  // Focus
-  if (popOutWin && !popOutWin.closed) {
-    popOutWin.focus();
+  if (window.popOutWin && !window.popOutWin.closed) {
+    window.popOutWin.focus();
     return;
   }
 
-  // Sizer
   const rect = screenDiv.getBoundingClientRect();
-  const paddingWidth = 20;   // buffer for window chrome
+  const paddingWidth = 20;
   const paddingHeight = 40;
-
-  const minWidth = window.innerWidth * 0.85;   // 85% viewport for mobile
+  const minWidth = window.innerWidth * 0.85;
   const minHeight = window.innerHeight * 0.85;
-
   const winWidth = Math.max(rect.width + paddingWidth, minWidth);
   const winHeight = Math.max(rect.height + paddingHeight, minHeight);
 
   const features = `width=${Math.ceil(winWidth)},height=${Math.ceil(winHeight)},scrollbars=no,resizable=yes`;
-  popOutWin = window.open("", "_blank", features);
+  window.popOutWin = window.open("", "_blank", features);
 
   // Inline Styles
   const styles = [...document.querySelectorAll("link[rel='stylesheet'], style")];
-  styles.forEach(s => popOutWin.document.head.appendChild(s.cloneNode(true)));
+  styles.forEach(s => window.popOutWin.document.head.appendChild(s.cloneNode(true)));
 
   // Pop Out Styles
   const style = document.createElement("style");
@@ -432,32 +430,30 @@ popOutButton.addEventListener("click", () => {
       gap: 8px;
       box-sizing: border-box;
       overflow: auto;
-      margin: 10px; 
+      margin: 10px;
     }
   `;
-  popOutWin.document.head.appendChild(style);
+  window.popOutWin.document.head.appendChild(style);
 
-  // Pop
-  popOutWin.document.body.classList.add("popout-mode");
-  popOutWin.document.body.appendChild(screenDiv);
+  window.popOutWin.document.body.classList.add("popout-mode");
+  window.popOutWin.document.body.appendChild(screenDiv);
 
-  // Restore Refresh
-  popOutWin.addEventListener("beforeunload", () => {
+  window.popOutWin.addEventListener("beforeunload", () => {
     document.querySelector(".wrapper").appendChild(screenDiv);
-    location.reload(); // fixes layout when popping back
+    window.popOutWin = null;  // reset on close
+    location.reload();
   });
 
-  // Resize
   function resizePopout() {
     const screenRect = screenDiv.getBoundingClientRect();
     const newWidth = Math.max(screenRect.width + paddingWidth, minWidth);
     const newHeight = Math.max(screenRect.height + paddingHeight, minHeight);
-    popOutWin.resizeTo(Math.ceil(newWidth), Math.ceil(newHeight));
+    window.popOutWin.resizeTo(Math.ceil(newWidth), Math.ceil(newHeight));
   }
 
   setTimeout(resizePopout, 100);
 });
-
+  
   // Memory Card
   function saveCardState(id, state) {
     localStorage.setItem(id, state);
