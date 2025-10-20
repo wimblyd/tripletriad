@@ -450,7 +450,6 @@ body {
 
 #boko-wrapper iframe {
   pointer-events: auto;
-  touch-action: manipulation;
 }
 
 /* Media Queries */
@@ -618,6 +617,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
