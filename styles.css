@@ -43,13 +43,7 @@ body {
 }
 
 h1 {
-  color: #fff;
-  font-size: 12px;
-  font-family: 'Tahoma', sans-serif;
-}
-
-h2 {
-  color: #ffbe32;
+  color: #000;
   font-size: 12px;
   font-family: 'Tahoma', sans-serif;
 }
@@ -712,6 +706,7 @@ h2 {
     animation: none !important; 
   }
 }
+
 
 
 
