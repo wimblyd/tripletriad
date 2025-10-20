@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
     { icon: "img/icon-click.png", text: "Click Cards to Flip »" },
     { icon: "img/icon-unflip.png", text: "Click Again to Unflip »" },
-    { icon: "img/Boost.png", text: "Lock Cards for Counting »" },
+    { icon: "img/Boost.png", text: "Press to Lock a Card »" },
     { icon: "img/BoostUsed.png", text: "Press to Unlock a Card »" },
     { icon: "img/PopOut.png", text: "Open Cards in New Window »" },
     { icon: "img/Close.png", text: "Close the Window to Restore »" },
@@ -113,8 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "You can [CLICK HERE] to Unflip too"
       ],
     "Lock": [
+      "Cards won't Flip Back",
       "Opens the Card Counter",
-      "Use it to Track Card Count"
+      "Use Up & Down Arrows",
+      "No Counters for lvl 8-10 Cards"
     ],
     "Unlock": [
       "Closes Card Counter",
@@ -133,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Use Arrow Keys to Move",
       "Space to Jump",
       "R & E Keys for Choco World Events",
+      "Just for Funsies",
       "Not connectable to FFVIII"
     ],
     "Thanks": [
