@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     "Unflip": [
       "Or Click here to Unflip"
-      ]
+      ],
     "Lock": [
       "Press the Square Button",
       "Open the Card Counter",
@@ -213,29 +213,58 @@ document.addEventListener("DOMContentLoaded", () => {
         fontSize: "10px",
       });
 
-      submenuData[matchedKey].forEach(subtext => {
-        const subItem = document.createElement("div");
-        subItem.textContent = subtext;
-        Object.assign(subItem.style, {
-          padding: "4px 8px",
-          borderTop: "1px solid #fff",
-          borderLeft: "1px solid #fff",
-          borderBottom: "1px solid #808080",
-          borderRight: "1px solid #808080",
-          cursor: "default",
-        });
+  submenuData[matchedKey].forEach(subtext => {
+  const subItem = document.createElement("div");
 
-        subItem.addEventListener("mouseenter", () => {
-          subItem.style.backgroundColor = "#000080";
-          subItem.style.color = "#fff";
-        });
-        subItem.addEventListener("mouseleave", () => {
-          subItem.style.backgroundColor = "#c0c0c0";
-          subItem.style.color = "#000";
-        });
+  // Detect and replace with link
+  let link = null;
+  if (subtext.includes("McIndusMods")) {
+    link = document.createElement("a");
+    link.href = "https://www.patreon.com/mcindusmods";
+    link.textContent = subtext;
+    link.target = "_blank";
+  } else if (subtext.includes("asdadasdadasd123")) {
+    link = document.createElement("a");
+    link.href = "https://www.rw-designer.com/cursor-detail/229022";
+    link.textContent = subtext;
+    link.target = "_blank";
+  }
 
-        submenu.appendChild(subItem);
-      });
+  // Style container
+  Object.assign(subItem.style, {
+    padding: "4px 8px",
+    borderTop: "1px solid #fff",
+    borderLeft: "1px solid #fff",
+    borderBottom: "1px solid #808080",
+    borderRight: "1px solid #808080",
+    cursor: link ? "pointer" : "default",
+  });
+
+  if (link) {
+    Object.assign(link.style, {
+      color: "#000",
+      textDecoration: "none",
+      display: "block",
+    });
+    subItem.appendChild(link);
+  } else {
+    subItem.textContent = subtext;
+  }
+
+  // Hover
+  subItem.addEventListener("mouseenter", () => {
+    subItem.style.backgroundColor = "#000080";
+    if (link) link.style.color = "#fff";
+    else subItem.style.color = "#fff";
+  });
+  subItem.addEventListener("mouseleave", () => {
+    subItem.style.backgroundColor = "#c0c0c0";
+    if (link) link.style.color = "#000";
+    else subItem.style.color = "#000";
+  });
+
+  submenu.appendChild(subItem);
+});
 
       line.addEventListener("mouseenter", () => {
         submenu.style.display = "block";
