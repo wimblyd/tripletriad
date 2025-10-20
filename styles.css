@@ -571,8 +571,8 @@ body {
 /* Small screens (Tablet + Phone) */
 @media (max-width: 768px) {
   :root {
-    --card-w: 30px;  
-    --card-h: 39px;  
+    --card-w: 27px;  
+    --card-h: 35px;  
     --card-min-w: 23px;
     --card-min-h: 30px;
     --label-font: 3px;
@@ -654,5 +654,6 @@ body {
     animation: none !important; 
   }
 }
+
 
 
