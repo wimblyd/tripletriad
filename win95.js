@@ -41,6 +41,8 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  const startBtn = document.getElementById("startBtn");
+  if (!startBtn) return;
 
   // Animation Helpers
   function animateMinimize(el, onEnd) {
@@ -69,9 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Help Menu
-  const startBtn = document.getElementById("startBtn");
-  if (!startBtn) return;
-
   const helpMenu = document.createElement("div");
   helpMenu.id = "helpMenu";
   Object.assign(helpMenu.style, {
@@ -91,15 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const helpItems = [
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
-    { icon: "img/icon-click.png", text: "Click Cards to Flip 🢒" },
+    { icon: "img/icon-click.png", text: "Click Cards to Flip" },
     { icon: "img/icon-unflip.png", text: "Click Again to Unflip" },
-    { icon: "img/Boost.png", text: "Locks Cards for Counting 🢒" },
-    { icon: "img/BoostUsed.png", text: "Press to Unlock a Card 🢒" },
+    { icon: "img/Boost.png", text: "Locks Cards for Counting" },
+    { icon: "img/BoostUsed.png", text: "Press to Unlock a Card" },
     { icon: "img/PopOut.png", text: "Pops Out Cards in New Window" },
     { icon: "img/Close.png", text: "Close Pop Out to Restore" },
     { icon: "img/icon-save.png", text: "Autosaves to localStorage" },
     { icon: "img/ChocoboWorld.png", text: "Launch Chocobo World" },
-    { icon: "img/icon-keys.png", text: "Boko Requires a Keyboard 🢒" },
+    { icon: "img/icon-keys.png", text: "Boko Requires a Keyboard" },
     { icon: "img/icon-screensaver.png", text: "Launch Screensaver" }
   ];
 
@@ -121,15 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "Boko": [
       "Use Arrow Keys to Move",
       "Space to Jump",
-      "R & E for Choco World Events",
-      "Disclaimer: This is not a real game",
-      "You cannot connect this to any version of FFVIII"
+      "R & E Keys for Choco World Events",
+      "Disclaimer: Not connectable to FFVIII"
     ]
   };
 
   helpItems.forEach(item => {
     const line = document.createElement("div");
-    line.textContent = item.text;
 
     Object.assign(line.style, {
       display: "flex",
@@ -148,24 +145,45 @@ document.addEventListener("DOMContentLoaded", () => {
       borderLeft: "1px solid #fff",
       borderBottom: "1px solid #808080",
       borderRight: "1px solid #808080",
-      color: "#000",
-      position: "relative"
+      position: "relative",
+      cursor: "default",
     });
 
-    line.addEventListener("mouseenter", () => {
-      line.style.backgroundColor = "#000080";
-      line.style.color = "#fff";
-    });
-    line.addEventListener("mouseleave", () => {
-      line.style.backgroundColor = "#c0c0c0";
-      line.style.color = "#000";
-    });
-
-    // Submenu
+    // Does it has submenu?
     const matchedKey = Object.keys(submenuData).find(key =>
       item.text.includes(key)
     );
 
+    // Text span
+    const textSpan = document.createElement("span");
+    textSpan.textContent = item.text;
+    textSpan.style.color = "#000";
+
+    // Arrow span
+    const arrowSpan = document.createElement("span");
+    arrowSpan.textContent = matchedKey ? "🢒" : "";
+    arrowSpan.style.marginLeft = "auto";
+    arrowSpan.style.fontSize = "14px";
+    arrowSpan.style.lineHeight = "40px";
+    arrowSpan.style.display = matchedKey ? "inline-block" : "none";
+    arrowSpan.style.color = "#000";
+
+    line.appendChild(textSpan);
+    line.appendChild(arrowSpan);
+
+    // Hover
+    line.addEventListener("mouseenter", () => {
+      line.style.backgroundColor = "#000080";
+      textSpan.style.color = "#fff";
+      arrowSpan.style.color = "#fff";
+    });
+    line.addEventListener("mouseleave", () => {
+      line.style.backgroundColor = "#c0c0c0";
+      textSpan.style.color = "#000";
+      arrowSpan.style.color = "#000";
+    });
+
+    // Submenu
     if (matchedKey) {
       const submenu = document.createElement("div");
       Object.assign(submenu.style, {
@@ -178,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         display: "none",
         zIndex: "10000",
         minWidth: "180px",
-        fontSize: "10px"
+        fontSize: "10px",
       });
 
       submenuData[matchedKey].forEach(subtext => {
@@ -190,7 +208,9 @@ document.addEventListener("DOMContentLoaded", () => {
           borderLeft: "1px solid #fff",
           borderBottom: "1px solid #808080",
           borderRight: "1px solid #808080",
+          cursor: "default",
         });
+
         subItem.addEventListener("mouseenter", () => {
           subItem.style.backgroundColor = "#000080";
           subItem.style.color = "#fff";
@@ -199,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
           subItem.style.backgroundColor = "#c0c0c0";
           subItem.style.color = "#000";
         });
+
         submenu.appendChild(subItem);
       });
 
@@ -217,9 +238,15 @@ document.addEventListener("DOMContentLoaded", () => {
       line.appendChild(submenu);
     }
 
-    // Clickable items
-    if (item.text.includes("Pops Out") || item.text.includes("Chocobo") || item.text.includes("Close") ||
-        item.text.includes("Screensaver") || item.text.includes("Autosaves") || item.text.includes("Unflip")) {
+    // Clickable
+    if (
+      item.text.includes("Pops Out") ||
+      item.text.includes("Chocobo") ||
+      item.text.includes("Close") ||
+      item.text.includes("Screensaver") ||
+      item.text.includes("Autosaves") ||
+      item.text.includes("Unflip")
+    ) {
       line.addEventListener("click", () => {
         if (item.text.includes("Pops Out")) {
           const originalPopOutBtn = document.getElementById("popOutBtn");
@@ -258,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.appendChild(helpMenu);
 
+  // Start Menu toggle
   startBtn.addEventListener("click", e => {
     e.stopPropagation();
     if (helpMenu.style.display === "none" || helpMenu.style.display === "") {
