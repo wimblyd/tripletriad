@@ -339,7 +339,7 @@ h1 {
 } 
 
 .panel-style2 { 
-  background-image: url('img/Panel2.png'); 
+  background-color: #c0c0c0
   background-size: cover; 
   background-position: center; 
   border: 4px solid #8a8a8a; 
@@ -706,6 +706,7 @@ h1 {
     animation: none !important; 
   }
 }
+
 
 
 
