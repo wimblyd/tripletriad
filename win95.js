@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { icon: "img/Close.png", text: "Close Pop Out to Restore" },
     { icon: "img/icon-save.png", text: "Autosaves to localStorage" },
     { icon: "img/ChocoboWorld.png", text: "Launch Chocobo World" },
-    { icon: "img/icon-keys.png", text: "Chocobo World Requires a Keyboard 🢒" },
+    { icon: "img/icon-keys.png", text: "Boko Requires a Keyboard 🢒" },
     { icon: "img/icon-screensaver.png", text: "Launch Screensaver" }
   ];
 
