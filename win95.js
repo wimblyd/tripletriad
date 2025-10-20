@@ -1,6 +1,4 @@
-// ==========================
 // Tooltip
-// ==========================
 const tooltip = document.createElement("div");
 Object.assign(tooltip.style, {
   position: "fixed",
@@ -43,10 +41,7 @@ document.querySelectorAll("#start .sys-btn, #start .sys-btn2").forEach(btn => {
   });
 });
 
-
-// ==========================
-// Animation Helpers
-// ==========================
+// Minimize
 function animateMinimize(el, onEnd) {
   if (!el) return;
   el.classList.remove("restoring");
@@ -73,9 +68,7 @@ function animateRestore(el) {
 }
 
 
-// ==========================
 // Start Menu
-// ==========================
 (function setupHelpMenu() {
   const startBtn = document.getElementById("startBtn");
   if (!startBtn) return;
@@ -147,7 +140,7 @@ function animateRestore(el) {
       line.style.color = "#000";
     });
 
-    // Clickable behaviors
+    // Clickable
     if (item.text.includes("Pops Out") || item.text.includes("Chocobo") || item.text.includes("Close") ||
         item.text.includes("Screensaver") || item.text.includes("Autosaves") || item.text.includes("Unflip")) {
       line.addEventListener("click", () => {
@@ -188,7 +181,7 @@ function animateRestore(el) {
 
   document.body.appendChild(helpMenu);
 
-  // Toggle menu with animation
+  // Toggle menu
   startBtn.addEventListener("click", e => {
     e.stopPropagation();
     if (helpMenu.style.display === "none" || helpMenu.style.display === "") {
@@ -207,9 +200,7 @@ function animateRestore(el) {
 })();
 
 
-// ==========================
 // Chocobo World
-// ==========================
 const overlay = document.getElementById("boko-overlay");
 const iframe = document.querySelector("#boko-wrapper iframe");
 const closeHotspot = document.getElementById("boko-close-hotspot");
