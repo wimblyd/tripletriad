@@ -45,11 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Animation Helper
   function animateMinimize(el, onEnd) {
     if (!el) return;
-    el.classList.remove("restoring");
-    el.classList.add("minimizing");
+    const className = el.id === "helpMenu" ? "minimizingMenu" : "minimizingWindow";
+    el.classList.remove("restoringMenu", "restoringWindow");
+    el.classList.add(className);
 
     el.addEventListener("animationend", function handler() {
-      el.classList.remove("minimizing");
+      el.classList.remove(className);
       el.style.display = "none";
       el.removeEventListener("animationend", handler);
       if (onEnd) onEnd();
@@ -58,12 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function animateRestore(el) {
     if (!el) return;
+
+    const className = el.id === "helpMenu" ? "restoringMenu" : "restoringWindow";
     el.style.display = "block";
-    el.classList.remove("minimizing");
-    el.classList.add("restoring");
+    el.classList.remove("minimizingMenu", "minimizingWindow");
+    el.classList.add(className);
 
     el.addEventListener("animationend", function handler() {
-      el.classList.remove("restoring");
+      el.classList.remove(className);
       el.removeEventListener("animationend", handler);
     });
   }
