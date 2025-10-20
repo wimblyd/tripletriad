@@ -90,42 +90,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const helpItems = [
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
-    { icon: "img/icon-click.png", text: "Click Cards to Flip" },
-    { icon: "img/icon-unflip.png", text: "Click Again to Unflip" },
-    { icon: "img/Boost.png", text: "Lock Cards for Counting" },
-    { icon: "img/BoostUsed.png", text: "Press to Unlock a Card" },
-    { icon: "img/PopOut.png", text: "Pops Out Cards in New Window" },
-    { icon: "img/Close.png", text: "Close the Window to Restore" },
+    { icon: "img/icon-click.png", text: "Click Cards to Flip »" },
+    { icon: "img/icon-unflip.png", text: "Click Again to Unflip »" },
+    { icon: "img/Boost.png", text: "Lock Cards for Counting »" },
+    { icon: "img/BoostUsed.png", text: "Press to Unlock a Card »" },
+    { icon: "img/PopOut.png", text: "Open Cards in New Window »" },
+    { icon: "img/Close.png", text: "Close the Window to Restore »" },
     { icon: "img/icon-save.png", text: "Autosaves to localStorage" },
     { icon: "img/ChocoboWorld.png", text: "Launch Chocobo World" },
-    { icon: "img/icon-keys.png", text: "Keyboard Controls for cw.exe" },
+    { icon: "img/icon-keys.png", text: "Keyboard Controls for cw.exe »" },
     { icon: "img/icon-screensaver.png", text: "Launch Screensaver" },
-    { icon: "img/icon-thanks.png", text: "Special Thanks"}
+    { icon: "img/icon-thanks.png", text: "Special Thanks »"}
   ];
 
   const submenuData = {
     "Flip": [
-      "Click a card once to flip it",
-      "Adds Log Entry for Card Acquisition"
+      "Marks Card Aquired",
+      "Adds Log Entry"
     ],
     "Unflip": [
-      "Or Click here to Unflip"
+      "Menu Panel also Works",
+      "You can [CLICK HERE] to Unflip too"
       ],
     "Lock": [
-      "Press the Square Button",
-      "Open the Card Counter",
-      "Use the Arrows to Track Card Count"
+      "Opens the Card Counter",
+      "Use it to Track Card Count"
     ],
     "Unlock": [
       "Closes Card Counter",
       "Clears Card Count",
       "Allows Card to Flip Back"
     ],
-    "Pops Out": [
-    "Or Click here, Card Screen Pops Out"
+    "Open": [
+    "Open with Button on the Start Bar",
+    "Or Open from This Menu too"
     ],
     "Restore": [
-    "Click here to Restore"
+    "Click here to Restore",
+    "Or Restore by Closing Manually"
     ],
     "Keyboard": [
       "Use Arrow Keys to Move",
@@ -160,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
       borderBottom: "1px solid #808080",
       borderRight: "1px solid #808080",
       position: "relative",
-      cursor: "default",
     });
 
     // Does it has submenu?
@@ -168,34 +169,45 @@ document.addEventListener("DOMContentLoaded", () => {
       item.text.includes(key)
     );
 
-    // Text span
-    const textSpan = document.createElement("span");
-    textSpan.textContent = item.text;
-    textSpan.style.color = "#000";
+    // Separate text and arrow
+const textSpan = document.createElement("span");
+const arrowSpan = document.createElement("span");
 
-    // Arrow span
-    const arrowSpan = document.createElement("span");
-    arrowSpan.textContent = matchedKey ? "🢒" : "";
-    arrowSpan.style.marginLeft = "auto";
-    arrowSpan.style.fontSize = "24px";
-    arrowSpan.style.lineHeight = "40px";
-    arrowSpan.style.display = matchedKey ? "inline-block" : "none";
-    arrowSpan.style.color = "#000";
+const hasArrow = item.text.includes("»");
+textSpan.textContent = item.text.replace("»", "");
+textSpan.style.color = "#000"; // starts black
 
-    line.appendChild(textSpan);
-    line.appendChild(arrowSpan);
+// Arrow
+if (hasArrow) {
+  Object.assign(arrowSpan.style, {
+    marginLeft: "auto",  
+    width: "0",
+    height: "0",
+    borderTop: "6px solid transparent",
+    borderBottom: "6px solid transparent",
+    borderLeft: "4px solid #000", // arrow color
+    display: "inline-block",
+    verticalAlign: "middle",
+  });
+} else {
+  arrowSpan.style.display = "none";
+}
 
-    // Hover
-    line.addEventListener("mouseenter", () => {
-      line.style.backgroundColor = "#000080";
-      textSpan.style.color = "#fff";
-      arrowSpan.style.color = "#fff";
-    });
-    line.addEventListener("mouseleave", () => {
-      line.style.backgroundColor = "#c0c0c0";
-      textSpan.style.color = "#000";
-      arrowSpan.style.color = "#000";
-    });
+line.appendChild(textSpan);
+line.appendChild(arrowSpan);
+
+// Hover
+line.addEventListener("mouseenter", () => {
+  line.style.backgroundColor = "#000080";
+  textSpan.style.color = "#fff";
+  if (hasArrow) arrowSpan.style.borderLeftColor = "#fff"; 
+});
+
+line.addEventListener("mouseleave", () => {
+  line.style.backgroundColor = "#c0c0c0";
+  textSpan.style.color = "#000";
+  if (hasArrow) arrowSpan.style.borderLeftColor = "#000"; 
+});
 
     // Submenu
     if (matchedKey) {
@@ -230,14 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
     link.target = "_blank";
   }
 
-  // Style container
+  // Style
   Object.assign(subItem.style, {
     padding: "4px 8px",
     borderTop: "1px solid #fff",
     borderLeft: "1px solid #fff",
     borderBottom: "1px solid #808080",
     borderRight: "1px solid #808080",
-    cursor: link ? "pointer" : "default",
   });
 
   if (link) {
@@ -283,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Clickable
     if (
-      item.text.includes("Pops Out") ||
+      item.text.includes("Open") ||
       item.text.includes("Chocobo") ||
       item.text.includes("Restore") ||
       item.text.includes("Screensaver") ||
@@ -291,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
       item.text.includes("Unflip")
     ) {
       line.addEventListener("click", () => {
-        if (item.text.includes("Pops Out")) {
+        if (item.text.includes("Open")) {
           const originalPopOutBtn = document.getElementById("popOutBtn");
           if (originalPopOutBtn) originalPopOutBtn.click();
         }
