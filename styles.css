@@ -451,24 +451,22 @@ body {
 /* Help Menu Minimize */
 @keyframes minimizeMenu {
   0% {
-    transform: scale(1);
+    transform: translateY(0);
     opacity: 1;
   }
   100% {
-    transform: scale(0);
+    transform: translateY(10px);
     opacity: 0;
-    transform-origin: bottom left; /* anchor near Start button */
   }
 }
 
 @keyframes restoreMenu {
   0% {
-    transform: scale(0);
+    transform: translateY(10px);
     opacity: 0;
-    transform-origin: bottom left;
   }
   100% {
-    transform: scale(1);
+    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -497,11 +495,11 @@ body {
 }
 
 .minimizingMenu {
-  animation: minimizeMenu 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: minimizeMenu 0.25s ease-in forwards;
 }
 
 .restoringMenu {
-  animation: restoreMenu 0.4s cubic-bezier(0.2, 0.7, 0.3, 1.2) forwards;
+  animation: restoreMenu 0.25s ease-out forwards;
 }
 
 .minimizingWindow {
@@ -677,6 +675,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
