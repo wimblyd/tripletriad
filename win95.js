@@ -100,53 +100,22 @@ document.addEventListener("DOMContentLoaded", () => {
     { icon: "img/ChocoboWorld.png", text: "Launch Chocobo World" },
     { icon: "img/icon-keys.png", text: "Keyboard Controls for cw.exe »" },
     { icon: "img/icon-screensaver.png", text: "Launch Screensaver" },
-    { icon: "img/icon-thanks.png", text: "Special Thanks »"}
+    { icon: "img/icon-thanks.png", text: "Special Thanks »" }
   ];
 
   const submenuData = {
-    "Flip": [
-      "Marks Card Aquired",
-      "Adds Log Entry"
-    ],
-    "Again": [
-      "Marks Card Lost",
-      "Use Unflip All to Clear"
-      ],
-    "Lock": [
-      "Cards won't Flip Back",
-      "Opens the Card Counter",
-      "Use Up & Down Arrows",
-      "No Counters for lvl 8-10 Cards"
-    ],
-    "Unlock": [
-      "Closes Card Counter",
-      "Clears Card Count",
-      "Allows Card to Flip Back"
-    ],
-    "Open": [
-    "Open with Button on the Start Bar",
-    "Or Open from This Menu too"
-    ],
-    "Restore": [
-    "Click here to Restore",
-    "Or Restore by Closing Manually"
-    ],
-    "Keyboard": [
-      "Use Arrow Keys to Move",
-      "Space to Jump",
-      "R & E Keys for Choco World Events",
-      "Just for Funsies",
-      "Not connectable to FFVIII"
-    ],
-    "Thanks": [
-    "Triple Triad Backs: McIndusMods",
-    "FF Cursor: asdadasdadasd123"
-    ],
+    "Flip": ["Marks Card Aquired", "Adds Log Entry"],
+    "Again": ["Marks Card Lost", "Use Unflip All to Clear"],
+    "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Use Up & Down Arrows", "No Counters for lvl 8-10 Cards"],
+    "Unlock": ["Closes Card Counter", "Clears Card Count", "Allows Card to Flip Back"],
+    "Open": ["Open with Button on the Start Bar", "Or Open from This Menu too"],
+    "Restore": ["Click here to Restore", "Or Restore by Closing Manually"],
+    "Keyboard": ["Use Arrow Keys to Move", "Space to Jump", "R & E Keys for Choco World Events", "Just for Funsies", "Not connectable to FFVIII"],
+    "Thanks": ["Triple Triad Backs: McIndusMods", "FF Cursor: asdadasdadasd123"],
   };
 
   helpItems.forEach(item => {
     const line = document.createElement("div");
-
     Object.assign(line.style, {
       display: "flex",
       alignItems: "center",
@@ -167,52 +136,42 @@ document.addEventListener("DOMContentLoaded", () => {
       position: "relative",
     });
 
-    // Does it has submenu?
-    const matchedKey = Object.keys(submenuData).find(key =>
-      item.text.includes(key)
-    );
+    const matchedKey = Object.keys(submenuData).find(key => item.text.includes(key));
+    const textSpan = document.createElement("span");
+    const arrowSpan = document.createElement("span");
+    const hasArrow = item.text.includes("»");
+    textSpan.textContent = item.text.replace("»", "");
+    textSpan.style.color = "#000";
 
-    // Separate text and arrow
-const textSpan = document.createElement("span");
-const arrowSpan = document.createElement("span");
+    if (hasArrow) {
+      Object.assign(arrowSpan.style, {
+        marginLeft: "auto",
+        width: "0",
+        height: "0",
+        borderTop: "6px solid transparent",
+        borderBottom: "6px solid transparent",
+        borderLeft: "4px solid #000",
+        display: "inline-block",
+        verticalAlign: "middle",
+      });
+    } else {
+      arrowSpan.style.display = "none";
+    }
 
-const hasArrow = item.text.includes("»");
-textSpan.textContent = item.text.replace("»", "");
-textSpan.style.color = "#000"; // starts black
+    line.appendChild(textSpan);
+    line.appendChild(arrowSpan);
 
-// Arrow
-if (hasArrow) {
-  Object.assign(arrowSpan.style, {
-    marginLeft: "auto",  
-    width: "0",
-    height: "0",
-    borderTop: "6px solid transparent",
-    borderBottom: "6px solid transparent",
-    borderLeft: "4px solid #000", // arrow color
-    display: "inline-block",
-    verticalAlign: "middle",
-  });
-} else {
-  arrowSpan.style.display = "none";
-}
+    line.addEventListener("mouseenter", () => {
+      line.style.backgroundColor = "#000080";
+      textSpan.style.color = "#fff";
+      if (hasArrow) arrowSpan.style.borderLeftColor = "#fff";
+    });
+    line.addEventListener("mouseleave", () => {
+      line.style.backgroundColor = "#c0c0c0";
+      textSpan.style.color = "#000";
+      if (hasArrow) arrowSpan.style.borderLeftColor = "#000";
+    });
 
-line.appendChild(textSpan);
-line.appendChild(arrowSpan);
-
-// Hover
-line.addEventListener("mouseenter", () => {
-  line.style.backgroundColor = "#000080";
-  textSpan.style.color = "#fff";
-  if (hasArrow) arrowSpan.style.borderLeftColor = "#fff"; 
-});
-
-line.addEventListener("mouseleave", () => {
-  line.style.backgroundColor = "#c0c0c0";
-  textSpan.style.color = "#000";
-  if (hasArrow) arrowSpan.style.borderLeftColor = "#000"; 
-});
-
-    // Submenu
     if (matchedKey) {
       const submenu = document.createElement("div");
       Object.assign(submenu.style, {
@@ -228,74 +187,66 @@ line.addEventListener("mouseleave", () => {
         fontSize: "10px",
       });
 
-  submenuData[matchedKey].forEach(subtext => {
-  const subItem = document.createElement("div");
+      submenuData[matchedKey].forEach(subtext => {
+        const subItem = document.createElement("div");
+        let link = null;
+        if (subtext.includes("McIndusMods")) {
+          link = document.createElement("a");
+          link.href = "https://www.patreon.com/mcindusmods";
+          link.textContent = subtext;
+          link.target = "_blank";
+        } else if (subtext.includes("asdadasdadasd123")) {
+          link = document.createElement("a");
+          link.href = "https://www.rw-designer.com/cursor-detail/229022";
+          link.textContent = subtext;
+          link.target = "_blank";
+        }
 
-  // Detect and replace with link
-  let link = null;
-  if (subtext.includes("McIndusMods")) {
-    link = document.createElement("a");
-    link.href = "https://www.patreon.com/mcindusmods";
-    link.textContent = subtext;
-    link.target = "_blank";
-  } else if (subtext.includes("asdadasdadasd123")) {
-    link = document.createElement("a");
-    link.href = "https://www.rw-designer.com/cursor-detail/229022";
-    link.textContent = subtext;
-    link.target = "_blank";
-  }
+        Object.assign(subItem.style, {
+          padding: "4px 8px",
+          borderTop: "1px solid #fff",
+          borderLeft: "1px solid #fff",
+          borderBottom: "1px solid #808080",
+          borderRight: "1px solid #808080",
+        });
 
-  // Style
-  Object.assign(subItem.style, {
-    padding: "4px 8px",
-    borderTop: "1px solid #fff",
-    borderLeft: "1px solid #fff",
-    borderBottom: "1px solid #808080",
-    borderRight: "1px solid #808080",
-  });
+        if (link) {
+          Object.assign(link.style, {
+            color: "#000",
+            textDecoration: "none",
+            display: "block",
+          });
+          subItem.appendChild(link);
+        } else {
+          subItem.textContent = subtext;
+        }
 
-  if (link) {
-    Object.assign(link.style, {
-      color: "#000",
-      textDecoration: "none",
-      display: "block",
-    });
-    subItem.appendChild(link);
-  } else {
-    subItem.textContent = subtext;
-  }
+        subItem.addEventListener("mouseenter", () => {
+          subItem.style.backgroundColor = "#000080";
+          if (link) link.style.color = "#fff";
+          else subItem.style.color = "#fff";
+        });
+        subItem.addEventListener("mouseleave", () => {
+          subItem.style.backgroundColor = "#c0c0c0";
+          if (link) link.style.color = "#000";
+          else subItem.style.color = "#000";
+        });
 
-  // Hover
-  subItem.addEventListener("mouseenter", () => {
-    subItem.style.backgroundColor = "#000080";
-    if (link) link.style.color = "#fff";
-    else subItem.style.color = "#fff";
-  });
-  subItem.addEventListener("mouseleave", () => {
-    subItem.style.backgroundColor = "#c0c0c0";
-    if (link) link.style.color = "#000";
-    else subItem.style.color = "#000";
-  });
-
-  submenu.appendChild(subItem);
-});
-
-      line.addEventListener("mouseenter", () => {
-        submenu.style.display = "block";
+        submenu.appendChild(subItem);
       });
+
+      line.addEventListener("mouseenter", () => submenu.style.display = "block");
       line.addEventListener("mouseleave", () => {
         setTimeout(() => {
           if (!submenu.matches(":hover")) submenu.style.display = "none";
         }, 100);
       });
-      submenu.addEventListener("mouseleave", () => {
-        submenu.style.display = "none";
-      });
+      submenu.addEventListener("mouseleave", () => submenu.style.display = "none");
 
       line.appendChild(submenu);
     }
 
-    // Clickable
+    // Clickable actions
     if (
       item.text.includes("Open") ||
       item.text.includes("Chocobo") ||
@@ -353,42 +304,37 @@ line.addEventListener("mouseleave", () => {
     }
   });
 
-// Chocobo World
-const overlay = document.getElementById("boko-overlay");
-const iframe = document.querySelector("#boko-wrapper iframe");
-const closeHotspot = document.getElementById("boko-close-hotspot");
+  // Chocobo World
+  const overlay = document.getElementById("boko-overlay");
+  const iframe = document.querySelector("#boko-wrapper iframe");
+  const closeHotspot = document.getElementById("boko-close-hotspot");
+  const cwBtn = document.getElementById("cwBtn");
 
-function showBokoOverlay() {
-  overlay.style.display = "block";
-  const wrapper = document.getElementById("boko-wrapper");
-  animateRestore(wrapper);
-  overlay.setAttribute("tabindex", "-1");
-  overlay.focus();
+  function showBokoOverlay() {
+    overlay.style.display = "block";
+    const wrapper = document.getElementById("boko-wrapper");
+    animateRestore(wrapper);
+    overlay.setAttribute("tabindex", "-1");
+    overlay.focus();
 
-  iframe.addEventListener("load", () => {
-    iframe.contentWindow.focus();
-  }, { once: true });
-
-  setTimeout(() => {
-    iframe.focus();
-    try {
+    iframe.addEventListener("load", () => {
       iframe.contentWindow.focus();
-    } catch (e) {}
-  }, 400); // ← close both the try and setTimeout here
-}
+    }, { once: true });
 
-function hideBokoOverlay() {
-  const wrapper = document.getElementById("boko-wrapper");
-  animateMinimize(wrapper, () => {
-    overlay.style.display = "none";
-    const cwBtn = document.getElementById("cwBtn");
-    if (cwBtn) cwBtn.focus();
-  });
-}
+    setTimeout(() => {
+      iframe.focus();
+      try { iframe.contentWindow.focus(); } catch (e) {}
+    }, 400);
+  }
 
-if (closeHotspot)
-  closeHotspot.addEventListener("click", hideBokoOverlay);
+  function hideBokoOverlay() {
+    const wrapper = document.getElementById("boko-wrapper");
+    animateMinimize(wrapper, () => {
+      overlay.style.display = "none";
+      if (cwBtn) cwBtn.focus();
+    });
+  }
 
-const cwBtn = document.getElementById("cwBtn");
-if (cwBtn)
-  cwBtn.addEventListener("click", showBokoOverlay);
+  if (closeHotspot) closeHotspot.addEventListener("click", hideBokoOverlay);
+  if (cwBtn) cwBtn.addEventListener("click", showBokoOverlay);
+});
