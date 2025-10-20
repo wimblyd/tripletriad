@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const helpItems = [
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
     { icon: "img/icon-click.png", text: "Click Cards to Flip »" },
-    { icon: "img/icon-unflip.png", text: "Click Again to Show Card Back »" },
+    { icon: "img/icon-unflip.png", text: "Click Again to Unflip »" },
     { icon: "img/Boost.png", text: "Press to Lock a Card »" },
     { icon: "img/BoostUsed.png", text: "Press to Unlock a Card »" },
     { icon: "img/PopOut.png", text: "Open Cards in New Window »" },
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     "Again": [
       "Marks Card Lost",
-      "[CLICK HERE] to Unflip All"
+      "Use Unflip All to Clear"
       ],
     "Lock": [
       "Cards won't Flip Back",
@@ -301,8 +301,7 @@ line.addEventListener("mouseleave", () => {
       item.text.includes("Chocobo") ||
       item.text.includes("Restore") ||
       item.text.includes("Screensaver") ||
-      item.text.includes("Autosaves") ||
-      item.text.includes("Unflip")
+      item.text.includes("Autosaves")
     ) {
       line.addEventListener("click", () => {
         if (item.text.includes("Open")) {
@@ -329,10 +328,6 @@ line.addEventListener("mouseleave", () => {
         }
         if (item.text.includes("Autosaves")) {
           addLogEntry("GAME FOLDER IN USE: localStorage [Clear Cookies] to Overwrite");
-        }
-        if (item.text.includes("Unflip")) {
-          const resetBtn = document.getElementById("resetButton");
-          if (resetBtn) resetBtn.click();
         }
       });
     }
