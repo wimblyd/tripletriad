@@ -92,14 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
     { icon: "img/icon-click.png", text: "Click Cards to Flip" },
     { icon: "img/icon-unflip.png", text: "Click Again to Unflip" },
-    { icon: "img/Boost.png", text: "Locks Cards for Counting" },
+    { icon: "img/Boost.png", text: "Lock Cards for Counting" },
     { icon: "img/BoostUsed.png", text: "Press to Unlock a Card" },
     { icon: "img/PopOut.png", text: "Pops Out Cards in New Window" },
-    { icon: "img/Close.png", text: "Close Pop Out to Restore" },
+    { icon: "img/Close.png", text: "Close the Window to Restore" },
     { icon: "img/icon-save.png", text: "Autosaves to localStorage" },
     { icon: "img/ChocoboWorld.png", text: "Launch Chocobo World" },
-    { icon: "img/icon-keys.png", text: "Boko Requires a Keyboard" },
-    { icon: "img/icon-screensaver.png", text: "Launch Screensaver" }
+    { icon: "img/icon-keys.png", text: "Keyboard Controls for cw.exe" },
+    { icon: "img/icon-screensaver.png", text: "Launch Screensaver" },
+    { icon: "img/icon-thanks.png", text: "Special Thanks"}
   ];
 
   const submenuData = {
@@ -107,9 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "Click a card once to flip it",
       "Adds Log Entry for Card Acquisition"
     ],
-    "Locks": [
-      "Press the Boost Button",
-      "Opens the Card Counter",
+    "Unflip": [
+      "Or Click here to Unflip"
+      ]
+    "Lock": [
+      "Press the Square Button",
+      "Open the Card Counter",
       "Use the Arrows to Track Card Count"
     ],
     "Unlock": [
@@ -117,12 +121,22 @@ document.addEventListener("DOMContentLoaded", () => {
       "Clears Card Count",
       "Allows Card to Flip Back"
     ],
-    "Boko": [
+    "Pops Out": [
+    "Or Click here, Card Screen Pops Out"
+    ],
+    "Restore": [
+    "Click here to Restore"
+    ],
+    "Keyboard": [
       "Use Arrow Keys to Move",
       "Space to Jump",
       "R & E Keys for Choco World Events",
-      "Disclaimer: Not connectable to FFVIII"
-    ]
+      "Not connectable to FFVIII"
+    ],
+    "Thanks": [
+    "Triple Triad Backs: McIndusMods",
+    "FF Cursor: asdadasdadasd123"
+    ],
   };
 
   helpItems.forEach(item => {
@@ -163,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const arrowSpan = document.createElement("span");
     arrowSpan.textContent = matchedKey ? "🢒" : "";
     arrowSpan.style.marginLeft = "auto";
-    arrowSpan.style.fontSize = "14px";
+    arrowSpan.style.fontSize = "24px";
     arrowSpan.style.lineHeight = "40px";
     arrowSpan.style.display = matchedKey ? "inline-block" : "none";
     arrowSpan.style.color = "#000";
@@ -242,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (
       item.text.includes("Pops Out") ||
       item.text.includes("Chocobo") ||
-      item.text.includes("Close") ||
+      item.text.includes("Restore") ||
       item.text.includes("Screensaver") ||
       item.text.includes("Autosaves") ||
       item.text.includes("Unflip")
@@ -260,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
             animateRestore(wrapper);
           }
         }
-        if (item.text.includes("Close")) {
+        if (item.text.includes("Restore")) {
           if (window.popOutWin && !window.popOutWin.closed) {
             window.popOutWin.close();
             window.popOutWin = null;
