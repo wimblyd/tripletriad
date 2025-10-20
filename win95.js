@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Open": ["Open with Button on the Start Bar", "Or Open from This Menu too"],
     "Restore": ["Click here to Restore", "Or Restore by Closing Manually"],
     "Keyboard": ["Use Arrow Keys to Move", "Space to Jump", "R & E Keys for Choco World Events", "Just for Funsies", "Not connectable to FFVIII"],
-    "Mobile": ["Swipe to Move", "Tap to Jump," "Double Tap for Choco World Events"]
+    "Mobile": ["Swipe to Move", "Tap to Jump," "Double Tap for Choco World Events"],
     "Thanks": ["Triple Triad Backs: McIndusMods", "FF Cursor: asdadasdadasd123"],
   };
 
