@@ -448,43 +448,68 @@ body {
   width: 100%;
 }
 
-/* Minimize */
-@keyframes minimize {
+/* Help Menu Minimize */
+@keyframes minimizeMenu {
   0% {
     transform: scale(1);
     opacity: 1;
-    bottom: 0;
-    left: 0;
-  }
-  60% {
-    transform: scale(0.9);
-    opacity: 0.7;
   }
   100% {
     transform: scale(0);
     opacity: 0;
-    bottom: 28px;
-    left: 96px;
+    transform-origin: bottom left; /* anchor near Start button */
   }
 }
 
-@keyframes restore {
+@keyframes restoreMenu {
   0% {
     transform: scale(0);
     opacity: 0;
-    bottom: 28px;
-    left: 96px;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
+    transform-origin: bottom left;
   }
   100% {
     transform: scale(1);
     opacity: 1;
-    bottom: 0;
-    left: 0;
   }
+}
+
+/* Chocobo World Minimize */
+@keyframes minimizeWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes restoreWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.minimizingMenu {
+  animation: minimizeMenu 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.restoringMenu {
+  animation: restoreMenu 0.4s cubic-bezier(0.2, 0.7, 0.3, 1.2) forwards;
+}
+
+.minimizingWindow {
+  animation: minimizeWindow 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.restoringWindow {
+  animation: restoreWindow 0.4s cubic-bezier(0.2, 0.7, 0.3, 1.2) forwards;
 }
 
 /* Media Queries */
@@ -652,6 +677,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
