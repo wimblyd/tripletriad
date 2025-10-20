@@ -564,7 +564,6 @@ h2 {
 }
 
 /* Media Queries */
-
 /* Desktop / Large screens */
 @media (max-width: 1200px) {
   :root {
@@ -709,6 +708,7 @@ h2 {
     animation: none !important; 
   }
 }
+
 
 
 
