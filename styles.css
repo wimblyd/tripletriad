@@ -593,7 +593,7 @@ body {
   
   .tupperware {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     padding: 2px;
     gap: 1px;
   }
@@ -629,6 +629,10 @@ body {
   .buttons .button + .button { margin-top: -16px; }
 }
 
+ .boost-button {
+    bottom: 0px;
+    right: 0px;
+  }
 
 /* Mobile-only Log Dropdown */
 #logToggleBar {
@@ -659,6 +663,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
