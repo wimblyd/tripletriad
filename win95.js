@@ -1,5 +1,3 @@
-window.popOutWin = null;
-
 // Tooltip
 const tooltip = document.createElement("div");
 Object.assign(tooltip.style, {
