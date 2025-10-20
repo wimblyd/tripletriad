@@ -353,6 +353,21 @@ h2 {
               inset -1px -1px 0 rgba(0,0,0,0.6); 
 } 
 
+/* Toggle Arrow */
+#logArrow {
+  display: inline-block;
+  margin-left: 8px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #000;
+  vertical-align: middle;
+  transition: transform 0.25s ease;
+}
+#logArrow.open {
+  transform: rotate(180deg);
+}
 
 /* Scroller Skates */ 
 ::-webkit-scrollbar { 
@@ -694,6 +709,7 @@ h2 {
     animation: none !important; 
   }
 }
+
 
 
 
