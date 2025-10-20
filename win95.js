@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const helpItems = [
     { icon: "img/icon-about.png", text: "How to Use This Checklist:" },
     { icon: "img/icon-click.png", text: "Click Cards to Flip »" },
-    { icon: "img/icon-unflip.png", text: "Click Again to Unflip »" },
+    { icon: "img/icon-unflip.png", text: "Click Again to Show Card Back »" },
     { icon: "img/Boost.png", text: "Press to Lock a Card »" },
     { icon: "img/BoostUsed.png", text: "Press to Unlock a Card »" },
     { icon: "img/PopOut.png", text: "Open Cards in New Window »" },
@@ -108,9 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Marks Card Aquired",
       "Adds Log Entry"
     ],
-    "Unflip": [
-      "Menu Panel also Works",
-      "You can [CLICK HERE] to Unflip too"
+    "Again": [
+      "Marks Card Lost",
+      "You can also [CLICK HERE] to Unflip All"
       ],
     "Lock": [
       "Cards won't Flip Back",
