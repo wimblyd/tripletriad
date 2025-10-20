@@ -571,10 +571,10 @@ body {
 /* Small screens (Tablet + Phone) */
 @media (max-width: 768px) {
   :root {
-    --card-w: 28px;  
-    --card-h: 37px;  
-    --card-min-w: 23px;
-    --card-min-h: 30px;
+    --card-w: 29px;  
+    --card-h: 38px;  
+    --card-min-w: 25px;
+    --card-min-h: 33px;
     --label-font: 3px;
     --boost-size: 14px;
     --boost-min: 10px;
@@ -663,6 +663,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
