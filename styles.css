@@ -431,7 +431,7 @@ body {
 }
 
 .sys-btn2:active {
-  border-color: #808080 #fff #fff #808080; /* Invert bevel when pressed */
+  border-color: #808080 #fff #fff #808080;
   background-color: #a0a0a0;
 }
 
@@ -586,6 +586,11 @@ body {
     --log-width: 100%;
   }
 
+  .wrapper {
+    min-height: auto;
+    height: 100%;
+  }
+  
   .tupperware {
     flex-direction: column;
     align-items: stretch;
@@ -654,6 +659,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
