@@ -448,6 +448,11 @@ body {
   width: 100%;
 }
 
+#boko-wrapper iframe {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
 /* Media Queries */
 @media (max-width: 1200px) {
   :root {
@@ -613,6 +618,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
