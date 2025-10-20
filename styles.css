@@ -1,137 +1,522 @@
-/* I. Global Styles */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+:root{
+  --bp-desktop: 1200px;
+  --bp-laptop: 1024px;
+  --bp-tablet: 768px;
+  --bp-phone: 480px;
+
+  --card-w: 93px;
+  --card-h: 120px;
+  --card-min-w: 23px;
+  --card-min-h: 30px;
+  --card-margin: 1px;
+
+  --label-font: 8px;
+  --boost-size: 30px;
+  --boost-min: 12px;
+
+  --counter-bg-padding: 3px;
+  --counter-gap: 4px;
+  --counter-arrow-w: 10px;
+  --counter-number-w: 10px;
+
+  --log-font: 8px;
+  --log-width: 350px; 
+  --log-height: calc(100vh - 150px);
+
+  --gutter: 2px;
+}
+
 body {
-  background-color: #222;
-  font-family: 'Tahoma', sans-serif;
-  color: #fff;
   margin: 0;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px; 
+  background: black url("img/GardenFestivalBkg.jpg") no-repeat top center / cover;
+  animation: body-fade-in 0.8s ease-out forwards;
+  opacity: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: url("img/cursor.cur"), auto;
+}
+
+.sys-btn,
+.sys-btn2,
+.sys-btn img,
+.sys-btn2 img {
+  cursor: url("img/cursor.cur"), auto !important;
+  }
+
+@keyframes body-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Elephants All The Way Down */
+.wrapper{
+  display: flex;
+  height: clamp(100px, 255px, 350px);
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  gap: var(--gutter);
   padding: 0;
 }
 
-/* II. Headings */
-h1 {
-  color: #fff;
-  font-size: 12px;
-  font-family: 'Tahoma', sans-serif;
-}
-h2 {
-  color: #ffbe32;
-  font-size: 12px;
-  font-family: 'Tahoma', sans-serif;
-}
-
-/* III. Layout */
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100%;
-  min-height: 480px;
-}
-
-.tupperware {
+/* Wambles Shriple Shriad Shrecklist */
+.lid {
   position: relative;
-  text-align: center;
+  margin-left: auto;
+  top: 0;
+  right: 0;
+  width: clamp(300px, 35vw, 800px); 
+  aspect-ratio: 800 / 234; 
+  background: url("img/Wimblys.png") no-repeat top right;
+  background-size: contain;
+  z-index: 10;
 }
 
-/* IV. Screens and Panels */
-.screen {
-  background: #000;
-  border: 2px solid #444;
-  border-radius: 6px;
-  box-shadow: inset 0 0 10px #000;
-  overflow: hidden;
-}
-
-/* V. Buttons and Controls */
+/* The Hardest Little Button to Button */
 .buttons {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+  padding: 0px;
+  align-items: flex-start;
+  margin-top: 0;
+  position: relative;
+  height: auto;
+}
+
+.buttons .button {
+  width: 255px;
+  height: 100px;
+  line-height: 0; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: filter 0.05s ease;
+  cursor: none; 
+}
+
+.buttons .button:nth-child(1) { margin-left: 0; }
+.buttons .button:nth-child(2) { margin-left: 20px; }
+.buttons .button:nth-child(3) { margin-left: 40px; }
+.buttons .button:nth-child(4) { margin-left: 60px; }
+
+.buttons .button + .button {
+  margin-top: -35px;
+}
+
+#resetButton { background-image: url('img/UnflipButton.png'); }
+#copyLogButton { background-image: url('img/CopyButton.png'); }
+#clearLogButton { background-image: url('img/ClearButton.png'); }
+#guideButton { background-image: url('img/GuideButton.png'); }
+
+/* Hover */
+#resetButton:hover { background-image: url('img/UnflipButtonHoverClicked.png'); }
+#copyLogButton:hover { background-image: url('img/CopyButtonHover.png'); }
+#clearLogButton:hover { background-image: url('img/ClearButtonHover.png'); }
+#guideButton:hover { background-image: url('img/GuideButtonHoverClicked.png'); }
+
+/* Active */
+#resetButton:active { background-image: url('img/UnflipButtonHoverClicked.png'); }
+#copyLogButton:active { background-image: url('img/CopyButtonClicked.png'); }
+#clearLogButton:active { background-image: url('img/ClearButtonClicked.png'); }
+#guideButton:active { background-image: url('img/GuideButtonHoverClicked.png'); }
+
+/* Tupperware Party */
+.tupperware {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; 
+  justify-content: flex-start;
+  width: auto; 
+  gap: var(--gutter);
+  padding: 2px;
+}
+
+/* Intranet */
+.screen{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: stretch;
+  width: auto;
+  padding: 2px;
   gap: 8px;
-  margin-top: 8px;
+  overflow: auto;
+  box-sizing: border-box;
+  background: transparent;
 }
 
-.boost-button {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  background: #ffbe32;
-  border: none;
-  border-radius: 6px;
-  color: #000;
-  padding: 4px 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.boost-button:hover {
-  background: #ffd65b;
-  transform: scale(1.05);
-}
-
-/* VI. Operation Log */
-#operation-log {
-  width: 100%;
-  max-width: 480px;
-  margin-top: 8px;
-  background: #111;
-  color: #ccc;
-  border: 1px solid #444;
-  border-radius: 6px;
-  padding: 6px;
-  font-size: 11px;
-  line-height: 1.3;
-  overflow-y: auto;
-}
-
-/* VII. Log Toggle Bar (Mobile Only) */
-#logToggleBar {
-  display: none;
-  background: #ffbe32;
-  color: #000;
-  font-weight: bold;
-  text-align: center;
-  padding: 6px;
-  cursor: pointer;
-  border-radius: 6px 6px 0 0;
-}
-
-#logArrow {
+/* Shuffle or Boogie */
+.card {
+  position: relative;
+  flex: 0 1 auto;
+  width: var(--card-w);
+  height: var(--card-h);
+  min-width: var(--card-min-w);
+  min-height: var(--card-min-h);
+  perspective: 1000px;
+  margin: var(--card-margin);
   display: inline-block;
-  margin-left: 6px;
-  transition: transform 0.3s ease;
-}
-#logArrow.open {
-  transform: rotate(180deg);
 }
 
-#operation-log.mobile-hidden {
-  display: none;
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* VIII. Panels */
-.panel-style {
-  background-color: #222;
-  border: 2px solid #555;
-  border-radius: 10px;
-  padding: 8px;
-  margin: 6px;
-  box-shadow: inset 0 0 6px #000;
+.card-inner { 
+  position: relative; 
+  width: 100%; 
+  height: 100%; 
+  transform-style: preserve-3d; 
+  transition: transform 0.6s; 
+  transform: rotateY(180deg); 
+} 
+
+.card.flipped .card-inner { 
+  transform: rotateY(0deg); 
+} 
+
+.card-face {
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  backface-visibility: hidden; 
+  border-radius: 4px; 
+  pointer-events: none;
+  overflow: hidden;
+} 
+
+.card-front { 
+  transform: rotateY(0deg); 
+} 
+
+.card-back { 
+  transform: rotateY(180deg); 
+} 
+
+/* Label */ 
+.card-label { 
+  font-size: var(--label-font); 
+  color: #fff; 
+  text-align: center; 
+  text-shadow: 1px 1px 2px #000; 
+  pointer-events: none; 
+} 
+
+/* Boost */ 
+.boost-button { 
+  position: absolute; 
+  bottom: 4px; 
+  right: 4px; 
+  width: var(--boost-size); 
+  height: auto; 
+  min-width: var(--boost-min); 
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); 
+  z-index: 5; 
+  opacity: 0; 
+  pointer-events: none; 
+  transition: transform 0.2s ease, opacity 0.25s ease-in-out, filter 0.25s; 
+} 
+
+.boost-button:hover { 
+  transform: scale(1.05); 
+} 
+
+.card.flipped .boost-button, .boost-button.used { 
+  opacity: 1; 
+  pointer-events: auto; 
+} 
+
+@keyframes boostPulse { 0% { 
+  filter: brightness(2) drop-shadow(0 0 10px rgba(255,255,255,0.9)); 
+  transform: scale(1.15); } 
+  50% { 
+  filter: brightness(1.5) drop-shadow(0 0 6px rgba(255,255,255,0.6)); 
+  transform: scale(0.95); 
+ } 
+  100% { 
+  filter: brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.4)); 
+  transform: scale(1); 
+   } 
+  } 
+
+.boost-button.used 
+{ 
+  content: url("img/BoostUsed.png"); 
+  opacity: 0.95; 
+  animation: boostPulse 0.45s ease-out; 
+} 
+
+.card.boost-locked { 
+  box-shadow: 1px 1px 1px 1px #ffbe32; 
+} 
+
+/* That's Numberwang! */ 
+.card-counter { 
+  position: absolute; top: 50%; left: 50%; 
+  transform: translate(-50%,-50%); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  background: rgba(0,0,0,0.7); 
+  border-radius: 4px; 
+  gap: var(--counter-gap); 
+  padding: var(--counter-bg-padding); 
+  z-index: 6; 
+  opacity: 0; 
+  pointer-events: none; 
+  transition: opacity 0.25s ease-in-out; 
+} 
+
+.card-counter.visible { 
+  opacity: 1; 
+  pointer-events: auto; 
+} 
+
+.counter-arrow { 
+  width: var(--counter-arrow-w); 
+} 
+
+.counter-number-container { 
+  display:flex; 
+  gap: 2px; 
+  align-items:center; 
+  justify-content:center; 
+} 
+
+.counter-number { 
+  width: var(--counter-number-w); 
 }
 
-.panel-style2 {
-  background-color: #111;
-  border: 2px solid #666;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 8px;
-  box-shadow: inset 0 0 8px #000;
+/* It's Log, from Blam-O! */
+#operation-log {
+  flex: 0 0 auto;
+  width: var(--log-width);
+  min-width: var(--log-width);
+  max-width: var(--log-width);
+
+  height: var(--log-height);
+  min-height: var(--log-height);
+  max-height: var(--log-height);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 12px;
+  color: #fff;
+  font-size: var(--log-font);
+  line-height: 1.1;
+  white-space: pre-wrap;
+  background-image: url('img/Panel.png');
+  background-size: cover;
+  border: 4px solid #8a8a8a;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+              inset -1px -1px 0 rgba(0,0,0,0.6);
 }
 
-/* IX. Boko Wrapper and Iframe */
+/* VIII Box Style */ 
+.panel-style { 
+  background-image: url('img/Panel.png'); 
+  background-size: cover; 
+  background-position: center; 
+  border: 4px solid #8a8a8a; 
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 
+              inset -1px -1px 0 rgba(0,0,0,0.6); 
+} 
+
+/* Scroller Skates */ 
+::-webkit-scrollbar { 
+  width: 13px; 
+  height: 13px; 
+} 
+
+::-webkit-scrollbar-track-piece { 
+  background-color: #ebebeb; 
+} 
+
+::-webkit-scrollbar-thumb:vertical { 
+  height: 50px; 
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #e1d9c4), color-stop(100%, #7c97a0)); 
+  border: 1px solid #0d0d0d; 
+  border-top: 1px solid #e1d9c4; 
+  border-left: 1px solid #e1d9c4; 
+}
+
+/* Start Bar */
+#start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 28px;
+  font-size: 12px;
+  z-index: 999;
+  background: transparent;
+}
+
+.sys-left {
+  width: 95px; 
+  height: 100%;
+  background: url('img/StartBar.png') no-repeat left center;
+  background-size: contain;
+  background-color: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  gap: 12px;
+  z-index: 1;
+}
+
+.sys-center {
+  flex: 1; 
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  background-color: #c0c0c0;
+  z-index: 2;
+  min-width: 50px;
+}
+
+.sys-right {
+  width: 106px; 
+  height: 100%;
+  background: url('img/StartBarR.png') no-repeat center center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+/* Bar Buttons */
+.sys-btn {
+  width: auto;
+  height: 20px;
+  background-color: #c0c0c0; 
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff; 
+  box-shadow: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.sys-btn:active {
+  border-color: #808080 #fff #fff #808080; /* Invert the bevel when pressed */
+  background-color: #a0a0a0;
+}
+
+.sys-btn:hover {
+  filter: brightness(1.05);
+}
+
+.sys-btn2 {
+  width: auto;
+  height: 20px;
+  background-color: #c0c0c0; 
+  box-shadow: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.sys-btn2:active {
+  border-color: #808080 #fff #fff #808080;
+  background-color: #a0a0a0;
+}
+
+.sys-btn2:hover {
+  filter: brightness(1.05);
+}
+
+.sys-center a,
+.sys-center img.sys-btn {
+  display: flex;     
+  align-items: center;
+  justify-content: center;
+  line-height: 0; 
+}
+
+/* Clock */
+#sys-clock {
+  font-weight: 300;
+  color: #000;
+  text-align: center;
+  width: 100%;
+}
+
+/* Help Menu Minimize */
+@keyframes minimizeMenu {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+
+@keyframes restoreMenu {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Chocobo World Minimize */
+@keyframes minimizeWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes restoreWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.minimizingMenu {
+  animation: minimizeMenu 0.25s ease-in forwards;
+}
+
+.restoringMenu {
+  animation: restoreMenu 0.25s ease-out forwards;
+}
+
+.minimizingWindow {
+  animation: minimizeWindow 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.restoringWindow {
+  animation: restoreWindow 0.4s cubic-bezier(0.2, 0.7, 0.3, 1.2) forwards;
+}
+
 #boko-wrapper {
   pointer-events: auto;
 }
@@ -141,70 +526,138 @@ h2 {
   touch-action: manipulation;
 }
 
-/* X. Animations */
-@keyframes minimizeMenu {
-  0% { transform: scale(1); opacity: 1; bottom: 0; left: 0; }
-  100% { transform: scale(0); opacity: 0; bottom: 0; left: 0; }
+/* Media Queries */
+
+/* Desktop / Large screens */
+@media (max-width: 1200px) {
+  :root {
+    --card-w: 62px;
+    --card-h: 84px;
+    --label-font: 7px;
+    --boost-size: 26px;
+    --counter-bg-padding: 3px;
+    --counter-gap: 3px;
+    --counter-arrow-w: 10px;
+    --counter-number-w: 9px;
+    --log-font: 8px;
+  }
+
+  .screen { max-width: calc(100% - 420px); padding-bottom: 28px; }
+
+  .lid {
+    width: clamp(300px, 35%, 800px);
+  }
 }
 
-@keyframes restoreMenu {
-  0% { transform: scale(0); opacity: 0; bottom: 0; left: 0; }
-  100% { transform: scale(1); opacity: 1; bottom: 0; left: 0; }
-}
-
-@keyframes minimizeWindow {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0); opacity: 0; }
-}
-
-@keyframes restoreWindow {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.minimizingMenu {
-  animation: minimizeMenu 0.4s ease forwards;
-}
-.restoringMenu {
-  animation: restoreMenu 0.4s ease forwards;
-}
-.minimizingWindow {
-  animation: minimizeWindow 0.4s ease forwards;
-}
-.restoringWindow {
-  animation: restoreWindow 0.4s ease forwards;
-}
-
-/* XI. Responsive Design */
-@media (max-width: 480px) {
-  .wrapper {
-    min-height: auto;
-    justify-content: flex-start;
-    padding-top: 10px;
+/* Laptop */
+@media (max-width: 1024px) {
+  :root {
+    --card-w: 52px;
+    --card-h: 68px;
+    --label-font: 6px;
+    --boost-size: 22px;
+    --counter-bg-padding: 2.5px;
+    --counter-gap: 3px;
+    --counter-number-w: 8px;
+    --log-font: 7px;
   }
 
   .tupperware {
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  .screen {
-    width: 100%;
-  }
-
-  .buttons {
-    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 4px;
     gap: 4px;
   }
 
-  .boost-button {
+  .screen { max-width: calc(100% - 360px); padding-bottom: 28px; }
+
+  .lid {
+    width: clamp(250px, 40%, 700px);
+  }
+
+  .buttons .button + .button { margin-top: -24px; }
+}
+
+/* Small screens (Tablet + Phone) */
+@media (max-width: 768px) {
+  :root {
+    --card-w: 29px;  
+    --card-h: 38px;  
+    --card-min-w: 25px;
+    --card-min-h: 33px;
+    --label-font: 3px;
+    --boost-size: 14px;
+    --boost-min: 10px;
+    --counter-bg-padding: 1px;
+    --counter-gap: 1px; 
+    --counter-number-w: 5px;
+    --log-font: 6px;
+    --log-height: 100px;
+    --log-width: 100%;
+  }
+
+  .wrapper {
+    min-height: auto;
+    height: 100%;
+  }
+  
+  .tupperware {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 2px;
+    gap: 1px;
+  }
+
+  .screen {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0px;
+    gap: 1px;
+    overflow: auto;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  .card-counter { transform: translate(-50%, -50%) scale(0.8); }
+
+  .lid {
+    width: clamp(100px, 45%, 350px);
+  }
+
+  .buttons {
+    max-width: 150px;
+    padding: 2px;
+    gap: 2px;
+    height: auto;
+  }
+
+  .buttons .button {
+    width: 100px;
+    height: 30px;
+  }
+
+  .buttons .button + .button { margin-top: -16px; }
+}
+
+ .boost-button {
     bottom: 0px;
     right: 0px;
   }
 
+/* Mobile-only Log Dropdown */
+#logToggleBar {
+  display: none;
+}
+
+@media (max-width: 480px) {
   #logToggleBar {
-    display: block;
-    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: #808080;
+    color: white;
+    font-size: 12px;
+    padding: 6px 10px;
+    user-select: none;
   }
 
   #operation-log.mobile-hidden {
@@ -212,10 +665,21 @@ h2 {
   }
 }
 
-/* XII. Reduced Motion */
+/* Motion Prefs */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
+  .card-inner, .boost-button { 
+    transition: none !important; 
+    animation: none !important; 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
