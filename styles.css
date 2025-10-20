@@ -517,6 +517,15 @@ body {
   animation: restoreWindow 0.4s cubic-bezier(0.2, 0.7, 0.3, 1.2) forwards;
 }
 
+#boko-wrapper {
+  pointer-events: auto;
+}
+
+#boko-wrapper iframe {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
 /* Media Queries */
 
 /* Desktop / Large screens */
@@ -663,6 +672,7 @@ body {
     animation: none !important; 
   }
 }
+
 
 
 
