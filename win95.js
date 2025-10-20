@@ -353,35 +353,42 @@ line.addEventListener("mouseleave", () => {
     }
   });
 
-  // Chocobo World
-  const overlay = document.getElementById("boko-overlay");
-  const iframe = document.querySelector("#boko-wrapper iframe");
-  const closeHotspot = document.getElementById("boko-close-hotspot");
+// Chocobo World
+const overlay = document.getElementById("boko-overlay");
+const iframe = document.querySelector("#boko-wrapper iframe");
+const closeHotspot = document.getElementById("boko-close-hotspot");
 
-  function showBokoOverlay() {
-    overlay.style.display = "block";
-    const wrapper = document.getElementById("boko-wrapper");
-    animateRestore(wrapper);
-    overlay.setAttribute("tabindex", "-1");
-    overlay.focus();
-    iframe.addEventListener("load", () => {
+function showBokoOverlay() {
+  overlay.style.display = "block";
+  const wrapper = document.getElementById("boko-wrapper");
+  animateRestore(wrapper);
+  overlay.setAttribute("tabindex", "-1");
+  overlay.focus();
+
+  iframe.addEventListener("load", () => {
+    iframe.contentWindow.focus();
+  }, { once: true });
+
+  setTimeout(() => {
+    iframe.focus();
+    try {
       iframe.contentWindow.focus();
-    }, { once: true });
-    setTimeout(() => {
-      iframe.contentWindow.focus();
-    }, 150);
-  }
+    } catch (e) {}
+  }, 400); // ← close both the try and setTimeout here
+}
 
-  function hideBokoOverlay() {
-    const wrapper = document.getElementById("boko-wrapper");
-    animateMinimize(wrapper, () => {
-      overlay.style.display = "none";
-      const cwBtn = document.getElementById("cwBtn");
-      if (cwBtn) cwBtn.focus();
-    });
-  }
+function hideBokoOverlay() {
+  const wrapper = document.getElementById("boko-wrapper");
+  animateMinimize(wrapper, () => {
+    overlay.style.display = "none";
+    const cwBtn = document.getElementById("cwBtn");
+    if (cwBtn) cwBtn.focus();
+  });
+}
 
-  if (closeHotspot) closeHotspot.addEventListener("click", hideBokoOverlay);
-  const cwBtn = document.getElementById("cwBtn");
-  if (cwBtn) cwBtn.addEventListener("click", showBokoOverlay);
-});
+if (closeHotspot)
+  closeHotspot.addEventListener("click", hideBokoOverlay);
+
+const cwBtn = document.getElementById("cwBtn");
+if (cwBtn)
+  cwBtn.addEventListener("click", showBokoOverlay);
