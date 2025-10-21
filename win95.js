@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const submenuData = {
     "Flip": ["Marks Card Aquired", "Adds Log Entry"],
     "Again": ["Marks Card as Lost", "Use Unflip All to Reset", "Unflip All Unflips Cards, Unlocks Cards, Clears Counters"],
-    "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Use Up & Down Arrows for Tracking"],
+    "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Good Luck with the Grind!"],
     "Unlock": ["Closes Card Counter", "Clears Card Count", "Allows Card to Flip Back"],
     "Open": ["Open with Button on the Start Bar", "Or Open from This Menu too"],
     "Restore": ["Click here to Restore", "Or Restore by Closing Manually"],
