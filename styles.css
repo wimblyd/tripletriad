@@ -106,26 +106,30 @@ h1 {
 }
 
 .buttons .button:nth-child(1) { margin-left: 0; }
-.buttons .button:nth-child(2) { margin-left: 20px; }
-.buttons .button:nth-child(3) { margin-left: 40px; }
-.buttons .button:nth-child(4) { margin-left: 60px; }
+.buttons .button:nth-child(2) { margin-left: 15px; }
+.buttons .button:nth-child(3) { margin-left: 30px; }
+.buttons .button:nth-child(4) { margin-left: 45px; }
+.buttons .button:nth-child(5) { margin-left: 60px; }
 
 .buttons .button + .button {
   margin-top: -35px;
 }
 
+#revealButton { background-image: url('img/RevealButton.png'); }
 #resetButton { background-image: url('img/UnflipButton.png'); }
 #copyLogButton { background-image: url('img/CopyButton.png'); }
 #clearLogButton { background-image: url('img/ClearButton.png'); }
 #guideButton { background-image: url('img/GuideButton.png'); }
 
 /* Hover */
+#revealButton:hover { background-image: url('img/RevealButtonHoverClicked.png'); }
 #resetButton:hover { background-image: url('img/UnflipButtonHoverClicked.png'); }
 #copyLogButton:hover { background-image: url('img/CopyButtonHover.png'); }
 #clearLogButton:hover { background-image: url('img/ClearButtonHover.png'); }
 #guideButton:hover { background-image: url('img/GuideButtonHoverClicked.png'); }
 
 /* Active */
+#revealButton:hover { background-image: url('img/RevealButtonHoverClicked.png'); }
 #resetButton:active { background-image: url('img/UnflipButtonHoverClicked.png'); }
 #copyLogButton:active { background-image: url('img/CopyButtonClicked.png'); }
 #clearLogButton:active { background-image: url('img/ClearButtonClicked.png'); }
@@ -709,6 +713,7 @@ h1 {
     animation: none !important; 
   }
 }
+
 
 
 
