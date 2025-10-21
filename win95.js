@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const submenuData = {
-    "Flip": ["Marks Card Aquired", "Adds Log Entry"],
+    "Flip": ["Marks Card Aquired", "Adds Log Entry", "Use Reveal All to Flip All Cards"],
     "Again": ["Marks Card as Lost", "Use Unflip All to Reset", "Unflip All Unflips Cards, Unlocks Cards, Clears Counters"],
     "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Good Luck with the Grind!"],
     "Unlock": ["Closes Card Counter", "Clears Card Count", "Allows Card to Flip Back"],
