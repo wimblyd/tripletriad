@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const submenuData = {
     "Flip": ["Marks Card Aquired", "Adds Log Entry"],
-    "Again": ["Marks Card Lost", "Use Unflip All to Clear"],
-    "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Use Up & Down Arrows", "No Counters for lvl 8-10 Cards"],
+    "Again": ["Marks Card as Lost", "Use Unflip All to Reset All", "Resets Flipped Cards, Locks, Counters"],
+    "Lock": ["Cards won't Flip Back", "Opens the Card Counter", "Use Up & Down Arrows for Tracking"],
     "Unlock": ["Closes Card Counter", "Clears Card Count", "Allows Card to Flip Back"],
     "Open": ["Open with Button on the Start Bar", "Or Open from This Menu too"],
     "Restore": ["Click here to Restore", "Or Restore by Closing Manually"],
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.assign(submenu.style, {
         position: "absolute",
         top: "0",
-        left: "255px",
+        left: "250px",
         backgroundColor: "#c0c0c0",
         border: "2px solid #000",
         boxShadow: "2px 2px 0 #808080 inset, -1px -1px 0 #fff inset",
