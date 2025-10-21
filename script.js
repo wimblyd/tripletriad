@@ -190,6 +190,57 @@ if (logToggleBar) {
     addLogEntry("Cards unflipped");
   });
 
+    // Reflipadelphia
+  document.getElementById("revealButton")?.addEventListener("click", () => {
+    cards.forEach(card => {
+      // Flip every card
+      card.classList.add("flipped");
+      saveCardState(card.dataset.cardId, "flipped");
+      card.setAttribute("aria-pressed", "true");
+
+      // Handle boost lock if applicable
+      const boostUsed = localStorage.getItem(`${card.dataset.cardId}-boost`) === "used";
+      if (boostUsed) {
+        card.classList.add("boost-locked");
+      } else {
+        card.classList.remove("boost-locked");
+      }
+
+      // Update any counters to ensure visibility
+      const counter = card.querySelector(".card-counter");
+      if (counter) {
+        const id = counter.dataset.cardId;
+        let count = parseInt(localStorage.getItem(`card-${id}-count`), 10) || 0;
+        const numberContainer = counter.querySelector(".counter-number-container");
+
+        // Re-render number display
+        numberContainer.innerHTML = "";
+        if (count >= 100) {
+          const star = Object.assign(document.createElement("img"), {
+            src: "img/Star.png",
+            alt: "100",
+            className: "counter-number"
+          });
+          numberContainer.appendChild(star);
+        } else {
+          count.toString().split("").forEach(d => {
+            const digitImg = Object.assign(document.createElement("img"), {
+              src: `img/${d}.png`,
+              alt: d,
+              className: "counter-number"
+            });
+            numberContainer.appendChild(digitImg);
+          });
+        }
+
+        if (count > 0) counter.classList.add("visible");
+        else counter.classList.remove("visible");
+      }
+    });
+
+    addLogEntry("All Cards Flipped");
+  });
+
   // Everything but the Kitchen Sync
 window.addEventListener("storage", event => {
   if (!event.key) return;
